@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const periods = [
+  { range: "2004-2009", title: "Chronological photo archive", description: "Seattle, Sage workshops, travel, hiking, Harvard, and daily life.", href: "/pics/new/" },
+  { range: "Jan-Jun 2004", title: "First half of 2004", description: "Harvard, San Diego, mathematics travel, friends, and family.", href: "/pics/2004/" },
+  { range: "2003", title: "Month-by-month albums", description: "A nearly continuous year of photographs, including Australia and Japan.", href: "/pics/01-2003/" },
+  { range: "2000-2002", title: "The Ascent archives", description: "Eleven large chronological collections from Berkeley, Harvard, Europe, and Asia.", href: "/pics/new/2000-2004_MANY_Older_Photos_and_Videos/archive.html" },
+];
+
+const collections = [
+  ["Wedding", "/pics/wedding/"],
+  ["Childhood", "/pics/childhood/"],
+  ["Family", "/pics/family/"],
+  ["Mathematics conferences", "/pics/math_conferences/"],
+  ["Mathematics travel", "/pics/math_travel/"],
+  ["Harvard", "/pics/harvard/"],
+  ["Berkeley", "/pics/berkeley/"],
+  ["Portraits", "/pics/portraits/"],
+  ["Dad's photographs", "/pics/dads_pics/"],
+  ["Unsorted photographs", "/pics/unfiled/"],
+  ["Digital video", "/pics/movies/"],
+];
+---
+
+<BaseLayout title="Photos - William A. Stein" description="William Stein's personal, travel, mathematics, family, and skateboarding photo archive." current="photos">
+  <main class="page-main photo-page">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / Photos</p>
+      <p class="eyebrow">Personal photographic archive</p>
+      <h1>Photos</h1>
+      <p class="lead">Several decades of family, mathematics, travel, landscapes, daily life, and skateboarding photographs preserved in their original albums.</p>
+    </header>
+
+    <section class="photo-mosaic page-width" aria-label="Selected photographs from the archive">
+      <a class="photo-mosaic__large" href="/pics/new/20090710-mt_rainier/">
+        <img src="/pics/new/20090710-mt_rainier/.small/IMG_3456-small-1024-99.jpg" alt="Mountain stream near Mount Rainier" />
+        <span>Mount Rainier, 2009</span>
+      </a>
+      <a href="/pics/new/200909-sagedays17/">
+        <img src="/pics/new/200909-sagedays17/.small/IMG_4853-small-256-99.jpg" alt="William balancing on a rock at Sage Days 17" />
+        <span>Sage Days 17</span>
+      </a>
+      <a href="/pics/math_conferences/">
+        <img src="/pics/durham/durham_medium.jpg" alt="Group photograph at a mathematics conference in Durham" />
+        <span>Mathematics travel</span>
+      </a>
+    </section>
+
+    <section class="band photo-chronology" aria-labelledby="chronology-title">
+      <div class="page-width">
+        <div class="section-heading section-heading--row">
+          <div><p class="eyebrow">Chronology</p><h2 id="chronology-title">Browse by period</h2></div>
+          <p>The original album generators and directory structures vary by era. These entry points provide the most reliable route into each period.</p>
+        </div>
+        <div class="period-list">
+          {periods.map((period) => (
+            <a class="period-row" href={period.href}>
+              <span>{period.range}</span>
+              <strong>{period.title}</strong>
+              <small>{period.description}</small>
+              <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--work" aria-labelledby="collections-title">
+      <div class="page-width photo-collections-layout">
+        <div class="section-heading">
+          <p class="eyebrow">Collections</p>
+          <h2 id="collections-title">People, places, and events</h2>
+          <p>Older thematic collections sit alongside the chronology and include scans from before the digital-camera era.</p>
+        </div>
+        <div class="collection-links">
+          {collections.map(([label, href]) => <a href={href}><span>{label}</span><span aria-hidden="true">&rarr;</span></a>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-closing page-width">
+      <img src="/pics/harvard/crimson-tree.jpg" alt="Red berries against a brick wall at Harvard" />
+      <div>
+        <p class="eyebrow">Preservation note</p>
+        <h2>The archive stays intact</h2>
+        <p>This index changes how the collection is entered, not what is kept. Original-sized images, generated galleries, captions, and longstanding URLs remain in place.</p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

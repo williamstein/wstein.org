@@ -5,6 +5,7 @@
   "scripts": {
     "build:site": "astro build --root modern",
     "dev:site": "astro dev --root modern --host 0.0.0.0",
+    "generate:catalogs": "node tools/generate-legacy-catalogs.mjs",
     "generate:talks": "node tools/generate-talk-index.mjs",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
@@ -12,6 +13,7 @@
   },
   "devDependencies": {
     "astro": "^7.2.0",
+    "parse5": "^8.0.1",
     "wrangler": "^4.106.0"
   }
 }

@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import papers from "../../data/papers.json";
+
+const topics = [...new Set(papers.map((paper) => paper.topic))].sort();
+const dated = papers.filter((paper) => paper.year).length;
+---
+
+<BaseLayout title="Papers - William A. Stein" description="William Stein's publications in number theory, arithmetic geometry, and mathematical software." current="papers">
+  <main class="page-main">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / Papers</p>
+      <p class="eyebrow">Research publications</p>
+      <h1>Papers</h1>
+      <p class="lead">Publications on elliptic curves, modular forms, arithmetic geometry, computational number theory, and open mathematical software.</p>
+    </header>
+
+    <section class="catalog-summary page-width" aria-label="Publication archive summary">
+      <div><strong>{papers.length}</strong><span>listed works</span></div>
+      <div><strong>{dated}</strong><span>dated publications</span></div>
+      <div><strong>{topics.length}</strong><span>research areas</span></div>
+      <p>The catalog preserves the original publication descriptions and links. Individual directories may also contain source, computations, drafts, and correspondence.</p>
+    </section>
+
+    <section class="catalog-browser page-width" aria-labelledby="papers-browser-title">
+      <div class="catalog-tools">
+        <div>
+          <h2 id="papers-browser-title">Publication catalog</h2>
+          <p id="paper-count">Showing all {papers.length} works</p>
+        </div>
+        <div class="catalog-controls">
+          <label class="search-control">
+            <span>Search publications</span>
+            <input id="paper-search" type="search" placeholder="Heegner, Sage, modular forms..." autocomplete="off" />
+          </label>
+          <label class="select-control">
+            <span>Area</span>
+            <select id="paper-topic">
+              <option value="">All areas</option>
+              {topics.map((topic) => <option value={topic}>{topic}</option>)}
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="publication-list">
+        {papers.map((paper) => (
+          <a class="publication-row" href={paper.href} data-search={paper.search} data-topic={paper.topic}>
+            <span class="publication-row__year">{paper.year || "Earlier"}</span>
+            <span class="publication-row__body">
+              <strong>{paper.title}</strong>
+              <small>{paper.citation}</small>
+            </span>
+            <span class="publication-row__topic">{paper.topic}</span>
+            <span class="arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        ))}
+      </div>
+      <p class="empty-state" id="paper-empty" hidden>No publications match this search.</p>
+    </section>
+
+    <aside class="page-width archive-callout">
+      <div><p class="eyebrow">Other formats</p><h2>Collected works and reviews</h2></div>
+      <p><a href="/papers/works/">Collected works through 2012</a> and <a href="/papers/stein-msn.pdf">selected MathSciNet reviews</a> are preserved alongside the individual project directories.</p>
+    </aside>
+  </main>
+
+  <script is:inline>
+    const search = document.querySelector('#paper-search');
+    const topic = document.querySelector('#paper-topic');
+    const rows = [...document.querySelectorAll('.publication-row')];
+    const count = document.querySelector('#paper-count');
+    const empty = document.querySelector('#paper-empty');
+    function filterPapers() {
+      const query = search.value.trim().toLowerCase();
+      let shown = 0;
+      for (const row of rows) {
+        const visible = (!query || row.dataset.search.includes(query)) && (!topic.value || row.dataset.topic === topic.value);
+        row.hidden = !visible;
+        if (visible) shown += 1;
+      }
+      count.textContent = `Showing ${shown} of ${rows.length} works`;
+      empty.hidden = shown !== 0;
+    }
+    search.addEventListener('input', filterPapers);
+    topic.addEventListener('change', filterPapers);
+  </script>
+</BaseLayout>

@@ -1,0 +1,354 @@
+[
+  {
+    "title": "Math 480: Sage (Spring 2014)",
+    "year": "2014",
+    "topic": "Software and computation",
+    "href": "https://github.com/williamstein/sage2014",
+    "status": "GitHub",
+    "search": "math 480: sage (spring 2014) 2014 software and computation github"
+  },
+  {
+    "title": "Math 480: Elementary Number Theory (Winter 2014)",
+    "year": "2014",
+    "topic": "Number theory",
+    "href": "https://github.com/williamstein/480-ent-2014",
+    "status": "GitHub",
+    "search": "math 480: elementary number theory (winter 2014) 2014 number theory github"
+  },
+  {
+    "title": "Math 581e: Computational Algebraic Number Theory (Spring 2013)",
+    "year": "2013",
+    "topic": "Number theory",
+    "href": "https://github.com/williamstein/581f-2013",
+    "status": "GitHub",
+    "search": "math 581e: computational algebraic number theory (spring 2013) 2013 number theory github"
+  },
+  {
+    "title": "Math 480: Sage",
+    "year": "2013",
+    "topic": "Software and computation",
+    "href": "https://github.com/williamstein/2013-480",
+    "status": "GitHub",
+    "search": "math 480: sage 2013 software and computation github"
+  },
+  {
+    "title": "Math 308: Linear Algebra",
+    "year": "2013",
+    "topic": "Core mathematics",
+    "href": "https://github.com/williamstein/2013-308",
+    "status": "GitHub",
+    "search": "math 308: linear algebra 2013 core mathematics github"
+  },
+  {
+    "title": "Math 581e: Algebraic Number Theory (Fall 2012)",
+    "year": "2012",
+    "topic": "Number theory",
+    "href": "/edu/2012/ant/",
+    "status": "Site archive",
+    "search": "math 581e: algebraic number theory (fall 2012) 2012 number theory site archive"
+  },
+  {
+    "title": "SIMUW 2012",
+    "year": "2012",
+    "topic": "Seminars and workshops",
+    "href": "https://github.com/williamstein/simuw12",
+    "status": "GitHub",
+    "search": "simuw 2012 2012 seminars and workshops github"
+  },
+  {
+    "title": "Math 1062: Sage",
+    "year": "2012",
+    "topic": "Software and computation",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "math 1062: sage 2012 software and computation retired wiki"
+  },
+  {
+    "title": "Math 480/582: Sage",
+    "year": "2012",
+    "topic": "Software and computation",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "math 480/582: sage 2012 software and computation retired wiki"
+  },
+  {
+    "title": "Math 581g: Lectures on Modular Forms and Hecke Operators",
+    "year": "2011",
+    "topic": "Number theory",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "math 581g: lectures on modular forms and hecke operators 2011 number theory retired wiki"
+  },
+  {
+    "title": "Summer 2011 REU on Elliptic Curves",
+    "year": "2011",
+    "topic": "Number theory",
+    "href": "",
+    "status": "Record only",
+    "search": "summer 2011 reu on elliptic curves 2011 number theory record only"
+  },
+  {
+    "title": "Math 480a: Sage -- Free Open Source Mathematical Software",
+    "year": "2011",
+    "topic": "Software and computation",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "math 480a: sage -- free open source mathematical software 2011 software and computation retired wiki"
+  },
+  {
+    "title": "Math 581b: Algebraic number theory graduate course",
+    "year": "2010",
+    "topic": "Number theory",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "math 581b: algebraic number theory graduate course 2010 number theory retired wiki"
+  },
+  {
+    "title": "Math 581d: Computer Programming for Pure Mathematicians",
+    "year": "2010",
+    "topic": "Software and computation",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "math 581d: computer programming for pure mathematicians 2010 software and computation retired wiki"
+  },
+  {
+    "title": "2010 Math 480: Computer Programming for the Working Mathematician",
+    "year": "2010",
+    "topic": "Software and computation",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "2010 math 480: computer programming for the working mathematician 2010 software and computation retired wiki"
+  },
+  {
+    "title": "2010 Math 582e: Galois Cohomology",
+    "year": "2010",
+    "topic": "Number theory",
+    "href": "/edu/2010/582e/",
+    "status": "Site archive",
+    "search": "2010 math 582e: galois cohomology 2010 number theory site archive"
+  },
+  {
+    "title": "2010 Math 414: Number Theory",
+    "year": "2010",
+    "topic": "Number theory",
+    "href": "/edu/2010/414/",
+    "status": "Site archive",
+    "search": "2010 math 414: number theory 2010 number theory site archive"
+  },
+  {
+    "title": "2009 Math 480b: Sage - Open Source Mathematical Software",
+    "year": "2009",
+    "topic": "Software and computation",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "2009 math 480b: sage - open source mathematical software 2009 software and computation retired wiki"
+  },
+  {
+    "title": "2009 Math 583e: Computational Number Theory (part 2)",
+    "year": "2009",
+    "topic": "Number theory",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "2009 math 583e: computational number theory (part 2) 2009 number theory retired wiki"
+  },
+  {
+    "title": "2009 Math 582e: Computational Number Theory (part 1)",
+    "year": "2009",
+    "topic": "Number theory",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "2009 math 582e: computational number theory (part 1) 2009 number theory retired wiki"
+  },
+  {
+    "title": "SIMUW 2008: Financial Time Series, Multifractals and Hidden Markov Models",
+    "year": "2008",
+    "topic": "Seminars and workshops",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "simuw 2008: financial time series, multifractals and hidden markov models 2008 seminars and workshops retired wiki"
+  },
+  {
+    "title": "2008 Math 480a: Sage -- Open Source Mathematical Software",
+    "year": "2008",
+    "topic": "Software and computation",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "2008 math 480a: sage -- open source mathematical software 2008 software and computation retired wiki"
+  },
+  {
+    "title": "2007 Math 581F: Algebraic Number Theory",
+    "year": "2007",
+    "topic": "Number theory",
+    "href": "",
+    "status": "Retired wiki",
+    "search": "2007 math 581f: algebraic number theory 2007 number theory retired wiki"
+  },
+  {
+    "title": "SIMUW 2007: The Riemann Hypothesis",
+    "year": "2007",
+    "topic": "Number theory",
+    "href": "/edu/2007/simuw07/index.html",
+    "status": "Site archive",
+    "search": "simuw 2007: the riemann hypothesis 2007 number theory site archive"
+  },
+  {
+    "title": "2006 Course: Elliptic Curve Reading Course",
+    "year": "2006",
+    "topic": "Number theory",
+    "href": "",
+    "status": "Record only",
+    "search": "2006 course: elliptic curve reading course 2006 number theory record only"
+  },
+  {
+    "title": "2006 MSRI Summer Graduate Workshop on Computing with Modular Forms",
+    "year": "2006",
+    "topic": "Number theory",
+    "href": "/msri06",
+    "status": "Site archive",
+    "search": "2006 msri summer graduate workshop on computing with modular forms 2006 number theory site archive"
+  },
+  {
+    "title": "2006 SIMUW 2006: The Congruent Number Problem",
+    "year": "2006",
+    "topic": "Number theory",
+    "href": "/simuw06",
+    "status": "Site archive",
+    "search": "2006 simuw 2006: the congruent number problem 2006 number theory site archive"
+  },
+  {
+    "title": "2006 Math 583: Computing with Modular Forms , UW, Spring 2006.",
+    "year": "2006",
+    "topic": "Number theory",
+    "href": "/edu/2006/spring/583",
+    "status": "Site archive",
+    "search": "2006 math 583: computing with modular forms , uw, spring 2006. 2006 number theory site archive"
+  },
+  {
+    "title": "2006 Math 20b: Calculus for Scientists and Engineers , UCSD, Winter 2006.",
+    "year": "2006",
+    "topic": "Core mathematics",
+    "href": "/edu/winter06/20b",
+    "status": "Site archive",
+    "search": "2006 math 20b: calculus for scientists and engineers , ucsd, winter 2006. 2006 core mathematics site archive"
+  },
+  {
+    "title": "Math 168: Explicit Approaches to Elliptic Curves and Modular Forms , UCSD, Fall 2005.",
+    "year": "2005",
+    "topic": "Number theory",
+    "href": "/edu/fall05/168/",
+    "status": "Site archive",
+    "search": "math 168: explicit approaches to elliptic curves and modular forms , ucsd, fall 2005. 2005 number theory site archive"
+  },
+  {
+    "title": "Math 129: Algebraic Number Theory , Harvard, Spring 2005.",
+    "year": "2005",
+    "topic": "Number theory",
+    "href": "/129-05",
+    "status": "Site archive",
+    "search": "math 129: algebraic number theory , harvard, spring 2005. 2005 number theory site archive"
+  },
+  {
+    "title": "Freshman Seminar 24g: Freshman Seminar on Fermat's Last Theorem , Harvard, Fall 2004.",
+    "year": "2004",
+    "topic": "Seminars and workshops",
+    "href": "/edu/2004/24g/",
+    "status": "Site archive",
+    "search": "freshman seminar 24g: freshman seminar on fermat's last theorem , harvard, fall 2004. 2004 seminars and workshops site archive"
+  },
+  {
+    "title": "Math 257: Computing with modular forms (graduate course), Harvard, Fall 2004.",
+    "year": "2004",
+    "topic": "Number theory",
+    "href": "",
+    "status": "Record only",
+    "search": "math 257: computing with modular forms (graduate course), harvard, fall 2004. 2004 number theory record only"
+  },
+  {
+    "title": "Math 129: Undergraduate Algebraic Number Theory , Harvard, Spring 2004",
+    "year": "2004",
+    "topic": "Number theory",
+    "href": "/edu/Spring2004/129",
+    "status": "Site archive",
+    "search": "math 129: undergraduate algebraic number theory , harvard, spring 2004 2004 number theory site archive"
+  },
+  {
+    "title": "Modular Abelian Varieties (Math 252) at Harvard, Fall 2003 ( student projects )",
+    "year": "2003",
+    "topic": "Number theory",
+    "href": "/edu/Fall2003/252",
+    "status": "Site archive",
+    "search": "modular abelian varieties (math 252) at harvard, fall 2003 ( student projects ) 2003 number theory site archive"
+  },
+  {
+    "title": "Freshman Seminar on Elliptic Curves at Harvard, Spring 2003",
+    "year": "2003",
+    "topic": "Number theory",
+    "href": "/edu/Spring2003/21n",
+    "status": "Site archive",
+    "search": "freshman seminar on elliptic curves at harvard, spring 2003 2003 number theory site archive"
+  },
+  {
+    "title": "Elementary Number Theory (Math 124) at Harvard, Fall 2002",
+    "year": "2002",
+    "topic": "Number theory",
+    "href": "/edu/Fall2002/124",
+    "status": "Site archive",
+    "search": "elementary number theory (math 124) at harvard, fall 2002 2002 number theory site archive"
+  },
+  {
+    "title": "Linear Algebra (Math 21b) at Harvard, Spring 2002",
+    "year": "2002",
+    "topic": "Core mathematics",
+    "href": "/edu/Spring2002/21b",
+    "status": "Site archive",
+    "search": "linear algebra (math 21b) at harvard, spring 2002 2002 core mathematics site archive"
+  },
+  {
+    "title": "Elementary Number Theory (Math 124) at Harvard, Fall 2001",
+    "year": "2001",
+    "topic": "Number theory",
+    "href": "/edu/Fall2001/124",
+    "status": "Site archive",
+    "search": "elementary number theory (math 124) at harvard, fall 2001 2001 number theory site archive"
+  },
+  {
+    "title": "Linear Algebra (Math 21b) at Harvard, Fall 2001",
+    "year": "2001",
+    "topic": "Core mathematics",
+    "href": "/edu/Fall2001/21b",
+    "status": "Site archive",
+    "search": "linear algebra (math 21b) at harvard, fall 2001 2001 core mathematics site archive"
+  },
+  {
+    "title": "Discrete Mathematics (Math 55) at Berkeley , Summer 1998",
+    "year": "1998",
+    "topic": "Seminars and workshops",
+    "href": "",
+    "status": "Record only",
+    "search": "discrete mathematics (math 55) at berkeley , summer 1998 1998 seminars and workshops record only"
+  },
+  {
+    "title": "Many calculus and linear algebra discussion sections at Berkeley, 1995-1998.",
+    "year": "1995",
+    "topic": "Core mathematics",
+    "href": "",
+    "status": "Record only",
+    "search": "many calculus and linear algebra discussion sections at berkeley, 1995-1998. 1995 core mathematics record only"
+  },
+  {
+    "title": "Discrete Mathematics at Northern Arizona University , Spring 1995",
+    "year": "1995",
+    "topic": "Seminars and workshops",
+    "href": "",
+    "status": "Record only",
+    "search": "discrete mathematics at northern arizona university , spring 1995 1995 seminars and workshops record only"
+  },
+  {
+    "title": "College Algebra at Northern Arizona University , Fall 1994",
+    "year": "1994",
+    "topic": "Core mathematics",
+    "href": "",
+    "status": "Record only",
+    "search": "college algebra at northern arizona university , fall 1994 1994 core mathematics record only"
+  }
+]

@@ -1,0 +1,402 @@
+[
+  {
+    "title": "Beyond the black box",
+    "href": "https://arxiv.org/abs/1604.08472",
+    "citation": "with Jeroen Demeyer and Ursula Whitcher, 2016, to appear in the Notices of the AMS.",
+    "year": "2016",
+    "topic": "Number theory",
+    "search": "beyond the black box with jeroen demeyer and ursula whitcher, 2016, to appear in the notices of the ams. 2016 number theory"
+  },
+  {
+    "title": "Databases of elliptic curves ordered by height and distributions of Selmer groups and ranks",
+    "href": "/papers/2016-height",
+    "citation": "(22 pages), with Jennifer S. Balakrishnan, Wei Ho, Nathan Kaplan, Simon Spicer and Jamie Weigandt, 2016, to appear in ANTS 2016.",
+    "year": "2016",
+    "topic": "Elliptic curves and BSD",
+    "search": "databases of elliptic curves ordered by height and distributions of selmer groups and ranks (22 pages), with jennifer s. balakrishnan, wei ho, nathan kaplan, simon spicer and jamie weigandt, 2016, to appear in ants 2016. 2016 elliptic curves and bsd"
+  },
+  {
+    "title": "A p -adic analogue of the conjecture of Birch and Swinnerton-Dyer for modular abelian varieties",
+    "href": "https://arxiv.org/abs/1210.2739",
+    "citation": "[arxiv] (33 pages), with Jennifer S. Balakrishnan and J. Steffen Muller, 2013, accepted. Published version [pdf] .",
+    "year": "2013",
+    "topic": "Elliptic curves and BSD",
+    "search": "a p -adic analogue of the conjecture of birch and swinnerton-dyer for modular abelian varieties [arxiv] (33 pages), with jennifer s. balakrishnan and j. steffen muller, 2013, accepted. published version [pdf] . 2013 elliptic curves and bsd"
+  },
+  {
+    "title": "p -adic Heights of Heegner Points and Anticyclotomic Lambda-Adic Regulators",
+    "href": "/papers/Heights/heegner_padic_height.pdf",
+    "citation": "(34 pages), with Jennifer S. Balakrishnan and Mirela Ciperiani, 2013, accepted. Published version [pdf] .",
+    "year": "2013",
+    "topic": "Elliptic curves and BSD",
+    "search": "p -adic heights of heegner points and anticyclotomic lambda-adic regulators (34 pages), with jennifer s. balakrishnan and mirela ciperiani, 2013, accepted. published version [pdf] . 2013 elliptic curves and bsd"
+  },
+  {
+    "title": "Non-commutative Iwasawa theory for modular forms",
+    "href": "/papers/nimft",
+    "citation": "(40 pages), with John Coates, Tim Dokchitser, Zhibin Liang, and Ramdorai Sujatha, 2012, accepted.",
+    "year": "2012",
+    "topic": "Elliptic curves and BSD",
+    "search": "non-commutative iwasawa theory for modular forms (40 pages), with john coates, tim dokchitser, zhibin liang, and ramdorai sujatha, 2012, accepted. 2012 elliptic curves and bsd"
+  },
+  {
+    "title": "A Database Of Elliptic Curves Over Q(sqrt(5)) -- First Report",
+    "href": "/papers/sqrt5",
+    "citation": "(16 pages), with Jonathan Bober, Alyson Deines, Ariah Klages-Mundt, Benjamin LeVeque, R. Andrew Ohana, Ashwath Rabindranath, Paul Sharaba, 2012, in ANTS.",
+    "year": "2012",
+    "topic": "Elliptic curves and BSD",
+    "search": "a database of elliptic curves over q(sqrt(5)) -- first report (16 pages), with jonathan bober, alyson deines, ariah klages-mundt, benjamin leveque, r. andrew ohana, ashwath rabindranath, paul sharaba, 2012, in ants. 2012 elliptic curves and bsd"
+  },
+  {
+    "title": "Numerical computation of Chow-Heegner points associated to pairs of elliptic curves",
+    "href": "/papers/chow_heegner/chowheeg1.pdf",
+    "citation": "(12 pages), 2011. Published version [pdf] .",
+    "year": "2011",
+    "topic": "Computation and software",
+    "search": "numerical computation of chow-heegner points associated to pairs of elliptic curves (12 pages), 2011. published version [pdf] . 2011 computation and software"
+  },
+  {
+    "title": "Sage: Creating a Viable Free Open Source Alternative to Magma, Maple, Mathematica, and MATLAB",
+    "href": "/papers/focm11",
+    "citation": "(9 pages), 2011, to appear in the FoCM 2011 proceedings.",
+    "year": "2011",
+    "topic": "Computation and software",
+    "search": "sage: creating a viable free open source alternative to magma, maple, mathematica, and matlab (9 pages), 2011, to appear in the focm 2011 proceedings. 2011 computation and software"
+  },
+  {
+    "title": "Algorithms for the Arithmetic of Elliptic Curves using Iwasawa Theory",
+    "href": "/papers/shark",
+    "citation": "(46 pages), with Christian Wuthrich, 2011, appeared Mathematics of Computation . Published version [pdf] .",
+    "year": "2011",
+    "topic": "Computation and software",
+    "search": "algorithms for the arithmetic of elliptic curves using iwasawa theory (46 pages), with christian wuthrich, 2011, appeared mathematics of computation . published version [pdf] . 2011 computation and software"
+  },
+  {
+    "title": "Kolyvagin's Conjecture for Some Specific Higher Rank Elliptic Curves",
+    "href": "/papers/kolyconj2",
+    "citation": "(40 pages), 2011, submitted.",
+    "year": "2011",
+    "topic": "Elliptic curves and BSD",
+    "search": "kolyvagin's conjecture for some specific higher rank elliptic curves (40 pages), 2011, submitted. 2011 elliptic curves and bsd"
+  },
+  {
+    "title": "Heegner Points and the Arithmetic of Elliptic Curves over Ring Class Extensions",
+    "href": "/papers/bs-heegner",
+    "citation": "(20 pages), with Robert Bradshaw, 2012, in Journal of Number Theory.",
+    "year": "2012",
+    "topic": "Elliptic curves and BSD",
+    "search": "heegner points and the arithmetic of elliptic curves over ring class extensions (20 pages), with robert bradshaw, 2012, in journal of number theory. 2012 elliptic curves and bsd"
+  },
+  {
+    "title": "The Sage Project: Unifying Free Mathematical Software to Create a Viable Alternative to Magma, Maple, Mathematica and Matlab",
+    "href": "/papers/icms/icms_2010.pdf",
+    "citation": "with Burcin Erocal, 2010, for my plenary talk at the 2010 International Congress of Mathematical Software in Japan .",
+    "year": "2010",
+    "topic": "Computation and software",
+    "search": "the sage project: unifying free mathematical software to create a viable alternative to magma, maple, mathematica and matlab with burcin erocal, 2010, for my plenary talk at the 2010 international congress of mathematical software in japan . 2010 computation and software"
+  },
+  {
+    "title": "The Modular Degree, Congruence Primes and Multiplicity One",
+    "href": "/papers/ars-congruence",
+    "citation": "with Amod Agashe and Ken Ribet (16 pages), 2009, to appear in a volume in honor of Serge Lang.",
+    "year": "2009",
+    "topic": "Modular forms",
+    "search": "the modular degree, congruence primes and multiplicity one with amod agashe and ken ribet (16 pages), 2009, to appear in a volume in honor of serge lang. 2009 modular forms"
+  },
+  {
+    "title": "Toward a Generalization of the Gross-Zagier Conjecture",
+    "href": "/papers/stein-ggz",
+    "citation": "(33 pages), 2009, IMRN.",
+    "year": "2009",
+    "topic": "Number theory",
+    "search": "toward a generalization of the gross-zagier conjecture (33 pages), 2009, imrn. 2009 number theory"
+  },
+  {
+    "title": "Fast Computation of Hermite Normal Forms of Random Integer Matrices",
+    "href": "/papers/hnf",
+    "citation": "(9 pages), with Clement Pernet, Volume 130, Issue 7, July 2010, Pages 1675-1683, Journal of Number Theory.",
+    "year": "2010",
+    "topic": "Computation and software",
+    "search": "fast computation of hermite normal forms of random integer matrices (9 pages), with clement pernet, volume 130, issue 7, july 2010, pages 1675-1683, journal of number theory. 2010 computation and software"
+  },
+  {
+    "title": "Verification of the Birch and Swinnerton-Dyer Conjecture for Specific Elliptic Curves",
+    "href": "/papers/bsdalg",
+    "citation": "with G. Grigorov, A. Jorza, S. Patrikis, and C. Patrascu (29 pages), Math. Comp. 78 (2009), 2397-2425.",
+    "year": "2009",
+    "topic": "Elliptic curves and BSD",
+    "search": "verification of the birch and swinnerton-dyer conjecture for specific elliptic curves with g. grigorov, a. jorza, s. patrikis, and c. patrascu (29 pages), math. comp. 78 (2009), 2397-2425. 2009 elliptic curves and bsd"
+  },
+  {
+    "title": "Elementary Number Theory: Primes, Congruences, and Secrets",
+    "href": "/ent",
+    "citation": "(book), 2008 published by Springer-Verlag",
+    "year": "2008",
+    "topic": "Number theory",
+    "search": "elementary number theory: primes, congruences, and secrets (book), 2008 published by springer-verlag 2008 number theory"
+  },
+  {
+    "title": "Three Lectures about Explicit Methods in Number Theory Using Sage",
+    "href": "/papers/2008-bordeaux",
+    "citation": "(38 pages), 2008.",
+    "year": "2008",
+    "topic": "Computation and software",
+    "search": "three lectures about explicit methods in number theory using sage (38 pages), 2008. 2008 computation and software"
+  },
+  {
+    "title": "On the generation of the coefficient field of a newform by a single Hecke eigenvalue",
+    "href": "/papers/heckepoly",
+    "citation": "with Koopa Koo and Gabor Wiese (11 pages), appeared in Journal de Theorie des Nombres de Bordeaux 20 (2008), 373-384 .",
+    "year": "2008",
+    "topic": "Modular forms",
+    "search": "on the generation of the coefficient field of a newform by a single hecke eigenvalue with koopa koo and gabor wiese (11 pages), appeared in journal de theorie des nombres de bordeaux 20 (2008), 373-384 . 2008 modular forms"
+  },
+  {
+    "title": "Open Source Mathematical Software",
+    "href": "http://www.ams.org/notices/200710/",
+    "citation": "(opinion piece) with David Joyner, November 2007. The link is in the upper right corner of the site.",
+    "year": "2007",
+    "topic": "Computation and software",
+    "search": "open source mathematical software (opinion piece) with david joyner, november 2007. the link is in the upper right corner of the site. 2007 computation and software"
+  },
+  {
+    "title": "The Birch and Swinnerton-Dyer Conjecture, a Computational Approach,",
+    "href": "/books/bsd",
+    "citation": "(70 pages), 2007, free online book.",
+    "year": "2007",
+    "topic": "Computation and software",
+    "search": "the birch and swinnerton-dyer conjecture, a computational approach, (70 pages), 2007, free online book. 2007 computation and software"
+  },
+  {
+    "title": "Explicit Heegner points: Kolyvagin's conjecture and non-trivial elements in the Shafarevich-Tate group",
+    "href": "/papers/kolyconj",
+    "citation": "with Dimitar Jetchev and Kristin Lauter (18 pages), 2007, accepted.",
+    "year": "2007",
+    "topic": "Elliptic curves and BSD",
+    "search": "explicit heegner points: kolyvagin's conjecture and non-trivial elements in the shafarevich-tate group with dimitar jetchev and kristin lauter (18 pages), 2007, accepted. 2007 elliptic curves and bsd"
+  },
+  {
+    "title": "Modular Forms: A Computational Approach (free online book)",
+    "href": "/books/modform/",
+    "citation": "or buy it from the AMS or buy it from Amazon.com ; with an appendix by Paul Gunnells (282 pages), AMS Graduate Studies in Mathematics, Vol. 79.",
+    "year": "",
+    "topic": "Computation and software",
+    "search": "modular forms: a computational approach (free online book) or buy it from the ams or buy it from amazon.com ; with an appendix by paul gunnells (282 pages), ams graduate studies in mathematics, vol. 79.  computation and software"
+  },
+  {
+    "title": "Average Ranks of Elliptic Curves",
+    "href": "/papers/bmsw-rank",
+    "citation": "with Baur Bektemirov, Barry Mazur and Mark Watkins (19 pages), 2007, appeared in the Bulletins of the AMS.",
+    "year": "2007",
+    "topic": "Elliptic curves and BSD",
+    "search": "average ranks of elliptic curves with baur bektemirov, barry mazur and mark watkins (19 pages), 2007, appeared in the bulletins of the ams. 2007 elliptic curves and bsd"
+  },
+  {
+    "title": "The Manin Constant",
+    "href": "/papers/ars-manin",
+    "citation": "with Amod Agashe and Ken Ribet (22 pages), 2006, accepted.",
+    "year": "2006",
+    "topic": "Modular forms",
+    "search": "the manin constant with amod agashe and ken ribet (22 pages), 2006, accepted. 2006 modular forms"
+  },
+  {
+    "title": "Computation of p-Adic Heights and Log Convergence",
+    "href": "/papers/pheight",
+    "citation": "with Barry Mazur and John Tate (36 pages), 2005, appeared.",
+    "year": "2005",
+    "topic": "Computation and software",
+    "search": "computation of p-adic heights and log convergence with barry mazur and john tate (36 pages), 2005, appeared. 2005 computation and software"
+  },
+  {
+    "title": "Visualizing Elements of Shafarevich-Tate Groups at Higher Level",
+    "href": "/papers/vishigher",
+    "citation": "with Dimitar Jetchev (28 pages), 2007, Documenta Mathematica",
+    "year": "2007",
+    "topic": "Elliptic curves and BSD",
+    "search": "visualizing elements of shafarevich-tate groups at higher level with dimitar jetchev (28 pages), 2007, documenta mathematica 2007 elliptic curves and bsd"
+  },
+  {
+    "title": "Visibility of Mordell-Weil Groups",
+    "href": "/papers/vismw",
+    "citation": "(20 pages), 2007, Documenta Mathematica",
+    "year": "2007",
+    "topic": "Number theory",
+    "search": "visibility of mordell-weil groups (20 pages), 2007, documenta mathematica 2007 number theory"
+  },
+  {
+    "title": "A Brief Introduction To Classical and Adelic Algebraic Number Theory",
+    "href": "/papers/ant",
+    "citation": "(190 pages), free online book.",
+    "year": "",
+    "topic": "Number theory",
+    "search": "a brief introduction to classical and adelic algebraic number theory (190 pages), free online book.  number theory"
+  },
+  {
+    "title": "Conjectures About Discriminants of Hecke Algebras of Prime Level",
+    "href": "/papers/calegari-stein-ants6",
+    "citation": "with Frank Calegari ( ANTS VI Proceedings, 2004).",
+    "year": "2004",
+    "topic": "Modular forms",
+    "search": "conjectures about discriminants of hecke algebras of prime level with frank calegari ( ants vi proceedings, 2004). 2004 modular forms"
+  },
+  {
+    "title": "Modular Degrees of Neumann-Setzer Curves",
+    "href": "/papers/moddeg",
+    "citation": "with Mark Watkins ( IMRN 2004, no 27, 1395-1405).",
+    "year": "2004",
+    "topic": "Modular forms",
+    "search": "modular degrees of neumann-setzer curves with mark watkins ( imrn 2004, no 27, 1395-1405). 2004 modular forms"
+  },
+  {
+    "title": "Studying the Birch and Swinnerton-Dyer Conjecture for Modular Abelian Varieties Using MAGMA",
+    "href": "/papers/bsdmagma",
+    "citation": "(appeared as a chapter in a book for Springer-Verlag edited by John Cannon ).",
+    "year": "",
+    "topic": "Computation and software",
+    "search": "studying the birch and swinnerton-dyer conjecture for modular abelian varieties using magma (appeared as a chapter in a book for springer-verlag edited by john cannon ).  computation and software"
+  },
+  {
+    "title": "A Database of Elliptic Curves---First Report",
+    "href": "/papers/stein-watkins",
+    "citation": "with Mark Watkins ( ANTS V proceedings, Sydney, Australia, 2002).",
+    "year": "2002",
+    "topic": "Elliptic curves and BSD",
+    "search": "a database of elliptic curves---first report with mark watkins ( ants v proceedings, sydney, australia, 2002). 2002 elliptic curves and bsd"
+  },
+  {
+    "title": "Constructing Elements in Shafarevich-Tate Groups of Modular Motives",
+    "href": "/papers/motive_visibility",
+    "citation": "with Neil Dummigan and Mark Watkins ( \"Number theory and algebraic geometry--to Peter Swinnerton-Dyer on his 75th birthday\", Ed. M. Reid and A. Skorobogatov, pages 91-118 ).",
+    "year": "",
+    "topic": "Elliptic curves and BSD",
+    "search": "constructing elements in shafarevich-tate groups of modular motives with neil dummigan and mark watkins ( \"number theory and algebraic geometry--to peter swinnerton-dyer on his 75th birthday\", ed. m. reid and a. skorobogatov, pages 91-118 ).  elliptic curves and bsd"
+  },
+  {
+    "title": "Shafarevich-Tate Groups of Nonsquare Order",
+    "href": "/papers/nonsquaresha",
+    "citation": "( Progress in Math., 224 (2004), 277-289, Birkhauser ).",
+    "year": "2004",
+    "topic": "Elliptic curves and BSD",
+    "search": "shafarevich-tate groups of nonsquare order ( progress in math., 224 (2004), 277-289, birkhauser ). 2004 elliptic curves and bsd"
+  },
+  {
+    "title": "Approximation of Infinite-Slope Modular Eigenforms By Finite-Slope Eigenforms",
+    "href": "/papers/padictwist",
+    "citation": "with Robert Coleman (Dwork Proceedings).",
+    "year": "",
+    "topic": "Modular forms",
+    "search": "approximation of infinite-slope modular eigenforms by finite-slope eigenforms with robert coleman (dwork proceedings).  modular forms"
+  },
+  {
+    "title": "J 1 (p) Has Connected Fibers",
+    "href": "/papers/j1p",
+    "citation": "with Brian Conrad and Bas Edixhoven ( Documenta Mathematica, 8 (2003), pages 331-408 ).",
+    "year": "2003",
+    "topic": "Number theory",
+    "search": "j 1 (p) has connected fibers with brian conrad and bas edixhoven ( documenta mathematica, 8 (2003), pages 331-408 ). 2003 number theory"
+  },
+  {
+    "title": "Visible Evidence for the Birch and Swinnerton-Dyer Conjecture for Rank 0 Modular Abelian Varieties",
+    "href": "/papers/shacomp",
+    "citation": "with Amod Agashe , and an appendix by Mazur and Cremona (in Math. Comp., Vol 74, Number 249, pages 455-484 ).",
+    "year": "",
+    "topic": "Elliptic curves and BSD",
+    "search": "visible evidence for the birch and swinnerton-dyer conjecture for rank 0 modular abelian varieties with amod agashe , and an appendix by mazur and cremona (in math. comp., vol 74, number 249, pages 455-484 ).  elliptic curves and bsd"
+  },
+  {
+    "title": "Visibility of Shafarevich-Tate Groups of Abelian Varieties",
+    "href": "/papers/visibility_of_sha",
+    "citation": "with Amod Agashe ( J. of Number Theory , 97 (2002), no. 1, 171-185.) Visibility of Shafarevich-Tate Groups [streaming MSRI video]",
+    "year": "2002",
+    "topic": "Elliptic curves and BSD",
+    "search": "visibility of shafarevich-tate groups of abelian varieties with amod agashe ( j. of number theory , 97 (2002), no. 1, 171-185.) visibility of shafarevich-tate groups [streaming msri video] 2002 elliptic curves and bsd"
+  },
+  {
+    "title": "Component Groups of Purely Toric Quotients of Semistable Jacobians",
+    "href": "/papers/compgrp",
+    "citation": "with Brian Conrad ( Math. Res. Letters , 8 (2001) no. 5-6, 745-766)",
+    "year": "2001",
+    "topic": "Number theory",
+    "search": "component groups of purely toric quotients of semistable jacobians with brian conrad ( math. res. letters , 8 (2001) no. 5-6, 745-766) 2001 number theory"
+  },
+  {
+    "title": "Appendix on Generating the Hecke Algebra",
+    "href": "/papers/generating_hecke",
+    "citation": "with Amod Agashe ( Experimental Math. , 11 (2002), no. 2, 303-311).",
+    "year": "2002",
+    "topic": "Modular forms",
+    "search": "appendix on generating the hecke algebra with amod agashe ( experimental math. , 11 (2002), no. 2, 303-311). 2002 modular forms"
+  },
+  {
+    "title": "The field generated by the points of small prime order on an elliptic curve",
+    "href": "/papers/merel2",
+    "citation": "with Loic Merel ( IMRN , 2001, no. 20, 1075-1082 .)",
+    "year": "2001",
+    "topic": "Elliptic curves and BSD",
+    "search": "the field generated by the points of small prime order on an elliptic curve with loic merel ( imrn , 2001, no. 20, 1075-1082 .) 2001 elliptic curves and bsd"
+  },
+  {
+    "title": "An introduction to computing modular forms using modular symbols",
+    "href": "/papers/msri-stein-ant",
+    "citation": "(in an MSRI proceedings).",
+    "year": "",
+    "topic": "Modular forms",
+    "search": "an introduction to computing modular forms using modular symbols (in an msri proceedings).  modular forms"
+  },
+  {
+    "title": "Lectures on Serre's conjectures",
+    "href": "/papers/serre",
+    "citation": "with Ken Ribet (Arithmetic Algebraic Geometry, IAS/Park City Math. Inst. Series, Vol. 9, 143-232).",
+    "year": "",
+    "topic": "Number theory",
+    "search": "lectures on serre's conjectures with ken ribet (arithmetic algebraic geometry, ias/park city math. inst. series, vol. 9, 143-232).  number theory"
+  },
+  {
+    "title": "Cuspidal modular symbols are transportable",
+    "href": "/papers/transport",
+    "citation": "with Helena Verrill ( LMS Journal of Computation and Mathematics , 4 (2001), 170-181 ).",
+    "year": "2001",
+    "topic": "Modular forms",
+    "search": "cuspidal modular symbols are transportable with helena verrill ( lms journal of computation and mathematics , 4 (2001), 170-181 ). 2001 modular forms"
+  },
+  {
+    "title": "There are genus one curves over Q of every odd index",
+    "href": "/papers/index",
+    "citation": "( J. Reine Angew. Math. 547 (2002), 139-147).",
+    "year": "2002",
+    "topic": "Number theory",
+    "search": "there are genus one curves over q of every odd index ( j. reine angew. math. 547 (2002), 139-147). 2002 number theory"
+  },
+  {
+    "title": "A mod five approach to modularity of icosahedral Galois representations",
+    "href": "/papers/artin",
+    "citation": "with Kevin Buzzard ( Pac. J. Math. 203 (2002), no. 2, 265-282 )",
+    "year": "2002",
+    "topic": "Modular forms",
+    "search": "a mod five approach to modularity of icosahedral galois representations with kevin buzzard ( pac. j. math. 203 (2002), no. 2, 265-282 ) 2002 modular forms"
+  },
+  {
+    "title": "Explicit approaches to modular abelian varieties",
+    "href": "/papers/thesis",
+    "citation": "( UC Berkeley Ph.D. thesis)",
+    "year": "",
+    "topic": "Modular forms",
+    "search": "explicit approaches to modular abelian varieties ( uc berkeley ph.d. thesis)  modular forms"
+  },
+  {
+    "title": "Component groups of quotients of J 0 (N)",
+    "href": "/papers/ants",
+    "citation": "with David Kohel ( ANTS IV proceedings)",
+    "year": "",
+    "topic": "Number theory",
+    "search": "component groups of quotients of j 0 (n) with david kohel ( ants iv proceedings)  number theory"
+  },
+  {
+    "title": "Empirical evidence for the Birch and Swinnerton-Dyer conjectures for modular Jacobians of genus 2 curves",
+    "href": "/papers/evidence",
+    "citation": "with five coauthors ( Mathematics of Computation , 70 (2001), no . 236, 1675-1697).",
+    "year": "2001",
+    "topic": "Elliptic curves and BSD",
+    "search": "empirical evidence for the birch and swinnerton-dyer conjectures for modular jacobians of genus 2 curves with five coauthors ( mathematics of computation , 70 (2001), no . 236, 1675-1697). 2001 elliptic curves and bsd"
+  }
+]

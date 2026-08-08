@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import courses from "../../data/courses.json";
+
+const topics = [...new Set(courses.map((course) => course.topic))].sort();
+const linked = courses.filter((course) => course.href).length;
+---
+
+<BaseLayout title="Courses - William A. Stein" description="William Stein's teaching archive, including number theory, SageMath, algebra, and computation courses." current="courses">
+  <main class="page-main">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / Courses</p>
+      <p class="eyebrow">Teaching archive, 1994-2014</p>
+      <h1>Courses</h1>
+      <p class="lead">Two decades of courses, seminars, summer programs, and workshops in number theory, computation, and core mathematics.</p>
+    </header>
+
+    <section class="catalog-summary page-width" aria-label="Course archive summary">
+      <div><strong>{courses.length}</strong><span>course records</span></div>
+      <div><strong>{linked}</strong><span>surviving destinations</span></div>
+      <div><strong>20</strong><span>years of teaching</span></div>
+      <p>Surviving local pages and GitHub repositories remain linked. Courses formerly stored only in the retired wiki are retained as labeled records rather than broken links.</p>
+    </section>
+
+    <section class="catalog-browser page-width" aria-labelledby="courses-browser-title">
+      <div class="catalog-tools">
+        <div>
+          <h2 id="courses-browser-title">Course catalog</h2>
+          <p id="course-count">Showing all {courses.length} records</p>
+        </div>
+        <div class="catalog-controls">
+          <label class="search-control">
+            <span>Search courses</span>
+            <input id="course-search" type="search" placeholder="Sage, number theory, Harvard..." autocomplete="off" />
+          </label>
+          <label class="select-control">
+            <span>Area</span>
+            <select id="course-topic">
+              <option value="">All areas</option>
+              {topics.map((topic) => <option value={topic}>{topic}</option>)}
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="course-list">
+        {courses.map((course) => course.href ? (
+          <a class="course-row" href={course.href} data-search={course.search} data-topic={course.topic}>
+            <span class="course-row__year">{course.year}</span>
+            <span class="course-row__body"><strong>{course.title}</strong><small>{course.topic}</small></span>
+            <span class:list={["record-status", course.status === "GitHub" && "record-status--github"]}>{course.status}</span>
+            <span class="arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        ) : (
+          <div class="course-row course-row--record" data-search={course.search} data-topic={course.topic}>
+            <span class="course-row__year">{course.year}</span>
+            <span class="course-row__body"><strong>{course.title}</strong><small>{course.topic}</small></span>
+            <span class:list={["record-status", course.status === "Retired wiki" && "record-status--retired"]}>{course.status}</span>
+            <span></span>
+          </div>
+        ))}
+      </div>
+      <p class="empty-state" id="course-empty" hidden>No courses match this search.</p>
+    </section>
+  </main>
+
+  <script is:inline>
+    const search = document.querySelector('#course-search');
+    const topic = document.querySelector('#course-topic');
+    const rows = [...document.querySelectorAll('.course-row')];
+    const count = document.querySelector('#course-count');
+    const empty = document.querySelector('#course-empty');
+    function filterCourses() {
+      const query = search.value.trim().toLowerCase();
+      let shown = 0;
+      for (const row of rows) {
+        const visible = (!query || row.dataset.search.includes(query)) && (!topic.value || row.dataset.topic === topic.value);
+        row.hidden = !visible;
+        if (visible) shown += 1;
+      }
+      count.textContent = `Showing ${shown} of ${rows.length} records`;
+      empty.hidden = shown !== 0;
+    }
+    search.addEventListener('input', filterCourses);
+    topic.addEventListener('change', filterCourses);
+  </script>
+</BaseLayout>

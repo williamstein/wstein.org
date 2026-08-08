@@ -38,14 +38,19 @@ pages into `/home/user/www`, and then applies the explicit legacy overlay
 manifest. It never deletes historical files.
 
 The Talks index is generated from the archive and committed so the high-value
-catalog is preserved independently of the 52 GiB tree:
+catalog is preserved independently of the 52 GiB tree. Papers and Courses are
+generated from tracked snapshots of their legacy indexes:
 
 ```bash
 npm run generate:talks
+npm run generate:catalogs
 ```
 
 Astro emits it at `papers/talks/index.html`; the longstanding `/talks/` symlink
 and Worker alias continue to expose it at `/talks/`.
+
+The normalized catalogs and their legacy inputs live under `modern/src/data/`.
+Regenerating them is deterministic and does not require the large archive.
 
 The local preview is normally available at `http://127.0.0.1:8080/` and through
 the CoCalc port proxy printed by `/home/user/bin/start.sh`.

@@ -5,9 +5,9 @@ results are in `report/`; rerun them with `npm run audit`.
 
 ## What was scanned
 
-- 275,995 regular files totaling 52.5 GiB
-- 21,074 HTML pages and 454 CSS files
-- 470,981 HTML/CSS references
+- 275,994 regular files totaling 52.5 GiB
+- 21,074 HTML pages and 453 CSS files
+- 470,921 HTML/CSS references
 - 4,541 symlinks, including the aliases used by the R2 Worker
 
 URL checks reproduce the deployed Worker's exact-object, extensionless HTML,
@@ -16,13 +16,13 @@ directory listings are treated as visitor-discoverable.
 
 ## Main findings
 
-1. The curated homepage, Books and Talks indexes, `Tables/` landing page, photo
-   timeline, and repaired older-photo index now have no broken internal
-   references. The broad archive is much less healthy: 25,163 internal
-   references are broken.
+1. The curated homepage, Papers, Books, Talks, Courses, Photos, `Tables/`
+   landing page, photo timeline, and repaired older-photo index now have no
+   broken internal references. The broad archive is much less healthy: 25,146
+   internal references are broken.
 
-2. Curated entry pages now expose 12,541 of 21,074 HTML pages from the major
-   navigation seeds. Another 8,533 pages remain preserved but are no longer
+2. Curated entry pages now expose 12,521 of 21,074 HTML pages from the major
+   navigation seeds. Another 8,553 pages remain preserved but are no longer
    pulled into the visitor graph merely by a raw Books or Talks directory
    listing. This is an intentional distinction between preservation and
    navigation, not a deletion recommendation.
@@ -65,15 +65,16 @@ directory listings are treated as visitor-discoverable.
 
 - The maintained source now lives in a small Git repository with an Astro
   static build layered over the 52.5 GiB archive.
-- The homepage, Books, and Talks are generated from Git-tracked source. The
-  searchable Talks catalog preserves 134 archive entries in tracked JSON.
+- The homepage, Papers, Books, Talks, Courses, and Photos are generated from
+  Git-tracked source. Searchable catalogs preserve 50 publications, 134 talk
+  directories, and 44 course records in tracked JSON.
 - `Tables/` and the repaired older-photo entry page remain in the explicit
   Git-tracked legacy overlay and can migrate into Astro incrementally.
 
 ## Recommended order
 
-1. Continue the modern index work with papers, courses, and photos so visitors
-   no longer enter those archives through old pages or raw directory listings.
+1. Continue the modern index work with projects, grants, and selected teaching
+   or research subcollections whose current entry pages remain especially weak.
 2. Quarantine imported website captures and generated trees from normal search
    and navigation. Preserve them under their URLs unless there is a clear reason
    to delete them.

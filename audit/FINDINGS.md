@@ -35,11 +35,11 @@ directory listings are treated as visitor-discoverable.
 
 4. A few imported/generated historical trees dominate the global failure
    count. A saved MathSciNet results page contributes 2,156 broken links. Old
-   SGA Apache indexes and mirrors contribute thousands more. The generated
-   algebraic number theory book references image files that are absent while
-   similarly named `.old` files remain. These should be labeled or quarantined
-   as historical captures, regenerated when source material is sound, or
-   removed from navigation; repairing every individual URL is low value.
+   SGA Apache indexes and mirrors contribute thousands more. The algebraic
+   number theory book has now been regenerated from its TeX source as a modern
+   chapter-by-chapter HTML edition; its old missing formula images are no
+   longer part of the maintained visitor path. SGA remains public because this
+   site may be an unusually important surviving copy.
 
 5. There are 6,975 form/backend-style references. Most are forms embedded in
    saved copies of remote sites, while a smaller set points directly at CGI,
@@ -65,14 +65,16 @@ directory listings are treated as visitor-discoverable.
 
 - The maintained source now lives in a small Git repository with an Astro
   static build layered over the 52.5 GiB archive.
-- The homepage, Research, Papers, Books, Talks, Courses, Projects, Grants, and
-  Photos are generated from Git-tracked source. Searchable catalogs preserve
-  50 publications, 134 talk directories, 44 course records, 19 student-project
-  records, and 24 grant records. Three curated research guides preserve durable
-  entry points into the larger archive.
+- The homepage, About, Software, Research, Papers, Books, Talks, Courses,
+  Projects, Grants, and Photos are generated from Git-tracked source. Searchable
+  catalogs preserve 50 publications, 134 talk directories, 44 course records,
+  19 student-project records, and 24 grant records. Three curated research
+  guides preserve durable entry points into the larger archive.
 - Sage.js is presented as the active 2026 research program, connecting the
   historical number-theory work, the SageMath open-software mission, CoCalc's
   browser-based collaboration, and agent-verifiable mathematical software.
+- The CV TeX source, its build recipe, and the modern Algebraic Number Theory
+  conversion recipe are preserved in Git alongside the maintained site.
 - `Tables/` and the repaired older-photo entry page remain in the explicit
   Git-tracked legacy overlay and can migrate into Astro incrementally.
 

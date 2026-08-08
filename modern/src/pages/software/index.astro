@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const systems = [
+  {
+    year: "2005",
+    title: "SageMath",
+    body: "A free, open-source alternative to proprietary mathematical systems, built by integrating the strongest available packages behind a coherent Python interface.",
+    href: "https://www.sagemath.org/",
+    status: "Open mathematics",
+  },
+  {
+    year: "2006-2008",
+    title: "The Sage notebook",
+    body: "An early browser-based notebook for interactive mathematical computation, written in the era before modern frontend frameworks and before Jupyter existed.",
+    href: "/talks/",
+    status: "Browser computation",
+  },
+  {
+    year: "2013-present",
+    title: "CoCalc",
+    body: "A collaborative computing environment for notebooks, terminals, LaTeX, courses, and shared projects, operated by SageMath, Inc.",
+    href: "https://cocalc.com/",
+    status: "Collaboration",
+  },
+  {
+    year: "2026",
+    title: "Sage.js",
+    body: "A from-scratch mathematical system in TypeScript, designed around explicit contracts, independent verification, portable runtimes, and productive agent collaboration.",
+    href: "/research/sagejs/",
+    status: "Active research",
+  },
+];
+---
+
+<BaseLayout title="Software - William A. Stein" description="William Stein's software work from SageMath and the Sage notebook through CoCalc and Sage.js." current="software">
+  <main class="page-main software-page">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / Software</p>
+      <p class="eyebrow">Two decades of open computation</p>
+      <h1>Software</h1>
+      <p class="lead">I build systems that make serious mathematical computation open, collaborative, and inspectable. The implementation has changed repeatedly; that purpose has not.</p>
+    </header>
+
+    <section class="current-research software-current" aria-labelledby="software-current-title">
+      <div class="page-width current-research__layout">
+        <div>
+          <p class="eyebrow eyebrow--light">Current / 2026</p>
+          <h2 id="software-current-title">Rebuilding Sage for agents</h2>
+        </div>
+        <div class="current-research__body">
+          <p>Sage.js asks what open mathematical software should look like when computational agents can help implement, test, benchmark, and document it.</p>
+          <p>The project uses SageMath behavior as an executable specification while building a cleaner TypeScript architecture for Node, native applications, Jupyter, and browsers.</p>
+          <div class="hero-actions">
+            <a class="button button--primary" href="https://sagejs.org/">Open Sage.js</a>
+            <a class="button button--ghost" href="/research/sagejs/">Research context</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-width software-history" aria-labelledby="software-history-title">
+      <div class="section-heading section-heading--row">
+        <div><p class="eyebrow">Systems</p><h2 id="software-history-title">One thread through changing architectures</h2></div>
+        <p>Each project responds to a different constraint: access, integration, collaboration, or verifiability.</p>
+      </div>
+      <div class="system-list">
+        {systems.map((system) => (
+          <a class="system-row" href={system.href}>
+            <span class="system-row__year">{system.year}</span>
+            <span><strong>{system.title}</strong><small>{system.body}</small></span>
+            <span class="system-row__status">{system.status}</span>
+            <span class="arrow" aria-hidden="true">&nearr;</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="band software-principles" aria-labelledby="principles-title">
+      <div class="page-width work-layout">
+        <div class="section-heading">
+          <p class="eyebrow">Engineering principles</p>
+          <h2 id="principles-title">Power should remain inspectable</h2>
+          <p>Open source matters most when users can understand, verify, extend, and preserve the systems on which their work depends.</p>
+        </div>
+        <div class="continuity-list">
+          <a href="https://github.com/sagemath/sage"><span><strong>Open foundations</strong><small>Build on public source, documented algorithms, and reusable mathematical libraries.</small></span><span aria-hidden="true">&nearr;</span></a>
+          <a href="https://cocalc.com/"><span><strong>Collaboration as infrastructure</strong><small>Computation, writing, and communication belong in the same durable workspace.</small></span><span aria-hidden="true">&nearr;</span></a>
+          <a href="https://sagejs.org/#quality"><span><strong>Claims backed by evidence</strong><small>Compatibility, correctness, and performance need executable tests and visible scope.</small></span><span aria-hidden="true">&nearr;</span></a>
+          <a href="https://github.com/williamstein"><span><strong>The implementation record</strong><small>Current projects and historical experiments remain available in public repositories.</small></span><span aria-hidden="true">&nearr;</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

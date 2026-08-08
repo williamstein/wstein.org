@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "build:site": "astro build --root modern",
+    "build:cv": "bin/build-cv.sh",
+    "build:ant": "bin/build-ant-html.sh",
     "dev:site": "astro dev --root modern --host 0.0.0.0",
     "generate:catalogs": "node tools/generate-legacy-catalogs.mjs",
     "generate:talks": "node tools/generate-talk-index.mjs",

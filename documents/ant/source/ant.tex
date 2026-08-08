@@ -1,0 +1,55 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright: William Stein, 2007.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{book}
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+\usepackage{sage}
+\usepackage{tikz}
+
+\bibliographystyle{amsalpha}
+\input{macros}
+\hoffset=-0.05\textwidth
+\textwidth=1.1\textwidth
+\voffset=-0.05\textheight
+\textheight=1.1\textheight
+\makeindex
+\renewcommand{\edit}[1]{}
+\newcommand{\zmod}[1]{{\Z/#1\Z{}}}
+
+\title{\Huge\bf\sc Algebraic Number Theory,\\a Computational Approach}
+\author{William Stein}
+
+%\includeonly{factoring}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\include{preface}
+\include{intro}
+
+\include{commalg}
+\include{unique}
+\include{computing}
+\include{factoring}
+\include{crt}
+\include{disc}
+\include{classgroup}
+\include{dirichlet}
+\include{decomp}
+\include{galrep}
+\include{cohomology}
+\include{weakmw}
+
+\bibliography{biblio}
+\label{page:end}
+
+\newcommand{\nn}[1]{{\bf #1}}
+
+\end{document}

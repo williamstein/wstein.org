@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const timeline = [
+  ["1994", "B.S. in mathematics", "Northern Arizona University"],
+  ["2000", "Ph.D. in mathematics", "UC Berkeley, advised by Hendrik Lenstra"],
+  ["2000-2019", "Academic mathematics", "Harvard, UC San Diego, and the University of Washington"],
+  ["2005", "Founded SageMath", "A free, open system for advanced mathematics"],
+  ["2013", "Jenks Memorial Prize", "For software engineering applied to computer algebra"],
+  ["2015-present", "Founder and CEO", "SageMath, Inc., the company behind CoCalc"],
+  ["2026", "Sage.js", "Rebuilding open mathematical software for human and agent research"],
+];
+---
+
+<BaseLayout title="About William A. Stein" description="William Stein is a software builder and mathematician, founder of SageMath and CoCalc, and creator of Sage.js." current="about">
+  <main class="page-main about-page">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / About</p>
+      <p class="eyebrow">Software builder and mathematician</p>
+      <h1>William A. Stein</h1>
+      <p class="lead">I build open tools for mathematical computation. I founded SageMath, lead CoCalc as founder and CEO of SageMath, Inc., and am now developing Sage.js with Codex for a new generation of human and agent research.</p>
+    </header>
+
+    <section class="page-width profile-layout" aria-labelledby="profile-title">
+      <figure class="profile-photo">
+        <img src="/william.jpg" alt="William Stein" />
+      </figure>
+      <div>
+        <p class="eyebrow">Current work</p>
+        <h2 id="profile-title">Open computation as a long-term project</h2>
+        <p>My work has moved between number theory, mathematical software, browser-based collaboration, and building a company around sustained open infrastructure. Those are not separate tracks: explicit mathematics drives the software, and better software changes which mathematical questions can be explored.</p>
+        <p>Before working full time on SageMath, Inc., I was a tenured professor of mathematics at the University of Washington. My mathematical research centered on computational number theory, modular forms, elliptic curves, and the Birch and Swinnerton-Dyer conjecture.</p>
+        <div class="inline-links profile-links">
+          <a href="/cv/cv.pdf">Curriculum vitae</a>
+          <a href="https://cocalc.ai/about/team">CoCalc team</a>
+          <a href="https://en.wikipedia.org/wiki/William_A._Stein">Wikipedia</a>
+          <a href="https://github.com/williamstein">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band about-timeline" aria-labelledby="timeline-title">
+      <div class="page-width">
+        <div class="section-heading section-heading--row">
+          <div><p class="eyebrow">Selected timeline</p><h2 id="timeline-title">Mathematics, software, and collaboration</h2></div>
+          <p>A short professional outline. The CV and archival pages preserve the fuller record.</p>
+        </div>
+        <div class="timeline-list">
+          {timeline.map(([year, title, detail]) => (
+            <div class="timeline-row">
+              <span>{year}</span>
+              <strong>{title}</strong>
+              <small>{detail}</small>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--work" aria-labelledby="more-title">
+      <div class="page-width personal-layout about-archive-layout">
+        <a class="personal-photo" href="/pics/"><img src="/bella-and-william.jpg" alt="William Stein with Bella outdoors" /></a>
+        <div>
+          <p class="eyebrow">Beyond the short biography</p>
+          <h2 id="more-title">A life recorded on the web</h2>
+          <p>This site has been online since the 1990s. Alongside current work, it preserves teaching, research data, travel, old hardware, photographs, and the unpolished texture of the early web.</p>
+          <div class="text-links">
+            <a href="/Biography.html">1990s autobiography</a>
+            <a href="/pics/">Photograph archive</a>
+            <a href="https://vertramp.org/">Vert skateboarding</a>
+            <a href="/courses/">Teaching archive</a>
+            <a href="/projects/">Student projects</a>
+            <a href="/grants/">Grant archive</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

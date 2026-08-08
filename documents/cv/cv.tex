@@ -1,0 +1,947 @@
+% CV.tex -- William's CV latex file.
+\documentclass[10pt]{article}
+%\usepackage{times}
+%\usepackage{mathptm}
+%\usepackage{revnum}
+\newcommand{\comment}[1]{}
+\newcommand{\myname}{William A.\ Stein}
+\newcommand{\phone}{{\tt (206) 419-0925}}
+\newcommand{\email}{{\tt wstein@sagemath.com}}
+\newcommand{\www}{{\tt \url{https://wstein.org}}}
+\newcommand{\address}{1212 East Barclay Court\\
+Seattle, WA  98122}
+\newcommand{\ptitle}{\em}
+\usepackage{hyperref}
+%\usepackage[hyperindex,pdfmark]{hyperref}
+
+\hoffset=-.15\textwidth%
+\textwidth=1.30\textwidth%
+\voffset=-.05\textheight%
+%\voffset=-.09\textheight%
+\textheight=1.1\textheight%
+
+\usepackage{fancyhdr,ifthen}
+\pagestyle{fancy}
+\cfoot{\thepage}  % no footers (in pagestyle fancy)
+% running left heading
+\lhead{\bfseries\LARGE\em \noindent{}\hspace{-.2em}\myname{}
+        \hfill --\hfill Curriculum Vitae -- August 2026\vspace{-.2ex}\\}
+% running right heading
+\newcommand{\spc}{3.0em}
+\rhead{\small
+\phone
+\hspace{\spc}$\cdot$\hspace{\spc}
+\email
+\hspace{\spc}$\cdot$\hspace{\spc}
+\www}
+% adjust, because the header is now taller than usual.
+\setlength{\headheight}{7ex}
+
+% bulleted list environment
+\newenvironment{bulletlist}
+   {
+      \begin{list}
+%         {$\bullet$}
+         {$\cdot$}
+         {
+            \setlength{\itemsep}{.5ex}
+            \setlength{\parsep}{0ex}
+            \setlength{\leftmargin}{2.2em}
+            \setlength{\parskip}{0ex}
+            \setlength{\topsep}{0ex}
+         }
+   }
+   {
+      \end{list}
+   }
+%end newenvironment
+
+\usepackage{revnum}
+
+\newcounter{totalnumworkshops}
+\setcounter{totalnumworkshops}{54}
+
+\newcounter{totalnumworkshopsf}
+\setcounter{totalnumworkshopsf}{8}
+
+\newcounter{totalnumpapers}
+\setcounter{totalnumpapers}{46}
+
+\newcounter{totalnumgrants}
+\setcounter{totalnumgrants}{21}
+
+\newcounter{totalnumclasses}
+
+\newcounter{totalnumstudents}
+\setcounter{totalnumstudents}{7}
+
+\newcounter{totalnumbooks}
+\setcounter{totalnumbooks}{5}
+
+\newenvironment{papers}
+   {
+   \begin{revnumerate}[\value{totalnumpapers}]
+   {}
+         {
+            \setlength{\itemsep}{.5ex}
+            \setlength{\parsep}{0ex}
+            \setlength{\leftmargin}{0em}
+            \setlength{\parskip}{0ex}
+            \setlength{\topsep}{0ex}
+         }
+   }
+   {
+\end{revnumerate}
+   }
+%end newenvironment
+
+\newenvironment{grants}
+   {
+   \begin{revnumerate}[\value{totalnumgrants}]
+   {}
+         {
+            \setlength{\itemsep}{.5ex}
+            \setlength{\parsep}{0ex}
+            \setlength{\leftmargin}{0em}
+            \setlength{\parskip}{0ex}
+            \setlength{\topsep}{0ex}
+         }
+   }
+   {
+\end{revnumerate}
+   }
+%end newenvironment
+
+\newenvironment{classes}
+   {
+   \begin{revnumerate}[\value{totalnumclasses}]
+   {}
+         {
+            \setlength{\itemsep}{.5ex}
+            \setlength{\parsep}{0ex}
+            \setlength{\leftmargin}{0em}
+            \setlength{\parskip}{0ex}
+            \setlength{\topsep}{0ex}
+         }
+   }
+   {
+\end{revnumerate}
+   }
+%end newenvironment
+
+\newenvironment{students}
+   {
+   \begin{revnumerate}[\value{totalnumstudents}]
+   {}
+         {
+            \setlength{\itemsep}{.5ex}
+            \setlength{\parsep}{0ex}
+            \setlength{\leftmargin}{0em}
+            \setlength{\parskip}{0ex}
+            \setlength{\topsep}{0ex}
+         }
+   }
+   {
+\end{revnumerate}
+   }
+%end newenvironment
+
+\newenvironment{books}
+   {
+   \begin{revnumerate}[\value{totalnumbooks}]
+   {}
+         {
+            \setlength{\itemsep}{.5ex}
+            \setlength{\parsep}{0ex}
+            \setlength{\leftmargin}{0em}
+            \setlength{\parskip}{0ex}
+            \setlength{\topsep}{0ex}
+         }
+   }
+   {
+\end{revnumerate}
+   }
+
+\newenvironment{workshops}
+   {
+   \begin{revnumerate}[\value{totalnumworkshops}]
+   {}
+         {
+            \setlength{\itemsep}{.5ex}
+            \setlength{\parsep}{0ex}
+            \setlength{\leftmargin}{0em}
+            \setlength{\parskip}{0ex}
+            \setlength{\topsep}{0ex}
+         }
+   }
+   {
+\end{revnumerate}
+   }
+%end newenvironment
+
+\newenvironment{workshopsf}
+   {
+   \begin{revnumerate}[\value{totalnumworkshopsf}]
+   {}
+         {
+            \setlength{\itemsep}{.5ex}
+            \setlength{\parsep}{0ex}
+            \setlength{\leftmargin}{0em}
+            \setlength{\parskip}{0ex}
+            \setlength{\topsep}{0ex}
+         }
+   }
+   {
+\end{revnumerate}
+   }
+%end newenvironment
+
+\newenvironment{enumlist}
+   {
+   \begin{enumerate}
+   {}
+         {
+            \setlength{\itemsep}{.5ex}
+            \setlength{\parsep}{0ex}
+            \setlength{\leftmargin}{0em}
+            \setlength{\parskip}{0ex}
+            \setlength{\topsep}{0ex}
+         }
+   }
+   {
+\end{enumerate}
+   }
+%end newenvironment
+
+\newenvironment{dashlist}
+   {
+      \begin{list}
+         {\hspace{2em}--}
+         {
+            \setlength{\itemsep}{.5ex}
+            \setlength{\parsep}{0ex}
+            \setlength{\leftmargin}{1em}
+            \setlength{\parskip}{0ex}
+            \setlength{\topsep}{0ex}
+         }
+   }
+   {
+      \end{list}
+   }
+
+
+% bold sans-serif label for margin labels.
+%\newcommand{\marginlabel}[1]{{\large \textsf{\textbf{#1}}}}
+\newcommand{\marginlabel}[1]{
+\begin{minipage}[b]{0.8\labelwidth}{\large \textsf{\textbf{#1}}}\end{minipage}}
+
+%\newcommand{\marginlabel}[1]{\textsf{\textbf{#1}}}
+%\newcommand{\marginlabel}[1]{\textsf{\textbf{#1}}}
+%\newcommand{\marginlabel}[1]{\textsc{\textsc{#1}}}
+
+\newcommand{\entrylabel}[1]{\mbox{\marginlabel{#1}}\hfill}
+
+\newcommand{\MainListlabel}[1]
+   {
+      \parbox[t]{\labelwidth}{\hspace{.8em}\marginlabel{#1}}
+   }
+
+% a list with fixed width marginlabels.
+\newenvironment{MainList}[1]
+   {
+      \renewcommand{\entrylabel}{\MainListlabel}
+      \begin{list}{}
+      {
+         \renewcommand{\makelabel}{\entrylabel}
+         \setlength   {\itemindent}{-.65em}
+         \setlength   {\labelwidth}{#1}
+         \setlength   {\leftmargin}{\labelwidth}
+         \setlength   {\itemsep}{3ex}
+      }
+   }
+   {
+      \end{list}
+   }
+%end newenvironment
+
+\begin{document}
+\begin{MainList}{88pt}
+\item [Employment]
+\begin{bulletlist}
+\item {\bf SageMath, Inc.}: CEO/Founder, 2015--present.
+\item {\bf University of Washington}: Prof. of
+Math. (tenured), 2010--2019.
+\item {\bf University of Washington}: Assoc. Prof. of
+Math. (tenured), 2006--2010.
+\item {\bf UC San Diego}: Assoc. Prof. of Math. (tenured),
+2005--2006.
+\item {\bf Harvard University}: Benjamin Peirce Asst. Prof. of Math.,
+  2001--2005.
+\item {\bf Harvard University}: NSF Postdoctoral Fellow, 2000--2004.
+%\item Consultant for the Institute for Defense Analysis, 2002--present.
+\end{bulletlist}
+
+\item [Education]
+\begin{bulletlist}
+\item {\bf University of California at Berkeley},
+      Ph.D. in Mathematics, 2000,
+{\ptitle Explicit Approaches to Modular Abelian Varieties},
+under H.~W.~Lenstra.
+\item {\bf Northern Arizona University},
+     B.S. in Mathematics, 1994.
+\end{bulletlist}
+
+\item [Prizes]
+\begin{bulletlist}
+\item {\bf Richard Dimick Jenks
+Memorial Prize} for Excellence in
+Software Engineering applied to Computer Algebra, 2013.
+%\url{http://www.sigsam.org/awards/jenks/awardees/2013/}.
+\item {\bf Trophe\'es du Libre}. The SageMath project won first
+  prize in 2007 in Scientific Software (3000 euros, a laptop,
+  books, server space, etc.).
+\end{bulletlist}
+
+
+
+\item [Grants]
+\begin{grants}
+
+%\item {\bf National Geospatial Agency}, grant to fund the workshop
+%{\em Interactive Parallel Computation in Support of Research in Algebra, Geometry and Number Theory}, which I ran at MSRI Jan 29--Feb 2, 2007.
+\item PI on {\bf NSA Grant}, {\em Sage: Open Source Math Software}, 2014--2017.
+\item co-PI on {\bf NSF Grant}, DMS-7098841, {\em Sage-combinat: Developing and sharing open source software for algebraic combinatorics}, 2012--2015.
+\item PI on {\bf NSF Grant}, DMS-7180474, {\em Explicit Approaches to Elliptic Curves and Modular Abelian Varieties}, 2012--2015.
+\item co-PI on {\bf NSF Grant}, DMS-1062253, {\em REU: Inverse Problems for Electrical Networks}, 2011--2014.
+\item co-PI on {\bf NSF Grant}, DMS-1020378, {\em Collaborative Research: UTMOST: Undergraduate Teaching in Mathematics with Open Software and Textbooks}, undergraduate curriculum development, 2011--2014.
+\item PI on {\bf DOD Grant}, four Sage Bug-fixing workshops per year and other development support, 2011--2016.
+\item PI on {\bf NSF Grant} DMS-1015114, {\em Sage: Unifying Mathematical Software for Scientists, Engineers, and Mathematicians}, four Sage Days workshops per year, 2011--2014.
+\item UW Royalty Research Fellow (1-quarter teaching buyout), 2009--2010.
+\item PI on {\bf NSF Grant} DMS-0821725, SCREMS grant for number
+  theory, geometry, and software research (\$100K, purchased
+  high end computers for UW).
+\item PI on {\bf Google Grant}, for Sage development, Summer 2008 (amount: \$18K).
+\item PI on {\bf Microsoft Grant}, port Sage to Windows, 2008--2009 (amount: \$32K).
+\item PI on {\bf NSF Grant} DMS-0757627, {\em FRG: Collaborative Research: L-functions and Modular Forms}, 2008--2012
+(amount: \$1.2 million).
+\item co-PI on {\bf NSF Grant} DMS-0754486, {\em REU Site: Inverse Problems for Electrical Networks}, 2008--2011.
+\item PI on {\bf NSF Grant} DMS-0713225, {\em SAGE: Software for Algebra and Geometry Experimentation}, 2007--2010.
+\item PI on {\bf NSF Grant} DMS-0555776, {\em Explicit Approaches to the Birch and Swinnerton-Dyer Conjecture}, 2007--2010.
+\item co-PI on {\bf NSF Grant} DMS-0602287, {\em Southwest Center for Arithmetic Geometry}, 2006--2009.
+\item PI on {\bf NSF Grant,} DMS-0400386, {\em Explicit Approaches to Modular Forms and Modular Abelian Varieties}, 2004--2007.
+\item PI on {\bf Sun Academic Education Grant} (\$70K Sun Fire V480 server), 2003.
+\item From W.\thinspace{}R. Hearst III and Harvard
+(\$20K for 12 Processor Cluster), 2002.
+\item Clay Mathematics Institute Liftoff Fellowship, Summer 2000.
+\item Berkeley Vice Chancellor Research Grant (6 Processor Cluster), 1999.
+\end{grants}
+
+
+\item[Publications] All papers are available at \url{https://wstein.org/papers/}.
+ \begin{papers}
+
+ \item {\em Torsion points on elliptic curves over number fields of small
+ degree}, with Maarten Derickx, Sheldon Kamienny, and Michael Stoll, 2026
+ preprint, \url{https://arxiv.org/abs/1707.00364}.
+
+ \item {\em Beyond the black box}, with Jeroen Demeyer and Ursula Whitcher, 2016, Notices of the AMS.
+ \item {\em Databases of elliptic curves ordered by height and distributions of Selmer groups and ranks} (22 pages), with Jennifer S. Balakrishnan, Wei Ho, Nathan Kaplan, Simon Spicer and Jamie Weigandt, 2016, in ANTS XII proceedings.
+
+ \item {\em $p$-adic Heights of Heegner Points and Anticyclotomic Lambda-Adic Regulators} (34 pages), with Jennifer S. Balakrishnan and Mirela Ciperiani, 2013,
+ Math. Comp.
+
+\item {\ptitle A $p$-adic analogue of the conjecture of Birch and Swinnerton-Dyer for modular abelian varieties} (33 pages), with Jennifer S. Balakrishnan and J. Steffen M\"uller, 2013, Math. Comp.
+
+\item {\ptitle A Database of Elliptic Curves over $\mathbf{Q}(\sqrt{5})$ -- First Report}
+ (16 pages), with Jonathan Bober, Alyson Deines, Ariah Klages-Mundt, Benjamin LeVeque, R.~Andrew Ohana, Ashwath Rabindranath, Paul Sharaba, 2012, appeared in ANTS proceedings.
+
+\item {\ptitle Numerical computation of Chow-Heegner points associated
+to pairs of elliptic curves} (12 pages), 2012, to appear in Math. Comp. (as an appendix).
+
+\item {\ptitle Sage: Creating a Viable Free Open Source Alternative
+to Magma, Maple, Mathematica, and MATLAB} (9 pages), in the
+FoCM 2011 proceedings.
+
+\item {\ptitle Non-commutative Iwasawa theory for modular forms} (40 pages), with
+John Coates, Tim Dokchitser, Zhibin Liang, Ramdorai Sujatha, 2013, in Proceedings of the London Math Society.
+
+ \item {\ptitle Heegner Points and the Arithmetic of Elliptic Curves
+     over Ring Class Extensions} (20 pages), with Robert Bradshaw,
+   April 2012, J. Number Theory.
+
+ \item {\ptitle Kolyvagin's Conjecture for Some Specific Higher Rank
+     Elliptic Curves} (40 pages), 2011, submitted.
+
+\item {\ptitle Computations About Tate-Shafarevich Groups Using
+    Iwasawa Theory} (46 pages), with Christian Wuthrich, 2012, to
+apear in Mathematics of Computation.
+
+ \item {\ptitle The Sage Project: Unifying Free Mathematical Software
+     to Create a Viable Alternative to Magma, Maple, Mathematica and
+     MATLAB} (16 pages), 2010, in the Proceedings of the International
+   Congress of Mathematical Software, Kobe, Japan.
+
+\item {\ptitle Toward a Generalization of the Gross-Zagier Conjecture}
+  (17 pages), 2010, Int.\ Math.\ Res.\ Notices.
+
+\item {\ptitle Fast Computation of Hermite Normal Forms of Random
+    Integer Matrices} (16 pages), with Clement Pernet,
+Volume 130, Issue 7, July 2010, Pages 1675-1683, Journal of Number Theory.
+
+\item {\ptitle Verification of the Birch and Swinnerton-Dyer
+    Conjecture for Specific Elliptic Curves}, with G. Grigorov, A.
+  Jorza, S. Patrikis, and C. Patrascu (26 pages), 2009, to appear in
+  Mathematics of Computation.
+
+\item {\em The Modular Degree, Congruence Primes and Multiplicity One}
+  (16 pages), with Amod Agashe and Ken Ribet, 2012, in
+a volume in honor of Serge Lang.
+
+\item {\ptitle Explicit Heegner points: Kolyvagin's conjecture and
+    non-trivial elements in the Shafarevich-Tate group}, with Dimitar
+  Jetchev and Kristin Lauter (18 pages), 2008, Journal of Number
+  Theory.
+
+\item {\ptitle On the generation of the coefficient field of a newform
+    by a single Hecke eigenvalue, with Koopa Koo and Gabor Wiese} (11
+  pages), 2008, J. Th\'eor. Nombres Bordeaux.
+
+\item {\ptitle Open Source Mathematical Software (opinion piece)} (1 page),
+ with David Joyner, Notices of the AMS, November 2007.
+
+\item {\ptitle Average Ranks of Elliptic Curve}, with
+Baur Bektemirov, Barry Mazur and Mark Watkins (19 pages), May 2007,
+Bulletins of the AMS.
+
+\item {\ptitle Visibility of Mordell-Weil Groups} (20 pages), 2008,
+  Documenta Mathematica.
+
+\item {\ptitle Visualizing Elements of Shafarevich-Tate Groups at
+    Higher Level}, with D. Jetchev (28 pages), 2008, Documenta
+  Mathematica.
+
+\item {\ptitle The Manin Constant}, with A. Agashe and K. Ribet (22
+  pages), 2006, in the World Scientific Coates Memorial Volume.
+
+\item {\ptitle Computation of $p$-Adic Heights and Log Convergence},
+with B. Mazur and J. Tate (36 pages), 2006, in the Documenta
+Mathematica Coates Memorial Volume.
+
+\item {\ptitle SAGE: System for Algebra and Geometry Experimentation}
+  with D. Joyner, (3 pages), in the SIGSAM Bulletin, 2005.
+
+\item {\ptitle Modular Parametrizations of Neumann-Setzer
+Elliptic Curves}, with M. Watkins, in IMRN 2004, no. 27, 1395--1405.
+
+\item {\ptitle Studying the Birch and Swinnerton-Dyer Conjecture for
+    Modular Abelian Varieties Using} MAGMA (23 pages), 2006, chapter in
+  Springer-Verlag book edited by J.~Cannon and W.~Bosma.
+
+\item {\ptitle Conjectures about Discriminants of Hecke Algebras of
+Prime Level} (16 pages), with F.~Calegari, in ANTS VI, Vermont, 2004.
+\item {\ptitle Constructing Elements in Shafarevich-Tate Groups of Modular
+Motives},
+   with N.~Dummigan and M.~Watkins, in ``Number theory and algebraic geometry---to Peter Swinnerton-Dyer on his 75th birthday'', Ed.
+   M. Reid and A. Skorobogatov, pages 91--118.
+
+ \item \emph{Approximation of eigenforms of infinite slope by
+     eigenforms of finite slope}, with R.~Coleman, Geometric aspects
+   of {D}work theory. {V}ol. {I}, {II}, Walter de Gruyter GmbH \&
+   Co. KG, Berlin, 2004, pp.~437--449.
+
+  \item {\ptitle $J_1(p)$ has connected fibers}, with B.~Conrad and
+    B.~Edixhoven, Documenta Mathematica, {\bf 8} (2003), 331--408.
+  \item {\ptitle Shafarevich-Tate Groups of Nonsquare Order},
+  in  Progress in Math., {\bf 224} (2004), 277--289, Birkhauser.
+  \item {\ptitle Visible Evidence for the Birch and Swinnerton-Dyer
+Conjecture for Rank $0$ Modular Abelian Varieties} (30 pages),
+with A.~Agashe, appeared in Mathematics of Computation.
+  \item {\ptitle A Database of Elliptic Curves--First Report}
+(10 pages) with M.~Watkins, in ANTS V proceedings, Sydney, Australia, 2002.
+  \item {\ptitle Visibility of Shafarevich-Tate  Groups
+    of Abelian Varieties}, with A.~Agashe,  J. Number Theory,  {\bf 97}
+  (2002),  no. 1, 171--185.
+  \item {\ptitle Cuspidal Modular Symbols are Transportable}, with H.~Verrill,
+   LMS J.\ Comput.\ Math., {\bf 4} (2001), 170--181.
+\item Appendix to Lario and Schoof's {\ptitle Some computations
+    with Hecke rings and deformation rings}, with A.~Agashe,
+     Experiment. Math. {\bf 11} (2002), no.~2, 303--311.
+  \item {\ptitle There are genus one curves over $\mathbf{Q}$
+         of every odd index}, J. Reine Angew. Math. {\bf 547}
+(2002), 139--147.
+  \item {\ptitle Component groups of purely toric quotients of
+semistable Jacobians}, with B.~Conrad, Math. Res. Lett.,  {\bf
+8}  (2001),  no. 5--6, 745--766.
+  \item {\ptitle The field generated by the points of small prime
+       order on an elliptic curve}, with L.~Merel,
+       Int.\ Math.\ Res.\ Notices,  2001, no.~20, 1075--1082.
+  \item {\ptitle An introduction to computing modular forms using
+modular symbols} (12 pages), in MSRI Publications (Volume 44),
+Algorithmic Number Theory: Lattices, Number Fields, Curves
+and Cryptography, Cambridge University Press, 2008.
+  \item {\ptitle A mod five approach to modularity of icosahedral Galois
+         representations}, with K.~Buzzard, Pac. J.
+Math.,  {\bf 203}  (2002),  no. 2, 265--282.%
+  \item {\ptitle Lectures on Serre's conjectures},
+     with K.\thinspace{}A.~Ribet,
+     in Arithmetic Algebraic Geometry, IAS/Park City Math.
+     Inst. Series, Vol.~9, 143--232.
+  \item {\ptitle Component groups of quotients of $J_0(N)$},
+     with D.~Kohel,   Proceedings of the 4th International
+     Symposium (ANTS-IV), 2000, 405--412.
+
+\item {\ptitle Empirical evidence for
+     the Birch and Swinnerton-Dyer conjectures for modular Jacobians of
+     genus 2 curves},
+     with E.\thinspace{}V.~Flynn, F.~Lepr\'{e}vost,
+     E.\thinspace{}F. Schaefer,
+     M.~Stoll, J.\thinspace{}L.~Wetherell,
+     Math.\  of Comp. {\bf 70} (2001), no. 236, 1675--1697.
+
+
+%  \item {\ptitle Fallacies, Flaws, and
+%         Flimflam \#92:   An Inductive Fallacy} (1 page),
+%     with A.~Riskin,  College Math.\ J.\ 26:5 (1995), 382.
+%\newcounter{local}\setcounter{local}{\value{enumi}}
+ \end{papers}
+
+
+
+\item [Books]
+\begin{books}
+%\setcounter{enumi}{\value{local}}
+\item {\ptitle Prime Numbers and the Riemann Hypothesis} (154 pages), with
+  B. Mazur (see \url{https://wstein.org/rh/});
+  published by
+  Cambridge University Press.
+
+\item {\ptitle Algebraic Number Theory, a Computational Approach} (215 pages), (see \url{https://wstein.org/books/ant/}); under contract with the AMS.
+
+\item {\ptitle Modular Forms, a Computational Approach}, (268
+pages), published as AMS Graduate Studies in Mathematics, Volume {\bf 79},  2007,
+and  available at \url{https://wstein.org/books/modform/}.
+
+  \item {\ptitle Elementary Number Theory}
+   (185 pages), published in the Springer-Verlag UTM series, 2008,
+\url{https://wstein.org/ent/}.
+
+%\item {\ptitle A Brief Introduction to Classical and Adelic Algebraic
+%    Number Theory} (190 pages), \url{https://wstein.org/papers/ant/}.
+
+\item {\ptitle Lectures on Modular Forms and Galois Representations}
+  (200 pages), with K.\thinspace{}A. Ribet (on hold).
+
+
+\end{books}
+
+%\newpage
+\item [Computation]
+\begin{bulletlist}
+\item Founder and lead developer of CoCalc
+(\url{https://cocalc.com}).
+\item Founder of SageMath (\url{https://www.sagemath.org}).
+\item Founder and lead developer of Sage.js (\url{https://sagejs.org}),
+an open mathematical system for human and agent research.
+\item Fluent in TypeScript, Python, Cython, JavaScript, C/C++, LaTeX, Magma and React.
+\item Wrote the modular forms, modular symbols, and modular abelian
+  varieties components of Magma (over 25,000 lines of code).
+%\item The Modular Forms Database: \url{https://wstein.org/tables/}.
+\end{bulletlist}
+
+\item [Selected Teaching]
+
+%{\bf Professional Conference Organization}
+%\begin{bulletlist}
+%\item
+%\end{bulletlist}
+
+% {\bf Student Conference Organization}
+% \begin{bulletlist}
+% \item {\em Arizona Winter School}, 2007--2009, co-organizer (over 100
+%   attendees each year).
+% \item {\em Computing with Modular Forms}, MSRI Summer Workshop,
+% July 31--August 11, 2006.  Graduate student
+% workshop (about 35 attendees).
+% \end{bulletlist}
+
+{\bf University of Washington}
+\setcounter{totalnumclasses}{40}
+\begin{classes}
+\item {\em Math 480: Sage -- Open Source Mathematical Software}, Spring 2016.
+\item {\em Math 582: Computational number theory}, Winter 2016.
+\item {\em Math 480: Sage -- Free Open Source Math. Software}, Spring 2014.
+\item {\em Math 480: Undergraduate Number Theory}, Winter 2014.
+\item {\em Math 581f: Topics in Computational Number Theory}, Fall 2013.
+\item {\em Math 480a/582: Sage -- Free Open Source Math. Software}, Spring 2013.
+\item {\em Math 308: Linear Algebra}, Spring 2013.
+\item {\em Math 581e: Algebraic Number Theory}, Fall 2012.
+\item {\em Math 480a/582: Sage -- Free Open Source Math. Software}, Winter 2012.
+\item {\em Math 581g: Lectures on Modular Forms and Hecke Operators}, Fall 2011.
+\item {\em Math 480a: Sage -- Free Open Source Mathematical Software}, Spring 2011.
+\item {\em Math 581b: Algebraic number theory graduate course}, Fall 2010.
+\item {\em Math 581d: Computer Programming for Mathematicians}, Fall 2010.
+\item {\em Math 480: Computer Programming for Mathematicians}, Spring 2010.
+\item {\em Math 582e: Galois Cohomomogy}, Winter 2010.
+\item {\em Math 414: Elementary Number Theory}, Winter 2010.
+\item {\em Math 583e: Graduate Computational Number Theory, part 2}, Spring 2009.
+\item {\em Math 480: Open Source Mathematical Software},  Spring 2009.
+\item {\em Math 582e: Graduate Computational Number Theory}, Winter 2009.
+\item {\em SIMUW: Mathematical Finance}, Summer 2008.
+\item {\em Math 480: Open Source Mathematical Software},  Spring 2008.
+\item {\em Math 581f: Graduate Algebraic Number Theory}, Fall 2007.
+\item {\em SIMUW: The Riemann Hypothesis}, Summer 2007.
+\item {\em Math 583: The Birch and Swinnerton-Dyer Conjecture}, Spring 2007.
+\item {\em Math 480: Elementary Number Theory},  Spring 2007.
+\item {\em SIMUW: The Congruent Number Problem}, Summer 2006.
+\item {\em Math 583: Computing with Modular Forms},  Spring 2006.
+\end{classes}
+
+
+\setcounter{totalnumclasses}{13}
+{\bf UC San Diego}
+\begin{classes}
+\item {\em Elliptic Curves and Modular Forms}, Fall 2005.
+\item {\em Calculus For Scientists and Engineers}, Winter 2006.
+\end{classes}
+
+\setcounter{totalnumclasses}{11}
+{\bf Harvard University}
+\begin{classes}
+\item {\em Freshman Seminar on Fermat's Last Theorem}, Fall 2004.
+\item {\em Computing With Modular Forms}, Fall 2004.
+\item {\em Algebraic Number Theory}, Spring 2004.
+\item {\em Modular Abelian Varieties}, Fall 2003.
+\item {\em Freshman Seminar on Elliptic Curves},  Spring 2003.
+\item {\em Elementary Number Theory}, Fall 2001 and Fall 2002.
+\item {\em Linear Algebra}, Fall 2001 and Spring 2002.
+\end{classes}
+%\vspace{1ex}
+
+%\vspace{1ex}
+\setcounter{totalnumclasses}{4}
+{\bf University of California at Berkeley}
+\begin{classes}
+ \item {\em Discrete Mathematics}, Summer 1997.
+ \item {\em Calculus}, Fall 1995--Spring 1997, teaching assistant.
+\end{classes}
+
+%\vspace{1ex}
+\setcounter{totalnumclasses}{2}
+{\bf Northern Arizona University}
+\begin{classes}
+ \item {\em College Mathematics With Applications}, Spring 1995.
+ \item {\em College Algebra}, Fall 1994.
+\end{classes}
+
+
+
+
+
+%{\bf Referee}
+%\begin{bulletlist}
+%\item Refereed papers for {\sl Mathematics of Computation},
+% {\sl Mathematische Annalen}, and {\sl The Journal of Symbolic Computation}.
+%\end{bulletlist}
+
+
+
+%\item [Memberships]
+%\begin{bulletlist}
+%\item American Mathematical Society, 1995--present.
+%\item Mathematical Association of America, 1998--present.
+%\end{bulletlist}
+
+\item [Ph.D.\\Students]
+
+\begin{students}
+\item {\bf Kevin Lui}, Ph.D., June 2019.
+\item {\bf Gerardo Zelaya}, Ph.D., June 2019.
+\item {\bf Hao Chen}, Ph.D. June 2016 on {\em Modular points on elliptic curves}. At Microsoft Research.
+\item {\bf Simon Spicer}, Ph.D. June 2015 on {\em The.
+Explicit Formula}. At Facebook.
+\item {\bf Alyson Deines}, Ph.D. June 2014 on {\em Discriminant Twins}.  At CCR.
+\item {\bf Robert Bradshaw}, Ph.D. June 2010 on {\em Provable
+    Computation of Motivic $L$-function}.  At Google.
+\item {\bf Robert Miller}, Ph.D. received June 2010 on {\em
+    Verification of the Birch and Swinnerton-Dyer conjecture for
+    individual elliptic curves}.  At Google.
+\end{students}
+
+
+
+\item [Other\\Activities]
+{\bf Workshop and Conference Organization:}  I (co-)organized
+all of the following workshops and conferences.
+\begin{workshops}
+%\begin{bulletlist}
+\item {\em Sage Days 70}, Nov 8-14, 2015, Berkeley.
+\item {\em Sage Days 68: Bug Days}, August 21-27, 2015.
+\item {\em Sage Days 61: Quaternion Orders and Brandt Modules}, August 25-29, 2014, Copenhagen, Denmark.
+\item {\em Sage Days 48: Notebook Dev}, June 17-21, 2013, at UW.
+\item {\em Sage Days 46: Computational number theory}, February 26-March 2, 2013, Hawaii.
+\item {\em Reproducibility in Computational and Experimental Mathematics}, at ICERM (Brown University), Dec 10-14, 2012.
+\item {\em SIMUW: Deep Conjectures in Number Theory}, Summer 2012.
+\item {\em AMS Arithmetic Statistics School}, June 24-30, 2012, in Snowbird Utah.
+\item {\em Sage Days 41: The Sage Notebook}, June 11-15, 2012, at UW.
+\item {\em Sage Days 40.5: Bug Days}, May 24--29, 2012 in Gold Bar, WA.
+\item {\em Sage Days 36.5: Overconvergent Modular Symbols}, April 17-22, 2012, at UW.
+\item {\em Sage Days 36: p-adics in Sage}, Feb 2012, San Diego, CA.
+\item {\em AMS Short Course: Computing with Elliptic Curves using Sage} at the Joint Math Meetings in 2012 in Boston.
+\item {\em Sage Days 32: Bug Days}, at UW.
+\item {\em REU: Elliptic Curves}, 8 weeks of summer 2011, at UW.
+\item {\em Sage Days 31: The Sage Notebook}, June 2011, UW.
+\item {\em Sage Days 29}, March 2011, UW.
+\item {\em MSRI Program in Arithmetic Statistics}, Spring 2011, at MSRI in Berkeley.
+\item {\em Sage Days 27: Bug Days}, January 2011, UW.
+\item {\em Sage Days 26: Women in Sage}, December 2010, UW.
+\item {\em Workshop on Elliptic Curves and Computation}, October 2010, Microsoft Research.
+\item {\em Sage Days 25: Numerical computation}, August, 2010, in Mubmai, India.
+\item {\em Sage Days 24: Symbolic computation}, July, 2010 at RISC in Linz, Austria.
+\item {\em Sage Days 23: Number theory}, July, 2010 in Leiden, Netherlands.
+\item {\em Sage Days 22: MSRI Summer Graduate Student Workshop on Elliptic Curves}, June 2010 in
+MSRI (Berkeley, CA).
+\item {\em Sage Days 21: Function fields}, May 2010, UW.
+\item {\em Sage Days 19: Bug Smash}, January 2010, UW.
+\item {\em Sage Days 18: Computations related to the Birch and Swinnerton-Dyer Conjecture},
+  Dec 2009, at the Clay Mathematics Institute in Cambridge, MA.
+\item {\em Sage Days 17: Computing with Modular forms and L-functions}, Sep. 2009, on Lopez Island.
+\item {\em Sage Days 16: Computational Number Theory}, June 2009, in Barcelona, Spain.
+\item {\em Sage Days 15}, May 2009.
+\item {\em Arizona Winter School: Quadratic Forms}, March 2009.
+\item {\em Sage Days 14: Sage and Macaulay2 for Algebraic Geometry Experimentation}, March 2009,
+MSRI (Berkeley).
+\item {\em Sage Days 13: Quadratic Forms and Lattices}, March 2009, Athens, Georgia.
+\item {\em Sage Days 12: Bug Smash}, Jan. 2009, San Diego, CA.
+\item {\em Sage Days 11: Special functions and computational number theory meet scientific computing}, Nov. 2008, Austin, Texas.
+\item {\em Sage Days 9: Mathematical graphics and visualization}, Aug. 2009, Vancouver.
+\item {\em Workshop on $L$-functions and Modular Forms}, June 2008, UW.
+\item {\em $L$-functions Summer School and Coding Sprint}, June 2008, UW.
+\item {\em Sage Developer Coding Days}, June 2008, UW.
+\item {\em Arizona Winter School: Special Functions and Transcendence },
+    March 2008, Univ. of Arizona.
+\item {\em Sage Days 8: Number Theory and High Performance Numerical
+    Computation}, March 2008, at UT Austin.
+\item {\em Sage Days 7,} Feb 2008, IPAM (UCLA).
+\item {\em SAGE Days 6,} Nov. 2007, Bristol, UK.
+\item {\em SAGE Days 5 -- Computational Arithmetic Geometry,} Oct 2007 at the Clay Math Institute
+in Cambridge, MA.
+\item {\em Workshop on Modular Forms and L-functions,} Aug. 2007 at AIM (Palo Alto).
+\item {\em Sage Days 4,} June 2007 at UW.
+\item {\em Modular Forms: Arithmetic and Computation,} June 2007 at Banff.
+\item {\em Arizona Winter School: $p$-adic Geometry,} March 2007 at Univ. of Arizona.
+\item {\em Sage Days 3,} Feb. 2007 at IPAM (UCLA).
+\item {\em Interactive Parallel Computation in Support of Research in Algebra, Geometry and Number Theory,} Feb 2007 at MSRI (Berkeley).
+\item {\em Sage Days 2,} Oct. 2006 at UW.
+\item {\em Summer Graduate Workshop on Computing with Modular Forms,} July 2006 at MSRI (Berkeley).
+\item {\em Sage Days 1,} Feb 2006 at UC San Diego.
+\end{workshops}
+%\end{bulletlist}
+
+
+% \begin{center}
+% ------------------------------------------------------------------------------------
+% \end{center}
+
+\item [Personal]
+\address{}\\\newline
+Phone: \phone\\
+Email: \email\\
+Web: \www \\
+Citizenship: USA\\
+
+
+%\newpage
+% \item [References]\mbox{}\\
+% \newcommand{\tw}{.4\textwidth}
+
+% \hspace{-2em}\begin{tabular}{ll}
+% \begin{minipage}[b]{\tw}
+% {\bf Professor Benedict H. Gross}\\
+% Department of Mathematics\\
+% Harvard University\\
+% Cambridge, MA  02138\\
+% (617) 495-2172\\
+% {\tt gross@math.harvard.edu}
+% \end{minipage}
+% &
+% \begin{minipage}[b]{\tw}
+% {\bf Professor Joe Harris}\\
+% Department of Mathematics\\
+% Harvard University\\
+% Cambridge, MA  02138\\
+% (617) 495-2172 \\
+% {\tt harris@math.harvard.edu}
+% \end{minipage}
+% \\&\\
+% \begin{minipage}[b]{\tw}
+% {\bf Professor Hendrik W.~Lenstra}\\
+% Mathematisch Instituut\\
+% Universiteit Leiden\\
+% The Netherlands\\
+% (31/0) 71 527-7127\\
+% {\tt hwl@math.leidenuniv.nl}
+% \end{minipage}
+% &
+% \begin{minipage}[b]{\tw}
+% {\bf Professor Barry C.~Mazur}\\
+% Department of Mathematics\\
+% Harvard University\\
+% Cambridge, MA  02138\\
+% (617) 495-2171 ext.~512\\
+% {\tt mazur@math.harvard.edu}
+% \end{minipage}
+% \\&\\
+% \begin{minipage}[b]{\tw}
+% {\bf Professor Kenneth A.~Ribet}\\
+% Department of Mathematics\\
+% University of California\\
+% Berkeley, CA 94720-3840\\
+% (510) 642-0648\\
+% {\tt ribet@math.berkeley.edu}
+% \end{minipage}
+% &
+% \begin{minipage}[b]{\tw}
+% {\bf Professor John Tate (Emeritus)}\\
+% Department of Mathematics\\
+% Harvard University\\
+% Cambridge, MA  02138\\
+% {\tt jtate@math.harvard.edu}\\
+% \end{minipage}
+% \end{tabular}
+
+\end{MainList}
+
+\end{document}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+
+
+
+
+
+
+
+
+
+
+
+\comment{
+\begin{minipage}[b]{\tw}
+{\bf Professor Shing-Tung Yau}\\
+Department of Mathematics\\
+Harvard University\\
+Cambridge, MA  02138\\
+(617) 495-0836\\
+{\tt yau@math.harvard.edu}\\
+(teaching)\\
+\end{minipage}
+%\begin{minipage}[b]{\tw}
+%{\bf Professor Hendrik W.~Lenstra}\\
+%Department of Mathematics \#3840\\
+%University of California\\
+%Berkeley, CA 94720-3840\\
+%(510) 643-7857\\
+%{\tt hwl@math.berkeley.edu}
+%\mbox{}\\
+%\end{minipage}
+
+\item [References]\mbox{}\vspace{2ex}\\
+\newcommand{\tw}{.4\textwidth}
+\hspace{-4em}\begin{tabular}{ll}
+\begin{minipage}[b]{\tw}
+{\bf Professor Benedict Gross}\\
+Department of Mathematics\\
+Harvard University\\
+One Oxford Street\\
+Cambridge, MA  02138\\
+(617) 495-2172\\
+{\tt gross@math.harvard.edu}
+\end{minipage}\\
+&
+\begin{minipage}[b]{\tw}
+{\bf Professor Barry C.~Mazur}\\
+Department of Mathematics\\
+Harvard University\\
+One Oxford Street\\
+Cambridge, MA  02138\\
+(617) 495-2171 ext.~512\\
+{\tt mazur@math.harvard.edu}
+\end{minipage}
+\\
+\begin{minipage}[b]{\tw}
+{\bf Professor Kenneth A.~Ribet}\\
+Department of Mathematics \#3840\\
+University of California\\
+Berkeley, CA 94720-3840\\
+(510) 642-0648\\
+{\tt ribet@math.berkeley.edu}
+\end{minipage}
+\end{tabular}
+}
+
+\end{MainList}
+
+\end{document}
+
+\begin{minipage}[b]{\tw}
+{\bf Professor Hendrik W.~Lenstra}\\
+Mathematisch Instituut\\
+Universiteit Leiden\\
+The Netherlands\\
+(31/0)71 527-7127\\
+{\tt hwl@math.leidenuniv.nl}\\
+(research)\\
+\end{minipage}
+
+
+\comment{\begin{minipage}[b]{\tw}
+{\bf Professor Robert F.~Coleman}\\
+Department of Mathematics\\
+University of California\\
+Berkeley, CA 94720-3840\\
+(510) 642-5101\\
+{\tt coleman@math.berkeley.edu}\\
+(research)\\
+\end{minipage}
+&\begin{minipage}[b]{\tw}
+{\bf Professor Benedict Gross}\\
+Department of Mathematics\\
+Harvard University\\
+Cambridge, MA  02138\\
+(617) 495-2172\\
+{\tt gross@math.harvard.edu}\\
+(research)\\
+\end{minipage}
+\\&\\
+}
+\begin{minipage}[b]{\tw}
+{\bf Doctor Kevin M.~Buzzard}\\
+Department of Mathematics\\
+Huxley Building\\
+Imperial College\\
+180 Queen's Gate\\
+London, SW7 2BZ\\
+England\\
++44 207 594 8523\\
+{\tt buzzard@ic.ac.uk}
+\end{minipage}
+&
+\begin{minipage}[b]{\tw}
+{\bf Professor Robert F.~Coleman}\\
+Department of Mathematics \#3840\\
+University of California\\
+Berkeley, CA 94720-3840\\
+(510) 642-5101\\
+{\tt coleman@math.berkeley.edu}\\
+\mbox{}\\
+\mbox{}\\
+\end{minipage}
+\\
+&\\
+
+%sagemathcloud={"zoom_width":110}

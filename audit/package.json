@@ -1,0 +1,11 @@
+{
+  "name": "wstein-site-audit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "audit": "node src/audit.mjs"
+  },
+  "dependencies": {
+    "parse5": "^8.0.0"
+  }
+}

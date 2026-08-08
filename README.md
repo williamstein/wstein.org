@@ -1,30 +1,71 @@
-# wstein.org R2 Worker
+# wstein.org site core
 
-Static site deployment for `/home/user/www`.
+This repository is the small, non-binary source of truth for the actively
+maintained part of [wstein.org](https://wstein.org). The 52 GiB historical
+archive remains in `/home/user/www` and Cloudflare R2; it is intentionally not
+copied into Git.
 
-## Required Secrets
+## What belongs here
 
-Create `/home/user/.cloudflare-r2.env` with:
+- `site/overlay/`: modernized pages and shared styles, stored at their public
+  paths and copied over the historical archive during development/deployment.
+- `src/` and `bin/`: the Cloudflare Worker, R2 synchronization, symlink routing,
+  and overlay workflow.
+- `audit/`: the repeatable filesystem and link-graph audit.
 
-```bash
-export CLOUDFLARE_ACCOUNT_ID="..."
-export CLOUDFLARE_API_TOKEN="..."
-export R2_BUCKET="wstein-org"
-export R2_ACCESS_KEY_ID="..."
-export R2_SECRET_ACCESS_KEY="..."
-export R2_ENDPOINT="https://<account-id>.r2.cloudflarestorage.com"
-```
+Generated reports, credentials, R2 manifests, dependencies, and the generated
+symlink map are ignored. Cloudflare credentials must remain in
+`/run/secrets/cocalc` and `/home/user/.cloudflare-r2.env`, never in this repo.
 
-`CLOUDFLARE_API_TOKEN` is for `wrangler deploy`.
-`R2_ACCESS_KEY_ID` and `R2_SECRET_ACCESS_KEY` are S3-compatible R2 credentials for uploading site files.
+## Edit and publish a page
 
-## Deploy
+Edit the copy under `site/overlay/`, then run:
 
 ```bash
 cd /home/user/wstein-r2-worker
-bin/check.sh
-bin/sync-r2.sh
+bin/apply-site-overlay.sh
+/home/user/bin/start.sh
+cd audit && npm install && npm run audit
+cd ..
+bin/fast-sync-r2.sh
+```
+
+The local preview is normally available at `http://127.0.0.1:8080/` and through
+the CoCalc port proxy printed by `/home/user/bin/start.sh`.
+
+If a live file in `/home/user/www` was edited first, update the tracked copy:
+
+```bash
+bin/capture-site-overlay.sh
+```
+
+Only paths listed in `site/overlay-files.txt` are copied in either direction.
+Neither script deletes files.
+
+## Full audit
+
+```bash
+cd /home/user/wstein-site-audit
+npm install
+npm run audit
+./start-report.sh
+```
+
+The compatibility path `/home/user/wstein-site-audit` points into this repo.
+
+## Deployment tooling
+
+```bash
+# Fast uploads after ordinary edits; does not delete remote files.
+bin/fast-sync-r2.sh
+
+# Full reconciliation, including remote deletion.
+DELETE_CHECK=1 bin/fast-sync-r2.sh
+
+# Regenerate aliases and deploy Worker routing changes.
 bin/deploy-worker.sh
 ```
 
-The first deployment should go to `workers.dev` first. After verifying it, add the `wstein.org/*` route or custom domain in Cloudflare.
+See `audit/FINDINGS.md` for the initial archive assessment. Before pushing to
+GitHub, add the chosen empty repository as `origin`; no remote is configured by
+this project automatically.

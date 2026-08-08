@@ -1,0 +1,4 @@
+node_modules/
+report/
+.report-server.pid
+.report-server.log

@@ -1,3 +1,5 @@
+import { SYMLINK_ALIASES } from "./symlink-map.js";
+
 const CACHE_SECONDS = 3600;
 const IMMUTABLE_SECONDS = 31536000;
 
@@ -49,12 +51,18 @@ export default {
     }
 
     const url = new URL(request.url);
-    const keyCandidates = candidatesForPath(url.pathname);
+    const aliasedPathname = applySymlinkAlias(url.pathname);
+    const keyCandidates = candidatesForPath(aliasedPathname);
     const found = await firstObject(env.SITE_BUCKET, keyCandidates);
 
     if (!found) {
+      if (!url.pathname.endsWith("/") && await directoryExists(env.SITE_BUCKET, `${aliasedPathname}/`)) {
+        url.pathname = `${url.pathname}/`;
+        return Response.redirect(url.toString(), 301);
+      }
+
       if (url.pathname.endsWith("/")) {
-        const listing = await directoryListing(env.SITE_BUCKET, url.pathname);
+        const listing = await directoryListing(env.SITE_BUCKET, aliasedPathname, url.pathname);
         if (listing) return listing;
       }
       const notFound = await env.SITE_BUCKET.get("404.html");
@@ -80,9 +88,21 @@ function candidatesForPath(pathname) {
   if (path.endsWith("/")) {
     candidates.push(`${path}index.html`);
   } else {
-    candidates.push(`${path}.html`, `${path}/index.html`);
+    candidates.push(`${path}.html`);
   }
   return [...new Set(candidates)];
+}
+
+function applySymlinkAlias(pathname) {
+  let path = decodeURIComponent(pathname).replace(/^\/+/, "");
+  for (const [from, to] of SYMLINK_ALIASES) {
+    if (from.endsWith("/")) {
+      if (path.startsWith(from)) return `/${to}${path.slice(from.length)}`;
+    } else if (path === from) {
+      return `/${to}`;
+    }
+  }
+  return pathname;
 }
 
 async function firstObject(bucket, keys) {
@@ -124,8 +144,8 @@ function extension(key) {
   return dot === -1 ? "" : basename.slice(dot + 1).toLowerCase();
 }
 
-async function directoryListing(bucket, pathname) {
-  const prefix = pathname.replace(/^\/+/, "");
+async function directoryListing(bucket, storagePathname, displayPathname = storagePathname) {
+  const prefix = storagePathname.replace(/^\/+/, "");
   const listed = await bucket.list({ prefix, delimiter: "/", limit: 1000 });
   const entries = [];
 
@@ -142,15 +162,15 @@ async function directoryListing(bucket, pathname) {
   if (entries.length === 0) return null;
   entries.sort((a, b) => a.name.localeCompare(b.name));
 
-  const parent = pathname === "/" ? "" : `<li><a href="../">../</a></li>`;
+  const parent = displayPathname === "/" ? "" : `<li><a href="../">../</a></li>`;
   const body = `<!doctype html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Index of ${escapeHtml(pathname)}</title>
+  <title>Index of ${escapeHtml(displayPathname)}</title>
 </head>
 <body>
-  <h1>Index of ${escapeHtml(pathname)}</h1>
+  <h1>Index of ${escapeHtml(displayPathname)}</h1>
   <ul>
     ${parent}
     ${entries.map((entry) => `<li><a href="${entry.href}">${escapeHtml(entry.name)}</a></li>`).join("\n    ")}
@@ -164,6 +184,12 @@ async function directoryListing(bucket, pathname) {
       "cache-control": `public, max-age=${CACHE_SECONDS}`,
     },
   });
+}
+
+async function directoryExists(bucket, storagePathname) {
+  const prefix = storagePathname.replace(/^\/+/, "");
+  const listed = await bucket.list({ prefix, delimiter: "/", limit: 1 });
+  return listed.objects.length > 0 || listed.delimitedPrefixes.length > 0;
 }
 
 function encodePathPart(part) {

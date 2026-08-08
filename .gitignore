@@ -1,0 +1,11 @@
+.fast-sync-r2-marker
+.fast-sync-r2-state.json
+.wrangler/
+node_modules/
+
+audit/node_modules/
+audit/report/
+audit/.report-server.pid
+audit/.report-server.log
+
+*.log

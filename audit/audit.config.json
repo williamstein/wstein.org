@@ -1,0 +1,15 @@
+{
+  "siteRoot": "/home/user/www",
+  "siteOrigin": "https://wstein.org",
+  "acceptedHosts": ["wstein.org", "www.wstein.org"],
+  "entryPoints": [
+    "/",
+    "/papers/",
+    "/books/",
+    "/talks/",
+    "/courses/",
+    "/pics/",
+    "/Tables/"
+  ],
+  "reportDir": "/home/user/wstein-site-audit/report"
+}

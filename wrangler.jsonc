@@ -4,10 +4,21 @@
   "main": "src/index.js",
   "compatibility_date": "2026-06-30",
   "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "wstein.org/*",
+      "zone_name": "wstein.org"
+    },
+    {
+      "pattern": "www.wstein.org/*",
+      "zone_name": "wstein.org"
+    }
+  ],
   "r2_buckets": [
     {
       "binding": "SITE_BUCKET",
       "bucket_name": "wstein-org"
     }
-  ]
+  ],
+  "account_id": "bf59ea74a28f5bf3c2679e78f6db1205"
 }

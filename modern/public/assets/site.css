@@ -47,6 +47,8 @@ h1, h2, h3 { margin-top: 0; font-family: Georgia, "Times New Roman", serif; lett
 .button--primary:hover { color: #fff; background: var(--green-dark); }
 .button--ghost { color: #fff; border-color: rgb(255 255 255 / 55%); background: rgb(0 0 0 / 15%); }
 .button--ghost:hover { color: #fff; border-color: #fff; }
+.button--outline { color: var(--green-dark); border-color: #8ca59e; background: transparent; }
+.button--outline:hover { color: #fff; border-color: var(--green-dark); background: var(--green-dark); }
 
 .band { padding: 76px 0; background: var(--wash); }
 .band + .band { border-top: 1px solid var(--line); }
@@ -168,6 +170,13 @@ h1, h2, h3 { margin-top: 0; font-family: Georgia, "Times New Roman", serif; lett
 .grant-status--denied { color: #7e3c36; border-color: #d8bbb8; background: #f8efee; }
 
 .research-page { padding-bottom: 78px; }
+.current-research { margin-top: 0; padding: 58px 0 62px; color: #fff; background: var(--header); border-bottom: 3px solid #ba9746; }
+.current-research__layout { display: grid; grid-template-columns: minmax(300px, 0.8fr) minmax(440px, 1.2fr); gap: 72px; align-items: start; }
+.current-research h2 { max-width: 520px; margin: 0; font-size: 42px; line-height: 1.08; }
+.current-research__body > p { max-width: 690px; margin: 0 0 15px; color: #cbd7d3; }
+.current-research__body > p:first-child { color: #fff; font-size: 19px; }
+.current-research .button--primary { background: #b58b31; }
+.current-research .button--primary:hover { background: #8d691f; }
 .research-themes { padding-top: 58px; }
 .research-theme-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 32px; }
 .research-theme-card { display: flex; min-height: 330px; flex-direction: column; padding: 24px; color: inherit; border-top: 4px solid var(--green); background: #fff; text-decoration: none; }
@@ -206,6 +215,25 @@ h1, h2, h3 { margin-top: 0; font-family: Georgia, "Times New Roman", serif; lett
 .theme-pagination span { margin-right: auto; color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }
 .theme-pagination a { font-size: 13px; font-weight: 700; }
 
+.sagejs-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 27px; }
+.sagejs-thesis { display: grid; grid-template-columns: minmax(300px, 0.8fr) minmax(440px, 1.2fr); gap: 72px; padding-top: 56px; padding-bottom: 64px; }
+.sagejs-thesis h2 { max-width: 480px; margin: 0; font-size: 37px; line-height: 1.12; }
+.sagejs-thesis > div:last-child p { max-width: 700px; margin: 0 0 16px; color: var(--muted); font-size: 17px; }
+.sagejs-principles { background: #e5e9e7; }
+.sagejs-principle-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 34px; border-top: 1px solid #b9c4c0; border-left: 1px solid #b9c4c0; }
+.sagejs-principle-grid article { min-height: 280px; padding: 22px; border-right: 1px solid #b9c4c0; border-bottom: 1px solid #b9c4c0; }
+.sagejs-principle-grid article > span { color: var(--red); font: 14px Georgia, serif; }
+.sagejs-principle-grid h3 { margin: 42px 0 11px; font-size: 22px; line-height: 1.18; }
+.sagejs-principle-grid p { margin: 0; color: var(--muted); font-size: 13px; }
+.continuity-layout { display: grid; grid-template-columns: minmax(280px, 0.75fr) minmax(440px, 1.25fr); gap: 72px; align-items: start; }
+.continuity-list { border-top: 1px solid var(--line); }
+.continuity-list a { display: flex; min-height: 89px; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 3px; color: inherit; border-bottom: 1px solid var(--line); text-decoration: none; }
+.continuity-list a:hover { color: inherit; background: var(--wash); }
+.continuity-list strong { display: block; font: 700 18px/1.2 Georgia, serif; }
+.continuity-list small { display: block; max-width: 640px; margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.continuity-list a > span:last-child { color: var(--green); font-size: 19px; }
+.sagejs-closing { margin-bottom: 0; }
+
 .photo-page { padding-bottom: 0; }
 .photo-mosaic { display: grid; grid-template-columns: 1.65fr 0.7fr; grid-template-rows: 220px 220px; gap: 8px; margin-top: 32px; margin-bottom: 70px; }
 .photo-mosaic a { position: relative; display: block; min-width: 0; min-height: 0; overflow: hidden; color: #fff; background: #202725; }
@@ -242,13 +270,14 @@ h1, h2, h3 { margin-top: 0; font-family: Georgia, "Times New Roman", serif; lett
   .site-header__inner { align-items: flex-start; padding: 15px 0; }
   .site-nav { gap: 11px 17px; }
   .home-hero h1 { font-size: 54px; }
-  .work-layout, .personal-layout, .research-record-layout, .research-resource-layout { grid-template-columns: 1fr; gap: 36px; }
+  .work-layout, .personal-layout, .research-record-layout, .research-resource-layout, .current-research__layout, .sagejs-thesis, .continuity-layout { grid-template-columns: 1fr; gap: 36px; }
   .section-heading--row { display: block; }
   .section-heading--row > p { margin-top: 12px; }
   .topic-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .research-theme-grid { grid-template-columns: 1fr; }
   .research-theme-card { min-height: 250px; }
   .research-theme-card h3 { margin-top: 28px; }
+  .sagejs-principle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .personal-photo { height: 360px; }
   .talk-tools { align-items: stretch; flex-direction: column; gap: 18px; }
   .talk-controls { width: 100%; }
@@ -308,6 +337,13 @@ h1, h2, h3 { margin-top: 0; font-family: Georgia, "Times New Roman", serif; lett
   .grant-row .arrow { display: none; }
   .research-work-list a { grid-template-columns: 28px minmax(0, 1fr) 16px; gap: 8px; }
   .theme-pagination span { width: 100%; }
+  .current-research { padding: 46px 0 50px; }
+  .current-research h2 { font-size: 34px; }
+  .current-research__body > p:first-child { font-size: 17px; }
+  .sagejs-thesis h2 { font-size: 31px; }
+  .sagejs-principle-grid { grid-template-columns: 1fr; }
+  .sagejs-principle-grid article { min-height: 220px; }
+  .sagejs-principle-grid h3 { margin-top: 28px; }
   .photo-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 270px 150px; margin-bottom: 55px; }
   .photo-mosaic__large { grid-column: 1 / -1; grid-row: auto; }
   .period-row { grid-template-columns: 80px minmax(0, 1fr) 18px; gap: 10px; }

@@ -21,7 +21,7 @@ directory listings are treated as visitor-discoverable.
    older-photo index now have no broken internal references. The broad archive
    is much less healthy: 25,143 internal references are broken.
 
-2. Curated entry pages now expose 12,538 of 21,077 HTML pages from the major
+2. Curated entry pages now expose 12,539 of 21,078 HTML pages from the major
    navigation seeds. Another 8,539 pages remain preserved but are no longer
    pulled into the visitor graph merely by a raw Books or Talks directory
    listing. This is an intentional distinction between preservation and
@@ -70,6 +70,9 @@ directory listings are treated as visitor-discoverable.
   50 publications, 134 talk directories, 44 course records, 19 student-project
   records, and 24 grant records. Three curated research guides preserve durable
   entry points into the larger archive.
+- Sage.js is presented as the active 2026 research program, connecting the
+  historical number-theory work, the SageMath open-software mission, CoCalc's
+  browser-based collaboration, and agent-verifiable mathematical software.
 - `Tables/` and the repaired older-photo entry page remain in the explicit
   Git-tracked legacy overlay and can migrate into Astro incrementally.
 

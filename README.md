@@ -53,6 +53,8 @@ The normalized catalogs and their legacy inputs live under `modern/src/data/`.
 Regenerating the generated catalogs is deterministic and does not require the
 large archive. The smaller Projects, Grants, and research-theme catalogs are
 curated directly there so their high-value metadata is preserved in Git.
+The maintained Research section also identifies Sage.js as the active 2026
+research program and keeps that framing in the versioned site source.
 
 The local preview is normally available at `http://127.0.0.1:8080/` and through
 the CoCalc port proxy printed by `/home/user/bin/start.sh`.

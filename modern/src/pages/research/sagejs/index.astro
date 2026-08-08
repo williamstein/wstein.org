@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const principles = [
+  {
+    number: "01",
+    title: "Semantics become evidence",
+    body: "SageMath behavior is a specification to test, not an impression to imitate. Compatibility claims are backed by executable examples, regression suites, and explicit scope.",
+  },
+  {
+    number: "02",
+    title: "Independent mathematical truth",
+    body: "PARI/GP, Magma, Oscar, Hecke, Nemo, and other systems provide independent semantic and performance oracles instead of a single circular reference implementation.",
+  },
+  {
+    number: "03",
+    title: "Readable by agents and mathematicians",
+    body: "Algorithms, interfaces, and documentation are structured so a person or an agent can locate a gap, understand the contract, implement it, and verify the result.",
+  },
+  {
+    number: "04",
+    title: "Research software everywhere",
+    body: "Node, native executables, Jupyter, and WebAssembly make the same open mathematical system available in terminals, notebooks, servers, and browsers.",
+  },
+];
+---
+
+<BaseLayout title="Sage.js Research - William A. Stein" description="Sage.js is William Stein's current research project: rebuilding open mathematical software for humans and computational agents." current="research">
+  <main class="page-main sagejs-page">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/research/">Research</a> / Sage.js</p>
+      <p class="eyebrow">Active research / 2026</p>
+      <h1>Sage.js</h1>
+      <p class="lead">I am working with Codex to rewrite Sage from scratch: a vastly cleaner open-source system intended to give computational agents the best possible foundation for doing serious mathematical research.</p>
+      <div class="sagejs-actions">
+        <a class="button button--primary" href="https://sagejs.org/">Open Sage.js</a>
+        <a class="button button--outline" href="https://sagejs.org/reference.html">Search the reference</a>
+      </div>
+    </header>
+
+    <section class="page-width sagejs-thesis" aria-labelledby="sagejs-thesis-title">
+      <div>
+        <p class="eyebrow">The research question</p>
+        <h2 id="sagejs-thesis-title">What should Sage be if we designed it now?</h2>
+      </div>
+      <div>
+        <p>SageMath proved that a broad, free mathematical system could support research and teaching. Sage.js asks how to preserve that mission while changing the architecture around a new reality: agents can now read, write, test, benchmark, and document substantial mathematical software.</p>
+        <p>The goal is not just faster code generation. It is a system whose mathematical contracts are explicit enough that agent work can be trusted: claims have evidence, compatibility has a measurable scope, and difficult algorithms can be checked against independent implementations.</p>
+      </div>
+    </section>
+
+    <section class="band sagejs-principles" aria-labelledby="sagejs-principles-title">
+      <div class="page-width">
+        <div class="section-heading section-heading--row">
+          <div><p class="eyebrow">Design commitments</p><h2 id="sagejs-principles-title">Software built for verifiable progress</h2></div>
+          <p>The live dashboard deliberately separates whether a capability exists, how broad it is, and how strongly its behavior has been certified.</p>
+        </div>
+        <div class="sagejs-principle-grid">
+          {principles.map((principle) => (
+            <article>
+              <span>{principle.number}</span>
+              <h3>{principle.title}</h3>
+              <p>{principle.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--work" aria-labelledby="continuity-title">
+      <div class="page-width continuity-layout">
+        <div class="section-heading">
+          <p class="eyebrow">Continuity</p>
+          <h2 id="continuity-title">The same threads, in a new system</h2>
+          <p>Sage.js brings together work that previously appeared as separate parts of my career.</p>
+        </div>
+        <div class="continuity-list">
+          <a href="/research/modular-forms/"><span><strong>Explicit mathematics</strong><small>Modular symbols, elliptic curves, number fields, and exact algebra provide demanding research-level test cases.</small></span><span aria-hidden="true">&rarr;</span></a>
+          <a href="https://www.sagemath.org/"><span><strong>Open mathematical software</strong><small>The original SageMath commitment remains: powerful mathematics should not depend on closed systems.</small></span><span aria-hidden="true">&nearr;</span></a>
+          <a href="https://cocalc.com/"><span><strong>Collaborative computation</strong><small>CoCalc made serious computation available through browsers and shared documents; Sage.js makes the mathematical runtime native to that world.</small></span><span aria-hidden="true">&nearr;</span></a>
+          <a href="https://sagejs.org/#capabilities"><span><strong>Agent collaboration</strong><small>Stable gap identifiers, executable examples, differential tests, and readable APIs turn the roadmap into parallel, checkable work.</small></span><span aria-hidden="true">&nearr;</span></a>
+        </div>
+      </div>
+    </section>
+
+    <aside class="page-width archive-callout sagejs-closing">
+      <div><p class="eyebrow">Living project</p><h2>Implementation, evidence, and roadmap</h2></div>
+      <p>Sage.js is an early preview and changes quickly. The <a href="https://sagejs.org/">live implementation map</a> is the source of truth for current capabilities, quality evidence, performance work, and next priorities.</p>
+    </aside>
+  </main>
+</BaseLayout>

@@ -42,9 +42,9 @@ export const researchThemes = [
   {
     slug: "computational-mathematics",
     label: "Computation and software",
-    title: "Computational mathematics and open software",
-    summary: "Algorithms, databases, and open systems for doing mathematics reproducibly and collaboratively.",
-    introduction: "The mathematical work and software work are closely linked: explicit questions motivate algorithms, implementations expose better questions, and open tools make both available to a much wider community.",
+    title: "Open mathematical software for humans and agents",
+    summary: "Algorithms, databases, and open systems for doing mathematics reproducibly, collaboratively, and with computational agents.",
+    introduction: "The mathematical work and software work are closely linked: explicit questions motivate algorithms, implementations expose better questions, and open tools make both available to a much wider community. Sage.js is the current continuation of this thread, rebuilding the system around readable code, executable evidence, and agent collaboration.",
     works: [
       ["Sage: Creating a viable free open-source alternative", "/papers/focm11/", "Paper"],
       ["The Sage Project: unifying free mathematical software", "/papers/icms/icms_2010.pdf", "Paper"],
@@ -53,6 +53,7 @@ export const researchThemes = [
       ["Beyond the black box", "https://arxiv.org/abs/1604.08472", "Article"]
     ],
     archives: [
+      ["Sage.js - current research", "/research/sagejs/"],
       ["Mathematical data and tables", "/Tables/"],
       ["Historical Magma material", "/Tables/magma/"],
       ["SageMath talks catalog", "/talks/"],

@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { researchThemes } from "../../data/researchThemes";
+---
+
+<BaseLayout title="Research - William A. Stein" description="Research by William Stein in number theory, arithmetic geometry, and computational mathematics." current="research">
+  <main class="page-main research-page">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / Research</p>
+      <p class="eyebrow">Number theory and computation</p>
+      <h1>Research</h1>
+      <p class="lead">My mathematical work centers on explicit arithmetic: modular forms, elliptic curves, the Birch and Swinnerton-Dyer conjecture, and software that makes difficult computation broadly accessible.</p>
+    </header>
+
+    <section class="band research-themes" aria-labelledby="research-themes-title">
+      <div class="page-width">
+        <div class="section-heading section-heading--row">
+          <div><p class="eyebrow">Areas</p><h2 id="research-themes-title">Three connected threads</h2></div>
+          <p>Each guide selects durable entry points from the larger archive: representative writing, books, talks, and computational data.</p>
+        </div>
+        <div class="research-theme-grid">
+          {researchThemes.map((theme, index) => (
+            <a class:list={["research-theme-card", `research-theme-card--${index + 1}`]} href={`/research/${theme.slug}/`}>
+              <span>{String(index + 1).padStart(2, "0")} / {theme.label}</span>
+              <h3>{theme.title}</h3>
+              <p>{theme.summary}</p>
+              <strong>Explore the work <span aria-hidden="true">&rarr;</span></strong>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--work" aria-labelledby="research-record-title">
+      <div class="page-width research-record-layout">
+        <div class="section-heading">
+          <p class="eyebrow">Complete record</p>
+          <h2 id="research-record-title">Writing, data, and people</h2>
+          <p>The thematic pages are intentionally selective. These catalogs preserve the broader output and the people and funding that supported it.</p>
+        </div>
+        <div class="research-link-list">
+          <a href="/papers/"><span><strong>Papers and preprints</strong><small>50 works with searchable topics and citations</small></span><span aria-hidden="true">&rarr;</span></a>
+          <a href="/books/"><span><strong>Books and open texts</strong><small>Published books, drafts, web editions, and source</small></span><span aria-hidden="true">&rarr;</span></a>
+          <a href="/Tables/"><span><strong>Mathematical tables</strong><small>Historical modular forms and elliptic curve data</small></span><span aria-hidden="true">&rarr;</span></a>
+          <a href="/projects/"><span><strong>Student projects</strong><small>Theses, papers, and directed course work</small></span><span aria-hidden="true">&rarr;</span></a>
+          <a href="/grants/"><span><strong>Grant proposals</strong><small>The public proposal and funding record, including failures</small></span><span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </section>
+
+    <aside class="page-width archive-callout research-archive-callout">
+      <div><p class="eyebrow">Historical document</p><h2>Detailed research plan, 1999</h2></div>
+      <p>The original research plan on modular abelian varieties, BSD, Galois representations, and genus-one curves remains available in its generated web edition. <a href="/research/Prop.html">Read the 1999 plan</a>.</p>
+    </aside>
+  </main>
+</BaseLayout>

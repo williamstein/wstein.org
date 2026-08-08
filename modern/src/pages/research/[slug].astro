@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { researchThemes } from "../../data/researchThemes";
+
+export function getStaticPaths() {
+  return researchThemes.map((theme) => ({ params: { slug: theme.slug }, props: { theme } }));
+}
+
+const { theme } = Astro.props;
+---
+
+<BaseLayout title={`${theme.title} - William A. Stein`} description={theme.summary} current="research">
+  <main class="page-main">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/research/">Research</a> / {theme.label}</p>
+      <p class="eyebrow">Research area</p>
+      <h1>{theme.title}</h1>
+      <p class="lead">{theme.introduction}</p>
+    </header>
+
+    <section class="page-width research-resource-layout" aria-label={`${theme.label} resources`}>
+      <div>
+        <p class="eyebrow">Selected writing</p>
+        <h2>Books and papers</h2>
+        <div class="research-work-list">
+          {theme.works.map(([title, href, kind], index) => (
+            <a href={href}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <span><strong>{title}</strong><small>{kind}</small></span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          ))}
+        </div>
+      </div>
+      <aside class="research-archive-panel">
+        <p class="eyebrow">From the archive</p>
+        <h2>Data and talks</h2>
+        <p>Original files remain at their longstanding public URLs.</p>
+        <div class="research-archive-links">
+          {theme.archives.map(([title, href]) => <a href={href}><span>{title}</span><span aria-hidden="true">&rarr;</span></a>)}
+        </div>
+      </aside>
+    </section>
+
+    <nav class="page-width theme-pagination" aria-label="Other research areas">
+      <span>Continue exploring</span>
+      {researchThemes.filter((item) => item.slug !== theme.slug).map((item) => <a href={`/research/${item.slug}/`}>{item.label}</a>)}
+      <a href="/research/">All research</a>
+    </nav>
+  </main>
+</BaseLayout>

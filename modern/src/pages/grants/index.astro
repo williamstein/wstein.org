@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import grants from "../../data/grants.json";
+
+const statuses = [...new Set(grants.map((grant) => grant.status))].sort();
+const funded = grants.filter((grant) => grant.status === "Funded" || grant.status === "Funded later" || grant.status === "Partly funded").length;
+---
+
+<BaseLayout title="Grant Proposals - William A. Stein" description="Historical grant proposals supporting SageMath, computation, and number theory research." current="research">
+  <main class="page-main">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/research/">Research</a> / Grants</p>
+      <p class="eyebrow">Funding record, 2006-2015</p>
+      <h1>Grant proposals</h1>
+      <p class="lead">A candid archive of funded, denied, disqualified, and unfinished proposals behind SageMath, open mathematical software, and arithmetic research.</p>
+    </header>
+
+    <section class="catalog-summary page-width" aria-label="Grant archive summary">
+      <div><strong>{grants.length}</strong><span>proposal records</span></div>
+      <div><strong>{funded}</strong><span>funded in whole or part</span></div>
+      <div><strong>10</strong><span>years represented</span></div>
+      <p>Outcomes are kept because they are part of the record. Links lead to public proposal material already preserved in the historical archive or to official award pages.</p>
+    </section>
+
+    <section class="catalog-browser page-width" aria-labelledby="grant-browser-title">
+      <div class="catalog-tools">
+        <div>
+          <h2 id="grant-browser-title">Proposal timeline</h2>
+          <p id="grant-count">Showing all {grants.length} records</p>
+        </div>
+        <div class="catalog-controls">
+          <label class="search-control">
+            <span>Search proposals</span>
+            <input id="grant-search" type="search" placeholder="Sage, NSF, RRF..." autocomplete="off" />
+          </label>
+          <label class="select-control">
+            <span>Outcome</span>
+            <select id="grant-status">
+              <option value="">All outcomes</option>
+              {statuses.map((status) => <option value={status}>{status}</option>)}
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="grant-list">
+        {grants.map((grant) => {
+          const body = (
+            <>
+              <span class="grant-row__year">{grant.year}</span>
+              <span class="grant-row__body"><strong>{grant.title}</strong><small>{grant.program}{grant.note && ` - ${grant.note}`}</small></span>
+              <span class:list={["grant-status", grant.status === "Funded" && "grant-status--funded", grant.status === "Denied" && "grant-status--denied"]}>{grant.status}</span>
+              <span class="arrow" aria-hidden="true">{grant.href ? "\u2192" : ""}</span>
+            </>
+          );
+          return grant.href ? (
+            <a class="grant-row" href={grant.href} data-search={`${grant.title} ${grant.program} ${grant.note} ${grant.year}`.toLowerCase()} data-status={grant.status}>{body}</a>
+          ) : (
+            <div class="grant-row grant-row--record" data-search={`${grant.title} ${grant.program} ${grant.note} ${grant.year}`.toLowerCase()} data-status={grant.status}>{body}</div>
+          );
+        })}
+      </div>
+      <p class="empty-state" id="grant-empty" hidden>No proposals match this search.</p>
+    </section>
+  </main>
+
+  <script is:inline>
+    const search = document.querySelector('#grant-search');
+    const status = document.querySelector('#grant-status');
+    const rows = [...document.querySelectorAll('.grant-row')];
+    const count = document.querySelector('#grant-count');
+    const empty = document.querySelector('#grant-empty');
+    function filterGrants() {
+      const query = search.value.trim().toLowerCase();
+      let shown = 0;
+      for (const row of rows) {
+        const visible = (!query || row.dataset.search.includes(query)) && (!status.value || row.dataset.status === status.value);
+        row.hidden = !visible;
+        if (visible) shown += 1;
+      }
+      count.textContent = `Showing ${shown} of ${rows.length} records`;
+      empty.hidden = shown !== 0;
+    }
+    search.addEventListener('input', filterGrants);
+    status.addEventListener('change', filterGrants);
+  </script>
+</BaseLayout>

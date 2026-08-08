@@ -16,13 +16,13 @@ directory listings are treated as visitor-discoverable.
 
 ## Main findings
 
-1. The curated homepage, Papers, Books, Talks, Courses, Photos, `Tables/`
-   landing page, photo timeline, and repaired older-photo index now have no
-   broken internal references. The broad archive is much less healthy: 25,146
-   internal references are broken.
+1. The curated homepage, Research, Papers, Books, Talks, Courses, Projects,
+   Grants, Photos, `Tables/` landing page, photo timeline, and repaired
+   older-photo index now have no broken internal references. The broad archive
+   is much less healthy: 25,143 internal references are broken.
 
-2. Curated entry pages now expose 12,521 of 21,074 HTML pages from the major
-   navigation seeds. Another 8,553 pages remain preserved but are no longer
+2. Curated entry pages now expose 12,538 of 21,077 HTML pages from the major
+   navigation seeds. Another 8,539 pages remain preserved but are no longer
    pulled into the visitor graph merely by a raw Books or Talks directory
    listing. This is an intentional distinction between preservation and
    navigation, not a deletion recommendation.
@@ -65,16 +65,18 @@ directory listings are treated as visitor-discoverable.
 
 - The maintained source now lives in a small Git repository with an Astro
   static build layered over the 52.5 GiB archive.
-- The homepage, Papers, Books, Talks, Courses, and Photos are generated from
-  Git-tracked source. Searchable catalogs preserve 50 publications, 134 talk
-  directories, and 44 course records in tracked JSON.
+- The homepage, Research, Papers, Books, Talks, Courses, Projects, Grants, and
+  Photos are generated from Git-tracked source. Searchable catalogs preserve
+  50 publications, 134 talk directories, 44 course records, 19 student-project
+  records, and 24 grant records. Three curated research guides preserve durable
+  entry points into the larger archive.
 - `Tables/` and the repaired older-photo entry page remain in the explicit
   Git-tracked legacy overlay and can migrate into Astro incrementally.
 
 ## Recommended order
 
-1. Continue the modern index work with projects, grants, and selected teaching
-   or research subcollections whose current entry pages remain especially weak.
+1. Continue the modern index work with selected teaching and research
+   subcollections whose current entry pages remain especially weak.
 2. Quarantine imported website captures and generated trees from normal search
    and navigation. Preserve them under their URLs unless there is a clear reason
    to delete them.

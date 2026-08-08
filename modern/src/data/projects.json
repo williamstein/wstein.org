@@ -1,0 +1,135 @@
+[
+  {
+    "period": "2011",
+    "title": "Math 581g: Modular Forms final projects",
+    "people": "University of Washington course collection",
+    "type": "Course projects",
+    "href": "/edu/2011/581g/final/"
+  },
+  {
+    "period": "2011",
+    "title": "Math 480: Sage projects",
+    "people": "University of Washington course collection",
+    "type": "Course projects",
+    "href": "/edu/2011/480a/projects/"
+  },
+  {
+    "period": "2008",
+    "title": "Connections Between the Riemann Hypothesis and the Sato-Tate Conjecture",
+    "people": "Chris Swierczewski",
+    "type": "Senior thesis",
+    "href": "/projects/swierczewski.pdf"
+  },
+  {
+    "period": "2008",
+    "title": "Eisenstein Reciprocity",
+    "people": "Emily Kirkman",
+    "type": "Senior thesis",
+    "href": "/projects/kirkman-eisenstein.pdf"
+  },
+  {
+    "period": "UCSD",
+    "title": "Math 168 final projects",
+    "people": "Course collection",
+    "type": "Course projects",
+    "href": "/projects/168/"
+  },
+  {
+    "period": "Harvard",
+    "title": "Summer of Arithmetic Geometry experience projects",
+    "people": "Undergraduate summer program",
+    "type": "Summer research",
+    "href": "/sage_summer/"
+  },
+  {
+    "period": "Thesis",
+    "title": "The Birch and Swinnerton-Dyer Conjecture for Abelian Varieties over Number Fields",
+    "people": "Andrei Jorza",
+    "type": "Senior thesis",
+    "href": "/projects/jorza.pdf"
+  },
+  {
+    "period": "Thesis",
+    "title": "Proving Mordell-Weil: A Descent in Three Parts",
+    "people": "Danielle Li",
+    "type": "Senior thesis",
+    "href": "/projects/danielle_li.pdf"
+  },
+  {
+    "period": "Thesis",
+    "title": "Classical and p-adic modular forms arising from Borcherds exponents",
+    "people": "Jayce Getz",
+    "type": "Senior thesis",
+    "href": "/projects/getz_senior_thesis.pdf"
+  },
+  {
+    "period": "Thesis",
+    "title": "Visibility of Shafarevich-Tate Groups",
+    "people": "Dimitar Jetchev",
+    "type": "Senior thesis",
+    "href": "/projects/jetchev_senior_thesis.pdf"
+  },
+  {
+    "period": "Thesis",
+    "title": "Torsion points on elliptic curves and modular abelian varieties",
+    "people": "Seth Kleinerman",
+    "type": "Senior thesis",
+    "href": "/projects/kleinerman_senior_thesis.pdf"
+  },
+  {
+    "period": "2003",
+    "title": "Math 252 final projects about abelian varieties",
+    "people": "Seth Kleinerman, Jen Balakrishnan, Dimitar Jetchev, and Tseno Tselkov",
+    "type": "Course projects",
+    "href": "/edu/Fall2003/252/final_project/"
+  },
+  {
+    "period": "HCRP",
+    "title": "The Smallest Conductor of an Elliptic Curve of Rank Four is Composite",
+    "people": "Jennifer Balakrishnan and Andrei Jorza",
+    "type": "Summer research",
+    "href": "/papers/rank4/"
+  },
+  {
+    "period": "Junior",
+    "title": "Bezout's Theorem",
+    "people": "Peter Hawthorne",
+    "type": "Junior paper",
+    "href": "/projects/hawthorne.pdf"
+  },
+  {
+    "period": "Thesis",
+    "title": "On Factoring Integers and Evaluation of Discrete Logs",
+    "people": "John Gregg",
+    "type": "Senior thesis",
+    "href": "/projects/john_gregg_thesis.pdf"
+  },
+  {
+    "period": "Junior",
+    "title": "Visualizing L(E,s)",
+    "people": "Ariel Shwayder",
+    "type": "Junior project",
+    "href": "/shwayder/"
+  },
+  {
+    "period": "Project",
+    "title": "Computing the primes up to X",
+    "people": "Kevin Stueve",
+    "type": "Student project",
+    "href": "/projects/stueve.pdf"
+  },
+  {
+    "period": "Record",
+    "title": "Partition functions and modular forms",
+    "people": "Chris Mihelich",
+    "type": "Senior thesis",
+    "href": ""
+  },
+  {
+    "period": "Record",
+    "title": "Modular forms and modular symbols",
+    "people": "David Speyer",
+    "type": "Senior thesis",
+    "href": ""
+  }
+]

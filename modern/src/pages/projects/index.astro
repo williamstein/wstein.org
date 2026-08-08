@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import projects from "../../data/projects.json";
+
+const types = [...new Set(projects.map((project) => project.type))].sort();
+const linked = projects.filter((project) => project.href).length;
+---
+
+<BaseLayout title="Student Projects - William A. Stein" description="Student theses, papers, and course projects directed by William Stein." current="projects">
+  <main class="page-main">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / Student projects</p>
+      <p class="eyebrow">Mentoring archive</p>
+      <h1>Student projects</h1>
+      <p class="lead">Senior theses, junior papers, summer research, and course projects in number theory and computational mathematics.</p>
+    </header>
+
+    <section class="catalog-summary page-width" aria-label="Project archive summary">
+      <div><strong>{projects.length}</strong><span>project records</span></div>
+      <div><strong>{linked}</strong><span>surviving works</span></div>
+      <div><strong>{types.length}</strong><span>kinds of work</span></div>
+      <p>The catalog links directly to surviving papers and course collections. Two known theses without surviving public files remain as records rather than disappearing from the history.</p>
+    </section>
+
+    <section class="catalog-browser page-width" aria-labelledby="project-browser-title">
+      <div class="catalog-tools">
+        <div>
+          <h2 id="project-browser-title">Directed work</h2>
+          <p id="project-count">Showing all {projects.length} records</p>
+        </div>
+        <div class="catalog-controls">
+          <label class="search-control">
+            <span>Search projects</span>
+            <input id="project-search" type="search" placeholder="Student, topic, course..." autocomplete="off" />
+          </label>
+          <label class="select-control">
+            <span>Kind</span>
+            <select id="project-type">
+              <option value="">All work</option>
+              {types.map((type) => <option value={type}>{type}</option>)}
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="project-list">
+        {projects.map((project) => project.href ? (
+          <a class="project-row" href={project.href} data-search={`${project.title} ${project.people} ${project.period} ${project.type}`.toLowerCase()} data-type={project.type}>
+            <span class="project-row__period">{project.period}</span>
+            <span class="project-row__body"><strong>{project.title}</strong><small>{project.people}</small></span>
+            <span class="project-row__type">{project.type}</span>
+            <span class="arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        ) : (
+          <div class="project-row project-row--record" data-search={`${project.title} ${project.people} ${project.period} ${project.type}`.toLowerCase()} data-type={project.type}>
+            <span class="project-row__period">{project.period}</span>
+            <span class="project-row__body"><strong>{project.title}</strong><small>{project.people}</small></span>
+            <span class="record-status record-status--retired">Record only</span>
+            <span></span>
+          </div>
+        ))}
+      </div>
+      <p class="empty-state" id="project-empty" hidden>No projects match this search.</p>
+    </section>
+
+    <aside class="page-width archive-callout">
+      <div><p class="eyebrow">Related archive</p><h2>Courses and publications</h2></div>
+      <p>Browse the complete <a href="/courses/">course archive</a> or the catalog of <a href="/papers/">papers and preprints</a> for related teaching and research.</p>
+    </aside>
+  </main>
+
+  <script is:inline>
+    const search = document.querySelector('#project-search');
+    const type = document.querySelector('#project-type');
+    const rows = [...document.querySelectorAll('.project-row')];
+    const count = document.querySelector('#project-count');
+    const empty = document.querySelector('#project-empty');
+    function filterProjects() {
+      const query = search.value.trim().toLowerCase();
+      let shown = 0;
+      for (const row of rows) {
+        const visible = (!query || row.dataset.search.includes(query)) && (!type.value || row.dataset.type === type.value);
+        row.hidden = !visible;
+        if (visible) shown += 1;
+      }
+      count.textContent = `Showing ${shown} of ${rows.length} records`;
+      empty.hidden = shown !== 0;
+    }
+    search.addEventListener('input', filterProjects);
+    type.addEventListener('change', filterProjects);
+  </script>
+</BaseLayout>

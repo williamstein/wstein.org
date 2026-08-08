@@ -4,10 +4,13 @@
   "acceptedHosts": ["wstein.org", "www.wstein.org"],
   "entryPoints": [
     "/",
+    "/research/",
     "/papers/",
     "/books/",
     "/talks/",
     "/courses/",
+    "/projects/",
+    "/grants/",
     "/pics/",
     "/Tables/"
   ],

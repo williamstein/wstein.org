@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const books = [
+  {
+    year: "2016", title: "Prime Numbers and the Riemann Hypothesis", authors: "with Barry Mazur",
+    description: "A direct, accessible explanation of what the Riemann Hypothesis says and why it matters.",
+    href: "/rh/", links: [["Book page", "/rh/"], ["Source", "https://github.com/williamstein/rh"]], image: "/rh/illustrations/cover.png",
+  },
+  {
+    year: "2007", title: "Modular Forms, a Computational Approach", authors: "William Stein",
+    description: "Algorithms and explicit computation with modular forms, freely available from the AMS.",
+    href: "/books/modform/README.html", links: [["PDF", "/books/modform/stein-modform.pdf"], ["HTML", "/books/modform/modform/"]], image: "/Tables/cohen-table.jpg",
+  },
+  {
+    year: "Open text", title: "Algebraic Number Theory, a Computational Approach", authors: "William Stein",
+    description: "A computational introduction with a web edition, PDF, and complete source.",
+    href: "/books/ant/", links: [["PDF", "/books/ant/ant.pdf"], ["HTML", "/books/ant/ant/"]], image: "/books/ant/cover1.png",
+  },
+  {
+    year: "Open text", title: "Lectures on Modular Forms and Hecke Operators", authors: "with Ken Ribet",
+    description: "Lecture notes on modular forms, Hecke operators, and the arithmetic surrounding them.",
+    href: "/books/ribet-stein/", links: [["PDF", "/books/ribet-stein/main.pdf"], ["Source", "https://github.com/williamstein/ribet-stein-modforms"]],
+  },
+  {
+    year: "Draft", title: "The Birch and Swinnerton-Dyer Conjecture, a Computational Approach", authors: "William Stein",
+    description: "A computationally oriented draft and supporting web edition on the BSD conjecture.",
+    href: "/books/bsd/", links: [["PDF", "/books/bsd/bsd.pdf"], ["Web edition", "/books/bsd/bsd/"]],
+  },
+];
+---
+
+<BaseLayout title="Books - William A. Stein" description="Books by William Stein, with open PDFs, web editions, and source material." current="books">
+  <main class="page-main">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / Books</p>
+      <p class="eyebrow">Books and open texts</p>
+      <h1>Books</h1>
+      <p class="lead">Published books, evolving lecture notes, and their source material. Most of these works can be read in full here.</p>
+    </header>
+
+    <section class="page-width book-list" aria-label="Books">
+      {books.map((book, index) => (
+        <article class="book-row">
+          <div class="book-row__number">{String(index + 1).padStart(2, "0")}</div>
+          <div class="book-row__body">
+            <p class="book-row__year">{book.year}</p>
+            <h2><a href={book.href}>{book.title}</a></h2>
+            <p class="book-row__authors">{book.authors}</p>
+            <p>{book.description}</p>
+            <div class="inline-links">{book.links.map(([label, href]) => <a href={href}>{label}</a>)}</div>
+          </div>
+          {book.image && <a class="book-row__image" href={book.href}><img src={book.image} alt="" /></a>}
+        </article>
+      ))}
+    </section>
+
+    <aside class="page-width archive-callout">
+      <div><p class="eyebrow">Historical shelf</p><h2>Source, drafts, and generated files</h2></div>
+      <p>The original book directories are preserved in place. Links above lead directly into them, including old TeX sources and intermediate artifacts where available.</p>
+    </aside>
+  </main>
+</BaseLayout>

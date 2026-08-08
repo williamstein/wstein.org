@@ -5,10 +5,20 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 OVERLAY_ROOT="${OVERLAY_ROOT:-$REPO_ROOT/site/overlay}"
 MANIFEST="${OVERLAY_MANIFEST:-$REPO_ROOT/site/overlay-files.txt}"
 SITE_ROOT="${SITE_ROOT:-/home/user/www}"
+GENERATED_ROOT="${GENERATED_ROOT:-$REPO_ROOT/site/generated}"
 
 if [[ ! -d "$SITE_ROOT" || "$SITE_ROOT" == "/" ]]; then
   echo "Refusing unsafe SITE_ROOT: $SITE_ROOT" >&2
   exit 1
+fi
+
+if [[ "${BUILD_SITE:-1}" == "1" ]]; then
+  npm --prefix "$REPO_ROOT" run build:site
+fi
+
+if [[ -d "$GENERATED_ROOT" ]]; then
+  cp -a "$GENERATED_ROOT/." "$SITE_ROOT/"
+  echo "applied generated Astro site"
 fi
 
 while IFS= read -r relative_path || [[ -n "$relative_path" ]]; do

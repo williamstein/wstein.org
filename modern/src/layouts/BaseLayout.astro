@@ -1,0 +1,28 @@
+---
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const {
+  title = "William A. Stein",
+  description = "William Stein's software, mathematics, books, talks, and personal archive.",
+  current = "",
+  bodyClass = "",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <title>{title}</title>
+  </head>
+  <body class={bodyClass}>
+    <SiteHeader current={current} />
+    <slot />
+    <SiteFooter />
+  </body>
+</html>

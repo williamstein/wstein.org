@@ -1,0 +1,25 @@
+---
+const { current = "" } = Astro.props;
+const links = [
+  ["work", "/#work", "Work"],
+  ["papers", "/papers/", "Papers"],
+  ["books", "/books/", "Books"],
+  ["talks", "/talks/", "Talks"],
+  ["data", "/Tables/", "Data"],
+  ["photos", "/pics/", "Photos"],
+];
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-identity" href="/" aria-label="William A. Stein, home">
+      <span class="site-identity__mark" aria-hidden="true">W</span>
+      <span>William A. Stein</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      {links.map(([id, href, label]) => (
+        <a href={href} aria-current={current === id ? "page" : undefined}>{label}</a>
+      ))}
+    </nav>
+  </div>
+</header>

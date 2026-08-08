@@ -1,0 +1,1442 @@
+[
+  {
+    "slug": "2017-02-10-wing-rh_and_bsd",
+    "title": "Wing Rh And BSD",
+    "date": "2017-02-10",
+    "year": "2017",
+    "href": "/talks/2017-02-10-wing-rh_and_bsd/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "wing rh and bsd 2017-02-10-wing-rh_and_bsd 2017"
+  },
+  {
+    "slug": "2017-02-09-wing-sage",
+    "title": "Wing SageMath",
+    "date": "2017-02-09",
+    "year": "2017",
+    "href": "/talks/2017-02-09-wing-sage/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "wing sagemath 2017-02-09-wing-sage 2017"
+  },
+  {
+    "slug": "2017-02-08-wing-smc",
+    "title": "Wing SageMathCloud",
+    "date": "2017-02-08",
+    "year": "2017",
+    "href": "/talks/2017-02-08-wing-smc/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "wing sagemathcloud 2017-02-08-wing-smc 2017"
+  },
+  {
+    "slug": "2016-06-sage-bp",
+    "title": "SageMath Bp",
+    "date": "2016-06",
+    "year": "2016",
+    "href": "/talks/2016-06-sage-bp/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "sagemath bp 2016-06-sage-bp 2016"
+  },
+  {
+    "slug": "2016-01-08-jmm-writing-paper-with-smc",
+    "title": "JMM Writing Paper With SageMathCloud",
+    "date": "2016-01-08",
+    "year": "2016",
+    "href": "/talks/2016-01-08-jmm-writing-paper-with-smc/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "jmm writing paper with sagemathcloud 2016-01-08-jmm-writing-paper-with-smc 2016"
+  },
+  {
+    "slug": "2015-11-17-rh-book",
+    "title": "Rh Book",
+    "date": "2015-11-17",
+    "year": "2015",
+    "href": "/talks/2015-11-17-rh-book/",
+    "formats": [],
+    "search": "rh book 2015-11-17-rh-book 2015"
+  },
+  {
+    "slug": "2013-jmm-pbsd",
+    "title": "JMM Pbsd",
+    "date": "2013",
+    "year": "2013",
+    "href": "/talks/2013-jmm-pbsd/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "jmm pbsd 2013-jmm-pbsd 2013"
+  },
+  {
+    "slug": "2013-madison",
+    "title": "Madison",
+    "date": "2013",
+    "year": "2013",
+    "href": "/talks/2013-madison/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "madison 2013-madison 2013"
+  },
+  {
+    "slug": "2012-10-10-sacnas",
+    "title": "Sacnas",
+    "date": "2012-10-10",
+    "year": "2012",
+    "href": "/talks/2012-10-10-sacnas/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "sacnas 2012-10-10-sacnas 2012"
+  },
+  {
+    "slug": "2012-07-10-sqrt5",
+    "title": "Q(sqrt(5))",
+    "date": "2012-07-10",
+    "year": "2012",
+    "href": "/talks/2012-07-10-sqrt5/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "q(sqrt(5)) 2012-07-10-sqrt5 2012"
+  },
+  {
+    "slug": "2012-05-15",
+    "title": "2012-05-15",
+    "date": "2012-05-15",
+    "year": "2012",
+    "href": "/talks/2012-05-15/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "2012-05-15 2012-05-15 2012"
+  },
+  {
+    "slug": "2012-04-28-talk",
+    "title": "Talk",
+    "date": "2012-04-28",
+    "year": "2012",
+    "href": "/talks/2012-04-28-talk/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "talk 2012-04-28-talk 2012"
+  },
+  {
+    "slug": "2012-04-27-talk",
+    "title": "Talk",
+    "date": "2012-04-27",
+    "year": "2012",
+    "href": "/talks/2012-04-27-talk/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "talk 2012-04-27-talk 2012"
+  },
+  {
+    "slug": "2012-stein-bsd",
+    "title": "Stein BSD",
+    "date": "2012",
+    "year": "2012",
+    "href": "/talks/2012-stein-bsd/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "stein bsd 2012-stein-bsd 2012"
+  },
+  {
+    "slug": "2011-07-13-FoCM_plenary",
+    "title": "FoCM Plenary",
+    "date": "2011-07-13",
+    "year": "2011",
+    "href": "/talks/2011-07-13-FoCM_plenary/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "focm plenary 2011-07-13-focm_plenary 2011"
+  },
+  {
+    "slug": "2011-05-20-sha-UW-nts",
+    "title": "Sha UW Nts",
+    "date": "2011-05-20",
+    "year": "2011",
+    "href": "/talks/2011-05-20-sha-UW-nts/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "sha uw nts 2011-05-20-sha-uw-nts 2011"
+  },
+  {
+    "slug": "2011-05-12-ACMS-intro_to_sage",
+    "title": "ACMS Intro To SageMath",
+    "date": "2011-05-12",
+    "year": "2011",
+    "href": "/talks/2011-05-12-ACMS-intro_to_sage/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "acms intro to sagemath 2011-05-12-acms-intro_to_sage 2011"
+  },
+  {
+    "slug": "2011-05-bsd_conference",
+    "title": "BSD Conference",
+    "date": "2011-05",
+    "year": "2011",
+    "href": "/talks/2011-05-bsd_conference/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "bsd conference 2011-05-bsd_conference 2011"
+  },
+  {
+    "slug": "2011-02-26-SAGE-MAA",
+    "title": "SageMath MAA",
+    "date": "2011-02-26",
+    "year": "2011",
+    "href": "/talks/2011-02-26-SAGE-MAA/",
+    "formats": [],
+    "search": "sagemath maa 2011-02-26-sage-maa 2011"
+  },
+  {
+    "slug": "2011-02-25-sqrt5",
+    "title": "Q(sqrt(5))",
+    "date": "2011-02-25",
+    "year": "2011",
+    "href": "/talks/2011-02-25-sqrt5/",
+    "formats": [],
+    "search": "q(sqrt(5)) 2011-02-25-sqrt5 2011"
+  },
+  {
+    "slug": "2011-02-11-sqrt5",
+    "title": "Q(sqrt(5))",
+    "date": "2011-02-11",
+    "year": "2011",
+    "href": "/talks/2011-02-11-sqrt5/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "q(sqrt(5)) 2011-02-11-sqrt5 2011"
+  },
+  {
+    "slug": "2011-02-04-sqrt5",
+    "title": "Q(sqrt(5))",
+    "date": "2011-02-04",
+    "year": "2011",
+    "href": "/talks/2011-02-04-sqrt5/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "q(sqrt(5)) 2011-02-04-sqrt5 2011"
+  },
+  {
+    "slug": "2011-01-13-ACMS-intro_to_sage",
+    "title": "ACMS Intro To SageMath",
+    "date": "2011-01-13",
+    "year": "2011",
+    "href": "/talks/2011-01-13-ACMS-intro_to_sage/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "acms intro to sagemath 2011-01-13-acms-intro_to_sage 2011"
+  },
+  {
+    "slug": "2011-gross-stein-cubic",
+    "title": "Gross Stein Cubic",
+    "date": "2011",
+    "year": "2011",
+    "href": "/talks/2011-gross-stein-cubic/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "gross stein cubic 2011-gross-stein-cubic 2011"
+  },
+  {
+    "slug": "2011-potlatch",
+    "title": "Potlatch",
+    "date": "2011",
+    "year": "2011",
+    "href": "/talks/2011-potlatch/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "potlatch 2011-potlatch 2011"
+  },
+  {
+    "slug": "2010-11-05-sqrt5",
+    "title": "Q(sqrt(5))",
+    "date": "2010-11-05",
+    "year": "2010",
+    "href": "/talks/2010-11-05-sqrt5/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "q(sqrt(5)) 2010-11-05-sqrt5 2010"
+  },
+  {
+    "slug": "2010-10-19-ecc_sage",
+    "title": "elliptic-curve cryptography SageMath",
+    "date": "2010-10-19",
+    "year": "2010",
+    "href": "/talks/2010-10-19-ecc_sage/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "elliptic-curve cryptography sagemath 2010-10-19-ecc_sage 2010"
+  },
+  {
+    "slug": "2010-10-lmfdb",
+    "title": "LMFDB",
+    "date": "2010-10",
+    "year": "2010",
+    "href": "/talks/2010-10-lmfdb/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "lmfdb 2010-10-lmfdb 2010"
+  },
+  {
+    "slug": "20100511-torsion-texas",
+    "title": "Torsion Texas",
+    "date": "2010-05-11",
+    "year": "2010",
+    "href": "/talks/20100511-torsion-texas/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "torsion texas 20100511-torsion-texas 2010"
+  },
+  {
+    "slug": "20100510-texas",
+    "title": "Texas",
+    "date": "2010-05-10",
+    "year": "2010",
+    "href": "/talks/20100510-texas/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "texas 20100510-texas 2010"
+  },
+  {
+    "slug": "20100508-sfu-torsion",
+    "title": "SFU Torsion",
+    "date": "2010-05-08",
+    "year": "2010",
+    "href": "/talks/20100508-sfu-torsion/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "sfu torsion 20100508-sfu-torsion 2010"
+  },
+  {
+    "slug": "2010-01-14-ams",
+    "title": "AMS",
+    "date": "2010-01-14",
+    "year": "2010",
+    "href": "/talks/2010-01-14-ams/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "ams 2010-01-14-ams 2010"
+  },
+  {
+    "slug": "200908-sun_partner_training",
+    "title": "Sun Partner Training",
+    "date": "2009-08",
+    "year": "2009",
+    "href": "/talks/200908-sun_partner_training/",
+    "formats": [
+      "PDF",
+      "PPT"
+    ],
+    "search": "sun partner training 200908-sun_partner_training 2009"
+  },
+  {
+    "slug": "20090703-gross_zagier",
+    "title": "Gross Zagier",
+    "date": "2009-07-03",
+    "year": "2009",
+    "href": "/talks/20090703-gross_zagier/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "gross zagier 20090703-gross_zagier 2009"
+  },
+  {
+    "slug": "20090701-sage_graphics_tutorial",
+    "title": "SageMath Graphics Tutorial",
+    "date": "2009-07-01",
+    "year": "2009",
+    "href": "/talks/20090701-sage_graphics_tutorial/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "sagemath graphics tutorial 20090701-sage_graphics_tutorial 2009"
+  },
+  {
+    "slug": "20090624-sagedays16-modform",
+    "title": "Sagedays16 modular forms",
+    "date": "2009-06-24",
+    "year": "2009",
+    "href": "/talks/20090624-sagedays16-modform/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "sagedays16 modular forms 20090624-sagedays16-modform 2009"
+  },
+  {
+    "slug": "20090623-elliptic_curves",
+    "title": "Elliptic Curves",
+    "date": "2009-06-23",
+    "year": "2009",
+    "href": "/talks/20090623-elliptic_curves/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "elliptic curves 20090623-elliptic_curves 2009"
+  },
+  {
+    "slug": "20090622-sagedays16-thematic",
+    "title": "Sagedays16 Thematic",
+    "date": "2009-06-22",
+    "year": "2009",
+    "href": "/talks/20090622-sagedays16-thematic/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "sagedays16 thematic 20090622-sagedays16-thematic 2009"
+  },
+  {
+    "slug": "20090609-sage_and_magma",
+    "title": "SageMath And Magma",
+    "date": "2009-06-09",
+    "year": "2009",
+    "href": "/talks/20090609-sage_and_magma/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "sagemath and magma 20090609-sage_and_magma 2009"
+  },
+  {
+    "slug": "200906-horizon",
+    "title": "Horizon",
+    "date": "2009-06",
+    "year": "2009",
+    "href": "/talks/200906-horizon/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "horizon 200906-horizon 2009"
+  },
+  {
+    "slug": "20090403-pnwmaa",
+    "title": "Pnwmaa",
+    "date": "2009-04-03",
+    "year": "2009",
+    "href": "/talks/20090403-pnwmaa/",
+    "formats": [
+      "KEY",
+      "PDF",
+      "PPT"
+    ],
+    "search": "pnwmaa 20090403-pnwmaa 2009"
+  },
+  {
+    "slug": "20090310-msri-sd14",
+    "title": "MSRI Sd14",
+    "date": "2009-03-10",
+    "year": "2009",
+    "href": "/talks/20090310-msri-sd14/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "msri sd14 20090310-msri-sd14 2009"
+  },
+  {
+    "slug": "20090212-sun",
+    "title": "Sun",
+    "date": "2009-02-12",
+    "year": "2009",
+    "href": "/talks/20090212-sun/",
+    "formats": [
+      "PDF",
+      "PPT"
+    ],
+    "search": "sun 20090212-sun 2009"
+  },
+  {
+    "slug": "20090131-seapig",
+    "title": "Seapig",
+    "date": "2009-01-31",
+    "year": "2009",
+    "href": "/talks/20090131-seapig/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "seapig 20090131-seapig 2009"
+  },
+  {
+    "slug": "2009-mega",
+    "title": "Mega",
+    "date": "2009",
+    "year": "2009",
+    "href": "/talks/2009-mega/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "mega 2009-mega 2009"
+  },
+  {
+    "slug": "20080718-5ecm",
+    "title": "5ecm",
+    "date": "2008-07-18",
+    "year": "2008",
+    "href": "/talks/20080718-5ecm/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "5ecm 20080718-5ecm 2008"
+  },
+  {
+    "slug": "20080408-puget_sound",
+    "title": "Puget Sound",
+    "date": "2008-04-08",
+    "year": "2008",
+    "href": "/talks/20080408-puget_sound/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "puget sound 20080408-puget_sound 2008"
+  },
+  {
+    "slug": "2008-boeing",
+    "title": "Boeing",
+    "date": "2008",
+    "year": "2008",
+    "href": "/talks/2008-boeing/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "boeing 2008-boeing 2008"
+  },
+  {
+    "slug": "2008-issac",
+    "title": "ISSAC",
+    "date": "2008",
+    "year": "2008",
+    "href": "/talks/2008-issac/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "issac 2008-issac 2008"
+  },
+  {
+    "slug": "20071016-convergence",
+    "title": "Convergence",
+    "date": "2007-10-16",
+    "year": "2007",
+    "href": "/talks/20071016-convergence/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "convergence 20071016-convergence 2007"
+  },
+  {
+    "slug": "20070930-stein-bsd",
+    "title": "Stein BSD",
+    "date": "2007-09-30",
+    "year": "2007",
+    "href": "/talks/20070930-stein-bsd/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "stein bsd 20070930-stein-bsd 2007"
+  },
+  {
+    "slug": "2007-06-05-sage-modform",
+    "title": "SageMath modular forms",
+    "date": "2007-06-05",
+    "year": "2007",
+    "href": "/talks/2007-06-05-sage-modform/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "sagemath modular forms 2007-06-05-sage-modform 2007"
+  },
+  {
+    "slug": "20070604-banff",
+    "title": "Banff",
+    "date": "2007-06-04",
+    "year": "2007",
+    "href": "/talks/20070604-banff/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "banff 20070604-banff 2007"
+  },
+  {
+    "slug": "2007-02-17-status",
+    "title": "Status",
+    "date": "2007-02-17",
+    "year": "2007",
+    "href": "/talks/2007-02-17-status/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "status 2007-02-17-status 2007"
+  },
+  {
+    "slug": "2007-02-13-bsd",
+    "title": "BSD",
+    "date": "2007-02-13",
+    "year": "2007",
+    "href": "/talks/2007-02-13-bsd/",
+    "formats": [],
+    "search": "bsd 2007-02-13-bsd 2007"
+  },
+  {
+    "slug": "2007-02-12-linalg",
+    "title": "Linalg",
+    "date": "2007-02-12",
+    "year": "2007",
+    "href": "/talks/2007-02-12-linalg/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "linalg 2007-02-12-linalg 2007"
+  },
+  {
+    "slug": "2007-02-07-banff-bsd",
+    "title": "Banff BSD",
+    "date": "2007-02-07",
+    "year": "2007",
+    "href": "/talks/2007-02-07-banff-bsd/",
+    "formats": [],
+    "search": "banff bsd 2007-02-07-banff-bsd 2007"
+  },
+  {
+    "slug": "2007-01-19-sage",
+    "title": "SageMath",
+    "date": "2007-01-19",
+    "year": "2007",
+    "href": "/talks/2007-01-19-sage/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "sagemath 2007-01-19-sage 2007"
+  },
+  {
+    "slug": "2007-01-15-sage-cse",
+    "title": "SageMath Cse",
+    "date": "2007-01-15",
+    "year": "2007",
+    "href": "/talks/2007-01-15-sage-cse/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "sagemath cse 2007-01-15-sage-cse 2007"
+  },
+  {
+    "slug": "2007-01-11-uw-undergrads",
+    "title": "UW Undergrads",
+    "date": "2007-01-11",
+    "year": "2007",
+    "href": "/talks/2007-01-11-uw-undergrads/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "uw undergrads 2007-01-11-uw-undergrads 2007"
+  },
+  {
+    "slug": "2006-12-waterloo",
+    "title": "Waterloo",
+    "date": "2006-12",
+    "year": "2006",
+    "href": "/talks/2006-12-waterloo/",
+    "formats": [],
+    "search": "waterloo 2006-12-waterloo 2006"
+  },
+  {
+    "slug": "2006-11-07-sd",
+    "title": "Sd",
+    "date": "2006-11-07",
+    "year": "2006",
+    "href": "/talks/2006-11-07-sd/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "sd 2006-11-07-sd 2006"
+  },
+  {
+    "slug": "2006-10-23-ima",
+    "title": "Ima",
+    "date": "2006-10-23",
+    "year": "2006",
+    "href": "/talks/2006-10-23-ima/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "ima 2006-10-23-ima 2006"
+  },
+  {
+    "slug": "2006-10-18-sage-current_probs",
+    "title": "SageMath Current Probs",
+    "date": "2006-10-18",
+    "year": "2006",
+    "href": "/talks/2006-10-18-sage-current_probs/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "sagemath current probs 2006-10-18-sage-current_probs 2006"
+  },
+  {
+    "slug": "2006-10-07-sagedays2",
+    "title": "Sagedays2",
+    "date": "2006-10-07",
+    "year": "2006",
+    "href": "/talks/2006-10-07-sagedays2/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "sagedays2 2006-10-07-sagedays2 2006"
+  },
+  {
+    "slug": "2006-08-28-musa",
+    "title": "Musa",
+    "date": "2006-08-28",
+    "year": "2006",
+    "href": "/talks/2006-08-28-musa/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "musa 2006-08-28-musa 2006"
+  },
+  {
+    "slug": "2006-07-09-cnta",
+    "title": "CNTA",
+    "date": "2006-07-09",
+    "year": "2006",
+    "href": "/talks/2006-07-09-cnta/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "cnta 2006-07-09-cnta 2006"
+  },
+  {
+    "slug": "2006-05-25-sage-alex_and_bob",
+    "title": "SageMath Alex And Bob",
+    "date": "2006-05-25",
+    "year": "2006",
+    "href": "/talks/2006-05-25-sage-alex_and_bob/",
+    "formats": [],
+    "search": "sagemath alex and bob 2006-05-25-sage-alex_and_bob 2006"
+  },
+  {
+    "slug": "2006-05-18-sage-seminar",
+    "title": "SageMath Seminar",
+    "date": "2006-05-18",
+    "year": "2006",
+    "href": "/talks/2006-05-18-sage-seminar/",
+    "formats": [],
+    "search": "sagemath seminar 2006-05-18-sage-seminar 2006"
+  },
+  {
+    "slug": "2006-05-11-sage_how_works",
+    "title": "SageMath How Works",
+    "date": "2006-05-11",
+    "year": "2006",
+    "href": "/talks/2006-05-11-sage_how_works/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "sagemath how works 2006-05-11-sage_how_works 2006"
+  },
+  {
+    "slug": "2006-05-09-sage-digipen",
+    "title": "SageMath Digipen",
+    "date": "2006-05-09",
+    "year": "2006",
+    "href": "/talks/2006-05-09-sage-digipen/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "sagemath digipen 2006-05-09-sage-digipen 2006"
+  },
+  {
+    "slug": "2006-05-04-sage-uw-intro",
+    "title": "SageMath UW Intro",
+    "date": "2006-05-04",
+    "year": "2006",
+    "href": "/talks/2006-05-04-sage-uw-intro/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "sagemath uw intro 2006-05-04-sage-uw-intro 2006"
+  },
+  {
+    "slug": "2006-04-29-sfsu",
+    "title": "Sfsu",
+    "date": "2006-04-29",
+    "year": "2006",
+    "href": "/talks/2006-04-29-sfsu/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "sfsu 2006-04-29-sfsu 2006"
+  },
+  {
+    "slug": "2006-02-sage-digipen",
+    "title": "SageMath Digipen",
+    "date": "2006-02",
+    "year": "2006",
+    "href": "/talks/2006-02-sage-digipen/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "sagemath digipen 2006-02-sage-digipen 2006"
+  },
+  {
+    "slug": "2005-10-06-ucsd_undergrad_colloq",
+    "title": "UCSD Undergrad Colloq",
+    "date": "2005-10-06",
+    "year": "2005",
+    "href": "/talks/2005-10-06-ucsd_undergrad_colloq/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "ucsd undergrad colloq 2005-10-06-ucsd_undergrad_colloq 2005"
+  },
+  {
+    "slug": "2005-09-15-sandpyt-sage",
+    "title": "Sandpyt SageMath",
+    "date": "2005-09-15",
+    "year": "2005",
+    "href": "/talks/2005-09-15-sandpyt-sage/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "sandpyt sagemath 2005-09-15-sandpyt-sage 2005"
+  },
+  {
+    "slug": "2005-08-03-sdsc",
+    "title": "SDSC",
+    "date": "2005-08-03",
+    "year": "2005",
+    "href": "/talks/2005-08-03-sdsc/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "sdsc 2005-08-03-sdsc 2005"
+  },
+  {
+    "slug": "2005-07-22-oberwolfach",
+    "title": "Oberwolfach",
+    "date": "2005-07-22",
+    "year": "2005",
+    "href": "/talks/2005-07-22-oberwolfach/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "oberwolfach 2005-07-22-oberwolfach 2005"
+  },
+  {
+    "slug": "2005-07-11-bremen-bsd",
+    "title": "Bremen BSD",
+    "date": "2005-07-11",
+    "year": "2005",
+    "href": "/talks/2005-07-11-bremen-bsd/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "bremen bsd 2005-07-11-bremen-bsd 2005"
+  },
+  {
+    "slug": "2005-05-05-129-bsd",
+    "title": "129 BSD",
+    "date": "2005-05-05",
+    "year": "2005",
+    "href": "/talks/2005-05-05-129-bsd/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "129 bsd 2005-05-05-129-bsd 2005"
+  },
+  {
+    "slug": "2005-03-23-pyconn-sage",
+    "title": "PyCon SageMath",
+    "date": "2005-03-23",
+    "year": "2005",
+    "href": "/talks/2005-03-23-pyconn-sage/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "pycon sagemath 2005-03-23-pyconn-sage 2005"
+  },
+  {
+    "slug": "2005-02-ucsd-bsd",
+    "title": "UCSD BSD",
+    "date": "2005-02",
+    "year": "2005",
+    "href": "/talks/2005-02-ucsd-bsd/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "ucsd bsd 2005-02-ucsd-bsd 2005"
+  },
+  {
+    "slug": "2005-berkeley-ellcurves",
+    "title": "Berkeley Ellcurves",
+    "date": "2005",
+    "year": "2005",
+    "href": "/talks/2005-berkeley-ellcurves/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "berkeley ellcurves 2005-berkeley-ellcurves 2005"
+  },
+  {
+    "slug": "2005-dartmouth-ellcurves",
+    "title": "Dartmouth Ellcurves",
+    "date": "2005",
+    "year": "2005",
+    "href": "/talks/2005-dartmouth-ellcurves/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "dartmouth ellcurves 2005-dartmouth-ellcurves 2005"
+  },
+  {
+    "slug": "2005-vishigher",
+    "title": "Vishigher",
+    "date": "2005",
+    "year": "2005",
+    "href": "/talks/2005-vishigher/",
+    "formats": [],
+    "search": "vishigher 2005-vishigher 2005"
+  },
+  {
+    "slug": "2004-05-22-UIUC",
+    "title": "UIUC",
+    "date": "2004-05-22",
+    "year": "2004",
+    "href": "/talks/2004-05-22-UIUC/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "uiuc 2004-05-22-uiuc 2004"
+  },
+  {
+    "slug": "2004-04-19-Brown",
+    "title": "Brown",
+    "date": "2004-04-19",
+    "year": "2004",
+    "href": "/talks/2004-04-19-Brown/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "brown 2004-04-19-brown 2004"
+  },
+  {
+    "slug": "2004-02-04-CCR-ModAbVar",
+    "title": "CCR modular abelian varieties",
+    "date": "2004-02-04",
+    "year": "2004",
+    "href": "/talks/2004-02-04-CCR-ModAbVar/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "ccr modular abelian varieties 2004-02-04-ccr-modabvar 2004"
+  },
+  {
+    "slug": "2004-seattle-bsd",
+    "title": "Seattle BSD",
+    "date": "2004",
+    "year": "2004",
+    "href": "/talks/2004-seattle-bsd/",
+    "formats": [
+      "PDF",
+      "PPT"
+    ],
+    "search": "seattle bsd 2004-seattle-bsd 2004"
+  },
+  {
+    "slug": "ants4-compgroups",
+    "title": "Ants4 Compgroups",
+    "date": "",
+    "year": "",
+    "href": "/talks/ants4-compgroups/",
+    "formats": [],
+    "search": "ants4 compgroups ants4-compgroups "
+  },
+  {
+    "slug": "ants6",
+    "title": "Ants6",
+    "date": "",
+    "year": "",
+    "href": "/talks/ants6/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "ants6 ants6 "
+  },
+  {
+    "slug": "artin",
+    "title": "Artin",
+    "date": "",
+    "year": "",
+    "href": "/talks/artin/",
+    "formats": [],
+    "search": "artin artin "
+  },
+  {
+    "slug": "before_your_eyes",
+    "title": "Before Your Eyes",
+    "date": "",
+    "year": "",
+    "href": "/talks/before_your_eyes/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "before your eyes before_your_eyes "
+  },
+  {
+    "slug": "bernoulli",
+    "title": "Bernoulli",
+    "date": "",
+    "year": "",
+    "href": "/talks/bernoulli/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "bernoulli bernoulli "
+  },
+  {
+    "slug": "bigsha",
+    "title": "Bigsha",
+    "date": "",
+    "year": "",
+    "href": "/talks/bigsha/",
+    "formats": [],
+    "search": "bigsha bigsha "
+  },
+  {
+    "slug": "bsd2005",
+    "title": "Bsd2005",
+    "date": "",
+    "year": "",
+    "href": "/talks/bsd2005/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "bsd2005 bsd2005 "
+  },
+  {
+    "slug": "ccr",
+    "title": "CCR",
+    "date": "",
+    "year": "",
+    "href": "/talks/ccr/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "ccr ccr "
+  },
+  {
+    "slug": "charting",
+    "title": "Charting",
+    "date": "",
+    "year": "",
+    "href": "/talks/charting/",
+    "formats": [
+      "PPT"
+    ],
+    "search": "charting charting "
+  },
+  {
+    "slug": "charting_cremona_data",
+    "title": "Charting Cremona Data",
+    "date": "",
+    "year": "",
+    "href": "/talks/charting_cremona_data/",
+    "formats": [],
+    "search": "charting cremona data charting_cremona_data "
+  },
+  {
+    "slug": "circles",
+    "title": "Circles",
+    "date": "",
+    "year": "",
+    "href": "/talks/circles/",
+    "formats": [],
+    "search": "circles circles "
+  },
+  {
+    "slug": "disc",
+    "title": "Disc",
+    "date": "",
+    "year": "",
+    "href": "/talks/disc/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "disc disc "
+  },
+  {
+    "slug": "durham",
+    "title": "Durham",
+    "date": "",
+    "year": "",
+    "href": "/talks/durham/",
+    "formats": [],
+    "search": "durham durham "
+  },
+  {
+    "slug": "euroscipy2010-stein",
+    "title": "Euroscipy2010 Stein",
+    "date": "",
+    "year": "",
+    "href": "/talks/euroscipy2010-stein/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "euroscipy2010 stein euroscipy2010-stein "
+  },
+  {
+    "slug": "harvard-october-00",
+    "title": "Harvard October 00",
+    "date": "",
+    "year": "",
+    "href": "/talks/harvard-october-00/",
+    "formats": [],
+    "search": "harvard october 00 harvard-october-00 "
+  },
+  {
+    "slug": "harvard-talk-2004-12-08",
+    "title": "Harvard Talk 2004 12 08",
+    "date": "",
+    "year": "",
+    "href": "/talks/harvard-talk-2004-12-08/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "harvard talk 2004 12 08 harvard-talk-2004-12-08 "
+  },
+  {
+    "slug": "high-school-bsd",
+    "title": "High School BSD",
+    "date": "",
+    "year": "",
+    "href": "/talks/high-school-bsd/",
+    "formats": [],
+    "search": "high school bsd high-school-bsd "
+  },
+  {
+    "slug": "IDA-10-2000",
+    "title": "IDA 10 2000",
+    "date": "",
+    "year": "",
+    "href": "/talks/IDA-10-2000/",
+    "formats": [],
+    "search": "ida 10 2000 ida-10-2000 "
+  },
+  {
+    "slug": "imperial",
+    "title": "Imperial",
+    "date": "",
+    "year": "",
+    "href": "/talks/imperial/",
+    "formats": [],
+    "search": "imperial imperial "
+  },
+  {
+    "slug": "intro_comp_modform",
+    "title": "Intro Comp modular forms",
+    "date": "",
+    "year": "",
+    "href": "/talks/intro_comp_modform/",
+    "formats": [],
+    "search": "intro comp modular forms intro_comp_modform "
+  },
+  {
+    "slug": "jobtalks",
+    "title": "Jobtalks",
+    "date": "",
+    "year": "",
+    "href": "/talks/jobtalks/",
+    "formats": [],
+    "search": "jobtalks jobtalks "
+  },
+  {
+    "slug": "lowell",
+    "title": "Lowell",
+    "date": "",
+    "year": "",
+    "href": "/talks/lowell/",
+    "formats": [],
+    "search": "lowell lowell "
+  },
+  {
+    "slug": "lt",
+    "title": "Lt",
+    "date": "",
+    "year": "",
+    "href": "/talks/lt/",
+    "formats": [],
+    "search": "lt lt "
+  },
+  {
+    "slug": "mathcamp",
+    "title": "Mathcamp",
+    "date": "",
+    "year": "",
+    "href": "/talks/mathcamp/",
+    "formats": [],
+    "search": "mathcamp mathcamp "
+  },
+  {
+    "slug": "mazur-2005-its_a_story",
+    "title": "Mazur 2005 Its A Story",
+    "date": "",
+    "year": "",
+    "href": "/talks/mazur-2005-its_a_story/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "mazur 2005 its a story mazur-2005-its_a_story "
+  },
+  {
+    "slug": "mazur-explicit-formula",
+    "title": "Mazur Explicit Formula",
+    "date": "",
+    "year": "",
+    "href": "/talks/mazur-explicit-formula/",
+    "formats": [],
+    "search": "mazur explicit formula mazur-explicit-formula "
+  },
+  {
+    "slug": "mentor",
+    "title": "Mentor",
+    "date": "",
+    "year": "",
+    "href": "/talks/mentor/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "mentor mentor "
+  },
+  {
+    "slug": "motives",
+    "title": "Motives",
+    "date": "",
+    "year": "",
+    "href": "/talks/motives/",
+    "formats": [],
+    "search": "motives motives "
+  },
+  {
+    "slug": "msri-intro",
+    "title": "MSRI Intro",
+    "date": "",
+    "year": "",
+    "href": "/talks/msri-intro/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "msri intro msri-intro "
+  },
+  {
+    "slug": "MSRI-touching",
+    "title": "MSRI Touching",
+    "date": "",
+    "year": "",
+    "href": "/talks/MSRI-touching/",
+    "formats": [],
+    "search": "msri touching msri-touching "
+  },
+  {
+    "slug": "MSRI-visible",
+    "title": "MSRI Visible",
+    "date": "",
+    "year": "",
+    "href": "/talks/MSRI-visible/",
+    "formats": [],
+    "search": "msri visible msri-visible "
+  },
+  {
+    "slug": "padic_heights",
+    "title": "Padic Heights",
+    "date": "",
+    "year": "",
+    "href": "/talks/padic_heights/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "padic heights padic_heights "
+  },
+  {
+    "slug": "paris-ihp-magma",
+    "title": "Paris IHP Magma",
+    "date": "",
+    "year": "",
+    "href": "/talks/paris-ihp-magma/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "paris ihp magma paris-ihp-magma "
+  },
+  {
+    "slug": "pittsburgh",
+    "title": "Pittsburgh",
+    "date": "",
+    "year": "",
+    "href": "/talks/pittsburgh/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "pittsburgh pittsburgh "
+  },
+  {
+    "slug": "princeton-visibility",
+    "title": "Princeton Visibility",
+    "date": "",
+    "year": "",
+    "href": "/talks/princeton-visibility/",
+    "formats": [],
+    "search": "princeton visibility princeton-visibility "
+  },
+  {
+    "slug": "pyrex",
+    "title": "Pyrex",
+    "date": "",
+    "year": "",
+    "href": "/talks/pyrex/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "pyrex pyrex "
+  },
+  {
+    "slug": "rochester",
+    "title": "Rochester",
+    "date": "",
+    "year": "",
+    "href": "/talks/rochester/",
+    "formats": [],
+    "search": "rochester rochester "
+  },
+  {
+    "slug": "seattle-2004",
+    "title": "Seattle 2004",
+    "date": "",
+    "year": "",
+    "href": "/talks/seattle-2004/",
+    "formats": [
+      "PDF",
+      "PPT"
+    ],
+    "search": "seattle 2004 seattle-2004 "
+  },
+  {
+    "slug": "stein-sd24",
+    "title": "Stein Sd24",
+    "date": "",
+    "year": "",
+    "href": "/talks/stein-sd24/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "stein sd24 stein-sd24 "
+  },
+  {
+    "slug": "threecurves",
+    "title": "Threecurves",
+    "date": "",
+    "year": "",
+    "href": "/talks/threecurves/",
+    "formats": [
+      "HTML"
+    ],
+    "search": "threecurves threecurves "
+  },
+  {
+    "slug": "tucson2002",
+    "title": "Tucson2002",
+    "date": "",
+    "year": "",
+    "href": "/talks/tucson2002/",
+    "formats": [
+      "PDF"
+    ],
+    "search": "tucson2002 tucson2002 "
+  },
+  {
+    "slug": "uconn",
+    "title": "Uconn",
+    "date": "",
+    "year": "",
+    "href": "/talks/uconn/",
+    "formats": [
+      "PDF",
+      "PPT"
+    ],
+    "search": "uconn uconn "
+  },
+  {
+    "slug": "utrecht-visibility",
+    "title": "Utrecht Visibility",
+    "date": "",
+    "year": "",
+    "href": "/talks/utrecht-visibility/",
+    "formats": [],
+    "search": "utrecht visibility utrecht-visibility "
+  },
+  {
+    "slug": "vishigher-2004-11",
+    "title": "Vishigher 2004 11",
+    "date": "",
+    "year": "",
+    "href": "/talks/vishigher-2004-11/",
+    "formats": [
+      "HTML",
+      "PDF"
+    ],
+    "search": "vishigher 2004 11 vishigher-2004-11 "
+  },
+  {
+    "slug": "welcome_to_magma",
+    "title": "Welcome To Magma",
+    "date": "",
+    "year": "",
+    "href": "/talks/welcome_to_magma/",
+    "formats": [],
+    "search": "welcome to magma welcome_to_magma "
+  }
+]

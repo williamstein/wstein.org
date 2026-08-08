@@ -2,6 +2,8 @@
 .fast-sync-r2-state.json
 .wrangler/
 node_modules/
+site/generated/
+.astro/
 
 audit/node_modules/
 audit/report/

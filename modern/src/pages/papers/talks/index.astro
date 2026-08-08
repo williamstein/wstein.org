@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import talks from "../../../data/talks.json";
+
+const dated = talks.filter((talk) => talk.year);
+const undated = talks.filter((talk) => !talk.year);
+const years = [...new Set(dated.map((talk) => talk.year))].sort((a, b) => b.localeCompare(a));
+---
+
+<BaseLayout title="Talks - William A. Stein" description="William Stein's archive of mathematics and software talks, slides, and supporting material." current="talks">
+  <main class="page-main">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / Talks</p>
+      <p class="eyebrow">Slides and supporting material</p>
+      <h1>Talks</h1>
+      <p class="lead">An archive of {talks.length} talk directories on number theory, SageMath, computation, and collaborative scientific software.</p>
+    </header>
+
+    <section class="talk-browser page-width" aria-labelledby="talk-browser-title">
+      <div class="talk-tools">
+        <div>
+          <h2 id="talk-browser-title">Browse the archive</h2>
+          <p id="talk-count">Showing all {talks.length} entries</p>
+        </div>
+        <div class="talk-controls">
+          <label class="search-control">
+            <span>Search talks</span>
+            <input id="talk-search" type="search" placeholder="Sage, BSD, elliptic curves..." autocomplete="off" />
+          </label>
+          <label class="select-control">
+            <span>Year</span>
+            <select id="talk-year">
+              <option value="">All years</option>
+              {years.map((year) => <option value={year}>{year}</option>)}
+              <option value="undated">Earlier / undated</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="talk-list" id="talk-list">
+        {[...dated, ...undated].map((talk) => (
+          <a class="talk-row" href={talk.href} data-search={talk.search} data-year={talk.year || "undated"}>
+            <span class="talk-row__date">{talk.date || "Archive"}</span>
+            <span class="talk-row__title"><strong>{talk.title}</strong><small>{talk.slug}</small></span>
+            <span class="talk-row__formats">{talk.formats.join(" / ") || "files"}</span>
+            <span class="arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        ))}
+      </div>
+      <p class="empty-state" id="talk-empty" hidden>No talks match this search.</p>
+    </section>
+  </main>
+
+  <script is:inline>
+    const search = document.querySelector('#talk-search');
+    const year = document.querySelector('#talk-year');
+    const rows = [...document.querySelectorAll('.talk-row')];
+    const count = document.querySelector('#talk-count');
+    const empty = document.querySelector('#talk-empty');
+
+    function filterTalks() {
+      const query = search.value.trim().toLowerCase();
+      let shown = 0;
+      for (const row of rows) {
+        const matchesQuery = !query || row.dataset.search.includes(query);
+        const matchesYear = !year.value || row.dataset.year === year.value;
+        row.hidden = !(matchesQuery && matchesYear);
+        if (!row.hidden) shown += 1;
+      }
+      count.textContent = `Showing ${shown} of ${rows.length} entries`;
+      empty.hidden = shown !== 0;
+    }
+
+    search.addEventListener('input', filterTalks);
+    year.addEventListener('change', filterTalks);
+  </script>
+</BaseLayout>

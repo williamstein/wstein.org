@@ -1,4 +1,10 @@
-# Site overlay
+# Maintained site output
+
+`generated/` is the ignored Astro build output from `modern/`. The apply script
+copies it into `/home/user/www` without deleting anything.
+
+`overlay/` holds maintained pages that have not yet moved to Astro. Only paths
+listed in `overlay-files.txt` are copied.
 
 Files below `overlay/` have the same relative paths as their published files in
 `/home/user/www`. This is the Git-tracked, actively maintained layer of the

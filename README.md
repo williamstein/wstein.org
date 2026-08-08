@@ -7,8 +7,10 @@ copied into Git.
 
 ## What belongs here
 
-- `site/overlay/`: modernized pages and shared styles, stored at their public
-  paths and copied over the historical archive during development/deployment.
+- `modern/`: Astro source for maintained entry pages. The static build is
+  copied over the historical archive without deleting archive content.
+- `site/overlay/`: maintained legacy pages and shared styles that have not yet
+  moved into Astro, stored at their public paths.
 - `src/` and `bin/`: the Cloudflare Worker, R2 synchronization, symlink routing,
   and overlay workflow.
 - `audit/`: the repeatable filesystem and link-graph audit.
@@ -19,7 +21,8 @@ symlink map are ignored. Cloudflare credentials must remain in
 
 ## Edit and publish a page
 
-Edit the copy under `site/overlay/`, then run:
+Edit pages under `modern/src/` (or a remaining legacy page under
+`site/overlay/`), then run:
 
 ```bash
 cd /home/user/wstein-r2-worker
@@ -30,10 +33,25 @@ cd ..
 bin/fast-sync-r2.sh
 ```
 
+`bin/apply-site-overlay.sh` builds Astro first, copies the generated static
+pages into `/home/user/www`, and then applies the explicit legacy overlay
+manifest. It never deletes historical files.
+
+The Talks index is generated from the archive and committed so the high-value
+catalog is preserved independently of the 52 GiB tree:
+
+```bash
+npm run generate:talks
+```
+
+Astro emits it at `papers/talks/index.html`; the longstanding `/talks/` symlink
+and Worker alias continue to expose it at `/talks/`.
+
 The local preview is normally available at `http://127.0.0.1:8080/` and through
 the CoCalc port proxy printed by `/home/user/bin/start.sh`.
 
-If a live file in `/home/user/www` was edited first, update the tracked copy:
+If a remaining overlay file in `/home/user/www` was edited first, update the
+tracked copy:
 
 ```bash
 bin/capture-site-overlay.sh

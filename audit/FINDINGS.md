@@ -5,9 +5,9 @@ results are in `report/`; rerun them with `npm run audit`.
 
 ## What was scanned
 
-- 275,991 regular files totaling 52.5 GiB
-- 21,072 HTML pages and 452 CSS files
-- 470,813 HTML/CSS references
+- 275,995 regular files totaling 52.5 GiB
+- 21,074 HTML pages and 454 CSS files
+- 470,981 HTML/CSS references
 - 4,541 symlinks, including the aliases used by the R2 Worker
 
 URL checks reproduce the deployed Worker's exact-object, extensionless HTML,
@@ -16,15 +16,16 @@ directory listings are treated as visitor-discoverable.
 
 ## Main findings
 
-1. The curated homepage, `Tables/` landing page, photo timeline, and repaired
-   older-photo index now have no broken internal references. The broad archive
-   is much less healthy: 25,163 internal references are broken, with most
-   exposed somewhere beneath a homepage-discoverable directory tree.
+1. The curated homepage, Books and Talks indexes, `Tables/` landing page, photo
+   timeline, and repaired older-photo index now have no broken internal
+   references. The broad archive is much less healthy: 25,163 internal
+   references are broken.
 
-2. The site is mostly discoverable, not truly orphaned. Generated directory
-   listings make 19,931 of 21,072 HTML pages discoverable from `/`. There are
-   1,141 pages outside the configured major-section graph and 1,882 pages with
-   no incoming HTML link at all. The orphan page bodies total only about 7 MiB.
+2. Curated entry pages now expose 12,541 of 21,074 HTML pages from the major
+   navigation seeds. Another 8,533 pages remain preserved but are no longer
+   pulled into the visitor graph merely by a raw Books or Talks directory
+   listing. This is an intentional distinction between preservation and
+   navigation, not a deletion recommendation.
 
 3. `Tables/` needs curation rather than blanket repair. Its modern landing page
    is clean, while the underlying archive has 261 broken references, 8
@@ -60,10 +61,19 @@ directory listings are treated as visitor-discoverable.
    these real failures, including `/SAGE` versus `/sage.html` and
    `/cremona/INDEX.html` versus `/cremona/index.html`.
 
+## Modernization status
+
+- The maintained source now lives in a small Git repository with an Astro
+  static build layered over the 52.5 GiB archive.
+- The homepage, Books, and Talks are generated from Git-tracked source. The
+  searchable Talks catalog preserves 134 archive entries in tracked JSON.
+- `Tables/` and the repaired older-photo entry page remain in the explicit
+  Git-tracked legacy overlay and can migrate into Astro incrementally.
+
 ## Recommended order
 
-1. Build modern indexes for books, talks, papers, courses, and photos so visitors
-   no longer enter the archive through raw directory listings.
+1. Continue the modern index work with papers, courses, and photos so visitors
+   no longer enter those archives through old pages or raw directory listings.
 2. Quarantine imported website captures and generated trees from normal search
    and navigation. Preserve them under their URLs unless there is a clear reason
    to delete them.

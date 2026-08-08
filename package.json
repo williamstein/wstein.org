@@ -3,11 +3,15 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build:site": "astro build --root modern",
+    "dev:site": "astro dev --root modern --host 0.0.0.0",
+    "generate:talks": "node tools/generate-talk-index.mjs",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "tail": "wrangler tail"
   },
   "devDependencies": {
+    "astro": "^7.2.0",
     "wrangler": "^4.106.0"
   }
 }

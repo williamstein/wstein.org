@@ -139,14 +139,20 @@ h1, h2, h3 { margin-top: 0; font-family: Georgia, "Times New Roman", serif; lett
 .catalog-controls { display: flex; gap: 10px; align-items: end; }
 .catalog-controls .search-control input { width: 300px; }
 .publication-list, .course-list { border-top: 1px solid var(--line); }
-.publication-row { display: grid; grid-template-columns: 72px minmax(0, 1fr) 155px 20px; gap: 18px; align-items: center; min-height: 94px; padding: 15px 3px; color: inherit; border-bottom: 1px solid var(--line); text-decoration: none; }
+.publication-row { display: grid; grid-template-columns: 72px minmax(0, 1fr) 150px 170px; gap: 18px; align-items: center; min-height: 104px; padding: 17px 3px; color: inherit; border-bottom: 1px solid var(--line); }
 .publication-row:hover, .course-row[href]:hover { color: inherit; background: #fff; }
 .publication-row[hidden], .course-row[hidden] { display: none; }
 .publication-row__year, .course-row__year { color: var(--gold); font: 14px Georgia, serif; }
 .publication-row__body, .course-row__body { min-width: 0; }
 .publication-row__body strong, .course-row__body strong { display: block; font: 700 17px/1.28 Georgia, serif; }
+.publication-row__body strong a { color: inherit; text-decoration-color: #a8b7b1; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.publication-row__body strong a:hover { color: var(--green-dark); text-decoration-color: var(--green-dark); }
 .publication-row__body small, .course-row__body small { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.45; }
-.publication-row__topic { color: var(--muted); font-size: 11px; font-weight: 750; text-align: right; text-transform: uppercase; }
+.publication-row__meta { display: grid; gap: 5px; color: var(--muted); font-size: 10px; font-weight: 700; text-align: right; text-transform: uppercase; }
+.publication-row__meta b { color: var(--green-dark); font-size: 11px; }
+.publication-row__links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.publication-row__links a { padding: 5px 7px; color: var(--green-dark); border: 1px solid #b8c9c3; border-radius: 3px; background: #f7faf9; font-size: 10px; font-weight: 800; line-height: 1; text-decoration: none; text-transform: uppercase; }
+.publication-row__links a:hover { color: #fff; border-color: var(--green-dark); background: var(--green-dark); }
 .course-row { display: grid; grid-template-columns: 72px minmax(0, 1fr) 105px 20px; gap: 18px; align-items: center; min-height: 74px; padding: 12px 3px; color: inherit; border-bottom: 1px solid var(--line); text-decoration: none; }
 .course-row--record { color: #4f5956; }
 .record-status { justify-self: end; padding: 3px 7px; color: var(--green-dark); border: 1px solid #b8cec7; border-radius: 3px; background: #edf5f2; font-size: 10px; font-weight: 750; text-transform: uppercase; white-space: nowrap; }
@@ -347,8 +353,9 @@ h1, h2, h3 { margin-top: 0; font-family: Georgia, "Times New Roman", serif; lett
   .catalog-summary { grid-template-columns: 1fr 1fr; gap: 18px; }
   .catalog-summary div:nth-child(3) { grid-column: 1 / -1; }
   .catalog-controls { display: grid; grid-template-columns: 1fr; }
-  .publication-row { grid-template-columns: 58px minmax(0, 1fr) 18px; gap: 9px; }
-  .publication-row__topic { display: none; }
+  .publication-row { grid-template-columns: 48px minmax(0, 1fr); gap: 8px 10px; padding: 17px 2px; }
+  .publication-row__meta { grid-column: 2; display: flex; gap: 8px; text-align: left; }
+  .publication-row__links { grid-column: 2; justify-content: flex-start; }
   .publication-row__body strong { font-size: 15px; }
   .course-row { grid-template-columns: 44px minmax(0, 1fr); gap: 9px; padding: 15px 2px; }
   .course-row .record-status { grid-column: 2; justify-self: start; }

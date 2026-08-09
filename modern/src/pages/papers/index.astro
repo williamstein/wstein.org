@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import papers from "../../data/papers.json";
+import { papers } from "../../data/papers";
 
 const topics = [...new Set(papers.map((paper) => paper.topic))].sort();
-const dated = papers.filter((paper) => paper.year).length;
+const kinds = [...new Set(papers.map((paper) => paper.kind))];
+const researchPapers = papers.filter((paper) => paper.kind === "Paper").length;
 ---
 
 <BaseLayout title="Papers - William A. Stein" description="William Stein's publications in number theory, arithmetic geometry, and mathematical software." current="papers">
@@ -17,9 +18,9 @@ const dated = papers.filter((paper) => paper.year).length;
 
     <section class="catalog-summary page-width" aria-label="Publication archive summary">
       <div><strong>{papers.length}</strong><span>listed works</span></div>
-      <div><strong>{dated}</strong><span>dated publications</span></div>
+      <div><strong>{researchPapers}</strong><span>research papers</span></div>
       <div><strong>{topics.length}</strong><span>research areas</span></div>
-      <p>The catalog preserves the original publication descriptions and links. Individual directories may also contain source, computations, drafts, and correspondence.</p>
+      <p>This broad scholarly catalog includes papers, books, a thesis, and exposition. Archive links preserve source, computations, drafts, and supporting data.</p>
     </section>
 
     <section class="catalog-browser page-width" aria-labelledby="papers-browser-title">
@@ -40,20 +41,29 @@ const dated = papers.filter((paper) => paper.year).length;
               {topics.map((topic) => <option value={topic}>{topic}</option>)}
             </select>
           </label>
+          <label class="select-control">
+            <span>Type</span>
+            <select id="paper-kind">
+              <option value="">All types</option>
+              {kinds.map((kind) => <option value={kind}>{kind}</option>)}
+            </select>
+          </label>
         </div>
       </div>
 
       <div class="publication-list">
         {papers.map((paper) => (
-          <a class="publication-row" href={paper.href} data-search={paper.search} data-topic={paper.topic}>
+          <article class="publication-row" data-search={paper.search} data-topic={paper.topic} data-kind={paper.kind}>
             <span class="publication-row__year">{paper.year || "Earlier"}</span>
             <span class="publication-row__body">
-              <strong>{paper.title}</strong>
+              <strong><a href={paper.href}>{paper.title}</a></strong>
               <small>{paper.citation}</small>
             </span>
-            <span class="publication-row__topic">{paper.topic}</span>
-            <span class="arrow" aria-hidden="true">&rarr;</span>
-          </a>
+            <span class="publication-row__meta"><b>{paper.kind}</b>{paper.topic}</span>
+            <span class="publication-row__links">
+              {paper.links.map((link) => <a href={link.href}>{link.label}</a>)}
+            </span>
+          </article>
         ))}
       </div>
       <p class="empty-state" id="paper-empty" hidden>No publications match this search.</p>
@@ -68,6 +78,7 @@ const dated = papers.filter((paper) => paper.year).length;
   <script is:inline>
     const search = document.querySelector('#paper-search');
     const topic = document.querySelector('#paper-topic');
+    const kind = document.querySelector('#paper-kind');
     const rows = [...document.querySelectorAll('.publication-row')];
     const count = document.querySelector('#paper-count');
     const empty = document.querySelector('#paper-empty');
@@ -75,7 +86,7 @@ const dated = papers.filter((paper) => paper.year).length;
       const query = search.value.trim().toLowerCase();
       let shown = 0;
       for (const row of rows) {
-        const visible = (!query || row.dataset.search.includes(query)) && (!topic.value || row.dataset.topic === topic.value);
+        const visible = (!query || row.dataset.search.includes(query)) && (!topic.value || row.dataset.topic === topic.value) && (!kind.value || row.dataset.kind === kind.value);
         row.hidden = !visible;
         if (visible) shown += 1;
       }
@@ -84,5 +95,6 @@ const dated = papers.filter((paper) => paper.year).length;
     }
     search.addEventListener('input', filterPapers);
     topic.addEventListener('change', filterPapers);
+    kind.addEventListener('change', filterPapers);
   </script>
 </BaseLayout>

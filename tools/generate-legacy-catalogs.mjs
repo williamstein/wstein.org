@@ -42,6 +42,8 @@ function paperTopic(title) {
 }
 
 async function generatePapers() {
+  // Keep this as a reproducible legacy import. Editorial corrections and newer
+  // records live in modern/src/data/papers.ts so regeneration preserves them.
   const source = await readFile(new URL("legacy/papers-index.html", dataRoot), "utf8");
   const document = parse5.parse(source);
   const list = walk(document).find((node) => node.tagName === "ol");

@@ -59,7 +59,7 @@ const researchPapers = papers.filter((paper) => paper.kind === "Paper").length;
               <strong><a href={paper.href}>{paper.title}</a></strong>
               <small>{paper.citation}</small>
             </span>
-            <span class="publication-row__meta"><b>{paper.kind}</b>{paper.topic}</span>
+            <span class="publication-row__meta"><b>{paper.kind}</b><span>{paper.topic}</span></span>
             <span class="publication-row__links">
               {paper.links.map((link) => <a href={link.href}>{link.label}</a>)}
             </span>

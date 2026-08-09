@@ -5,6 +5,7 @@
   "entryPoints": [
     "/",
     "/about/",
+    "/cv/",
     "/research/",
     "/software/",
     "/papers/",

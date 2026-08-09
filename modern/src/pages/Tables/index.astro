@@ -1,0 +1,112 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { tableCollections, tableStatuses } from "../../data/tables";
+
+const areas = [...new Set(tableCollections.map((collection) => collection.area))].sort();
+const staticCount = tableCollections.filter((collection) => collection.status === "Usable static data").length;
+---
+
+<BaseLayout title="Mathematical Data - William A. Stein" description="Historical static tables and computational data in modular forms, elliptic curves, and arithmetic geometry." current="data">
+  <main class="page-main">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / Mathematical data</p>
+      <p class="eyebrow">Computational archive</p>
+      <h1>Mathematical Data</h1>
+      <p class="lead">Static tables, bulk downloads, software snapshots, and historical computations assembled over several decades.</p>
+    </header>
+
+    <section class="catalog-summary page-width" aria-label="Data archive summary">
+      <div><strong>{tableCollections.length}</strong><span>collections classified</span></div>
+      <div><strong>{staticCount}</strong><span>usable static datasets</span></div>
+      <div><strong>2.8 GB</strong><span>preserved locally</span></div>
+      <p>The archive is static. Query forms and server programs have been retired; maintained searchable data should generally be sought in the <a href="https://www.lmfdb.org/">LMFDB</a>.</p>
+    </section>
+
+    <section class="data-status-key page-width" aria-labelledby="status-heading">
+      <div><p class="eyebrow">Classification</p><h2 id="status-heading">What each status means</h2></div>
+      <dl>
+        <div><dt class="data-status data-status--static">Static data</dt><dd>Files can be read or downloaded directly.</dd></div>
+        <div><dt class="data-status data-status--download">Download archive</dt><dd>Primarily scans, source, packages, or compressed bundles.</dd></div>
+        <div><dt class="data-status data-status--historical">Historical record</dt><dd>Preserved for context, citation, or research history.</dd></div>
+        <div><dt class="data-status data-status--retired">Retired software</dt><dd>The original interactive runtime no longer operates.</dd></div>
+      </dl>
+    </section>
+
+    <section class="catalog-browser page-width" id="catalog" aria-labelledby="data-browser-title">
+      <div class="catalog-tools">
+        <div>
+          <h2 id="data-browser-title">Collection catalog</h2>
+          <p id="data-count">Showing all {tableCollections.length} collections</p>
+        </div>
+        <div class="catalog-controls">
+          <label class="search-control">
+            <span>Search collections</span>
+            <input id="data-search" type="search" placeholder="Hecke, elliptic curves, Magma..." autocomplete="off" />
+          </label>
+          <label class="select-control">
+            <span>Status</span>
+            <select id="data-status">
+              <option value="">All statuses</option>
+              {tableStatuses.map((status) => <option value={status}>{status}</option>)}
+            </select>
+          </label>
+          <label class="select-control">
+            <span>Area</span>
+            <select id="data-area">
+              <option value="">All areas</option>
+              {areas.map((area) => <option value={area}>{area}</option>)}
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="data-collection-list">
+        {tableCollections.map((collection) => {
+          const statusClass = collection.status === "Usable static data" ? "static" : collection.status === "Downloadable archive" ? "download" : collection.status === "Historical record" ? "historical" : "retired";
+          const search = [collection.name, collection.path, collection.description, collection.status, collection.area].join(" ").toLowerCase();
+          return (
+            <article class="data-collection-row" data-search={search} data-status={collection.status} data-area={collection.area}>
+              <span class={`data-status data-status--${statusClass}`}>{collection.status}</span>
+              <span class="data-collection-row__body">
+                <strong>{collection.href ? <a href={collection.href}>{collection.name}</a> : collection.name}</strong>
+                <small>{collection.description}</small>
+                <code>/Tables/{collection.path}/</code>
+              </span>
+              <span class="data-collection-row__area">{collection.area}</span>
+              <span class="data-collection-row__size">{collection.size}</span>
+            </article>
+          );
+        })}
+      </div>
+      <p class="empty-state" id="data-empty" hidden>No collections match these filters.</p>
+    </section>
+
+    <aside class="page-width archive-callout">
+      <div><p class="eyebrow">Related resources</p><h2>Use and citation</h2></div>
+      <p>See the <a href="/Tables/bibtex.html">original BibTeX entry</a>, <a href="/papers/">published papers</a>, and <a href="/Tables/Notes/">supporting notes</a>. Static URLs are retained where possible for reproducibility.</p>
+    </aside>
+  </main>
+
+  <script is:inline>
+    const search = document.querySelector('#data-search');
+    const status = document.querySelector('#data-status');
+    const area = document.querySelector('#data-area');
+    const rows = [...document.querySelectorAll('.data-collection-row')];
+    const count = document.querySelector('#data-count');
+    const empty = document.querySelector('#data-empty');
+    function filterCollections() {
+      const query = search.value.trim().toLowerCase();
+      let shown = 0;
+      for (const row of rows) {
+        const visible = (!query || row.dataset.search.includes(query)) && (!status.value || row.dataset.status === status.value) && (!area.value || row.dataset.area === area.value);
+        row.hidden = !visible;
+        if (visible) shown += 1;
+      }
+      count.textContent = `Showing ${shown} of ${rows.length} collections`;
+      empty.hidden = shown !== 0;
+    }
+    search.addEventListener('input', filterCollections);
+    status.addEventListener('change', filterCollections);
+    area.addEventListener('change', filterCollections);
+  </script>
+</BaseLayout>

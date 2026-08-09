@@ -1,4 +1,9 @@
-Tables/index.html
 assets/archive.css
+Tables/tables.html
+Tables/odd_intersection_graph_gamma0.html
+Tables/charpoly_level1/t2/index.html
+Tables/charpoly_level1/upto997/index.html
+Tables/elliptic_curves_in_nature/congruent_number_problem/index.html
+Tables/dokchitser_computel/index.html
 pics/new/index.html
 pics/new/2000-2004_MANY_Older_Photos_and_Videos/archive.html

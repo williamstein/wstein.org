@@ -1,0 +1,2868 @@
+\documentclass{article} \usepackage[active]{srcltx}
+\bibliographystyle{amsalpha} \usepackage{float} 
+%\usepackage{pdfsync}
+\usepackage{tikz} \usetikzlibrary{matrix,arrows}
+
+\voffset=-0.05\textheight \textheight=1.1\textheight
+\hoffset=-0.05\textwidth \textwidth=1.1\textwidth
+
+
+\include{macros} 
+
+%\renewcommand{\todo}[1]{{\LARGE\myred [Todo: #1]}}
+
+\newcommand{\Oc}{\mathcal{O}_c}
+\newcommand{\eE}{\mathbf{E}}
+\newcommand{\Fellbar}{\overline{\mathbf{F}}_{\ell}}
+\newcommand{\Felltwo}{\F_{\ell^2}}
+\newcommand{\Eonebar}{\overline{\eE}_1}
+ 
+\newcommand{\OK}{\mathcal{O}_K} 
+\newcommand{\cI}{\mathcal{I}} 
+\newcommand{\n}{\mathfrak{n}}
+\newcommand{\fm}{\mathfrak{m}}
+\usepackage[all]{xy}
+
+
+
+
+\usepackage[hypertex]{hyperref}
+
+
+\DeclareMathOperator{\Sh}{Sh} 
+\newcommand{\cN}{\mathcal{N}}
+\renewcommand{\O}{\mathcal{O}}
+\DeclareMathOperator{\supersingular}{ss}
+\renewcommand{\ss}{\supersingular}
+
+\title{Kolyvagin's Conjecture for Specific Higher Rank Elliptic Curves}
+
+\author{William Stein\footnote{The work was supported by NSF grant
+0555776 and the Clay Mathematics Institute.}}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract} We study Heegner points and Kolyvagin classes for
+  elliptic curves over $\QQ$, with special focus on curves that have
+  analytic rank at least $2$.  We reinterpret Kolyvagin's ``derived
+  classes'' construction in the context of divisors on modular curves
+  directly in characteristic $\ell$, and prove compatibility and
+  multiplicity one results.  We use these results to give the first
+  complete algorithm for explicitly computing (certain) Kolyvagin
+  classes, and thus verify a conjecture of Kolyvagin
+  for some specific elliptic curves.
+\end{abstract}
+
+%\tableofcontents \newpage
+
+\section{Introduction}\label{sec:intro}
+
+A {\em higher rank} elliptic curve is an elliptic curve $E$ over $\Q$
+of analytic rank at least $2$.  Let $K$ be a quadratic imaginary field
+such that each prime dividing the conductor of $E$ splits in $K$.
+This paper is about the Galois cohomology classes $\tau_{c,p^n} \in
+\H^1(K,E[p^n])$ defined by Kolyvagin (see, e.g.,
+\cite{kolyvagin:subclass, gross:kolyvagin, mccallum:kolyvagin}).  Our
+main motivation is the explicit study of these classes on higher rank
+elliptic curves, inspired by the results of
+\cite{stein:ggz,bradshaw-stein:heegner} and open conjectures of
+Kolyvagin (see \cite{kolyvagin:structure_of_selmer, ciperiani-wiles}).  In
+particular, consider Conjecture~A of
+\cite[pg.~255]{kolyvagin:structure_of_selmer}:
+\begin{conjecture}[Kolyvagin]\label{conj:koly}
+  For each prime $p$, there is some $n$ and squarefree product 
+$c=\prod p_i$ of primes that are inert in $K$ with $p^n \mid \gcd(a_{p_i},
+  p_i+1)$ such that $\tau_{c,p^n}\neq 0$.
+\end{conjecture}
+For elliptic curves with analytic rank $\leq 1$ over $K$, this
+conjecture with $c=1$ follows from \cite{gross-zagier}, but for higher
+rank curves the conjecture is wide open, and we have only
+computational data.  
+
+%As evidence, we also have the paper
+%\cite{ciperiani-wiles}, which applies results of Cornut to prove the
+%analogue of Conjecture~\ref{conj:koly} without the hypothesis that
+%$c$ is squarefree.  
+
+The goal of this paper is to shed some light on
+Conjecture~\ref{conj:koly} by making it more explicit and computing
+many examples, as follows.  
+Let $p^n$ and $c$ be as in Conjecture~\ref{conj:koly}
+We adapt
+Kolyvagin's construction to define elements in
+$E(\F_{\ell^2})\tensor(\Z/p^n\Z)$, then give an algorithm to compute
+these elements in many cases.  When one of these elements is nonzero,
+the corresponding Kolyvagin cohomology class $\tau_{c,p^n}$ is also nonzero,
+which allows us to verify, in several specific examples,
+Conjecture~\ref{conj:koly}.  This is significant because until now
+this conjecture had not been verified in even a single case.  In
+particular, we present a powerful and fairly general approach to
+explicitly computing information about particular classes
+$\tau_{c,p^n}\in \H^1(K,A_f[p^n])$ for a modular abelian varieties
+$A_f$, squarefree integer $c$ and prime power $p^n$.  Thus, our
+results provide further motivation and much needed tools for studying
+Heegner points in the context of higher rank elliptic curves and
+modular abelian varieties.  Moreover, we provide new algorithms for
+computing with Selmer groups of elliptic curves, which exploit
+different methods than explicit $n$-descent for small~$n$ (see
+\cite[\S3.5]{cremona:algs} and
+\cite{cremona-fisher-oneil-simon-stoll:n-descent}) or explicit Iwasawa
+theory as in \cite{stein-wuthrich}.
+
+% Our work also touches on the following theorem
+% (\cite[pg.~118]{kolyvagin:structureofsha}):
+% \begin{theorem}[Kolyvagin]
+%   Let $E$ be an elliptic curve with analytic rank $\leq 1$.  Assume
+%   that the $p$-component of the BSD conjecture is true for $E$, and
+%   that we can calculate the coordinates of $\tilde{P}_{\lambda} \in
+%   \tilde{E}(F)$, where $F$ is the residue field of $K_{\lambda}$.
+%   Then we can explicitly compute the structure of the Selmer group of
+%   $E$ in terms of the classes $\tau_{c,p^n}$.
+% \end{theorem}
+
+%For $\geq 2$, nobody had ever proved Kolyvagin's
+%Conjecture~\ref{conj:koly}, for even a single curve and prime $p$.
+%The closest was the paper [Jetchev-Lauter-Stein], which numerically
+%computes $y_5$ to {\em some decimal precision}, and assuming that we
+%actually got enough digits of precision, we find that
+%$P_{c,\sigma}\neq 0$.  But this computation relies on computing a
+%numerical approximation to $y_c$, for which there is no proof that
+%even {\em a single digit} of the computation was correct.  The
+%computations also take a long time when $c$ is at all large, since
+%they require working in a number field of huge degree $c+1$ and
+%discriminant.
+
+Our approach is inspired by groundbreaking work of Cornut, Vatsal,
+Gross, Jetchev-Kane, and Mazur (see \cite{jetchev-kane:equi,
+  cornut:mazur, vatsal:uniform}), in which they establish
+nontriviality results about Heegner points.  Our new idea is simple:
+{\em use rational quaternion algebras to give an explicit description
+  of the Kolyvagin derived classes construction modulo an auxiliary
+  prime $\ell$ that is inert in the quadratic imaginary field $K$}
+(see Section~\ref{sec:galois}). Many of the objects we use play a
+central role in the work of Cornut mentioned above.  We hope that some
+of our techniques may also be useful for exploring and refining other
+ideas related to extra structure on higher rank elliptic curves
+arising from Heegner points.
+
+%Doing this involves several results,
+%algorithms, and an explicit description of the Kolyvagin derivative
+%directly in characteristic $\ell$ .
+The Birch and Swinnerton-Dyer conjectural rank formula (see
+Conjecture~\ref{conj:bsd} below) asserts that
+$
+ \ord_{s=1} L(E,s) = \rank(E(\QQ)).
+$
+This conjecture is a theorem when $E$ is an elliptic curve over $\Q$
+of analytic rank $\leq 1$ (see \cite{breuil-conrad-diamond-taylor,
+  gross-zagier, kolyvagin:weil} and Theorem~\ref{thm:bsd1} below).  In
+sharp contrast, when $E$ is a higher rank curve, the BSD conjecture
+remains shrouded in mystery, as do potential generalizations of the
+Gross-Zagier formula (see, e.g., \cite{stein:ggz}).  Unfortunately,
+the many exciting generalizations of the Gross-Zagier formula to other
+settings (see \cite{bruinier-yang:gz, zhang:gz_formulas, zhang:gzgl2,
+  yuan-zhang-zhang:triple}) so far seem to yield little new insight in
+the higher rank case.  As explained in \cite{stein:ggz}, Kolyvagin
+classes are potentially relevant to a search for a generalization of
+the Gross-Zagier formula that treats higher derivatives.  Such a
+generalization is an incredibly difficult open problem and anything
+that might shed light on it is worth investigating.  So far,
+finding a plausibly-provable conjecture has remained elusive.
+
+The explicit examples in Section~\ref{sec:data} involve rank $2$
+curves (instead of curves of rank $\geq 3$), since the notation and
+computations are substantially simpler when the rank is $2$.  The
+theory and algorithms we develop apply to elliptic curves of any rank,
+and also to modular abelian varieties.  It is thus possible to study
+many more general situations using our approach (see
+Section~\ref{sec:future}).
+
+This paper is structured as follows.  In Section~\ref{sec:outline} we
+give an outline of our main algorithm.  Next in Section~\ref{sec:bsd}
+we recall the BSD conjecture and give some examples, which motivate
+our paper.  In Section~\ref{sec:heegner} we recall the definition of
+Heegner points.  In Section~\ref{sec:construct} we introduce Kolyvagin
+classes, make some observations, and discuss reduction of Heegner
+points modulo a prime over $\ell$.  In Section~\ref{sec:galois} we
+make the action of Galois on certain objects in characteristic $\ell$
+more explicit and prove a compatibility result.  In
+Section~\ref{sec:red} we explain in more detail how our algorithm for
+computing reductions of Kolyvagin classes works.  We combine our above
+results to obtain an algorithm to compute Kolyvagin classes, which we
+apply in Section~\ref{sec:data}, in which we discuss the
+implementation of our algorithm, tables we obtained by running it, and
+state some results inspired by this data.  Finally,
+Section~\ref{sec:future} discusses a range of related future projects.
+
+\vskip2em
+
+\noindent{}{\bf Acknowledgement:} The author would like to thank
+Jennifer Balakrishnan, Ralph Greenberg, Benedict Gross, Ben Howard,
+David Kohel, Dimitar Jetchev, Barry Mazur, Ken Ribet, Karl Rubin,
+Justin Walker, and Jared Weinstein for helpful discussions.
+
+\subsection{Notation and terminology}
+
+We use $\isom$ to denote a canonical isomorphism and $\ncisom$ to
+denote a noncanonical one.  Unless otherwise stated, all tensor
+products are over $\ZZ$.  We always let $p,q,\ell$ denote {\em odd}
+prime numbers, $E$ an elliptic curve over $\Q$, and $K$ a quadratic
+imaginary field such that each prime dividing the conductor $N$ of $E$
+splits in $K$.  Let $a_n$ denote the $n$th Dirichlet series
+coefficient of the $L$-series $L(E/\Q,s)$ associated to $E$.
+
+\section{Reducing Kolyvagin Classes}\label{sec:outline}
+As above, let $E$ be an elliptic curve over $\Q$, let $K$ be a
+quadratic imaginary field such that each prime dividing the conductor
+$N$ of $E$ splits in $K$, let $p^n$ be an odd prime power.  Let
+$c$ be a squarefree product of primes that are inert in $K$ such that
+for each prime $q\mid c$ we have $p^n\mid\gcd(a_q, q+1)$, where $a_q=
+q+1-\#E(\F_q)$.  Let $K_c$ be the ring (not ray!) class extension of
+$K$ associated to $c$, and let $\sigma_i$ be a choice of generator of
+$\Gal(K_{c}/K_{c/p_i})$ for each prime divisor $p_i\mid c$,
+and let $\sigma=(\ldots,\sigma_i,\ldots)$. As explained
+in Section~\ref{sec:construct} below, Kolyvagin uses Heegner points to
+construct a point $P_{c,\sigma}\in E(K_{c})$
+such that $[P_{c,\sigma}]\in (E(K_{c})\tensor\Z/p^n\Z)^{\Gal(K_c/K)}$.  Under
+suitable hypothesis on $p$ (e.g., the $p$-adic representation
+$\rho_{E,p}$ is surjective), Kolyvagin then uses $P_{c,\sigma}$ to define
+a cohomology class $\tau_{c,p^n}\in\H^1(K,E[p^n])$ characterized by
+$$\delta([P_{c,\sigma}]) =\res_{K,K_c}(\tau_{c,p^n}) \in H^1(K_c, E[p^n])^{\Gal(K_c/K)},$$
+where $\delta$ is the connecting homomorphism of Galois cohomology.
+(The class $\tau_{c,p^n}$ also depends on the choice of $\sigma$, but
+we surpress this in our notation.)
+
+We introduce yet another prime $\ell$ that is also inert in $K$ 
+and fix a prime $\lambda$ of $K_c$ over $\ell$.   Reduction modulo
+$\lambda$ induces a homomorphism 
+$E(K_{c})\tensor\Z/p^n\Z \to E(\F_{\ell^2}) \tensor \Z/p^n\Z$.
+Using Algorithm~\ref{alg:main} below when $n=1$, we compute 
+the image $z$ of $[P_{c,\sigma}]$ under the reduction map.
+When $z\neq 0$, we conclude that $\tau_{c,p}$ is also nonzero.
+
+%Algorithm~\ref{alg:main} is also useful for computing with
+%Kolyvagin's Euler system of $\tau_{c,p}$, even when $E$ has
+%analytic rank $1$ over $K$; e.g., we can compute for $c$
+%divisible by several primes. 
+
+%When $n=1$ and the $p$-adic representation $\rho_{E,p}$ is surjective,
+%Algorithm~\ref{alg:main} below allows us to compute the reduction of
+%$[P_{c}]$ modulo a prime $\lambda$ lying over $\ell$, which allows us
+%to show that $\delta(P_{c})$, and hence $\tau_{c,p^n}$, is nonzero in some
+%cases.
+
+\vspace{1ex}
+
+\begin{algorithm}\label{alg:main}\mbox{}\\\vspace{-2ex}
+\begin{itemize}
+\item INPUT: {\em $E$, $K$, $p$, $\ell$, $c$, $\sigma$, as above.}
+
+\item OUTPUT: {\em The (well-defined) image of $[P_{c,\sigma}]$ in
+    $E(\F_{\ell^2})\tensor (\Z/p\Z)$, via reduction modulo any prime
+    over $\ell$ (it does not matter which), up to some fixed
+    nonzero scalar that is independent of $c$.  We can compute the
+    image of many different $P_{c,\sigma}$ with respect to a consistent choice
+    of map.}
+\end{itemize}
+
+\begin{enumerate}
+\item Use rational quaternion algebras and theta series of quadratic
+  forms to directly compute a supersingular point $\overline{x}_1 \in
+  X_0(N)(\F_{\ell^2})^{\ss}$ that is the reduction modulo $\lambda$ of
+  a choice of Heegner point $x_1 \in X_0(N)(K_1)$.  (See
+  Section~\ref{sec:explicitred}.)
+
+\item Apply a mod~$\ell$ analogue of Kolyvagin's construction to
+  directly obtain the reduction $\overline{Q}_{c,\sigma}$ of the
+  ``Kolyvagin derived divisor'' attached to $x_c$ as an element of
+  $\Div(X_0(N)(\F_{\ell^2})^{\ss})$.  (See Sections~\ref{sec:galois}
+  and \ref{sec:kolyderiv}.)  Computing $\overline{Q}_{c,\sigma}$
+  closely resembles computing the image $T_c(\overline{x}_1)$ of
+  $\overline{x}_1$ under the Hecke operator $T_c$ using
+  Equation~\eqref{eqn:heckeop}, but with an appropriate choice of
+  weighting of each summand.
+  
+\item\label{step:outline_linalg} Use linear algebra combined with
+  refinements of results of Cornut, Ihara and Ribet (see
+  Section~\ref{sec:surjss}) and a multiplicity one theorem (see
+  Theorem~\ref{thm:multonet} below) to compute a fixed nonzero scalar
+  multiple of the image of $\overline{Q}_{c,\sigma}$, hence of
+  $P_{c,\sigma}$, under the homomorphism of Hecke modules
+\begin{equation}\label{eqn:modtoE}
+\Div(X_0(N)(\F_{\ell^2})^{\ss})\tensor(\Z/p\Z) 
+      \to E(\F_{\ell^2})\tensor (\Z/p\Z).
+\end{equation}
+
+\end{enumerate} 
+\end{algorithm}
+
+
+\begin{remark}
+  We emphasize that the steps of Algorithm~\ref{alg:main} can all be
+  done purely algebraically, without recourse to any numerical
+  approximations.  This contrasts with the approach of
+  \cite{jetchev-lauter-stein}, which provides numerical {\em evidence}
+  for Kolyvagin's conjecture in one case, {\em without} proof.  In
+  theory the approach of \cite{jetchev-lauter-stein} can likely be
+  made rigorous, but this has not been done in practice in any case,
+  though see \cite{bradshaw:phd} which is a step in that direction.
+  The approach of \cite{jetchev-lauter-stein} can be faster for an
+  elliptic curve with large conductor (with $c$ {\em very small}); it
+  is much worse for large $c$ than Algorithm~\ref{alg:main} (e.g.,
+  $c>100$ would be incredibly hard).
+\end{remark}
+
+\begin{remark}\label{remark:spanQ}
+  Suppose we are only interested in verifying that the image under
+  \eqref{eqn:modtoE} of $\overline{Q}_{c,\sigma}$ is {\em
+    nonzero}. Instead of the linear algebra of
+  Step~\ref{step:outline_linalg}, we might be able to use that
+  \eqref{eqn:modtoE} is a $\T$-module homomorphism, where $\T$ is the
+  Hecke algebra; if $\T\overline{Q}_{c,\sigma}$ has sufficiently large
+  dimension, so that it cannot be contained in the nontrivial kernel,
+  then we are done.  If we take this approach and it works, we do not
+  need to compute \eqref{eqn:modtoE} at all.  However, in some cases
+  this approach cannot work, e.g., we could run into trouble if there
+  are other elliptic curves of larger rank also of level $N$.
+\end{remark}
+
+\begin{remark}
+  Algorithm~\ref{alg:main} only computes the reduction of
+  $P_{c,\sigma}$ up to a fixed nonzero scalar, which is enough to show
+  that $\delta(P_{c,\sigma})\neq 0$.  The point $P_{c,\sigma}$ could
+  in principle be normalized by finding $P_{c,\sigma}$ exactly via a
+  numerical computation, using \cite{jetchev-lauter-stein} for one
+  choice of $c$ for which the image of $P_{c,\sigma}$ in
+  $E(\F_{\ell})\tensor (\Z/p\Z)$ is nonzero.
+\end{remark}
+
+%\begin{remark}
+%\todo{Remark about how reducing mod several primes is injective. 
+%\url{https://mail.google.com/mail/?shva=1\#mbox/12e34957440848c2}}
+%\end{remark}
+
+To make the steps of Algorithm~\ref{alg:main} explicit and machine
+computable, we view $\Div(X_0(N)(\F_{\ell^2})^{\ss})$ noncanonically
+as the set of right ideal classes in an Eichler order $R$ of level $N$
+in the (unique up to isomorphism) rational quaternion algebra ramified
+at $\ell$ and $\infty$, which we compute as explained in
+\cite{pizer:alg, kohel:hecke, kohel:computing, stein:modabvarnotes}.
+By computing representation numbers of ternary quadratic forms
+associated to left orders, we find the right $R$-ideals $I$ whose left
+order admits an optimal embedding of the ring of integers $\O_K$ of
+$K$; this is the trick we use to compute the reduction
+$\overline{x}_1\in X_0(N)(\Felltwo)$ of $x_1$ modulo a prime over
+$\ell$ without ever computing $x_1$ itself.  Then we use
+$\overline{x}_1$ and a parametrization of the right ideals $J\subset
+I$ such that $I/J\isom (\Z/c\Z)^2$ to directly compute the reduction
+$\overline{Q}_{c,\sigma}$ (see Theorem~\ref{thm:mapstoz} below).
+An implementation of the algorithm is included in Sage \cite{sage}.
+
+
+
+\section{The Birch and Swinnerton-Dyer Conjecture}\label{sec:bsd}
+The BSD conjecture is the main motivation for this paper, so we spend
+a page recalling it and emphasizing our ignorance.  First we state the
+conjecture, then state the main theorem about it, and finish with some
+remarks about a curve of rank 4 and another of rank 2.
+
+Let $E$ be an elliptic curve over $\QQ$.  By
+\cite{breuil-conrad-diamond-taylor, wiles:fermat} the $L$-series
+$$L(E,s) = \sum_{n=1}^{\infty} \frac{a_n}{n^s}$$ 
+attached to $E$ extends to a holomorphic function on all of $\CC$,
+hence the nonnegative integer
+$$
+ r_{\an}(E/\Q) = \ord_{s=1} L(E,s) \geq 0
+$$ 
+is defined.  The BSD conjecture was first introduced by Birch and
+Swinnerton-Dyer in the 1960s motivated by computer computations, and
+was later formulated for abelian varieties over number fields (see
+\cite{birch:edsac,birch:bsd,milne:bsdres,tate:bsd,wiles:cmi}).
+\begin{conjecture}[Birch and Swinnerton-Dyer]\label{conj:bsd} 
+For any elliptic curve $E$ defined over $\Q$ we have
+$$
+  \rank E(\Q) = r_{\an}(E/\Q).
+$$
+\end{conjecture} 
+There is also a conjectural formula of Birch and Swinnerton-Dyer for the leading
+coefficient of the series expansion of $L(E,s)$ about $s=1$
+(see \cite[III, \S 5]{lang:nt3} for a general formulation).
+This formula has now been computationally verified in many cases; 
+see \cite{bsdalg1, miller:bsd1} where the formula is fully proved for
+all curves with rank $\leq 1$ and conductor $\leq 5000$.
+
+Results of Kolyvagin, Gross-Zagier, and Bump-Friedberg-Hoffstein (see, e.g.,
+\cite{bump-friedberg-hoffstein:nonvanishing, gross-zagier,
+kolyvagin:weil}) imply the following theorem.
+\begin{theorem}\label{thm:bsd1} Conjecture~\ref{conj:bsd} is true for elliptic curves
+$E$ with $\ord_{s=1} L(E,s) \leq 1$.
+\end{theorem} 
+
+As mentioned in the introduction, Conjecture~\ref{conj:bsd} remains
+completely open when $\ord_{s=1} L(E,s) \geq 2$.  As evidence for
+Conjecture~\ref{conj:bsd}, we have tables of specific rank $2$ and $3$
+curves for which the conjecture is known (see, e.g.,
+\cite{cremona:onlinetables,stein-watkins:ants5}), and assurances that
+many curves have analytic rank $\leq 1$ (see
+\cite{bhargava-shankar:avgrank}).  There is not a single example of a
+curve of rank $\geq 4$ for which the conjecture has been verified.
+Rank $4$ is difficult not because of the complexity of doing
+computations, but because there is, as of now, no known {\em
+  algorithm} (no matter how slow) that can be used to show that
+$r_{\an}(E/\Q)\geq 4$.
+
+\begin{example} 
+Let $E$ be the elliptic curve $y^2 + xy = x^3 - x^2
+- 79x + 289$. A $2$-descent (using \cite{mwrank, sage}) and point search proves 
+that $E$ has algebraic rank $4$, with generators
+$\left(-9, 19 \right), \left(-8, 23 \right), \left(-7, 25\right), \left(4, -7\right)$.
+Applying the methods of \cite{cremona:algs, dokchitser:lfun} and the
+Gross-Zagier formula, we see that $L(E,1)=L'(E,1)=0$, $L''(E,1)$ is
+{\em very close} to 0, and $L^{(4)}(E,1)=214.65233\ldots$. But showing
+that $L''(E,1)=0$ (which would imply Conjecture~\ref{conj:bsd} for
+$E$) is an unsolved problem.  
+%We illustrate the above computations
+%using Sage (see \cite{sage}). 
+%\begin{lstlisting} 
+%sage: E = EllipticCurve([1, -1, 0, -79, 289])
+%sage: E.gens() 
+%[(-9 : 19 : 1), (-8 : 23 : 1), (-7 : 25 : 1), (4 : -7 : 1)] 
+%sage: L = E.lseries().dokchitser() 
+%sage: L.derivative(1,2)  # means |L''(E,1)| <= 10^(-22)
+%-8.31408385008768e-22 
+%sage: L.derivative(1,4)  # L^(4)(E,1)
+%214.652337501621
+%sage: E.heegner_point_height(-7) # means y_K=0 for K=Q(sqrt(-7))
+%0
+%\end{lstlisting}
+\end{example}
+%\todo{I emailed Bradshaw-Boothby about $L''(E,1)$ to high precision on Feb 17.}  NOTHING.
+
+Assume that $E$ is an elliptic curve with $\ord_{s=1}L(E,s)=2$.  Then
+Conjecture~\ref{conj:bsd} asserts that $\rank E(\Q) =2$.  In the
+explicit examples Section~\ref{sec:data}, the Birch and
+Swinnerton-Dyer formula predicts that $\#\Sha(E/\Q)=1$, though in fact
+$\Sha(E/\Q)$ is not known to be finite for any of these curves (or
+indeed, for any curve of rank $\geq 2$). The best that has been done
+at present for a general rank $2$ curve is to verify that
+$\Sha(E/\Q)[p]=0$ for (finitely) many specific $p$, e.g., using the
+algorithm of \cite{stein-wuthrich}.  See the recent work of
+\cite{coates-liang-sujatha:cm_sha, coates-liang-sujatha:cm_sha2} on CM
+elliptic curves of rank $2$.  Also, for the rank 2 elliptic curve of
+conductor 389, the author used modular symbols, $p$-adic $L$-series,
+$p$-adic heights, Iwasawa theory, and results of Kato and Schneider to
+show that $\Sha(E/\Q)[p]=0$ for all primes $p<2466$, except possibly
+the supersingular primes $p=107$, $599$, and $1049$, for which the
+approach of \cite{stein-wuthrich} should work, but take much longer.
+%\begin{lstlisting}
+%sage: E = EllipticCurve('389a')
+%sage: sha = E.sha()
+%sage: sha.p_primary_bound(5)
+%0
+%sage: sha.p_primary_bound(19)   # takes about a second.
+%0
+%\end{lstlisting}
+
+%Elliptic curves over $\QQ$ are endowed with extra structure coming
+%from modular curves, which helps in investigating
+%Conjecture~\ref{conj:bsd}. 
+
+
+
+\section{Quadratic Imaginary Fields and Heegner Points}\label{sec:heegner}
+In this section we recall the definition of Heegner points over ring
+class fields, and explain how they behave under taking traces.  We
+will use these points in the next section to construct derived 
+Galois equivariant classes.
+
+Let $E$ be an elliptic curve over $\Q$ of conductor $N$, and let
+$\pi_E:X_0(N) \to E$ be a fixed choice of minimal modular
+parametrization.  The main theorem of
+\cite{bump-friedberg-hoffstein:nonvanishing} implies that there exists
+infinitely many quadratic imaginary fields $K=\Q(\sqrt{D})$ of
+discriminant $D\leq -5$ such that each prime dividing $N$ splits in
+$K$. Fix any such $K$.
+
+Fix an odd prime power $p^n$ with $n\geq 1$.  Let~$c=\prod p_i$ be any
+product of prime numbers $p_i$ that are each inert in $K$, coprime to
+$ND$, and such that
+$$
+  p^n\mid \gcd(a_{p_i},\, p_i+1),
+$$
+for each $i$.  Let $K_c$ be the ring class field associated to the
+conductor $c$.  As explained in \cite[pg.~238]{gross:kolyvagin}, the
+field $K_c$ is an abelian extension of the Hilbert class field $K_1$
+of $K$, is unramified outside~$c$, and is contained in the ray class
+field associated to $c$.  Moreover, the reciprocity map of class field
+theory induces a canonical isomorphism
+\begin{equation}\label{eqn:cft} \Gal(K_c/K_1) \isom
+(\O_K/c\O_K)^{\times}/(\Z/c\Z)^{\times},
+\end{equation} where $\O_K$ is the ring of integer of $K$
+(see Proposition~\ref{prop:bigdiag} below).  Let $\O_c
+= \Z + c\O_K$ be the order in $\O_K$ of conductor $c$.  Each prime
+dividing $N$ splits in $K$, so we can fix a {\em choice} $\n$ of
+ideal in $\O_K$ with $\O_K/\n\isom \Z/N\Z$.
+
+The Heegner point associated to $c$ is
+$$
+x_c = \Bigl[\Bigl(\C/\O_c, \,\,\, (\n\cap\O_c)^{-1}/\O_c \Bigr)
+\Bigr] \in X_0(N)(K_c),
+$$
+which has image
+$$
+ y_c =\pi_E(x_c) \in E(K_c).
+$$
+%B.~Mazur conjectured (and Cornut \cite{} proved) that all but
+%finitely many of these $y_c$ have infinite order.
+
+\begin{remark}\label{rmk:welldef} There are many possible choices of
+  $\n$ in the definition above, which are parametrized by the
+  different choices of prime ideals of $\O_K$ over the prime divisors
+  of $N$. These different choices are permuted by the action of the
+  Atkin-Lehner operators.  The Atkin-Lehner operators act as $\pm 1$
+  on $E$, so $y_c$ is well-defined up to sign, independent of the
+  choice of $\n$.  See \cite{watkins:heegner} or \cite[Thm.~8.7.7]{cohen:gtm239} for an explicit
+  description of the Atkin-Lehner action on Heegner points.
+\end{remark}
+
+
+Motivated by the problem of constructing elements of $E(\Q)$, it is
+natural to apply a trace map to $y_c$.
+
+\begin{proposition}[The Distribution Relation]\label{prop:dist} We have 
+$\Tr_{K_c/K_1}(y_c) = a_c \cdot y_1 \in E(K_1)$.
+More generally for each prime $q\mid c$, we have
+$\Tr_{K_c/K_{c/q}}(y_c) = a_q \cdot y_{c/q} \in E(K_{c/q})$.
+\end{proposition}
+\begin{proof} See \cite[\S6]{gross:heegnerX0N} or
+  \cite[Lem.~5.2]{jetchev-kane:equi}.  The key idea is that if $T_c$
+  is the $c$th Hecke operator, then we have the following equality of
+  divisors on $X_0(N)$:
+   $$T_c(x_1) = \sum_{\sigma\in \Gal(K_c/K_1)} \sigma(x_c).$$ 
+   To complete the proof, take the image of both sides in $E$ and use
+   that the Hecke operator $T_c$ acts as $a_c$ on $E$.
+\end{proof}
+ 
+Suppose $E$ is a higher rank curve.  The Gross-Zagier theorem \cite[\S
+5.2]{gross-zagier} implies that the height of $\Tr_{K_1/K}(y_1) \in
+E(K)$ is a nonzero multiple of $L'(E/K,1)$.  However, $L(E/K,s) =
+L(E/\Q,s)\cdot L(E^D/\Q,s)$, and we assumed that
+$\ord_{s=1}L(E/\Q,s)\geq 2$, so $L'(E/K,1)=0$.  Thus for all $c$,
+\begin{equation}\label{eqn:tr_yc} 
+\Tr_{K_c/K}(y_c) = \Tr_{K_1/K}(a_c y_1)  \in E(K)_{\tor}.
+\end{equation} 
+Thus the traces of $y_c$ are
+never non-torsion elements of the higher rank Mordell-group $E(\Q)$.
+%However, for any inert prime~$\ell$, we {\em can} construct elements
+%in $E(\F_{\ell^2})\tensor(\Z/q\Z)$, and these points have 
+%consequences for the arithmetic of $E(\Q)$
+%(see Theorem~\ref{thm:rankbound} below).
+
+\section{Derived Points and Cohomology Classes, and their Reduction Modulo $\ell$}
+\label{sec:construct}
+
+In this section, we assume that $p$ is an odd prime such that the
+$p$-adic representation $\rho_{E,p}$ is surjective.
+
+In Section~\ref{sec:derpts} we construct Kolyvagin's derived classes
+associated to Heegner points, then use these in
+Section~\ref{sec:derclass} to construct Galois invariant classes.  In
+Section~\ref{sec:redmodell} we explain how to reduce these classes
+modulo $\ell$, and note that if the reduction is ever nonzero, then so
+is the class.  Section~\ref{sec:nontrivial} contains some consequences
+of nontriviality in the special case when $E$ has analytic rank $2$.
+
+\subsection{Derived points}\label{sec:derpts}
+
+Let $p^n$ be a power of $p$, and 
+let $c=p_1\cdots p_t$ be a squarefree product of inert primes $p_i$ 
+such that $p^n\mid \gcd(a_{p_i}, p_i + 1)$.
+We recall the construction of Kolyvagin classes here, since it
+is important to emphasize the precise dependence on choice of
+generator of the Galois group, which impacts our algorithm.
+Also, we will make some remarks about this
+construction that 
+appear to not be in the literature.
+
+Let $[y_c]$ denote the image of $y_c$ in $E(K_c)\tensor (\Z/p^n\Z)$.  
+Let $q$ be a prime divisor of $c$. The Galois group
+$\Gal(K_c/K_{c/q})$ is cyclic of order $q+1$.  Fix a choice of generator
+$\sigma=\sigma_q \in \Gal(K_c/K_{c/q})$, let
+$$
+ P = \sum_{i=1}^{q} i \sigma^i(y_c) \in E(K_{c}),
+$$
+and let $[P]$ denote the image of $P$ in $E(K_c)\tensor (\Z/p^n\Z)$, so
+\begin{equation}\label{eqn:bracketP}
+ [P] = \sum_{i\,\,\in\,\, \Z/(q+1)\Z} i \sigma^i([y_c]).
+\end{equation}
+\begin{proposition}\label{prop:pinv} 
+As above, assume that $p^n \mid \gcd(a_q, q+1)$. Then
+$$
+[P] \in (E(K_c)\tensor (\Z/p^n\Z))^{\Gal(K_c/K_{c/q})}.
+$$
+\end{proposition}
+\begin{proof} 
+Applying our choice of generator $\sigma$ of $\Gal(K_c/K_{c/q})$ to $P$,
+we have
+\begin{align} \sigma ([P]) &= \sum_{i\,\,\in\,\, \Z/(c+1)\Z} \sigma i
+\sigma^i([y_c]) = \sum_{i \,\,\in\,\, \Z/(c+1)\Z} i \sigma^{i+1}
+([y_c])\\ &= \sum_{i \,\,\in\,\, \Z/(c+1)\Z} (i-1) \sigma^{i} ([y_c])
+= [P] - \Tr_{K_c/K_{c/q}}([y_c]) = [P].\label{eqn:final_equality}
+\end{align} The first equality in \eqref{eqn:final_equality} is because
+$p^n\mid q+1$, so we can enumerate the elements of $\Z/(q+1)\Z$ in any
+way we want (in fact, the notation we are using above only makes sense
+because $p^n \mid q+1$).  The final equality in
+\eqref{eqn:final_equality} holds since $p^n \mid a_q$ and
+$\Tr_{K_c/K_{c/q}}(y_c) = a_q y_{c/q}$, by Proposition~\ref{prop:dist}.
+\end{proof}
+
+For each prime $p_i \mid c$, make a choice $\sigma_i$ of generator
+for $\Gal(K_c/K_{c/p_i})$, and let $\sigma=(\sigma_1,\ldots,\sigma_t)$
+be the tuple of those choices. 
+Let
+$$
+D_{c,\sigma} = \prod_{j=1}^{t} \sum_{i=1}^{p_j} i \sigma_j^i \in \Z[\Gal(K_c/K_1)],
+$$
+and let
+\begin{equation}\label{eqn:pcsigma}
+[P_{c,\sigma}] = \Tr_{K_1/K}(D_{c,\sigma}([y_c])) \in (E(K_c)\tensor (\Z/p^n\Z))^{\Gal(K_c/K)}.
+\end{equation}
+
+\begin{remark}\label{rmk:althypo}
+  If we replace the hypothesis that $p^n \mid \gcd(a_q,q+1)$ with the
+  hypothesis that $p^n \mid q+1$ and $E$ has analytic rank $\geq 2$, then
+  we still have that $[P_{c,\sigma}] \in (E(K_c)\tensor
+  (\Z/p^n\Z))^{\Gal(K_c/K)}$.  This is because $\Tr_{K_1/K}(y_1)$ is
+  torsion and $p$ is coprime to torsion, so the proof of
+  Proposition~\ref{prop:pinv} still goes through, but with an
+  ``obstruction'' of $a_c y_1$, which vanishes upon taking a trace 
+because of Equation~\eqref{eqn:tr_yc}.
+\end{remark}
+
+\begin{remark}
+  The construction also generalizes if we replace the prime power
+  $p^n$ by the ideal $I$ in $\Z$ generated by all $a_{q}$ and $q+1$ for
+  primes $q\mid c$, and we obtain 
+$$
+  [P_{c,\sigma}] \in (E(K_c) \tensor (\Z/I))^{\Gal(K_c/K)}.
+$$
+ More generally, consider the modular Jacobian $J=J_0(N)$, and
+  let $I$ be the ideal of the Hecke algebra $\T$ generated by all
+  $T_q$ and $q+1$, for prime $q\mid c$.
+  Then the above construction with
+  $x_c$ (instead of $y_c$) defines a class
+$$
+[R_{c,\sigma}] = \Tr_{K_1/K}(D_{c,\sigma}([x_c])) \in (J(K_c) \tensor_{\T} (\T/I))^{\Gal(K_c/K)}
+$$
+that maps to $[P_{c,\sigma}]$ under the natural map.  
+\end{remark}
+%We have an exact
+% sequence $0\to J[I]\to J\to J'\to 0$ for some abelian variety $J'$.
+% Consider the dual sequence $0 \to J[I]^{\vee} \to (J')^{\vee} \to J
+% \to 0$, where $J[I]^{\vee}$ is the Cartier dual of $J[I]$, and $J$ is
+% canonical self dual.  Taking cohomology yields a homomorphism $ J(K_c)
+% \to \H^1(K_c, J[I]^{\vee}), $ and the image of $R_{c,\sigma}$ is an
+% element of $\H^1(K_c, J[I]^{\vee})$. 
+%   %I'm unclear if/when this class is Galois equivariant!  ^{\Gal(K_c/K)}$.
+
+The next lemma explains how replacing $\sigma_i$ by a different
+generator of $\Gal(K_c/K_{c/p_i})$ changes $[P_{c,\sigma}]$ by
+multiplication by an element of $(\Z/p^n\Z)^{\times}$.
+\begin{lemma}\label{lem:changesigma} For 
+every $j\in (\Z/(p_i+1)\Z)^{\times}$,
+we have $[P_{c,(\ldots, \sigma_i^j, \ldots)}]= \frac{1}{j} [P_{c,\sigma}]$.
+\end{lemma}
+\begin{proof}
+Writing $q=p_i$ and $s=\sigma_i$, we have in $(\Z/(q+1)\Z)[\Gal(K_c/K)]$ that
+$$
+\sum_{i\,\,\in\,\, \Z/(q+1)\Z} i s^{ji}
+= \sum_{i\,\,\in\,\, \Z/(q+1)\Z} \frac{i}{j} s^{i} = 
+\frac{1}{j} \cdot \sum_{i\,\,\in\,\, \Z/(q+1)\Z} i s^{i}.
+$$
+\end{proof}
+
+\begin{lemma}\label{lem:pcsigma}
+  If $E$ has analytic rank $r$ over $\Q$ and $c$
+is a product of $t$ primes, then 
+$\tau([P_{c,\sigma}]) = (-1)^{r+t+1} [P_{c,\sigma}]$.
+In particular, if $r+t$ is odd, then 
+$$
+[P_{c,\sigma}]
+  \in (E(K_c)\tensor (\Z/p^n\Z))^{\Gal(K_c/\Q)}.
+$$
+\end{lemma}
+\begin{proof} 
+  This is just \cite[Prop.~5.4(1)]{gross:kolyvagin}, which is proved
+  by noting (\cite[Prop.~5.3]{gross:kolyvagin}) that if
+  $\tau\in\Gal(K_c/\Q)$ is complex conjugation on $K_c$, then
+  $\tau\sigma^i\tau = \sigma^{-i}$ for all $i$ and we have that
+  $\tau(y_c) = (-1)^{r+1}\sigma'(y_c) + (\text{torsion})$ for some
+  $\sigma' \in \Gal(K_c/K)$.  Thus $\tau([y_c]) =
+  (-1)^{r+1}\sigma'([y_c])$, since $p$ is coprime to any torsion.
+  When $c=p_1\cdots p_t$ is a product of $t$ distinct primes, we have
+  (using Lemma~\ref{lem:changesigma}) that
+  $
+    \tau([P_{c,\sigma}]) = (-1)^{r+1} (-1)^t [P_{c,\sigma}].
+  $
+\end{proof}
+
+
+
+% With the above facts in hand, in the special case when
+%   $c=q$ is prime, we find that
+% \begin{align*} 
+% \tau ([P_{c,\sigma}]) &= \sum_{i\,\,\in\,\, \Z/(c+1)\Z}
+% i \tau \sigma^{i}([y_c]) = \sum_{i\,\,\in\,\, \Z/(c+1)\Z} i
+% \sigma^{-i}\tau ([y_c])\\ &= \sum_{i\,\,\in\,\, \Z/(c+1)\Z} (-i)
+% \sigma^{i}\tau ([y_c]) = -\sum_{i\,\,\in\,\, \Z/(c+1)\Z} i
+% \sigma^{i}(\tau([y_c]))\\ &= -\sum_{i\,\,\in\,\, \Z/(c+1)\Z} i
+% \sigma^{i}(-\sigma'([y_c])) = \sigma' \sum_{i\,\,\in\,\, \Z/(c+1)\Z} i
+% \sigma^{i}([y_c]) = [P_{c,\sigma}].
+% \end{align*} 
+% In the last equality, we use that $[P_{c,\sigma}]$ is
+% $\Gal(K_c/K)$-equivariant and $\sigma' \in \Gal(K_c/K)$.
+% In general, w
+
+% $$
+%  \tau ([P_{c,\sigma}]) = (-1)^r (-1)^{t} [P_{c,\sigma}].
+% $$
+% \end{proof}
+
+
+%Neither Remark~\ref{rem:tensorgalois} nor \ref{rem:pn} below will be
+%used elsewhere in this paper. 
+
+\begin{remark}\label{rem:tensorgalois}
+  Following \cite[\S1.2]{howard:kolyvagin}, we could alternatively
+  encode the dependence on the choice of $\sigma$ in a tensor product.  Suppose
+  for simplicity that $c$ is prime.  Consider the element
+  $$
+  \sigma \tensor [P_{c,\sigma}] \in \Gal(K_c/K_1) \tensor (E(K_c)\tensor (\Z/p^n\Z))^{\Gal(K_c/K)}.
+  $$ 
+  This element does not depend on the choice of generator $\sigma$
+  because for any $j\in (\Z/(c+1)\Z)^{\times}$, if we define the
+  element instead using the generator $\sigma^j$, by
+  Lemma~\ref{lem:changesigma}, we obtain
+  $$
+  \sigma^j \tensor [P_{c,\sigma^j}] = \sigma^j \tensor \frac{1}{j}
+  [P_{c,\sigma}] = (\sigma^j)^{1/j} \tensor [P_{c,\sigma}] = \sigma
+  \tensor [P_{c,\sigma}],
+  $$
+  where by $1/j$ we mean that element $j'\in \Z/p^n\Z$ such that $j'j
+  = 1$.  This generalizes to composite $c$ by replacing
+  $\Gal(K_c/K_1)$ by the tensor product $\bigotimes_{p_i \mid c}
+  \Gal(K_c/K_{c/p_i})$.
+\end{remark}
+
+
+\begin{remark}\label{rem:pn}
+  We can define $[P_{c,\sigma}]$ without the hypothesis that each
+  $\sigma_i$ is a generator of $\Gal(K_c/K_{c/p_i})$.  If we try to
+  use exactly the definition given above, then the resulting
+  $[P_{c,\sigma}]$ need not be $\Gal(K_c/K)$-equivariant, so we must modify
+  the definition slightly.  Let $K'$ be the biggest subfield of $K_c$ that is
+  fixed by all $\sigma_i$, and let $k_i$ (which divides $p_i+1$) be
+  the order of $\sigma_i$.  Let 
+  $[P] = \prod_{i=1}^t \sum_{j=1}^{k_i} j \sigma_i^j(y_c)$.  Then the same argument as in
+  Proposition~\ref{prop:pinv} shows that $[P] \in (E(K_c)\tensor
+  (\Z/p^n\Z))^{\Gal(K_c/K')}$, and we let
+$$
+ [P_{c,\sigma}] = \Tr_{K'/K}([P]) \in (E(K_c)\tensor (\Z/p^n\Z))^{\Gal(K_c/K)}.
+$$
+For example, if $c\neq 1$ and all $\sigma_i=1$, then $[P_{c,\sigma}] =
+[a_c \cdot y_K]=0$, since $p^n\mid a_c$.
+
+For any multiple $k$ of $p^n$, we have
+the following identity of polynomials:
+\begin{equation}\label{eqn:Dfactorization}
+  \sum_{j=1}^{k-1} j X^j = \sum_{i=0}^{\frac{k}{p^n}-1} X^{p^n \cdot i} \cdot \left( \sum_{j=1}^{p^n-1} j X^j \right) 
+    \in (\Z/p^n\Z)[X].
+  \end{equation}
+Thus in the above construction, if we choose each $\sigma_i$ to be of
+order exactly $p^n$, then we get (up to scaling by a unit) the same
+element $[P_{c,\sigma}]$ as if each $\sigma_i$ is a generator of
+$\Gal(K_{c}/K_{c/p_i})$.   
+The factorization \eqref{eqn:Dfactorization} thus means we can 
+alternatively
+view the Kolyvagin derived point construction as follows.
+Let $K_c'$ be the compositum of the degree $p^n$ subfields of each
+$K_{p_i}$ for the primes $p_i\mid c$.  If
+$$ 
+ D = \prod_{p_i\mid c} \sum_{j=1}^{p^n-1} j \sigma_i^j \, \in\,  \Z[\Gal(K_c'/K_1)],
+$$
+then
+$$
+ [P_{c,\sigma}] = \Tr_{K_1/K}([D(\Tr_{K_c/K_c'}(y_c))]).
+$$
+\end{remark}
+
+
+% \begin{remark} We defined above an element $[P_{c,\sigma}] \in
+% (E(K_c)\tensor (\Z/q\Z))^{\Gal(K_c/\Q)}$ under the hypothesis that
+% $q\mid \gcd(a_c, c+1)$.  Since $E$ has rank $\geq 2$, the point
+% $\Tr_{K_c/K}(y_c)$ is torsion (see Equation~\ref{eqn:tr_yc}), and
+% since $E(\QQ)$ has no $p$-torsion (by hypothesis), the image of
+% $\Tr_{K_c/K}(y_c)$ in $E(\QQ)\tensor (\Z/q\Z)$ is $0$.  Thus for an
+% elliptic curve $E$ of rank $\geq 2$, Proposition~\ref{prop:pinv} and
+% Lemma~\ref{lem:pcsigma} go through under the weaker hypothesis that
+% $q\mid c+1$. This observation is special to rank $\geq 2$; does it
+% lead to anything interesting?
+% \end{remark}
+
+\subsection{Derived cohomology classes}\label{sec:derclass}
+
+As explained in \cite[\S4]{gross:kolyvagin}, under our hypothesis that
+$\rho_{E,p}$ is surjective, the map
+$$
+  \H^1(K,E[p^n]) \to \H^1(K_c, E[p^n])^{\Gal(K_c/K)}
+$$ 
+is an isomorphism, so $[P_{c,\sigma}]$ uniquely determines a
+cohomology class 
+$$\tau_{c,p^n} \in \H^1(K, E[p^n]).$$  In the rest of
+this short section, we make an additional observation in the special
+case when $r_{\an}(E/\Q)=2$ and $c$ is prime, since this is the
+situation for our data in Section~\ref{sec:data}.
+
+Let $\res:\H^1(\Q,E[p^n])\to \H^1(K_c,E[p^n])$ be the restriction map and
+$\delta$ the connecting homomorphism.  Restricting $\res$ to Selmer
+groups, we obtain a commutative diagram:
+\begin{center}
+\begin{tikzpicture} \matrix (m) 
+[matrix of math nodes, row sep=2em, column sep=2em]
+{ (E(K_c)\tensor(\Z/p^n\Z))^{\Gal(K_c/\Q)} & \Sel^{(p^n)}(E/K_c)^{\Gal(K_c/\Q)} & \Sha(E/K_c)[p^n]^{\Gal(K_c/\Q)}\\
+E(\Q)\tensor(\Z/p^n\Z) & \Sel^{(p^n)}(E/\Q) & \Sha(E/\Q)[p^n]\\ };
+\path[right hook->] 
+(m-1-1) edge node[auto] {$\delta$} (m-1-2) 
+(m-2-1) edge node[auto] {$\delta$} (m-2-2) 
+(m-2-1) edge node[auto] {} (m-1-1) 
+(m-2-2) edge node[auto]  {$\res$} (m-1-2) ;
+\path[->] 
+(m-2-3) edge node[auto] {} (m-1-3) 
+(m-1-2) edge node[auto] {} (m-1-3) ;
+\path[->>] 
+(m-2-2) edge node[auto] {} (m-2-3) ;
+\end{tikzpicture}
+\end{center}
+
+The following proposition {\em defines} an element $\tau_{c,p^n}$
+in the Selmer group $\Sel^{(p^n)}(E/\Q)$, not just in $\H^1(K,E[p^n])$
+as above. % Here we use that $E$ has analytic rank $\geq 2$ over $K$
+%(so $y_K$ is torsion) and that $c$ is prime. 
+\begin{proposition} 
+If $c$ is prime and $r_{\an}(E/\Q)=2$, then
+$
+ \tau_{c,p^n} \in \Sel^{(p^n)}(E/\Q).
+$
+\end{proposition}
+\begin{proof} 
+Since $r_{\an}(E/\Q)$ is even and $c$ is prime, Lemma~\ref{lem:pcsigma} implies that
+  $\delta([P_{c,\sigma}]) \in \H^1(K_c, E[p^n])^{\Gal(K_c/\Q)}.$ 
+%As
+%  explained in \cite[\S4]{gross:kolyvagin}, there exists a unique
+%  $\tau_{c,\sigma} \in \H^1(\Q,E[p^n])$ such that $\res(\tau_{c,\sigma})
+%  = \delta([P_{c,\sigma}])$.  
+That the image of
+  $\tau_{c,p^n}$ in $\H^1(\Q,E)[p^n]$ is locally trivially
+  (hence in $\Sel^{(p^n)}(E/\Q)$) follows from
+  \cite[Prop.~6.2]{gross:kolyvagin} with $n=c$ and $m=1$, since
+  $L'(E/K,1)=0$ hence $y_K$ is torsion.
+\end{proof}
+
+%\begin{remark}
+%If $r=r_{\an}(E/\Q)\geq 1$, then the above proposition generalizes if
+%we let $c$ be any product of $r-1$ primes. 
+%\end{remark}
+
+
+\subsection{Reduction modulo $\ell$}\label{sec:redmodell}
+ 
+The following lemma will be helpful when reducing the 
+computation of $\tau_{c,p^n}$ to linear algebra (see
+Section~\ref{sec:surjss}).
+Below we will consider $M=E(\F_{\ell^2})\tensor (\Z/p^n\Z)$ as a 
+module for the action of the nontrivial element $\Frob_{\ell} \in \Gal(\F_{\ell^2}/\F_{\ell})$;
+we write $M^-$ for the eigenspace of $M$ on which $\Frob_{\ell}$ acts by $-1$.
+\begin{lemma}\label{lem:cyclic} Let $p^n>1$ be an odd
+prime power and let $\ell$ be a prime such that $p^n \mid\gcd(a_{\ell},
+\ell+1)$.  Then the groups $E(\F_{\ell})\tensor (\Z/p^n\Z)$
+and $(E(\F_{\ell^2})\tensor (\Z/p^n\Z))^{-}$
+are each cyclic of order $p^n$. 
+\end{lemma}
+\begin{proof} (See \cite[Lem.~5.1]{stein:ggz}.) We have
+ $$p^n \mid\gcd(a_{\ell},\ell+1)\mid \ell+1 - a_{\ell} = \#E(\F_{\ell}).$$  
+If $E(\F_{\ell})[p]$ is noncyclic, then nondegeneracy of the Weil pairing implies that
+$\mu_p \subset \F_{\ell}^{\times}$, so $p\mid \ell-1$, hence
+$p\mid\gcd(\ell-1,\ell+1)=2$, which contradicts that $p$ is odd.  Thus
+$E(\F_{\ell})[p]$ is cyclic, so 
+the $p$-primary part of $E(\F_{\ell})$ is cyclic of order divisible by
+$p^n$.
+For the second group, apply the above argument to the quadratic twist of $E$
+with trace of Frobenius $-a_{\ell}$, and note 
+that $p^n$ also divides $\gcd(-a_{\ell}, \ell+1)$.
+\end{proof}
+
+For any prime $\ell\nmid c$ that is inert in $K$, let $\lambda$ be a
+prime ideal over $\ell$ in the ring of integers of the ring class
+field $K_c$.  Define
+\begin{equation}\label{eqn:zcsigmaell}
+  z_{c,\sigma,\ell}\,\, =\,\, [P_{c,\sigma}]\!\!\!\pmod{\lambda} \in
+E(\F_{\ell^2})\tensor (\Z/p^n\Z),
+\end{equation}
+which is well defined, independent of the choice of $\lambda$.  See
+\cite[Prop.~5.4]{stein:ggz} for the proof that $z_{c,\sigma,\ell}$ is
+well defined; the reason is that changing $\lambda$ corresponds to
+acting on $[P_{c,\sigma}]$ by an automorphism, which does nothing
+since $[P_{c,\sigma}]$ is $\Gal(K_c/K)$-equivariant.  Also, note that by
+Lemma~\ref{lem:pcsigma}, if $r_{\an}(E/\Q)+t$ is odd, then
+$z_{c,\sigma,\ell} \in E(\F_{\ell})\tensor (\Z/p^n\Z)$; if it is even,
+then $z_{c,\sigma,\ell} \in (E(\F_{\ell^2})\tensor (\Z/p^n\Z))^{-}$,
+where the $-$ is for the action of the involution $\Frob_{\ell}$.
+
+\subsection{Consequences of nontriviality of the
+elements}\label{sec:nontrivial} 
+
+We continue with the same notation and
+running assumptions as above.  The first lemma below links verifying
+that $z_{c,\sigma,\ell}\neq 0$ to verifying Kolyvagin's Conjecture A
+\cite[pg.~255]{kolyvagin:structure_of_selmer} (see Conjecture~\ref{conj:koly} above).
+
+\begin{lemma}\label{lem:znz} 
+  Suppose $c$ is a squarefree product of inert primes $q$ with
+  $p^n\mid \gcd(a_q, q+1)$.  If $z_{c,\sigma,\ell}\neq 0$, then
+  $\tau_{c,p^n}\neq 0$.
+\end{lemma}
+\begin{proof} The nonzero element $z_{c,\sigma,\ell}$ is the image of
+$[P_{c,\sigma}]$ under the homomorphism
+$$
+  E(K_c) \tensor (\Z/p^n\Z) \longrightarrow E(\F_{\ell^2})\tensor
+(\Z/p^n\Z)
+$$
+induced by reduction modulo a choice of prime ideal $\lambda$ over
+$\ell$.  Thus if 
+$z_{c,\sigma,\ell}\neq 0$, then 
+$[P_{c,\sigma}]\neq 0$, so $\tau_{c,p^n} =
+\delta([P_{c,\sigma}])\neq 0$, since $\delta$ is injective.
+\end{proof}
+
+
+\begin{theorem}\label{thm:rankbound} 
+  Suppose $r_{\an}(E/\Q)=2$ and that there exists inert primes
+  $c,\ell$ (as above) such that $z_{c,\sigma,\ell}\neq 0$.  Then
+ $$\rank E(\Q) \leq 2$$ 
+ with equality if and only if $\Sha(E/\Q)(p)$ is finite.  If $\rank
+E(\Q) =2$, then $\Sha(E/\Q)[p]=0$.
+\end{theorem}
+\begin{proof} If $z_{c,\sigma,\ell}\neq 0$ then by
+  Lemma~\ref{lem:znz}, the Kolyvagin cohomology class $\tau_{c,p}\in
+  \H^1(K,E[p])$ is nonzero, so Kolyvagin's Conjecture A
+  \cite[pg.~255]{kolyvagin:structure_of_selmer} is true.  The desired
+  conclusion then follows from \cite[Thm~4.2]{stein:ggz} (which is
+  mainly a restatement of the main theorem of
+  \cite{kolyvagin:structure_of_selmer}).
+\end{proof}
+
+For example, 
+suppose $E$ is a curve with $r_\an(E)=\rank(E(\Q))=2$, that
+$\Sha(E/\Q)[2]=0$ and that $\rho_{E,p}$ is surjective for all 
+odd primes $p$.  If we could somehow prove that for every prime $p$, 
+there is a $c$ with $z_{c,\sigma,\ell} \neq 0$, then
+Theorem~\ref{thm:rankbound} would imply that $\Sha(E/\Q)=0$.  This
+would be an extremely deep result, since at present it is an
+open problem to prove unconditionally  that the set of all pairs
+$$
+  \{ (E,p) : \Sha(E/\Q)(p) \text{ is finite  and } \rank(E)\geq 2 \}
+$$
+is infinite!
+
+\section{The Action of Galois and 
+Reduction of Heegner Points Modulo $\ell$}\label{sec:galois}
+
+In this section, we prove a result (Theorem~\ref{thm:modaction}) that
+is crucial to giving a variant of Kolyvagin's derived points
+construction directly in characteristic $\ell$, which is the main input
+to Algorithm~\ref{alg:main}.  Note that the results in this section
+are on the level of the modular curve $X_0(N)$, and make no reference
+to a specific choice of elliptic curve over $\QQ$ of conductor $N$, so
+they are equally useful in studying modular abelian varieties.
+
+Theorem~\ref{thm:modaction} below asserts that there is a compatible
+action of $\Gal(K_c/K_1)$ on two objects.  Everything in the current
+paragraph will be made precise in Section~\ref{sec:notstat} below.
+Let $N$ be a positive integer and $K$ a quadratic imaginary field such
+that each prime dividing $N$ splits in $K$.  Fix a choice of Heegner
+point $x_1 \in X_0(N)(K_1)$.  For any square-free product $c$ of
+primes that are inert in~$K$, consider the support $S$ of the divisor
+$T_c(x_1) \in \Div(X_0(N))$, where $T_c$ is the $c$th Hecke operator.
+The Galois group $\Gal(K_c/K_1)$ acts transitively on $S$.  Fix an
+inert prime $\ell\nmid c$ and a choice of prime $\lambda$ of $\Zbar$
+over $\ell$.
+%Given $\sigma \in \Gal(K_c/K_1)$ and $x\in S$, we have
+%the following explicit description of $x^{\sigma}\pmod{\lambda}$.
+Let $\eE_1$ be the reduction mod $\lambda$ of the enhanced elliptic
+curve corresponding to $x_1$, and consider the Eichler order
+$R=\End(\eE_1)$.  Also, as explained in
+Proposition~\ref{prop:bigdiag}, use class field theory to identify
+$\Gal(K_c/K_1)$ with $(\OK/c\OK)^{\times}/(\Z/c\Z)^{\times}$.  For $x
+\in S$, represent $x\pmod{\lambda}$ by a right ideal class in $R$.
+Then Theorem~\ref{thm:modaction} below asserts that {\em the action of
+  $\Gal(K_c/K_1)$ on $S$ is compatible with the action of
+  $(\OK/c\OK)^{\times}/(\Z/c\Z)^{\times}$ on the set of right ideals
+  of $R/cR$ of index $c^2$}.  This result is somewhat complicated to
+state and prove, but we are amply compensated with an alternative
+interpretation of Kolyvagin's derived points construction.
+
+In Section~\ref{sec:notstat} we state our main result, then in
+Section~\ref{sec:proofmodact} we prove it by deriving certain
+transformation rules for right ideals.  We emphasize that in the
+arguments below,~$c$ is an arbitrary squarefree product of inert
+primes, and~$K$ is allowed to have arbitrary class number.
+
+
+\begin{remark}
+  Reduction and the Galois action is also considered in
+  \cite[\S3.3]{cornut:mazur}, but via an adelic formulation that is
+  less explicit and amenable to computation.
+\end{remark}
+
+\subsection{Notation and statement of theorem}\label{sec:notstat}
+In Section~\ref{sec:actions} we explain how Galois and Hecke operators
+act on higher Heegner points.  In order to see the reduction of these
+points modulo $\ell$, in Section~\ref{sec:enhancedcurves} we introduce
+enhanced supersingular elliptic curves, and describe how they relate
+to points on modular curves.  In Section~\ref{sec:heckeaction}, we
+explain how the Hecke operators act on divisors on enhanced curves,
+which will be used later in the proof of our main theorem. Finally, in
+Section~\ref{sec:statement} we precisely state the main theorem of
+this section, which is critical in reinterpreting Kolyvagin's derived
+classes operator in characteristic $\ell$.
+
+\subsubsection{Galois and Hecke actions on Heegner points}\label{sec:actions}
+Let $N$, $K$, $c$, and $K_c$ be as above, and let $D=\disc(\OK)$.  Let
+$\Oc=\Z+c\OK$ be the order of conductor $c$.  Let $\n$ be a choice of
+ideal in $\OK$ with $\OK/\n\isom \Z/N\Z$, and let $\n_c=\n\cap \Oc$.
+As in \cite{gross:heegnerX0N}, for any order $\O$ (of conductor
+coprime to $N$) and any fractional $\O$-ideals $\mathfrak{m}$ and
+$\mathfrak{\a}$, let $(\O,\mathfrak{m},[\a])$ denote the Heegner point
+$(\C/\a, \mathfrak{m}^{-1}\a/\a)\in X_0(N)$, with endomorphism ring
+the order $\O$.  In particular, let $$x_c = (\O_c,\n_c,[\O_c]) \in
+X_0(N)(K_c).$$
+
+The elements of $(\OK/c\OK)^{\times}/(\Z/c\Z)^{\times}$ are in bijection with the
+lines through the origin in the plane $\OK/c\OK\ncisom (\Z/c\Z)^2$.
+These lines are in bijection with the sublattices of $\OK$ of index
+$c$.  The aforementioned sublattices are fractional $\Oc=\Z+c\OK$
+ideals, and each one represents an element of the kernel of the natural map
+$\Cl(\Oc)\to\Cl(\OK)$. 
+
+\begin{proposition}\label{prop:bigdiag} We have a commutative diagram
+of abelian groups:
+$$
+\xymatrix{ 1 \ar[r]& {\Gal(K_c/K_1)}\ar[r]\ar[d]^{\isom} &
+{\Gal(K_c/K)}\ar[r]\ar[d]^{\isom}_{\theta} &
+{\Gal(K_1/K)}\ar[r]\ar[d]^{\isom} & 1\\ 1 \ar[r]&
+{(\OK/c\OK)^{\times}/(\Z/c\Z)^{\times}}\ar[r] & {\Cl(\Oc)}\ar[r] & {\Cl(\OK)} \ar[r]
+& 1, }
+$$
+where the rightmost two vertical isomorphisms are induced by the Artin
+reciprocity map of class field theory, and the bottom row involves the
+bijections mentioned above.
+\end{proposition}
+\begin{proof} This is standard; see, e.g., \cite[\S3]{gross:kolyvagin}.
+\end{proof}
+
+\newcommand{\fa}{\mathfrak{a}} 
+\newcommand{\fb}{\mathfrak{b}}
+\newcommand{\fg}{\mathfrak{g}}
+
+As explained in \cite[\S4, (4.2)]{gross:heegnerX0N}, for $[\fb]\in \Cl(\Oc)$, we have
+$$
+  (\Oc,\n_c,\fa)^{\theta(\fb)} = (\Oc,\n_c,\fa\fb^{-1}).
+$$
+Also \cite[\S6]{gross:heegnerX0N}, we have
+\begin{equation}\label{eqn:heckeop}
+ T_c(x_1) = T_c((\OK,\n,\OK)) = \sum_{\fb\subset \OK} (\Oc,\n_c,\fb)
+\in \Div(X_0(N)),
+\end{equation}
+where the sum is over {\em sublattices} $\fb \subset \OK$ of index $c$.
+\begin{remark} We emphasize: the $\fb$ are not {\em ideals} of $\OK$,
+  but merely ideals of $\Oc$!  If they were ideals of $\OK$, they
+  would have norm $c=\#(\OK/\fb)$, but $c$ is a product of distinct
+  inert primes, so there are no ideals of $\OK$ of norm $c$.
+%However, the $\fb$ are fractional $\Oc$-ideals.
+\end{remark}
+
+\subsubsection{Enhanced supersingular elliptic curves in characteristic $\ell$}\label{sec:enhancedcurves}
+
+We consider enhanced elliptic curves $\eE = (E,C)$, where $E$ is
+an elliptic curve and $C\subset E$ is a cyclic subgroup of order $N$.
+The terminology {\em enhanced elliptic curves} is used in
+\cite[\S3]{ribet:modreps}.
+
+Recall that we fixed above an inert prime $\ell\nmid c$ and a prime
+$\lambda$ of $\Zbar$ over $\ell$.  The set
+$X_0(N)(\Felltwo)^{\ss}$ of supersingular points on the mod $\lambda$
+reduction of $X_0(N)$ is the set of isomorphism classes of enhanced
+elliptic curves $\eE = (E,C)$, where $E$ is a supersingular elliptic
+curve over $\Felltwo$ and $C\subset E$ is a cyclic subgroup of order
+$N$.
+
+
+Let $[\eE_1] = x_1 \in X_0(N)(K_1)$, so $\eE_1$ is a representative
+enhanced elliptic curve corresponding to the Heegner point $x_1$.
+Since $\n$ is an $\O_K$-ideal, we have $\OK = \End(\eE_1)$, so we
+obtain an inclusion
+\begin{equation}\label{eqn:okembed} \OK = \End(\eE_1)
+\hra \End(\Eonebar).
+\end{equation} 
+
+\begin{remark}\label{rmk:rediso}
+  To see that Equation~\eqref{eqn:okembed} is injective, note that by
+  \cite[Lem.~2]{serre-tate}, reduction modulo the prime $\lambda$ of
+  $\Zbar$ induces an isomorphism 
+$E_1[p^{n}]\xrightarrow{\,\,\isom\,\,} \overline{E}_1[p^{n}]$ for any prime power $p^n$ with $p\neq \ell$
+  and $p$ a prime of good reduction for $E_1$ (the lemma only asserts
+  the map is surjective, but it is a map between finite groups of the
+  same order, hence is an isomorphism).  If $\vphi \in \End(\eE_1)$
+  acts as $0$ on $\Eonebar$, then it acts as $0$ on
+  $\overline{E}_1[p^{\infty}]$, hence acts as 0 on $E_1[p^{\infty}]$,
+  hence is 0 (since endomorphisms have finite degree). 
+\end{remark}
+
+The following lemma implies that
+$$
+  [\overline{\eE}_1] \in X_0(N)(\Felltwo)^{\ss}.
+$$
+\begin{lemma}\label{lem:cmred}
+Suppose $F$ is an elliptic curve defined over an extension $M$ of $K$ and that
+$F$ has  CM by an order $\O$ of $K$. Suppose that $\ell\in\ZZ$ is a prime
+that is inert in $K$ such that $\ell\nmid [\O_K:\O]$.  
+Let $\lambda$ be a prime of $M$ lying over $\ell$ and
+assume $F$ has good reduction at $\lambda$, and let $k$ be residue field
+modulo $\lambda$.
+Then the reduction $F_k$ of $F$ modulo $\lambda$ is a supersingular
+elliptic curve.
+\end{lemma}
+\begin{proof}
+  This is well known (see \cite[Ch.~10, \S4, Thm.~10, Case
+  1]{lang:elliptic} and \cite[Exercise
+  2.30]{silverman:aec2}), but for the convenience of the reader we
+  give a more conceptual proof than the ones cited above.
+  It follows from the definition of $F_k$ in terms of N\'eron models
+  that $\O$ acts (functorially) on $F_k$.  Moreover, because
+  $\ell\nmid [\O_K:\O]$, the $\ell$-torsion subgroup $F_k[\ell] =
+  F_k(\Fbar_{\ell})[\ell]$ is a vector space over the finite field
+  $\O_K/(\ell) \ncisom \F_{\ell^2}$.  Thus $d=\dim_{\F_{\ell}}
+  F_k[\ell]$ is even.  Since $F_k$ is an elliptic curve over a finite
+  field of characteristic $\ell$, we have $d\leq 1$, so $d=0$, hence
+  $F_k$ is supersingular.
+%Case 1 of the theorem in Lang asserts that the characteristic
+%polynomial of Frobenius is $X^2 + \ell$, so 
+%the trace of Frobenius is $0$, hence $E_1$ is supersingular.
+\end{proof}
+
+
+We view $X_0(N)(\Felltwo)^{\ss}$ as explained in
+\cite[\S3]{ribet:modreps}, especially \cite[Rmk.~3.5,
+pg~441]{ribet:modreps}, which builds on work of Deuring and Shimura.
+The endomorphism ring $R=\End(\overline{\eE}_1)$ is an Eichler order
+of level $N$ in the (unique up to isomorphism) rational quaternion
+algebra $B$ ramified at $\ell$ and $\infty$.  We have a bijection
+\begin{equation}\label{eqn:equiv}
+ X_0(N)(\Felltwo)^{\ss}
+\xrightarrow{\quad\isom\quad} \{\text{ right fractional ideal classes in $R$ }\},
+\end{equation} where two (nonzero) fractional right $R$-ideals $I,J
+\subset B$ are equivalent if there exists $\alpha \in B$ such that
+$\alpha I = J$.
+For any enhanced elliptic curve $\mathbf{F}$, 
+endow
+$\Hom(\Eonebar,\mathbf{F})$ with the structure of right $R$-module as
+follows: for $\varphi \in \Hom(\Eonebar,\mathbf{F})$ and $r\in R$ we
+put $\varphi.r = \varphi \circ r$.  
+This bijection sends $[\mathbf{F}]$ to the class of a
+right $R$-ideal that is isomorphic as a right $R$-module to the right $R$-module
+$\Hom(\Eonebar,\mathbf{F})$.
+Also, we see that the right
+$R$-module $\Hom(\Eonebar,\mathbf{F})$ is isomorphic to {\em some} right
+$R$-ideal $I$ as follows.  By \cite[\S2.4,
+pg.~223]{mestre:graphs} or \cite[Lem.~3.17]{ribet:modreps}, there exists an isogeny $\psi:
+\mathbf{F} \to \Eonebar$.
+Using such an isogeny, we obtain an embedding
+$$
+   \Hom(\Eonebar,\mathbf{F}) \hra \End(\Eonebar)=R
+$$
+given by $\varphi \mapsto \psi \circ \varphi$, and the right ideal $I$ is
+the image of $\Hom(\Eonebar,\mathbf{F})$ under this embedding.  Making
+a different choice of isogeny $\psi$ replaces $I$ by an equivalent 
+right ideal.
+
+\newcommand{\Rbar}{\overline{R}}
+
+\subsubsection{Action of Hecke operators on supersingular divisors}\label{sec:heckeaction}
+The Hecke operators $T_n$ act on $\Div(X_0(N)(\F_{\ell^2})^{\ss})$, as
+explained in \cite[pg.~443--445]{ribet:modreps}, and this action
+translates to an action on the free abelian group on the
+right $R$-ideal classes via the bijection~\eqref{eqn:equiv} above, as
+explained in, e.g., \cite[\S3.2]{kohel:hecke}.  For $n$
+any integer coprime to $\ell N$, we have
+\begin{equation}\label{eqn:genhecke}
+  T_n([I]) = \sum_{J\subset I} [J],
+\end{equation}
+where the sum is over right $R$ ideals $J\subset I$ with
+$I/J\ncisom(\Z/n\Z)^2$.  We apply \eqref{eqn:genhecke} to obtain a
+more explicit description of the image of the unit ideal (which
+corresponds to the reduction of $x_1$) under the Hecke operator $T_c$.
+Let
+$$\Rbar = R\tensor(\Z/c\Z) \isom R/c R.$$ 
+Since $c$ is coprime to $N$ and coprime to the unique finite prime
+$\ell$ that ramifies in $B$, we have $R\tensor\Z_c \ncisom M_2(\Z_c)$,
+hence
+$$\Rbar\ncisom M_2(\Z/c\Z)\isom \bigoplus_{\text{primes }p\mid c} M_2(\F_p).$$  
+%This isomorphism is often helpful in understanding assertions about
+%ideals and annihilators defined in terms of $\Rbar$.
+For any right ideal $I \subset \Rbar$, let $\tilde{I}$ denote 
+the inverse image of $I$ in $R$ under the natural surjection $R \to \Rbar$.  
+The right ideals of $\Rbar$ correspond to the right ideals of $R$ that
+contain $cR$, so the Hecke operator $T_c$ acts on the unit ideal $R$ via
+\begin{equation}\label{eqn:heckeideal}
+  T_c([R]) = \sum_{\substack{\text{right ideals }I\subset \Rbar\\\text{ with }
+\Rbar/I\,\ncisom\, (\Z/c\Z)^2}} [\tilde{I}].
+\end{equation}
+More generally, for any right $R$-ideal $J$ with $[R:J]$ coprime to $c$, 
+we have 
+$$
+  T_c([J]) = \sum_{\substack{\text{right ideals }I\subset \Rbar\\\text{ with }
+\Rbar/I\,\ncisom\, (\Z/c\Z)^2}} [\tilde{I}\cap J].
+$$
+
+\subsubsection{Statement of the main theorem}\label{sec:statement}
+As in the diagram of Proposition~\ref{prop:bigdiag} above, let
+$[\fa] \in \ker(\Cl(\Oc)\to \Cl(\OK))$ be an ideal class, and let
+$[\alpha] \in (\OK/c\OK)^{\times}/(\Z/c\Z)^{\times}$ be the corresponding element,
+so $\alpha \in \OK$. By replacing $\fa$ by an equivalent ideal, we
+may assume that $\fa = \Z\alpha + c\OK$.  Suppose $[\fb] \in
+\ker(\Cl(\Oc)\to \Cl(\OK))$ is another ideal class, with corresponding
+element $[\beta]$, and let $\theta_{[\fb]} \in \Gal(K_c/K_1)$ be the 
+corresponding automorphism.  Let
+$I_{\fb}\subset \Rbar$ be a right ideal such that
+\begin{equation}\label{eqn:icorr}
+  (\Oc, \n_c, \fb) \mapsto [\tilde{I}_{\fb}]
+\end{equation}
+under composition of reduction modulo $\lambda$ with the 
+equivalence~\eqref{eqn:equiv} above.  There is such a right ideal $I_{\fb}$ 
+because $(\Oc, \n_c, \fb)$ is in the support of $T_c(x_1)$, and
+$[\tilde{I}_{\fb}]$ is in the support of $T_c(x_1\pmod{\lambda})$
+(see Equation~\eqref{eqn:heckeop}).
+
+The group $\Gal(K_c/K_1)$ does {\em not} act naturally on
+$$
+ X_0(N)(\F_{\ell^2})^{\ss} = X_0(N)(\O_{K_c}/\lambda)^{\ss},
+$$ 
+since $\ell \O_K$ splits as a product of many primes (of which
+$\lambda$ is one of them); of course, the ``useless''
+decomposition subgroup  of $\Gal(K_c/K_1)$ associated to
+$\lambda$ (which has order $1$!) does naturally act.  
+However, as we will
+now see, $\Gal(K_c/K_1)$ acts naturally on a subset of the right
+ideals of $\overline{R}$. 
+The challenge is that we need to compute
+what happens if we take  $x_c \in X_0(N)(K_c)$, 
+act by Galois, then map the result to $X_0(N)(\F_{\ell^2})$,
+and we can do this explicitly by instead 
+considering the action of $\Gal(K_c/K_1)$
+on index $c^2$ ideals in $\overline{R}$.
+
+Equation~\eqref{eqn:okembed} asserts that given our choice of
+$\lambda$ there is an inclusion $\OK \hra R$, which we fix and use to
+define a right action of $\Gal(K_c/K_1)$ on certain right ideals in
+$\Rbar$.  For $\alpha\in\OK$, let $\overline{\alpha}$ denote the image
+of $\alpha$ in $\Rbar$.  If $\sigma \in \Gal(K_c/K_1)$ corresponds to
+$[\alpha]\in (\OK/c\OK)^{\times}/(\Z/c\Z)^{\times}$, make $\sigma$ act
+on the right on the set of right ideals $I$ of $\Rbar$ with
+$\Rbar/I\ncisom (\Z/c\Z)^2$ by $I^{\sigma} = \overline{\alpha}^{-1}
+I$.  Finally, we state the main result of this section, which asserts
+that the natural right action of $\Gal(K_c/K_1)$ on the support of
+$T_c(x_1)$ in $\Div(X_0(N)/K_c)$ is compatible with the right action
+of $\Gal(K_c/K_1)$ that we just defined. We will prove this theorem in
+Section~\ref{sec:proofmodact} below.
+
+\begin{theorem}\label{thm:modaction} 
+  Let $\sigma \in \Gal(K_c/K_1)$, $[\fb] \in \ker(\Cl(\Oc)\to
+  \Cl(\OK))$, and let $[\tilde{I}_{\fb}]$ correspond to
+  $(\Oc,\n_c,\fb) \pmod{\lambda}$ as in Equation~\ref{eqn:icorr}
+  above.  Then
+$$
+   (\Oc, \n_c, \fb)^{\sigma} \pmod{\lambda} \quad = \quad
+[\widetilde{I^{\sigma}_{\fb}}].
+$$
+%where if $\sigma$ corresponds to $[\alpha]$ with $\alpha\in\O_K$, then
+%$I^{\sigma} = \overline{\alpha}^{-1} I$.
+\end{theorem}
+
+
+\subsection{Proof of Theorem~\ref{thm:modaction}}\label{sec:proofmodact}
+
+This section is devoted to giving a proof of
+Theorem~\ref{thm:modaction}.  When $c=1$ the relevant objects all have
+cardinality $1$ and the statement is trivial, so for the rest of this
+section we assume that $c>1$.  The strategy of the proof is to
+reinterpret the ideal $I_{\fb}$ as the right annihilator of a certain
+left ideal, and observe that this left ideal behaves sensibly under
+the action of Galois.  (The proof is long because we are not sneaking
+any important details under the rug.)
+
+We may assume that the representative fractional ideal $\fb$ is a
+sublattice of $\O_K$ of index $c$.  Let $\eE_1$ be the enhanced
+elliptic curve corresponding to the triple $(\O_K, \n, [\O_K])$ and
+let $\eE_{\fb}$ be the enhanced elliptic curve corresponding to the
+triple $(\O_c, \n_c, [\fb])$.  Let $\psi_\fb:\ \eE_\fb \to \eE_1$ be
+the isogeny of degree $c$ given by the map $\C/\fb\to \C/\O_K$ that is
+multiplication by $1$ on tangent spaces.\label{page:overc} The
+complementary (or dual) isogeny $\hat{\psi}_{\fb}:\eE_1 \to \eE_\fb$
+is then given by the map $\C/\O_K \to \C/\fb$ induced by
+multiplication by $c$ on $\C$.  As in
+Section~\ref{sec:enhancedcurves}, we use $\psi_\fb \pmod{\lambda}$ to
+define a specific $R$-ideal $I_{\fb} \subset R
+= \End(\overline{\eE}_1)$ that corresponds to $[\overline{\eE}_\fb]
+\in X_0(N)(\Felltwo)^{\ss}$.  More precisely, the ideal $I_{\fb}$ is
+the image of $\Hom(\overline{\eE}_1, \overline{\eE}_\fb)$ in $R$ via
+the map $\vartheta \mapsto \overline{\psi}_{\fb}\circ \vartheta$,
+i.e.,
+$$
+  I_{\fb} = \{ \overline{\psi}_{\fb}\circ \vartheta \,\,\, : \,\,\, 
+         \vartheta:\overline{\eE}_1 \to \overline{\eE}_{\fb}\} \subset R=\End(\overline{\eE}_1).
+$$
+
+The following lemma follows immediately from the
+definitions given in Section~\ref{sec:notstat}:
+\begin{lemma}
+Under our fixed choices of maps and prime $\lambda$, we have
+$$
+  [\eE_{\fb}]\pmod{\lambda} \,\,\,\, \longleftrightarrow\,\,\,\, [I_{\fb}],
+$$
+where $I_{\fb}$ is defined as above. 
+\end{lemma}
+
+Proposition~\ref{prop:Ichar} below
+characterizes $I_{\fb}$ as an annihilator of a left $R$-ideal,
+which will be easier to work with.
+Let 
+$$
+  J_{\fb} = \{\varphi \in  R : \varphi(\ker(\overline{\hat{\psi}}_{\fb})) = 0\},
+$$
+which is a left $R$-ideal.  Thus $J_{\fb}$ is the left ideal
+of all endomorphisms of $\overline{\eE}_1$ that factor through the
+homomorphism $\overline{\hat{\psi}}_{\fb}: \overline{\eE}_1 \to \overline{\eE}_\fb$:
+$$
+\xymatrix{
+   & {\overline{\eE}_\fb}\ar@{.>}[dr] & \\
+{\overline{\eE}_1} \ar[ur]^{\overline{\hat{\psi}}_{\fb}} \ar[rr]_{\varphi \in J_{\fb}} & & {\overline{\eE}_1}
+}
+$$
+
+We will use the following lemma to compute the quotient abelian group $R/J_{\fb}$.
+\begin{lemma}\label{lem:rsurj}
+The natural map $R \to \End(\overline{E}_1[c])$ is surjective.
+\end{lemma}
+\begin{proof}
+It suffices to prove that for each prime $p\mid c$, the map
+\begin{equation}\label{eqn:rmodp}
+  \varphi: R\tensor \Fp \to \End(\overline{E}_1[p])
+\end{equation}
+is surjective. 
+Since $R$ is an Eichler order of level $N$, $N$ is coprime to $c$
+and $p\mid c$,
+we have $R\tensor \Fp = \End(\overline{E}_1)\tensor\Fp$.
+Also, since $p\neq \ell$, we have
+$\End(\overline{E}_1[p]) \ncisom \End(\F_p\oplus\F_p) \isom M_2(\F_p)$,
+and since $\overline{E}_1$ is a supersingular elliptic curve, 
+$\dim_{\Fp}(R\tensor\Fp) = \rank_\Z R = 4$,
+so by a dimension count it suffices to prove 
+that $\varphi$ is injective. 
+Suppose $\overline{f}=f\tensor 1 \in R\tensor\Fp$ is a
+nonzero element of $\ker(\varphi)$, with $f\in \End(\overline{E}_1)$.
+Then $f$ acts as $0$ on $\overline{E}_1[p]$, so $f$ factors
+through multiplication by $p$, which means that
+there exists $g\in \End(\overline{E}_1)$ with
+$f = p g$.  But then $\overline{f}=pg\tensor 1 = g\tensor p = g\tensor 0 = 0$, a contradiction. 
+We conclude that $\varphi$ is injective, hence surjective.
+\end{proof}
+
+\begin{lemma}\label{lem:jb}
+We have
+   $R/J_{\fb}\ncisom (\Z/c\Z)^2$,
+where we view both sides as quotients of additive abelian groups.
+\end{lemma}
+\begin{proof}
+%  Note that $cR \subset J_{\fb}$, since $\psi$ is a cyclic
+%  isogeny of degree $c$.  
+We prove this lemma by using Lemma~\ref{lem:rsurj} to 
+reinterpret the assertion as a statement in $M_2(\Z/c\Z)$, then use 
+linear algebra modulo prime divisors of $c$ to count dimensions. 
+The kernel $D =
+  \ker(\overline{\hat{\psi}}_{\fb}) \subset \overline{E}_1[c]$ is a
+  cyclic group of order $c$.  Let $\overline{J}$ be the left
+  annihilator in $\End(\overline{E}_1[c])\ncisom M_2(\Z/c\Z)$ of $D$.
+  For each prime $p\mid c$, we have $\End(\overline{E}_1[p]) \ncisom
+  M_2(\F_p)$, and the factor of $D$ in $\overline{E}_1[p]$ is of order
+  $p$.  The left annihilator in $M_2(\F_p)$ of a $1$-dimensional
+  subspace of $(\F_p)^2$ has $\F_p$-dimension $2$, since it is the
+  $2$-dimensional $\F_p$-vector space of matrices whose rows are both
+  a multiple of $v$, where $v$ has dot product $0$ with a basis for
+  our $1$-dimensional subspace.  Putting these factors for each $p$
+  together, we see that $\overline{J}$ is free of rank
+  $2$ over $\Z/c\Z$.
+
+  Since $c$ kills $\ker(\overline{\hat{\psi}}_{\fb})$, we see that
+  $cR\subset J_{\fb}$.  We thus have an isomorphism of abelian groups
+  $$
+   R/ J_{\fb} \to M_2(\Z/c\Z)/\overline{J}.
+  $$
+  It is surjective because of Lemma~\ref{lem:rsurj}.  It is injective
+  because $J_{\fb}$ is defined to be those endomorphisms that kill the
+subgroup $D$ of  $\overline{E}_1[c]$, which is a condition we can check in
+  $\End(\overline{E}_1[c])$.  The lemma thus follows.
+\end{proof}
+
+Next we use the left $R$-ideal $J_{\fb}$ to define a right $R$-ideal:
+$$
+ I'_{\fb} = \{\varphi \in R\,\, : \,\, J_{\fb} \varphi \subset c R\}.
+$$
+\begin{proposition}\label{prop:Ichar}
+We have 
+$$
+  I_{\fb} = I'_{\fb}
+$$
+\end{proposition}
+\begin{proof}
+  The strategy of the proof is to show that $I_{\fb} \subset
+  I'_{\fb}$, then observe that both $I_{\fb}$ and $I'_{\fb}$ have the
+  same index in $R$, so they must be equal.
+
+  To see that the inclusion $I_{\fb} \subset I'_{\fb}$ hold is a
+  straightforward calculation using the definitions, as follows.  An
+  element $\varphi \in I_{\fb}$ is by definition of the form $\varphi
+  = \overline{\psi}_\fb\circ \vartheta$, where
+  $\vartheta:\overline{\eE}_1 \to \overline{\eE}_{\fb}$ and
+  $\overline{\psi}_{\fb}: \overline{\eE}_{\fb} \to \overline{\eE}_1$,
+  as above.  Suppose $\delta \in J_{\fb}$, so
+  $\delta\in \End(\overline{\eE}_1)$ and
+  $\delta(\ker(\overline{\hat{\psi}}_{\fb})) = 0$, hence $\delta=
+  \delta' \circ \overline{\hat{\psi}}_{\fb}$ for some
+  $\delta':\overline{\eE}_\fb \to \overline{\eE}_1$.  Thus
+  $$
+   \delta \circ \varphi = 
+    (\delta' \circ \overline{\hat{\psi}}_{\fb}) \circ (\overline{\psi}_\fb \circ \vartheta)
+      = \delta' \circ [c] \circ \vartheta \in cR,
+  $$
+  which proves that $I_{\fb} \subset I'_{\fb}$.
+
+  We next prove that $[R:I'_{\fb}] = c^2$,
+  as an application of Lemma~\ref{lem:jb}.  
+We have $c\in I'_{\fb}$,
+  so $cR \subset I'_{\fb} \subset R$, hence $I'_{\fb}$ is completely
+  determined by an ideal $\overline{I}'_{\fb} \subset \Rbar =
+  R\tensor(\Z/c\Z) \ncisom M_2(\Z/c\Z)$.  The ideal
+  $\overline{I}'_{\fb}$ is the right annihilator of the left ideal
+  $\overline{J}_{\fb} \subset \Rbar$.  For each prime $p\mid c$,
+  Lemma~\ref{lem:jb} implies that the right annihilator mod $p$ of
+  $J_{\fb}$, i.e., the image of $I'_{\fb}$ in $R\tensor\F_p\isom
+  M_2(\F_p)$, is proper and nontrivial.  We conclude that
+  $[R:I'_{\fb}] = c^2$.
+
+  Finally we observe that $[R:I_b] = c^2$.  In light of
+  Equation~\eqref{eqn:heckeideal}, the ideal $I_{\fb}$ is one of the
+  ideals that appears in the sum in the definition of the Hecke
+  operator $T_c$, so $[R:I_{\fb}] = c^2$.  Since $[R:I'_{\fb}] = c^2$
+  and $I_{\fb}\subset I'_{\fb}$, it follows that $I_{\fb} = I'_{\fb}$,
+  which proves the proposition.
+\end{proof}
+
+Suppose $ [\alpha] \in (\O_K/c\O_K)^{\times}/(\Z/c\Z)^{\times} $ with $\alpha \in
+\O_K$, and let $\fa \subset \O_K$ be the corresponding fractional
+$\O_c$-ideal (as in Section~\ref{sec:statement}).  Let $J_{\alpha} = J_{\fa}$.
+Proposition~\ref{prop:alphabeta} below asserts that the natural right
+action of $(\O_K/c\O_K)^{\times}/(\Z/c\Z)^{\times}$ on the left ideals in $\Rbar$ is
+compatible with the natural right action of
+$(\O_K/c\O_K)^{\times}/(\Z/c\Z)^{\times}$ on sublattices $\a \subset \O_K$ of index
+$c$.  Note the inverse that appears, which makes a left action
+into a right action (the group acting is abelian, so we are
+being slightly pedantic in emphasizing this).  First we prove a lemma about an
+action on certain kernels.
+
+\begin{lemma}\label{lem:keract}
+Suppose $[\alpha],[\beta] \in (\O_K/c\O_K)^{\times}/(\Z/c\Z)^{\times} $ with $\alpha,\beta\in \O_K$.
+Then 
+$$
+\ker(\hat{\psi}_{\alpha\beta})
+ = \alpha \ker(\hat{\psi}_{\beta}).
+$$
+\end{lemma}
+\begin{proof}
+As above, let $\fa\subset \O_K$ be the lattice of index $c$ corresponding to $[\alpha]$.
+Also, recall from page~\pageref{page:overc} that
+the map $\hat{\psi}_{\alpha}: E_1 \to E_{\fa}$ is given over the complex
+numbers by the map
+$\C/\O_K \to \C/\fa$
+induced by multiplication by the integer $c$ on $\C$.
+We have
+\begin{equation}\label{eqn:e1c}
+ E_1[c] = \left(\frac{1}{c}\O_K\right) / \O_K \isom \O_K/c\O_K
+\end{equation}
+and the lattice $\fa$ defines a rank $1$ 
+subspace of $\O_K/c\O_K$.  
+The isomorphism~\eqref{eqn:e1c} 
+identifies
+$\ker(\hat{\psi}_{\alpha})\subset E_1[c]$ 
+with the image of $\fa$ in $\O_K/c\O_K$.
+If $\fb$ corresponds to $[\beta]$, then $\alpha\fb = [\alpha\beta]$,
+so in terms of this presentation of $E_1[c]$, the claimed equality
+of the lemma follows. 
+\end{proof}
+
+
+Note that since $[\alpha] \in (\O_K/c\O_K)^{\times}/(\Z/c\Z)^{\times}$, the image
+$\overline{\alpha} \in \Rbar = R\tensor (\Z/c\Z)$ of $\alpha$ is
+invertible.
+\begin{proposition}\label{prop:alphabeta} 
+  Let $\alpha, \beta$ be as above, let $J$ be a left $R$-ideal, and
+  let $\overline{J}$ denote its image in $\Rbar$.  Then
+$$
+  \overline{J}_{\alpha \beta} = \overline{J}_{\beta} \,\cdot\, \overline{\alpha}^{-1},
+$$
+where $\overline{\alpha}$ is the image of $\alpha$ in $\Rbar$.
+\end{proposition}
+\begin{proof}
+%Let $\alpha'\in \O_K$ be such that $[\alpha][\alpha'] = [1]$, so $\alpha'$
+%is a representative for $[\alpha]^{-1}$.
+  The reduction modulo $\lambda$ map $E_1[c]$ to $\overline{E}_1[c]$
+  is an isomorphism since $\ell\nmid c N$ (see Remark~\ref{rmk:rediso}), so
+  reducing both sides of Lemma~\ref{lem:keract} modulo $\lambda$,
+we see that 
+$\ker(\overline{\hat{\psi}}_{\alpha\beta})
+ = \alpha \ker(\overline{\hat{\psi}}_{\beta}).$  
+Thus
+\begin{align*}
+J_{\alpha\beta} 
+  =& \{\varphi \in R : \varphi(\ker(\overline{\hat{\psi}}_{\alpha\beta})) = 0\}\\
+  =& \{\varphi \in R : \varphi(\alpha(\ker(\overline{\hat{\psi}}_{\beta}))) = 0\}\\
+  =& \{\varphi \in R : (\varphi \alpha)(\ker(\overline{\hat{\psi}}_{\beta})) = 0\}\\
+  =& \{\varphi \in R : \varphi \alpha \in J_{\beta}\} 
+  = R \cap (J_{\beta} \cdot \alpha^{-1}) \subset J_{\beta} \cdot \alpha^{-1}.
+\end{align*}
+We thus have an inclusion of (equivalent) fractional left $R$-ideals
+$$ 
+ J_{\alpha\beta} \subset J_{\beta} \cdot \alpha^{-1}.
+$$
+Taking the image of both ideals in $\Rbar$ gives an inclusion
+$$
+ \overline{J}_{\alpha\beta} \subset \overline{J}_{\beta} \cdot \overline{\alpha}^{-1} 
+\subset \Rbar.
+$$
+Right multiplication by an invertible element in $\Rbar$ is a bijection,
+so $[\Rbar : \overline{J}_{\beta} \cdot \overline{\alpha}^{-1}] =
+     [\Rbar:\overline{J}_{\beta}] = c^2$, by Lemma~\ref{lem:jb}.
+Since $[\Rbar:\overline{J}_{\alpha\beta}] = c^2$, again
+by Lemma~\ref{lem:jb}, it follows that $\overline{J}_{\alpha\beta} = 
+\overline{J}_{\beta} \cdot \overline{\alpha}^{-1}$, as claimed. 
+
+\end{proof}
+
+
+
+
+
+\begin{proof}[Proof of Theorem~\ref{thm:modaction}]
+We have $\fa, \fb \subset \O_K$ two lattices of index $c$
+and corresponding classes 
+$$
+  [\alpha], [\beta] \in (\O_K/c\O_K)^{\times}/(\Z/c\Z)^{\times}.
+$$
+Let $\sigma\in\Gal(K_c/K_1)$ be the automorphism corresponding
+to $\fa \in \Cl(\O_c)$. 
+Let $\fg\subset \O_K$ be the lattice of index $c$ corresponding to the
+class $[\alpha^{-1}\beta]= [\alpha]^{-1}[\beta] \in (\O_K/c\O_K)^{\times}/(\Z/c\Z)^{\times}$,
+so $I_{\alpha^{-1}\beta} = I_{\fg}$.
+Then, under reduction modulo $\lambda$, we have 
+$$
+  (\O_c, \n_c, \fb)^\sigma = (\O_c, \n_c, \fa^{-1} \fb) \longmapsto [I_{\alpha^{-1}\beta}].
+$$
+
+For any left or right ideal $I$  of $R$, let $\overline{I}$
+be the image of $I$ in $\Rbar = R\tensor(\Z/c\Z)$.
+By Proposition~\ref{prop:Ichar} the right
+ideal $\overline{I}_{\fb}$ is the right annihilator of
+the left ideal $\overline{J}_{\fb}$, and this is true for any $\fb$.
+By Proposition~\ref{prop:alphabeta}, we have that
+$
+  \overline{I}_{\alpha^{-1}\beta}
+$ is the right annihilator of the left ideal
+$\overline{J}_{\alpha^{-1}\beta} = \overline{J}_{\beta} \cdot \overline{\alpha}$.
+We thus have
+\begin{align*}
+\overline{\alpha}^{-1} \cdot \overline{I}_{\beta}
+ =\,\, & 
+\overline{\alpha}^{-1} \cdot \{\varphi \in \Rbar\,\,:\,\,
+    \overline{J}_{\beta} \cdot \varphi = 0\}\\
+ =\,\,& 
+\{\overline{\alpha}^{-1} \cdot \varphi \in \Rbar\,\,:\,\,
+    \overline{J}_{\beta}  \cdot \varphi = 0\}\\
+=\,\,& 
+\{\varphi \in \Rbar\,\,:\,\,
+    \overline{J}_{\beta} \cdot  \overline{\alpha} \varphi =0 \}\\
+ =\,\,& 
+\{\varphi \in \Rbar\,\,:\,\,
+    \overline{J}_{\alpha^{-1}\beta}  \cdot \varphi = 0\}
+ = \overline{I}_{\alpha^{-1}\beta},
+\end{align*}
+where in the third equality we replace $\varphi$ by
+$\overline{\alpha}\varphi$, using that multiplication
+by $\overline{\alpha}$ defines a bijection $\Rbar\to\Rbar$.
+The displayed equality proves the theorem.
+
+
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Reduction of Derived Classes}\label{sec:red}
+
+Let $E$ be an elliptic curve over $\Q$, and let $P_{c,\sigma}$ be as
+in Equation~\eqref{eqn:pcsigma} of Section~\ref{sec:construct}.  In
+this section, we apply the general results of Section~\ref{sec:galois}
+to give an algorithm to compute the reduction $z_{c,\sigma,\ell} \in
+E(\F_{\ell^2})\tensor(\Z/p\Z)$ (see Equation~\ref{eqn:zcsigmaell})
+when $p$ is an odd prime and $E[p]$ is absolutely irreducible.  We
+will apply this algorithm in Section~\ref{sec:data} to verify that
+$[P_{c,\sigma}]\neq 0$, in specific examples.  It is of interest to
+verify that $[P_{c,\sigma}]\neq 0$ in specific examples since, as was
+mentioned in Section~\ref{sec:intro}, this was until now not known in
+even a single case for a curve $E$ of rank $\geq 2$.
+
+We continue to assume that $E$ and $K$ satisfy the Heegner hypothesis.
+The goal of this section is to give an algorithm that we can use (in
+some specific examples) to verify that $[P_{c,\sigma}] \neq 0$ for
+some $c$.  To do this, we consider the reduction map
+\begin{equation}\label{eqn:red}
+r_{\ell}: E(K_c)\tensor(\Z/p^n\Z)  \to E(\F_{\ell^2})\tensor (\Z/p^n\Z),
+\end{equation}
+given by reducing points
+modulo a fixed choice of prime $\lambda$ over $\ell$, where $\ell\nmid
+c$ is a prime that is inert in $K$, just as at the end of
+Section~\ref{sec:construct}.  If we find one prime $\ell$ such that
+$z_{c,\sigma,\ell} = r_{\ell}([P_{c,\sigma}])\neq 0$, we conclude that
+$[P_{c,\sigma}] \neq 0$, as desired.  We will thus be concerned
+primarily with computing whether or not $z_{c,\sigma,\ell}$ is $0$ in
+the case when $n=1$.
+
+\begin{remark}\label{remark:weinsteindouble}
+  Assume that $\Sha(E/\Q)[p]=0$, that $r_{\an}(E/\Q)=\rank(E(\Q))=2$,
+  and that we have shown that $[P_{c,\sigma}] \neq 0$ for some prime
+  $c$.  Then there is an alternative approach to compute the line
+  spanned by $P_{c',\sigma'}$ for {\em any} inert prime $c'$.  Jared
+  Weinstein and the author learned about this idea from Karl Rubin
+  after we implemented and ran the main algorithm of this paper, and
+  wanted to better understand the data we obtained.  The algorithm
+  builds on \cite{howard:kolyvagin} and the Mazur-Rubin theory of
+  Kolyvagin systems \cite{mazur-rubin:kolyvagin_systems}.  This is the
+  subject of the forthcoming paper \cite{stein-weinstein:dist}, and we
+  have also used this algorithm as a double check on the calculations
+  in Section~\ref{sec:data}.  Quick summary: an easy calculation shows
+  that the line has to be in the kernel of $r_c$; moreover, and this
+  is deeper, $r_c$ fails to have maximal rank if and only if
+  $[P_{c}]=0$.
+
+%, as explained in Section~\ref{sec:algtau}.
+% The basic idea is that [[something about how kernel of
+%  reduction captures the Heegner point.]]
+%
+%[[JUST state and prove one direction, since that is quite easy.  Then
+%remark that the natural  converse is in fact true, but much deeper.]]
+%
+%[[Mention that this result does generalize in various ways.]]
+%
+%[[give argument about Heegner point being in the kernel of certain
+%maps, which narrows it down, up to a scalar here.  explain that this
+%generalizes to arbitrary rank, etc. -- future paper]]
+%
+\end{remark}
+
+
+In Section~\ref{sec:explicitred} we explain how to compute the
+reduction map from Heegner points in characteristic 0 to supersingular
+points in characteristic $\ell$ as an application of Deuring's lifting
+theorem and explicit computation with ternary quadratic forms.
+Section~\ref{sec:kolyderiv} contains the promised reinterpretation of
+Kolyvagin's derived classes construction directly on the divisor group
+of supersingular points, and Section~\ref{sec:redkoly} explicitly
+links this construction with reduction of derived classes from
+characteristic 0.  Section~\ref{sec:surjss} refines a crucial
+surjectivity result that Cornut used in proving Mazur's conjecture,
+which is also extremely important to our algorithm.  Finally,
+Section~\ref{sec:multone} proves a multiplicity one theorem, which
+ensures that we have a general algorithm, rather than just a procedure
+that happens to work in every case we try.
+
+\subsection{Explicit computation of the reduction map using quaternion
+  algebras}\label{sec:explicitred}
+
+Let $\ell$ be a prime that is inert in $K$, as above.
+Following  \cite{stein:modabvarnotes, pizer:alg}, let
+$B=B_{\ell,\infty}$ be the unique (up to isomorphism) quaternion
+algebra ramified at $\ell$ and $\infty$, and fix an Eichler order $R$ of
+level $N$ in $B$.  
+
+
+The group of Atkin-Lehner operators of level $N$ has order $2^{\nu}$,
+where $\nu$ is the number of prime divisors of $N$.  
+As discussed in Remark~\ref{rmk:welldef} above, 
+the Heegner point
+$x_1$ is only well defined up to the choice of an ideal $\n$ of
+$\O_K$ with $\O_K/\n\isom \Z/N\Z$, and there are $2^{\nu}$ 
+choices for $\n$.  We temporarily write $x_{1,\n}$ for the
+choice of Heegner point $x_1$ associated to the ideal $\n$. 
+
+The prime $\ell$ is inert in $K$, so by Lemma~\ref{lem:cmred}, each of
+the points $x_{1,\n}$ defines a point on $X_0(N)(K_1)$ that reduces to
+a supersingular point in $X_0(N)(\F_{\ell^2})^{\ss}$.  Moreover, we
+have the bijection of Equation~\ref{eqn:equiv} between
+$X_0(N)(\F_{\ell^2})^{\ss}$ and a certain set of right $R$-ideal
+classes.  In terms of this bijection, we compute some
+$\overline{x}_1\in X_0(N)(\F_{\ell^2})^{\ss}$ corresponding to a
+choice of $\n$ as follows.  First, we enumerate all right ideal
+classes $[I]$ using standard algorithms, e.g., if $N$ is odd by
+applying the Hecke operator $T_2$ repeatedly, starting with the unit
+ideal, and using theta series to check equivalence (see, e.g.,
+\cite[Prop.~1.18]{pizer:alg}).  Then we apply
+Theorem~\ref{thm:embedchar} below to find an $I$ such that
+$\O_K$ embeds in $R_I$.  
+%and we give an illustration of how to use it in Section~\ref{sec:389a}.
+
+Let $I$ be a fractional right $R$-ideal, and  consider the left order
+$$
+  R_I = \{x \in B : xI \subset I\}
+$$ 
+ associated to $I$.
+We use the Deuring lifting theorem to give an algorithm
+to compute $\overline{x}_1$.
+\begin{theorem}[Deuring]\label{thm:embedchar} 
+The bijection of Equation~\eqref{eqn:equiv} induces a bijection
+$$
+\{\overline{x}_{1,\n} \in X_0(N)(\F_{\ell^2})^{\ss}:  \,\,\,\, \text{ideals }\n\text{ with } \cO_K/\n \isom \Z/N\Z\} \xrightarrow{\,\,\isom\,\,}
+    \{ [I] : \O_K \text{ embeds in }R_I \}.
+$$
+\end{theorem}
+\begin{proof}
+  See \cite[Prop.~2.7]{gross-zagier:singular} (see also
+  \cite[\S2]{jetchev-kane:equi} for a generalization in which $\O_K$
+  is replaced by $\O_c$).
+\end{proof}
+
+To compute a choice of $\overline{x}_1$ thus reduces to giving an
+algorithm to decide whether or not $\O_K$ embeds in $R_I$.  As in
+\cite[pg.~172]{gross:heights_and_special_values}, let $G_I\ncisom
+\Z^3$ be the trace zero elements in $2R_I + \Z$, and let $q_I:G_I\to
+\Q$ be the normalized {\em ternary} quadratic form got by restricting the
+reduced norm on $B$ to $G_I$.
+\begin{lemma}
+  There is an embedding of $\O_K$ into $R_I$ if and only if the
+  quadratic form $q_I$ represents the absolute value $|D_K|$ of the
+  discriminant of $\O_K$.
+\end{lemma}
+\begin{proof}
+This follows from \cite[Prop.~12.9]{gross:heights_and_special_values} 
+(see also \cite[Lem.~4.1]{jetchev-kane:equi}).
+\end{proof}
+To compute $\overline{x}_1$ we compute the quadratic form $q_I$ for a
+representative $I$ for each right ideal class in turn, and decide
+whether or not it represents $|D_K|$.  When we find one that does, we
+declare that our representative element is $\overline{x}_1 =
+\overline{x}_{1,\n}$, which is well defined up to the choice of ideal
+$\n$.  In general (e.g., when the class number of $K$ is bigger than
+1), our current formula unfortunately requires computing all
+$x_{1,\n}$ for all $\n$ (see Theorem~\ref{thm:mapstoz}).
+
+\subsection{Kolyvagin's derived classes construction in terms of quaternion algebras}\label{sec:kolyderiv}
+
+Let $I$ be a right ideal in our fixed choice of Eichler order $R$ of
+level $N$ such that $I$ corresponds to $\overline{x}_{1,\n}$, computed
+as above.
+
+\begin{lemma}\label{lem:bestI}
+  By replacing $I$ by an equivalent ideal, we can arrange that
+  $I\tensor(\Z/c\Z)=R\tensor (\Z/c\Z)$.
+\end{lemma}
+\begin{proof}
+  For any prime $r\nmid N\ell$, the graph of the Hecke
+  operator $T_r$ is connected (see \cite[\S2.4,
+  pg.~223]{mestre:graphs} or \cite[Lem.~3.17]{ribet:modreps}).  If we
+  choose  $r$ also coprime to $c$, then enumerate the right
+  ideals of $R$ by computing the action of $T_r$, starting with the
+  unit ideal, we will cover all the right ideal classes of $R$; in
+  particular, there is an ideal $I'$ equivalent to $I$ obtained via
+  this procedure.  From the formula of Equation~\eqref{eqn:genhecke}
+  for the action of Hecke operators, we see that $[R:I']$ is a power
+  of $r$.  Thus $I'\tensor(\Z/c\Z) = R\tensor(\Z/c\Z)$, as claimed.
+\end{proof}
+
+Next we compute a choice of  homomorphism
+\begin{equation}\label{eqn:localsplit}
+ s:R \onto M_2(\Z/c\Z).
+\end{equation}
+This can be done individually for each prime divisor of $c$, and the
+maps assembled together to give $s$.  For example, for each prime divisor
+$q\mid c$, one could consider the algebra $R\tensor (\Z/q\Z)$ and
+apply \cite[\S4]{voight:matrix} to find an explicit isomorphism
+$R\tensor (\Z/q\Z) \to M_2(\Z/q\Z)$.
+
+%A naive way to compute $f$ locally
+%at a prime $p$ is to iterate through matrices with characteristic
+%polynomial that allows them to be the image of the generators of the
+%quaternion algebra, and check whether or not the resulting map is
+%valid and surjective.  Alternatively, one can 
+
+% \todo{Fix this paragraph and theorem below to make sense for composite $c$, where the displayed
+% quotient need not be cyclic!
+% I need to really redo this to define operators $D_q$ 
+% for each inert prime $q$, and extend multiplicatively.  
+% Then the theorem is that $\Psi(D_c([I])) = z_{c,\ell,\sigma}$.  
+% This is definitely the way to go.}
+
+Let $q$ be any prime that is inert in $K$.
+Suppose the image of $\alpha \in \O_K$ generates the cyclic group 
+$$
+  (\O_K/q\O_K)^{\times}/(\Z/q\Z)^{\times}
+$$
+of order $q+1$.  Using a fixed choice of embedding of $\O_K$ into the left order of
+$I$ from above (which exists by Theorem~\ref{thm:embedchar}), 
+we view $\alpha$ as an element of $B$.  Let
+$\overline{\alpha}$ be the canonical image of $\alpha$ in $M_2(\Z/q\Z)
+= \Rbar/q\Rbar$ using the splitting $s$ of \eqref{eqn:localsplit}.
+
+For each $i=0,\ldots, q$, let 
+$$
+ \overline{J}_i = \{B \in M_2(\Z/q\Z) : (1,0)\overline{\alpha}^i B = 0\}
+\subset \Rbar/q \Rbar.
+$$
+Suppose $[M]$ is a right ideal class of $R$, and (as in
+Lemma~\ref{lem:bestI}) choose a representative right ideal $M\subset
+R$ such that $q\nmid [R:M]$, so $s$ defines a map $M\onto \Rbar$.  For
+each $i$, let $J_i$ be the inverse image of $\overline{J}_i$ in $M$.
+Define
+$$
+  D_{q,\alpha}([M]) = \sum_{i=1}^{q} i [J_i].
+$$
+Extending linearly, we define an endomorphism
+$$ 
+  D_{q,\alpha} \in \End(\Div(X_0(N)(\F_{\ell^2})^{\ss})).
+$$
+
+\begin{remark} We make two remarks about the above 
+operator:
+\begin{enumerate}
+\item The map $D_{q,\alpha}$ is explicitly computable; it is 
+closely related to  computing the Hecke operator $T_q$, 
+since $T_q([M]) = \sum_{i=0}^{q} [J_i]$ is almost the same
+as $D_{q,\alpha}([M])$, 
+except without the coefficient in the enumeration of the $J_i$'s.
+\item The maps $D_{q,\alpha}$ typically do not commute with the Hecke
+  operators or with each other.
+\end{enumerate}
+\end{remark}
+
+Next write $c=p_1 \cdots p_t$,
+let $\sigma = (\sigma_1, \ldots, \sigma_t)$ with
+$\sigma_i \in \Gal(K_c/K_{c/p_i})$
+be choices of generators, and let
+$\alpha=(\alpha_1,\ldots,\alpha_t)$ with
+$\alpha_i \in \O_K$ be the corresponding elements
+via the map of Equation~\ref{eqn:cft} above. 
+Define 
+$$
+  D_{c,\alpha} = \prod_{i=1}^t D_{p_i, \alpha_i}
+ \in \End(\Div(X_0(N)(\F_{\ell^2})^{\ss})).
+$$
+
+
+\subsection{Reduction of Kolyvagin's derived points}\label{sec:redkoly}
+Let $f\in S_2(\Gamma_0(N))$ be a newform, let $I_f\subset \T$ be the
+annihilator of $f$ in the Hecke algebra associated to $J_0(N)$, let
+$A_f = J_0(N)/I_f J_0(N)$ be the corresponding modular abelian
+variety with modular parametrization $\pi_f:J_0(N)\to A_f$ and let
+$$
+ \psi_f:\Div(X_0(N)_{\F_{\ell^2}}^{\ss}) \to A_f(\F_{\ell^2})
+$$
+be the homomorphism that sends each supersingular point $x$ to
+$\overline{\pi}_f(x-\infty)$, where $\overline{\pi}_f$ is the
+reduction modulo $\lambda$ of $\pi_f$.  By
+\cite{breuil-conrad-diamond-taylor}, our elliptic curve $E$ is
+isogeneous to some $A_f$ for a newform $f\in S_2(\Gamma_0(N))$ where
+$N$ is the conductor of $E$. 
+
+
+\begin{theorem}\label{thm:redonlyK1}
+We have the following in $A_f(\F_{\ell^2}) \tensor (\Z/p^n\Z)$:
+$$
+[\overline{\pi}_f (D_{c,\sigma}(y_c))] = 
+  [\psi_f \left(D_{c,\alpha} ([I] ) \right)].
+$$
+\end{theorem}
+\begin{proof}
+  This follows from Theorem~\ref{thm:modaction}. 
+% \todo{Explain
+%    exactly how this follows from the main theorem.  This is important
+%    and interesting.  There is something that needs to be explained,
+%    namely why I can have $R=\End(x_1)$ there and here just
+%    $\End(x_1)=I$. This is a real opportunity for something.  }
+\end{proof}
+
+Let 
+$$
+\cI = \{[I] : \O_K \hra R_I\}
+$$
+be the set of all right ideal classes of $R$ whose left order admits
+an embedding of $\O_K$.  For each such $[I]$, let $n_I$ be half the
+number of primitive representatives of $|D_K|$ by the ternary
+quadratic form $q_I$.  Let $\cH$ be the $\Gal(\Qbar/K)$-orbit of the
+set of all Heegner points $x_{1,\n} \in X_0(N)(K_1)$ for all ideals
+$\n\subset \O_K$ with $\O_K/\n \isom \Z/N\Z$.
+\begin{lemma}\label{lem:count_I_fiber}
+For each $[I] \in \cI$, 
+the number of elements of $\cH$ reducing to the point of
+$X_0(N)(\F_{\ell^2})$ corresponding to $[I]$
+is equal to $n_I$.
+\end{lemma}
+\begin{proof}
+  By \cite[\S2]{jetchev-kane:equi} there is a one-to-one
+  correspondence between the Heegner points $x_{1,\n}$ reducing to
+  $[I]$ and $R_I^{\times}$ conjugacy classes of embeddings $O_K\hra
+  R_I$.  
+By \cite[Prop.~4.2]{jetchev-kane:equi} there is a
+  $(\#R_I^{\times}/2)$-to-1 correspondence between embeddings $\O_K \hra
+  R_I$ and primitive representations of $|D|$ by $q_I$.
+Thus every pair of  primitive representations of $|D|$ by $q_I$
+corresponds to $\#R_I^{\times}$ embeddings, so half the
+number of primitive representatives is the number
+of $R_I^\times$ conjugacy classes of embeddings. 
+%Since there is an $R_I^{\times}$-to-$1$ correspondence between embeddings $\O_K\hra R_I$
+%and $R_I^{\times}$ conjugacy classes of embeddings $O_K\hra  R_I$,
+%there is a 1-to-1 correspondence between Heegner points $x_{1,\n}$ reducing
+%to $[I]$ and embeddings 
+\end{proof}
+
+
+\begin{theorem}\label{thm:mapstoz}
+Let $\nu$ be the number of distinct prime divisors of $N$.
+We have the following in $A_f(\F_{\ell^2}) \tensor (\Z/p^n\Z)$:
+\begin{equation}\label{eqn:mapstoz}
+\overline{\pi}_f ([P_{c,\sigma}]) =  
+     2^{-\nu}\cdot \sum_{[I]\in \cI} n_I \cdot [\psi_f \left(D_{c,\alpha} ([I]) \right)] 
+   \end{equation}
+ \end{theorem}
+\begin{proof}
+  This follows by combining Lemma~\ref{lem:count_I_fiber} and
+  Theorem~\ref{thm:redonlyK1}, and noting that $\cH$ is a disjoint
+  union of $[K_1:K]$ Atkin-Lehner orbits, each of size $2^{\nu}$.
+  Thus in computing the sum on the right of \eqref{eqn:mapstoz} we are
+  computing $\Tr_{K_1/K}(D_{c,\sigma}(y_c))$ separately $2^{\nu}$
+  times, hence we divide out this extra factor of $2^{\nu}$, which is
+  harmless since $p$ is odd.
+\end{proof}
+
+We still have not explained how to explicitly compute the map
+$\psi_f$, so Theorem~\ref{thm:mapstoz} does not yet yield an
+algorithm.  In Section~\ref{sec:surjss} we will establish that
+$\psi_f$ is surjective after tensoring with $\Z/p\Z$, and in
+Section~\ref{sec:multone} we give conditions under which $\psi_f$ is
+uniquely determined up to scalars by being Hecke equivariant
+(``multiplicity one''), which means we can compute $\psi_f$ up to a
+scalar.  Alternatively, as mentioned in Remark~\ref{remark:spanQ}, we
+can sometimes instead avoid computing $\psi_f$ at all if we know
+$\psi_f$ is surjective by instead verifying that the $\T$-span of
+$\sum n_I D_{c,\alpha}([I])$ is all of $X \tensor \F_p$.
+
+\subsection{Map from the supersingular
+  module to an optimal abelian variety quotient}\label{sec:surjss}
+
+Let $\ell$ be an inert prime that does not divide the level $N$, and
+let $k=\F_{\ell^2}\ncisom \O_K/\ell\O_K$, which is a finite field of order
+$\ell^2$.  The Hecke algebra $\T$ acts via correspondences on many
+objects attached to the modular curves $X_0(N)$ and $X_1(N)$, e.g.,
+via endomorphisms on the Jacobian $J_0(N)$ and also on
+\begin{equation}\label{eqn:X}
+X = \Div(X_0(N)(k)^{\ss}) \qquad\text{and}\qquad
+X^0 = \Div^0(X_0(N)(k)^{\ss}).
+\end{equation}
+Also, $\T$ acts on the {\em Shimura
+subgroup} $\Sigma = \ker(J_0(N) \to J_1(N))$.  We say that a $\T$-module $M$
+is {\em Eisenstein} (in the sense of \cite{mazur:eisenstein}) if for
+any prime $p\nmid N$, the operator $T_p-(1+p)$ annihilates $M$.  For
+example, \cite[Thm.~1]{ribet:comp} asserts that $\Sigma$ is
+Eisenstein.  
+
+Let $J=J_0(N)_k$, and consider the natural $\T$-module homomorphism
+\begin{equation}\label{eqn:sspointsXJ}
+X \to J(k)
+\end{equation}
+that sends a divisor $D\in X$ to the equivalence class of the degree
+zero divisor $D-\deg(D)\infty$ in the Jacobian.
+\begin{proposition}[Ribet]\label{prop:ribet}
+The cokernel $S$ of the induced map
+\begin{equation}\label{eqn:sspointsonJ}
+X^0 \to J(k)
+\end{equation}
+is the Cartier dual $\Sigma^{\vee}$ of $\Sigma$, and
+the $\T$-module $\Sigma^{\vee}$ is Eisenstein. 
+\end{proposition}
+\begin{proof}
+  The following argument is due to Ribet (see \cite{ribet:2010-eis}).
+  Let $F$ be the $\ell$th power Frobenius endomorphism of $J$
+  and let $V$ be its dual.  We have $J(k) =
+  J[1-F^2]$.  This kernel is Cartier dual to $J[1-V^2]$, since
+  it is obtained by dualizing the following exact sequence (see
+  \cite[\S15, pg.~143]{mumford:abvars} and \cite[\S11]{milne:abvars}):
+  $$
+    0 \to J[1-F^2] \to J \xrightarrow{1-F^2} J \to 0.
+  $$
+
+  Ribet proved in 1983 (see \cite[Prop.~3.6]{prasad:ribet}) that the
+  subgroup $J[1-V^2]$ contains the reduction modulo $\ell$ of the
+  Shimura subgroup $\Sigma$ of $J$, and $S$ is the annihilator of
+  $\Sigma$ in the natural perfect pairing between $J[1-F^2]$ and
+  $J[1-V^2]$.  The content of \cite[Prop.~3.6]{prasad:ribet} is that
+  the supersingular group is ``as large as possible'' in the sense
+  that it is the full annihilator.
+
+  In the pairing between  $J[1-F^2]$ and $J[1-V^2]$, there is the standard formula
+  $\langle T x, y \rangle = \langle x, T^\dagger y\rangle$, where the dagger
+  refers to the Rosati involution of $\End(J)$ and $T$ is a Hecke
+  operator.  The Hecke operators $T_n$ with $n$ coprime to $N$ are self dual with
+  respect to the Rosati involution.  
+%\todo{reference.  Maybe Conrad's
+%appendix to ribet-stein serre's conjecture?}
+
+To see that the group $J[1-F^2]/S$ is Eisenstein in the sense that
+$T_p = 1+p$ on this quotient for $p$ prime to $N$, let $\eta$ be the
+difference $T_p - (1+p)$, which is self dual with respect to the
+Rosati involution, since $T_p$ is self dual and multiplication by the
+integer $(1+p)$ is also self dual.  For $x \in J[1-F^2]$, we want to
+show that $\eta(x)$ is in the supersingular divisor class group; 
+by \cite[Prop.~3.6]{prasad:ribet}, as mentioned above,
+this is the same as showing that $\langle \eta(x),y \rangle = 0$ for
+all $y \in \Sigma$.  However, $\eta$ annihilates $\Sigma$ (see
+\cite[Thm.~1]{ribet:comp}), so
+$$\langle \eta(x), y\rangle = \langle x, \eta(y)\rangle = 0.$$
+\end{proof}
+
+
+The following proposition is a refinement of
+\cite[Prop.~4.4]{cornut:mazur}.  An {\em optimal quotient} $A$ of
+$J_0(N)$ is any quotient of $J_0(N)$ by an abelian subvarieties (see
+\cite[\S3]{conrad-stein:compgroup} for the basic properties of optimal
+quotients).  For example, the abelian varieties $A_f$ of
+Section~\ref{sec:redkoly} above are, up to isogeny, the simple
+optimal quotients of $J_0(N)$ that satisfy the hypothesis of
+Proposition~\ref{prop:surj_from_ss} below.
+
+\begin{proposition}\label{prop:surj_from_ss}
+  Let $A$ be any abelian variety optimal quotient of $J_0(N)$ such
+  that $\ker(J_0(N)\to A)$ is Hecke stable, let $\m$ be a
+  non-Eisenstein maximal ideal of $\T$, and let $X^0$ be as in
+  Equation~\eqref{eqn:sspointsonJ}.  Then the natural map
+\begin{equation}\label{eqn:Asurj}
+  X^0 \to A(k) \tensor_{\T} (\T/\m)
+\end{equation}
+is surjective.  In particular, if $A[\m]$ is irreducible,
+then~\eqref{eqn:Asurj} is surjective.
+\end{proposition}
+\begin{proof}
+As above, let $S$ be the image of $X^0$ in $J(k)$, and
+let $S_A$ be the image of $S$ in $A(k)$. Also, 
+let $Q = A(k)/S_A$.
+In light of Proposition~\ref{prop:ribet}, 
+we have a commutative diagram of $\T$-modules with exact rows
+$$
+\xymatrix{
+0\ar[r]& S \ar[r]\ar[d] & J(k) \ar[r]\ar[d] & \Sigma^{\vee} \ar[r]\ar[d] & 0 \\
+0\ar[r]& S_A \ar[r] & A(k) \ar[r] & Q \ar[r]& 0.
+}
+$$
+Since $A$ is an optimal quotient of $J_0(N)$, there is
+an abelian variety $B$ such that we have an exact
+sequence $0 \to B \to J_0(N) \to A \to 0$ of abelian varieties over
+$\QQ$ with good reduction at $\ell$ (since $\ell\nmid N$). This
+sequences reduces to an exact sequence $0 \to B_{k} \to J \to A_k \to
+0$ over $k$ by \cite[\S7.5, Thm.~4]{neronmodels} (we have ``$e<p-1$'',
+since $p=\ell$ is odd and $e=1$).  Lang's theorem (see
+\cite{lang:finitefields} or \cite[\S{}VI.4]{serre:alggroups}) implies
+that $\H^1(k,B_k)=0$, so $J(k)\to A(k)$ is surjective.  The snake
+lemma then implies that the vertical map $\Sigma^{\vee} \to Q$ is
+surjective. 
+
+If $\Sigma^{\vee} \tensor_{\T} (\T/\m) \isom \Sigma^{\vee} /
+\m\Sigma^{\vee}$ is nonzero then $I = \Ann_{\T}(\Sigma^{\vee} /
+\m\Sigma^{\vee})$ equals $\m$ since $\m$ is maximal.  Every $\eta_q =
+T_{q} - (q+1)$ for $q\nmid N$ is in $I$, since $\Sigma^{\vee}$ is
+Eisenstein by Proposition~\ref{prop:ribet}.  But some $\eta_q \not \in
+\m$, since $\m$ is non-Eisenstein, a contradiction.  Thus
+$\Sigma^{\vee} \tensor_{\T} (\T/\m)=0$, so upon tensoring the
+rightmost vertical surjection of the above diagram with $\T/\m$, we
+conclude that $Q\tensor_{\T} (\T/\m)=0$.  Tensoring the bottom row
+over $\T$ with $\T/I$ and using that tensor product is right exact
+again then implies that \eqref{eqn:Asurj} is surjective.
+
+Since $\m$ is a maximal ideal such that $A[\m]$ is irreducible (which
+implies by definition that $A[\m]\neq 0$), there is a prime
+$q\nmid N$ such that $\eta_q = T_q-(1+q)$ does not act as $0$ on
+$A[\m]$, since otherwise $A[\m]$ would have semisimplification the
+reducible representation $1\oplus \chi$, where $\chi$ is the
+cyclotomic character.  Thus $\m$ is non-Eisenstein, and the first
+part of the proposition proves the second claim.  
+\end{proof}
+
+
+\subsection{Multiplicity one theorem}\label{sec:multone}
+
+The results of this section may be viewed as a partial generalization
+of \cite[Theorem.~2.3]{ribet:torsion} and \cite[Thm.~4.2,
+Thm.~4.6]{emerton:supersingular} to more general levels.  In
+particular, we prove under mild hypothesis that the multiplicity of a
+certain submodule of the $\T$-module
+$\Div(X_0(N)_{\F_{\ell^2}}^{\ss})\tensor \F_p$ is $1$.  Our proof
+proceeds by finding a natural injective map from this submodule into
+$J_0(N \ell)[p]$, and observing that the image lies in a
+$1$-dimensional subspace, as a consequence of a general multiplicity
+one result for $J_1(N\ell)$.
+For any positive integer $N$, let $\T(N)$ denote the ring of Hecke
+operators acting on $S_2(\Gamma_0(N))$.
+
+Let $N$ be a positive integer and $\ell$ a prime that does divide $N$,
+and let $X=\Div(X_0(N)_{\F_{\ell^2}}^{\ss})$, as in Equation~\eqref{eqn:X}.
+Let $f=\sum a_n q^n \in S_2(\Gamma_0(N))$ be a newform of level $N$
+and let $\m_0$ be a maximal ideal of $\T(N)$ such that the following
+three conditions simultaneously hold:
+\begin{enumerate}
+\item $\m_0$ has odd residue characteristic $p$,
+\item \label{hyp:ell} $a_\ell, \ell+1 \in \m_0$, and
+\item the $2$-dimensional mod $p$ Galois representation $\rho$
+  attached to $\m_0$ is absolutely irreducible.
+\end{enumerate}
+
+By Ribet's level raising theorem (see \cite{ribet:raising}), for each
+choice of $\pm 1$, there is a maximal ideal $\m$ in the Hecke algebra
+$\T=\T(N\ell)$ such that $\rho_{\m}\ncisom\rho$ and $T_{\ell} \pm 1\in
+\m$.  Letting $J=J_0(N\ell)$, as explained in
+\cite[\S3.3]{ribet-stein:serre}, we have
+\begin{equation}\label{eqn:mult}
+J[\m] \isom \bigoplus_{i=1}^t \rho,
+\end{equation}
+for some integer $t\geq 1$ called the {\em multiplicity of $\m$}.
+That $t\geq 1$ follows from an argument of
+Mazur, as explained in \cite[\S3.3]{ribet-stein:serre}.
+
+
+% let
+% $k=F_{\ell}$, let $J=J_0(N\ell)$ and let $J_k$ be the special fiber of
+% the N\'eron model of $J$.  The group $X$ of  is
+% the character group of the toric part of $J_k$.
+
+\begin{proposition}
+We have
+$
+\dim_{\T/\m} \Hom(X,\mu_p)[\m] \leq t.
+$
+\end{proposition}
+\begin{proof}
+  The proof is inspired by \cite[Prop.~7.7]{ribet:report}, though that
+  argument takes place in the midst of a proof by contradiction.
+
+  Let $G_{\ell}\ncisom \Gal(\Qbar_{\ell}/\Q_{\ell})$ be the decomposition
+  subgroup of $\Gal(\Qbar/\Q)$ associated to our fixed choice of prime
+  $\lambda$ of $\Zbar$ over $\ell$, and let $I_{\ell}\subset G_{\ell}$ be the
+  inertia subgroup.  Let $k=\F_{\ell}$, and let $J_k$ be the special fiber
+  of the N\'eron model of $J$ at $k$.  By \cite[Lem.~2]{serre-tate},
+  we have $J_k[\m] \isom J[\m]^{I_{\ell}}$, and because $\rho$ is unramified at
+  $\ell$, we have $J[\m]^{I_{\ell}} = J[\m]$, so $J_k[\m] \isom J[\m]$.
+
+Let $\Phi$ be the component group of $J_k$.
+As explained in \cite[\S4]{conrad-stein:compgroup},  we have 
+a diagram with an exact row and exact column, 
+where $T$ is the toric part of $J^0_k$ and $B$ is an abelian variety:
+\begin{center}
+\begin{tikzpicture} \matrix (m)
+[matrix of math nodes, row sep=1em, column sep=1.5em]
+{ & 0 & & & \\
+  & T & & & \\
+0 & {J_k^0} & {J_k} & {\Phi} & 0 \\
+  & B & & & \\
+  & 0 & & & \\
+ };
+\path[->]
+(m-1-2) edge node[auto] {} (m-2-2)
+(m-2-2) edge node[auto] {} (m-3-2)
+(m-3-2) edge node[auto] {} (m-4-2)
+(m-4-2) edge node[auto] {} (m-5-2)
+(m-3-1) edge node[auto] {} (m-3-2)
+(m-3-2) edge node[auto] {} (m-3-3)
+(m-3-3) edge node[auto] {} (m-3-4)
+(m-3-4) edge node[auto] {} (m-3-5)
+;
+\end{tikzpicture}
+\end{center}
+
+Moreover, $X^0 \isom \Hom(T,\Gm)$, so $T\isom \Hom(X^0,\Gm)$ and $T[p]=\Hom(X^0,\mu_p)$.
+Hence 
+\begin{equation}\label{eqn:minc}
+  \Hom(X^0, \mu_p)[\m]= T[\m] \hookrightarrow J^0_k[\m] \subset J_k[\m] \isom J[\m].
+\end{equation}
+% As explained in ..., we have a injective homomorphism of $\T[D]$-modules
+%$$
+%  \Hom(X/\m X,  \mu_{p}) \hookrightarrow J[\m].
+%$$
+
+The representation $\rho$ arises from level $N$, so is unramified
+at $\ell$. The characteristic polynomial of
+$\rho(\Frob_{\ell})$ is $x^2 - a_{\ell}x + \ell$.
+Our hypothesis \ref{hyp:ell} on $a_{\ell}$ and $\ell+1$
+imply that
+$$
+  x^2 - a_{\ell}x + \ell = x^2 - 1 \in \F_p[x].
+$$
+Since $x^2-1 = (x-1)(x+1)$ and $p$ is odd,
+we have a decomposition of $\T[D]$-modules 
+$J[\m]\isom J[\m]^+ \oplus J[\m]^-$ and
+\eqref{eqn:mult} implies that the two summands have 
+dimension $t$.
+Here we are using that $J[\m] = \oplus \rho$; if
+$V$ is the space underlying $\rho$, then $V$ 
+has dimension $2$ and the characteristic
+polynomial of $\Frob_{\ell}$ on $V$ is $(x-1)(x+1)$, 
+so $V^+$ and $V^-$ each have dimension 1.  
+
+By \cite[Prop.~3.7--3.8]{ribet:modreps}, the action 
+of $\Frob_{\ell}$ on $X^0$ is via $-T_{\ell}$.
+Since $T_{\ell}\pm 1\in \m$ (for some choice of sign),
+the action of $\Frob_{\ell}$ on the $\T[D]$-module
+$\Hom(X^0,  \mu_{p})[\m]$ is by
+$\pm \ell$ (because $\Frob_{\ell}$ acts on $\mu_p$ by $\ell$th powering).
+Since $\ell+1\in \m_0$, we have $\ell\equiv \pm 1\pmod{p}$,
+so we conclude that $\Frob_{\ell}$ acts on $\Hom(X^0,  \mu_{p})[\m]$
+as either $+1$ or $-1$.
+Thus the sequence of inclusions of Equation~\eqref{eqn:minc} 
+sends $\Hom(X^0,  \mu_{p})[\m]$ to a submodule
+of $J[\m]^{\pm}$ for one choice of sign, from which we conclude that
+$$
+  \dim_{\T/\m}   \Hom(X^0,  \mu_{p})[\m] \leq \dim_{\T/\m} J[\m]^{\pm} = t.
+$$
+\end{proof}
+
+
+\begin{lemma}\label{lem:isomX0}
+  We have $X/\m X \isom X^0/ \m X^0$.  (In fact, this lemma is true
+  for any non-Eisenstein maximal ideal $\m$.)
+\end{lemma}
+\begin{proof}
+It follows from the explicit description of Hecke operators (see Section~\ref{sec:heckeaction})
+that we have an exact sequence $0 \to X^0 \to X \xrightarrow{\deg} \Z \to
+  0$, where $\T$ acts on $\Z$ by $T_r = r+1$ for $r$ a prime coprime
+  to $N\ell$.  Tensoring this exact sequence over $\T$ with $\T/\m$ yields an exact sequence
+$$\Tor_1^{\T}(\Z,\T/\m) \to X/\m X \to X^0/ \m X^0 \to \Z\tensor_{\T}(\T/\m) \to 0.$$
+Since $\m$ is non-Eisenstein, $\Z\tensor_{\T}(\T/\m)=0$
+and $$\Tor_1^{\T}(\Z,\T/\m) = \Tor_1^{\T}(\T/\m,\Z) = \Z[\m]=0.$$
+\end{proof}
+
+Recall that $\m$ is any maximal ideal of level $N\ell$ arising from
+level raising, as explained above~\eqref{eqn:mult} at the beginning of
+this section.
+
+
+\begin{proposition}
+We have 
+$ \dim_{\T/\m} \Hom(X,\mu_p)[\m] \geq 1$.
+\end{proposition}
+\begin{proof}
+  Let $A=A_f$ be the optimal quotient of $J_0(N)$ attached to $f$, 
+  let $k=\F_{\ell^2}$, and let $\T=\T(N)$.
+Consider the $\T[\Frob_{\ell}]$-module $M= A(k)\tensor \T/\m_0$. 
+Proposition~\ref{prop:surj_from_ss} implies
+  that the $\T$-module homomorphism 
+$$
+  X^0 \to M \isom M^+ \oplus M^-
+$$ 
+is surjective.  Projection onto a one-dimensional $\T/\m_0$-subspace
+of each of $M^+$ and $M^-$ defines a nonzero element of $\Hom(X^0,
+\mu_p)[\m]$ for each of the two possible choices of $\m$.  Note that
+$\Frob_\ell^2 = 1$ on $A[\m]$ by hypothesis, so $A[\m](\overline{k})
+= A[\m](k)$.  Here we also use that $\dim_{\T/\m} A[\m] \geq 1$ (see
+\cite[\S3.3]{ribet-stein:serre}).
+
+It is elementary that every element of $\Hom(X,\mu_p)[\m]$ factors 
+through $X/\m X$ and likewise for $X^0$, so by Lemma~\ref{lem:isomX0} we have
+$$\Hom(X, \mu_p)[\m]
+   \isom \Hom(X/\m X, \mu_p)[\m]
+   \isom \Hom(X^0/\m X^0, \mu_p)[\m] 
+\isom \Hom(X^0, \mu_p)[\m].$$
+\end{proof}
+
+
+
+
+\begin{theorem}\label{thm:multonet}
+If $p\nmid N$, then
+$
+\dim_{\T/\m} \Hom(X,\mu_p)[\m] = 1. 
+$
+\end{theorem}
+\begin{proof}
+In light of the above two propositions, it suffices to
+show that $t=1$, where $t$ is the multiplicity in Equation~\eqref{eqn:mult}. 
+Let $f$ be a cuspidal eigenform in $S_2(\Gamma_0(N\ell))$
+such that $\Ann_{\T}(f) \subset \m$, and view $f$
+as an element of $S_2(\Gamma_1(N\ell))$.
+Let $\m_1$ be the inverse image of $\m$ in $\T_1=\T_1(N\ell)$ under the
+natural map $\T_1 \to \T$.
+Since $p>2$ and $p\nmid N\ell$, \cite[Th.~9.2, part 1]{edixhoven:weight}
+implies that $\dim_{\T_1/\m_1} J_1(N\ell)[\m_1] = 2$.
+The inclusion $J_0(N\ell) \to J_1(N\ell)$ has kernel
+the Shimura subgroup, which is Eisenstein (by \cite[Thm.~1]{ribet:comp}), 
+so $J_0(N\ell)[\m] \hra J_1(N\ell)[\m_1]$.  
+Since $t\geq 1$, this inclusion implies that $t=1$.
+\end{proof}
+   
+
+% We will not use the following corollary, whose proof follows
+% from the above theorem (see the proof of \cite[Thm.~2.3]{ribet:torsion}).
+% Let $\T_\m$ denote the completion of $\T$ at $\m$. 
+% \begin{corollary}
+% If $p\nmid N$, then
+% $X\tensor_{\T} \T_\m$ is free of rank $1$ over $\T_\m$.
+% \end{corollary}
+
+
+
+% \vspace{2in}
+% FRAGMENTS
+
+
+% Let $A=A_f$ be a newform optimal quotient of $J_0(N)$, let $\m^0$ be a
+% non-Eisenstein maximal ideal of $\T_0(N)$ in the support of $A$, and
+% let $\ell\nmid N$ be a prime such that $\ell+1, T_{\ell} \in \m^0$.
+% By Ribet's level raising theorem \cite{}, there are $\ell$-new maximal
+% ideals $\m^{\pm}$ of $\T_0(N\ell)$ such that $T_{\ell}-1\in \m^+$ and
+% $T_{\ell}+1 \in \m^-$, and the inverse images of $\m^{\pm}$ and $\m$
+% in the anemic Hecke algebra $\T'$ agree, where $\T'$ is generated by
+% Hecke operators of index coprime to $\ell$.  Let $p$ be the residue
+% characteristic of $\m$ and assume that $p$ is odd.  Let $X$ be the
+% $\T$-module from Equation Equation~\eqref{eqn:X}.
+
+% \begin{theorem}
+% For each ideal $\m^+$ and $\m^-$, we have
+% $$
+%   \dim \Hom(X, \mu_p)[\m^{\pm}] = \dim J_0(N\ell)[\m^{\pm}].
+% $$
+% \end{theorem}
+% \begin{proof}
+%   The proof follows an argument that Ribet frequently uses (see
+%   \cite[Prop.7.6]{ribet:report}, \cite[Thm.~2.3]{ribet:torsion}, and
+%   \cite[Thm.~4.6]{emerton:supersingular}).  Let $J=J_0(N\ell)$ and
+%   $k=\F_{\ell}$, and fix recall that we always fix a choice $\lambda$
+%   of prime of $\Zbar$ over $\ell$, with corresponding inertia and
+%   decomposition groups $I_{\lambda}$ and $D_{\lambda}$.
+% By \cite{}
+
+% \end{proof}
+
+
+% \begin{theorem}
+% ((Additional assumptions for mult one?))
+% For each ideal $\m^+$ and $\m^-$, we have $\dim \Hom(X, \mu_p)[\m^{\pm}] = 1$.
+% \end{theorem}
+
+
+
+
+
+
+% FRAGMENTS:
+
+% When $q$ is a prime and a certain form of multiplicity one holds
+% \todo{nail this down!}, the map $\Psi$ is determined up to a nonzero
+% scalar by virtue of it being a $\T$-module homomorphism and the Hecke
+% operator $T_n$ acting as $a_n=a_n(E)$ on $E(\F_{\ell})$ for all $n$
+% (see Proposition~\ref{prop:surj} below).
+
+% \todo{It is also necessary to also impose the Atkin-Lehner eigenvalues... since
+% really we are raising the level and can do so in multiple ways.  I should
+% explain the natural connection with level raising here too.}
+
+% \todo{{\bf WORRY:} Is my algorithm maybe only an algorithm when we have
+% multiplicity 1?  Maybe we always do in this context?  I at least need
+% to cite a big theorem.}
+
+% \section{The Algorithm}\label{sec:alg}
+
+% Suppose $A=A_f$ is the optimal abelian variety quotient of $J_0(N)$
+% attached to a newform $f=\sum a_n q^n$.  Let $\m$ be a maximal ideal
+% of $\T=\T(N)$ such that $A[\m]$ is absolutely irreducible and the
+% residue characteristic $p$ of $\m$ does not divide $2N$.  Let $K$ be a
+% quadratic imaginary field that satisfies the Heegner hypothesis for
+% $N$, and let $\ell\nmid 2pN$ be a prime that is inert in $K$.  Fix a
+% prime $\lambda$ of $\Zbar$ over $\ell$.  Let $P$ be the set of
+% squarefree products of inert primes $q\nmid 2pN$ such that 
+% $a_q, q+1 \in \m$.
+
+
+% \begin{theorem}
+%   There is an algorithm that takes as input any square free integer $c
+%   \in P$ and outputs the reduction modulo $\lambda$ of the
+%   Kolyvagin point $P_{c}$, up to a nonzero scalar.  This algorithm has
+%   complexity that is $O((N\ell)^3+c^2)$.  \edit{I'm BS'ing the complexity.}
+% \end{theorem}
+
+% \todo{Can I give an algorithm to compute $\tau_c$?  First in
+%   $\H^1(K,A_f[\m])$?  Then in $\H^1(K,A_f[\m^n])$?  I feel like I am
+%   somehow almost there.}
+
+% \todo{This section needs more somehow.  It is a good opportunity to
+%   tie together the whole paper.  }
+
+% \section{Detailed Examples: 389a and 916c}\label{sec:examples}
+% \edit{Do this.  I wonder how to do this?  First show the Sage code (a
+%   few lines), then explain what happens.  Imagine somebody trying to
+%   implement this.  Also, have lots of pointers to how this
+%   illustrations stuff elsewhere in the paper.  Maybe compute the
+%   matrix of $D_5$. }
+
+
+% \edit{Also, should I do something with 916c1 where $\prod c_p=3$, but mod-3
+% repn. is surjective?  It would be neat to see $[P_c]=0$ for $c$ prime, etc.}
+
+\section{Implementation and Data}\label{sec:data}
+We implemented in Sage\footnote{All computations in this section can
+  be done in Version 4.6.1 using the free open source software Sage
+  \cite{sage}.  Our implementation was peer reviewed by John Cremona
+  for inclusion in Sage.  Some relevant output files from running the
+  computation can be found at
+  \url{http://wstein.org/home/wstein/db/kolyconj/}.  All computations
+  were done under Linux (Ubuntu and Redhat) on several NSF-funded Sun
+  Fire X4450 servers with 24 2.6Ghz cores and 128GB RAM each, at
+  University of Washington and University of Georgia, and the
+  computations took a few weeks CPU time.}  algorithms based on the
+above results, and used them to compute $z_{c,\sigma,\ell}$ for $10$
+different rank $2$ curves, and various primes $\ell$, primes
+$q=3,5,7$, discriminants $D$ of class number $1$, and primes $c$, as
+in Table~\ref{tab:work}.  Let $r_{\ell}$ be the reduction map from
+Equation~\eqref{eqn:red}. We choose the pairs $(E,\ell)$ so that
+$r_{\ell}$ is surjective and if $\ell_1$ and $\ell_2$ are the first
+two primes for a given elliptic curve $E$, then $\ker(r_{\ell_1})\cap
+\ker(r_{\ell_2})=0$.  For each pair $(E,\ell)$ in the table, we
+considered all fundamental discriminants $D\leq -5$ such that
+$K=\Q(\sqrt{D})$ has class number $1$, satisfies the Heegner
+hypothesis for $E$, has $\ord_{s=1}L(E^D,s) \leq 1$, and for which
+$\ell$ is inert.  The restriction to class number 1 is not essential.
+
+
+\subsection{Tables}
+\begin{table}[H]
+\begin{center}
+  \caption{Rank 2 curves, discriminants, and primes for which we
+    computed $z_{c,\sigma,\ell}$.\label{tab:work}}\vspace{1ex}
+\input{table1.tex}
+\end{center}
+\end{table}
+
+We refer to elliptic curves using Cremona's notation (see
+\cite{cremona:onlinetables}).  Table~\ref{tab:work} has columns $E$,
+$D$, $p$, $\ell$.  Each row has the property that $E$ has rank $2$,
+$\ell$ is inert in the field $K=\Q(\sqrt{D})$, and $K$ satisfies the
+Heegner hypothesis for $E$.  Also, we have $p\mid \gcd(\ell+1,
+a_{\ell}(E))$.  We selected these examples because the $\ZZ$-rank of
+$\Div(X_0(N)_{\F_{\ell^2}}^{\ss})$ is relatively small
+(the dimensions are in Table~\ref{tab:data}).
+
+The Tamagawa numbers of all of our curves are $1$ or $2$, and in all cases
+$\rho_{E,p}$ is surjective (see Proposition~\ref{prop:surj}).
+
+Table~\ref{tab:data} contains data about the points
+$z_{c,\sigma,\ell}$.  The columns labeled $E$, $D$, $p$, and $\ell$
+correspond exactly to the entries in Table~\ref{tab:data}. The column
+labeled $\dim$ gives the dimension of
+$\Div(X_0(N)_{\F_{\ell^2}}^{\ss})$; this dimension directly impacts
+the runtime of our implementation.  The column labeled $\max{}c$
+contains the largest $c$ such that we managed to compute
+$z_{c,\sigma,\ell}$.  The columns labeled ``$=0$'' and ``$\neq 0$''
+are a count of how many $z_{c,\sigma,\ell}$ are $0$ and not $0$ among
+those we computed; note that for each $c,\ell$ we compute
+$z_{c,\sigma,\ell}$ for only one choice of generator $\sigma$ (see
+below for how we chose $\sigma$), since other choices of $\sigma$
+would yield a nonzero scalar multiple, hence we often just write
+$z_{c,\ell}$.  The columns labeled $z_{c,\ell}=0$ and $z_{c,\ell}\neq
+0$ give the first few $c$ such that $z_{c,\ell}$ is zero or nonzero,
+respectively.
+
+A consistency check on Table~\ref{tab:data} comes from the rows
+labeled $({\bf 389a1},-7,3,17)$ and $({\bf 389a1},-7,3,41)$, since the
+reduction maps
+$$E(\Q) \to E(\F_{\ell})\tensor(\Z/3\Z)$$
+have the same kernel for $\ell=17$ and $41$.  Hence the $z_{c,17}\neq$
+if and only if $z_{c,41}\neq 0$, which was indeed the case in the
+range of our computations.
+
+In every single case in Table~\ref{tab:data} we find at least one $c$
+such that $z_{c,\ell}\neq 0$, so Conjecture~\ref{conj:koly} is true in
+these cases.
+
+
+One initially surprising numerical observation we made is that the
+classes $\tau_{c,p}$ appear to {\em not} be equidistributed in
+the most naive possible sense.  For example, in our computations with
+$p=3$, the $0$ subspace occurs about twice as much as any other
+subspace.  Once we know that one class is nonzero, the exact
+asymptotic distribution of {\em all} classes can then be determined as
+an application of work of Mazur-Rubin, B. Howard
+\cite{howard:kolyvagin}, and the Chebotarev density theorem. See the
+forthcoming paper \cite{stein-weinstein:dist}.  As mentioned in
+Remark~\ref{remark:weinsteindouble} above, this also leads to an
+alternate way to compute $\tau_{c,p}$ up to scaling.  This provided
+an convincing double check on the correctness of our tables.
+
+Tables~\ref{tab:table3_1}--\ref{tab:table3_2} provide further details
+about the distribution of elements of $$\Sel^{(p)}(E/\Q)\isom
+(\Z/p\Z)^2$$ coming from this construction.  The first $5$ columns
+labeled $E$, $D$, $p$, $\ell_1$ and $\ell_2$ specify an elliptic
+curve, fundamental discriminant $D$, a prime $p$ and two primes
+$\ell_1$ and $\ell_2$, chosen from the data summarized in
+Table~\ref{tab:data}.  As mentioned above, the primes $\ell_1$ and
+$\ell_2$ are chosen so that the intersection of the two reduction maps
+to $E(\F_{\ell_i})\tensor(\Z/p\Z)$ is $0$.  Since the Selmer group has
+dimension $2$ and in our implementation we chose the generator
+$\sigma\in\Gal(K_c/K_1)\isom (\O_K/c\O_K)^{\times}/(\Z/c\Z)^{\times}$
+to be $\sqrt{D}+n$ with $n\geq 1$ minimal, where $D=\disc(K)$.  This
+allows us to deduce the subspace spanned by $\tau_{c,p}$ in
+$\Sel^{(p)}(E/\Q)$ with respect to some unknown basis for
+$\Sel^{(p)}(E/\Q)$. The column labeled $\tau_{c,p}$ gives the
+normalized generator for this subspace.  The next column, labeled $\#$
+gives the number of $c$ such that $\tau_{c,p}$ spans the given
+subspace, and the last column gives the first few such primes $c$.
+
+
+
+
+\begin{table}[H]
+\begin{center}
+\caption{Data about $z_{c,\sigma,\ell}$.\label{tab:data}}
+\small
+\input{table2.tex}
+\end{center}
+\end{table}
+
+
+{
+\input{table3.tex}
+}
+
+\hoffset=-0.3\textwidth
+{
+\input{table4.tex}}
+
+
+\eject
+\mbox{}
+\hoffset=-0.05\textwidth
+
+
+
+%\subsection{Algorithm to Computing the Line Spanned by $\tau_c$}
+%\label{sec:algtau}
+%\edit{Write this section.}
+
+\subsection{Appendix: remarks about surjectivity of Galois representations}
+
+In order to pass from $[P_{c,\sigma}]$ to $\tau_{c,p^n} \in \H^1(K,E[p^n])$
+in Section~\ref{sec:derclass},
+we assumed that $p$ is an odd prime such that
+$$\rho_{E,p}:\Gal(\Qbar/\Q)\to\GL_2(\ZZ_p)$$ 
+is surjective.  If we assume that $E$ does not have CM (as will be the
+case for our examples), the $p$-adic representation $\rho_{E,p}:G_\Q
+\to \GL_2(\Z_p)$ is surjective for all but finitely many~$p$.
+Moreover, we can compute all primes $p$ such that
+$\rho_{E,p}$ is not surjective, as explained in \cite[\S2.1]{bsdalg1}
+and implemented in Sage
+(see also forthcoming work of A. Sutherland
+\cite{sutherland:cmi_talk_on_image}).  For example, we have the
+following proposition:
+
+\begin{proposition}\label{prop:surj}
+If $E$ is a rank 2 elliptic curve with conductor
+  $<1058$, then $\rho_{E,p}$ is surjective for all odd primes $p$.
+\end{proposition}
+\begin{proof} 
+Using the algorithm of \cite[\S2.1]{bsdalg1} as implemented
+in \cite{sage} shows that the mod-$p$ representations $\rhobar_{E,p}:G_\Q\to
+  \GL_2(\F_p)$ are surjective for all rank $2$ curves $E$ of conductor
+  $<1058$ and all primes $p$.
+% Running the following code in Sage and seeing no output
+%   shows that the mod-$p$ representations $\rhobar_{E,p}:G_\Q\to
+%   \GL_2(\F_p)$ are surjective for all rank $2$ curves $E$ of conductor
+%   $<1058$ and all primes $p$.
+% \begin{lstlisting} 
+% for E in cremona_optimal_curves([389..1057]): 
+%     if E.rank() == 2:  
+%         if len(E.galois_representation().non_surjective()) > 0:
+%             print E
+% \end{lstlisting}
+As explained in \cite[\S2.1]{bsdalg1}, this implies that the
+$p$-adic representation $\rho_{E,p}$ is surjective for $p\geq 5$.  
+
+It
+remains to deal with $p=3$.  For $p=3$ we use the method of \cite{elkies:3},
+namely that it is enough to check that $j(E)-f(x)$ has no rational
+zero, where $f(x)$ is the function
+$$
+f(x) = \frac{3^7 \cdot (x^2-1)^3 \cdot
+(x^6+3x^5+6x^4+x^3-3x^2+12x+16)^3 \cdot
+(2x^3+3x^2-3x-5)}{(x^3-3x-1)^9}
+$$
+of degree 27 from \cite[pg.~5]{elkies:3}. Elkies remarks (see \cite{elkies:2010-3})
+that there is a minus sign in the formula in \cite[pg.~5]{elkies:3}
+that does not belong, as we verify by trying the integral
+specializations tabulated on \cite[pg.~7]{elkies:3}, and also by
+factoring $f-1728$.  Doing this computation for our curves
+yields the claimed result.
+
+%We now perform the computations mentioned above in Sage:
+%\begin{lstlisting} 
+%# Define the rational function f(x).  
+%R.<x> = QQ[]
+%f = (3^7 * (x^2-1)^3 * (x^6+3*x^5+6*x^4+x^3-3*x^2+12*x+16)^3
+%         *(2*x^3+3*x^2-3*x-5) / (x^3-3*x-1)^9) 
+%# Iterate over rank 2 curves up to conductor 1057, computing roots 
+%for E in cremona_optimal_curves([389..1057]): 
+%    if E.rank() == 2: 
+%         g = (f - E.j_invariant()) 
+%         print g.numerator().roots(), g(1/x).numerator().roots() 
+%[] [] ...  [] []
+%\end{lstlisting} 
+%The output (all empty lists) shows that $f(x)-j(E)$
+%does not have a root in $\P^1(\Q)$ for any of our curves $E$.
+\end{proof}
+
+\begin{remark} Andrew Sutherland used the techniques of
+\cite{sutherland:cmi_talk_on_image} to show \cite{sutherland:16}
+that ``the rank 2 elliptic curves with conductor less than 1058 all
+have surjective Galois images in $\GL_2(\ZZ/16\ZZ)$.''  We thus also
+expect that $\rho_{E,2}$ is surjective for all rank 2 curves with
+conductor less than 1058.
+\end{remark}
+
+\begin{remark} The rank 2 curve 1058c1 has a rational $3$
+isogeny.
+\end{remark}
+% \begin{lstlisting} 
+% sage: E = EllipticCurve('1058c1'); E.rank() 
+% 2 
+% sage: E.galois_representation().non_surjective() # not surjective 
+% [3] 
+% sage: E.torsion_order()    # no rational 3-torsion 
+% 1 
+% sage: E.isogeny_class()[1] # a rational 3-isogeny
+% [1 3] [3 1]
+% \end{lstlisting}
+
+
+
+
+\section{Related Projects}\label{sec:future}
+
+There are several future projects that are suggested by this paper,
+and we briefly sketch some of the most promising ones here.
+
+We can do the same computations as we do here, but for modular abelian
+varieties $A_f$ attached to newforms with $\ord_{s=1}L(f,s)\geq 2$.
+There is a table of such abelian varieties in
+\cite{agashe-stein:bsd}. For example, we carried out this computation
+for the modular abelian variety {\bf 1061b} of dimension 2 and indeed
+verified the natural higher dimensional analogue of Kolyvagin's
+conjecture for this abelian variety (for $p=3$).  Note that Kolyvagin
+appears to have never explicitly made such a conjecture, though of
+course he considers modular abelian varieties in
+\cite{kolyvagin-logachev:finiteness}.  We could also use our method to
+show that $\Sha(A_f/\Q)[p]=0$ for a particular $A_f$, even when $\ord
+L(f,s) \leq 1$.  This may require extending Kolyvagin's structure
+theorem to abelian varieties, or otherwise making 
+results of \cite{kolyvagin-logachev:finiteness} more explicit. 
+
+We could verify Conjecture~\ref{conj:koly} for the rank $3$ elliptic
+curve of conductor 5077, and possibly some other rank $3$ curves.
+Indeed, Jennifer Balakrishnan and the author have verified
+Conjecture~\ref{conj:koly} at least for {\bf 5077a} for $p=3$.
+
+It would be of interest to generalize Algorithm~\ref{alg:main} to
+treat the case $p^n$ with $n>1$ or the case when $\rho_{E,p}$ is
+reducible.  We could also consider an example such as the
+rank 2 curve {\bf 916c1} and $p=3$ in which $p$ divides
+a Tamagawa number. 
+
+Since we are doing explicit computation, it would also be interesting
+to closely investigate the case $p=2$; this is particularly exciting
+when $r_{\an}(E/\Q)=2$, since, after a harmless trace (as in
+Remark~\ref{rem:pn}), we find that the points $y_c$, for $c$ prime,
+are defined over {\bf real quadratic} extensions of $\Q$, and define
+explicit elements of $\Sel^{(2)}(E/\Q)$ that define globally trivial
+$[2]$-coverings $X \to E$.  For example, if we take $E$ to be {\bf
+  389a}, $K=\Q(\sqrt{-7})$ and $c=3$, then $y_3$ is defined over a
+cyclic degree $4$ extension $K_3$ of $K$; the trace $z_3$ of $y_3$ to
+the quadratic subfield of $K_3$ is defined over the real
+quadratic field $\Q(\sqrt{21})$; it is the point 
+$$
+z_3 = \left(-\frac{131}{84} , \frac{1091}{3528} \sqrt{21} - \frac{1}{2}\right).
+$$  Also, we find that $0 \neq \tau_{3,2} =
+\delta((0,0)) \in \Sel^{(2)}(E/\Q)$.  Is there any connection between
+these Heegner points over real quadratic fields and Stark-Heegner
+points?
+
+Much of the work of Kolyvagin and Gross-Zagier has been generalized to
+totally real fields by Zhang and his students.  Likewise, it would be
+of interest to see to what extent the results of this paper generalize
+to totally real fields.
+
+It would also be of interest to investigate rank $2$ curves $E$ for
+which $E^D$ exhibits some unusual behavior, e.g., nontrivial odd
+$\Sha$ or rank $\geq 3$.  For example, for $E$ the curve {\bf 389a} of
+rank $2$, and $K=\Q(\sqrt{-264})$, which has class number $8$, the
+twist $E^D$ has rank 3, so Kolyvagin's structure theorem implies that
+$[P_{c,\sigma}]=0$ for all prime $c$, and it would be interesting to
+(a) computationally observe this, and (b) find a $c$ that is a product
+of primes for which $[P_{c,\sigma}]\neq 0$.  Similarly, if we take
+$K=\Q(\sqrt{-667})$, then $K$ has class number $4$ and $5\mid
+\#\Sha(E^D/\Q)$; thus we expect that $[P_{c,5}]=0$ for all prime
+$c$. Again it would beinteresting to observe this computationally,
+and find a prime $c$ such that $[P_{c,5^2}]\neq 0$.
+
+As a challenge, we could attempt to verify Conjecture~\ref{conj:koly}
+for the rank $4$ elliptic curve of conductor 234446 given by the
+equation $y^2 + xy = x^3 - x^2 - 79x + 289$.  This computation is at
+the edge of feasible, so it will require very sophisticated linear
+algebra or some other new idea.  
+
+% One could study more general situations, including elliptic curves of
+% rank $>2$, modular abelian varieties of dimension $>1$, densities of
+% distributions of Kolyvagin classes, and motives attached to modular
+% forms.
+
+% \begin{enumerate}
+% \item Investigate Remark~\ref{rmk:althypo}.  
+
+% % \item To what extent is it possible to generalize everything to
+% %   nonsquare free $c$, and combine with \cite{ciperiani-wiles} to give
+% %   an algorithm to find solvable point on any locally trivial genus one
+% %   curve?
+
+
+% % \item Compute the exact element $\tau_{c,\sigma}$ in the Selmer group
+% %   instead of just computing it up to a fixed choice of automorphism.
+% %   This could be done by normalizing the reduction maps by numerically
+% %   computing $\tau_{c,\sigma}$ for one small $c$.  This can be done
+% %   heuristically (not provably correctly) as in
+% %   \cite{jetchev-lauter-stein}.  It may also be possible to make this
+% %   rigorous using the results of the recent Ph.D. thesis of
+% %   R. Bradshaw.
+
+% \item Verify Conjecture~\ref{conj:koly} for the rank $3$ elliptic
+%   curve of conductor 5077, and possibly some other rank $3$ curves.
+%   E.g., Jennifer Balakrishnan and the author have verified Kolyvagin's
+%   conjecture for 5077a for $p=3$.
+
+% \item Try to generalize the algorithm to $p^n$ with $n>1$.
+
+% \item Try to generalize the algorithm to $p^n$ with $\rho_{E,p}$
+%   reducible.
+% \item $p=2$.  This is particularly interesting since the points $y_c$
+%   are over {\bf real quadratic fields} (after harmless trace), and
+%   define explicit elements of $\Sel^(2)(E/\Q)$ that when
+%   $\Sha(E/\Q)[2]=0$ we expect define globally trivial $[2]$ coverings
+%   $X \to E$.
+
+% \item Do some computations on a curve $E$ with a Tamagawa number
+%   divisible by $q$.  E.g., 916c1.  Probably do in this paper. 
+
+% \item Verify Conjecture~\ref{conj:koly} for the rank $4$ elliptic
+%   curve of conductor 234446 given by the equation $y^2 + xy = x^3 -
+%   x^2 - 79x + 289$.  The group $\Div(X_0(N)(\F_{\ell^2})^{\ss})$ would
+%   then have dimension around 300000, so this computation is perhaps at
+%   the edge of feasible, though it will require sophisticated linear
+%   algebra or some other new idea.  Maybe just computing the module
+%   generated by $[I]$.  It would be good to write down all the
+%   parameters for this.  There are also some rank 3 curves of this same
+%   conductor, which would lead to interesting behavior.
+
+% \item Example of rank $2$ curve where $\Sha[3]\neq 0$.
+% Curve is $y^2 + xy = x^3 - x^2 + 94x + 9$ with conductor
+% $53295337$.
+
+% \item Over totally real fields -- hilbert mod forms -- zhang.
+
+% \item Take $E$ to be 389a and $K=\Q(\sqrt{-667})$. Then $K$ has class
+%   number $4$ and amazingly, $5$ divides the order $\Sha(E/K)$.  I
+%   think this implies that $\tau_{c,5}=0$ for all primes $c$.  This
+%   would be intersting to computationally observe.
+% More generally, systematically find small conductor curve
+% $E$ of rank 2 such that $\Sha(E^D)[p] \neq 0$. 
+
+% \item For 389a an interesting example is $K=\Q(\sqrt{-264})$, which
+%   has class number $8$, and the twist has rank 3, so Kolyvagin's
+%   theorem implies that $[P_{c,\sigma}]=0$ for all prime $c$.
+
+% \item Impressive examples that would have seemed impossible before,
+%   with pointers to where more details are.  Another neat example would
+%   be to start with first curve with nontrivial odd sha -- 681b -- and
+%   prove via Koly's theorem that Sha is nontrivial!  this is possible.
+%   We would: (1) say that if some $\tau_{c,3}\neq 0$ with $c$ prime,
+%   then a specific $\tau_{c,3}\neq 0$ from the Stein-Weinstein idea.
+%   Then observe that $\tau_{c,3}=0$.  This {\em proves} that $m_1 \geq
+%   1$ (or whatever the notation is).  Then $m_2 = 0$ because we simply
+%   compute $\tau_{c1c2,3}$ and get nonzero.  conclusion: get $\Sha(3)$
+%   nontrivial.  OR maybe it is even easier in this example since
+%   rank=0.  Then $m_0=1$, so $\#\Sha|9$. To get $\Sha[3]=9$ compute and
+%   find that $m_1=0$.
+
+% % \item Remark that if we just want to verify that $P$ has nonzero
+% %   image, we could compute the $\T$-span of something and see that it is
+% %   sufficiently big, which simultaneously verifies nontriviality for
+% %   {\em all} quotients of level $N$ at once, and does not require
+% %   computing that map at all (and also doesn't require mult one).
+
+% \end{enumerate}
+
+
+
+
+
+\bibliography{biblio}
+
+
+
+\end{document}

@@ -1,0 +1,108 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-----------------------------------------------------------------------------
+% Beginning of main.tex
+%-----------------------------------------------------------------------------
+%
+% This is a the text file for ``Computing with Modular Forms'.
+% Use AMS-LaTeX to typeset it.
+%
+% This is the driver file.  The body is included below.
+% of this file.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{gsm-l}
+%\documentclass[draft]{gsm-l}
+%\usepackage[american]{babel}
+% these are for convenience while working with
+% the electronic version of the document; then
+% can be safely commented out.
+%\usepackage[hypertex]{hyperref}
+\usepackage[hyperindex,pdfmark]{hyperref}
+
+
+\bibliographystyle{amsalpha}
+
+\makeindex    
+
+%\includeonly{macros, appendix}
+\includeonly{macros, preface, body, solutions, appendix, index}
+%\includeonly{macros, solutions}
+
+\include{macros}
+
+\begin{document}
+
+\frontmatter
+\title{Modular Forms:\\A Computational Approach}
+
+%    Information for first author
+\author{William A. Stein\\(with an appendix by Paul E. Gunnells)}
+%    Address of record for the research reported here
+% i changed this to the more formal ``Mathematics'' rather than ``Math''
+\address{Department of Mathematics, University of Washington}
+%    Current address
+%\curraddr{Dept. of Mathematics, University of Washington, Seattle, WA 98195-4350}
+\email{wstein@math.washington.edu}
+%    \thanks will become a 1st page footnote.
+ 
+
+% suggestion (first and second is a little awkward because the usual
+% meaning in mathematics is lexicographic order, not importance of
+% contribution, but in this case the
+% alphabetical order of our names doesn't correspond to our
+% contributions)
+% \thanks{Stein was supported in part by NSF Grant DMS 05-55776.
+% Gunnells was supported in part by NSF Grants DMS 02-45580 and DMS
+% 04-01525.}
+
+%    Information for second author
+%\author{}
+% our statistics people are a vociferous minority
+\address{Department of Mathematics and Statistics, University of Massachusetts}
+\email{gunnells@math.umass.edu}
+%\thanks{The second author was supported in part by NSF Grant \#.}
+
+\date{June 1, 2006}
+\subjclass{Primary 11;\\Secondary 11-04}
+\keywords{abelian varieties, cohomology of arithmetic groups,
+  computation, elliptic curves,
+  Hecke operators,
+  modular curves, modular forms,  modular symbols, Manin
+  symbols, number theory}
+
+
+\begin{abstract}
+This is a textbook about algorithms for computing with
+modular forms.  It is nontraditional in that the primary focus is not
+on underlying theory; instead, it answers the question {\em ``how do you 
+explicitly compute spaces of modular forms?''}
+\end{abstract}
+
+\maketitle
+
+\setcounter{page}{4}
+
+\newpage
+To my grandmother, Annette Maurer. 
+
+\tableofcontents
+
+\include{preface}
+
+\mainmatter
+
+\include{body}
+\include{solutions}
+\include{appendix}
+
+\backmatter
+
+\bibliography{biblio}
+
+\printindex
+
+\end{document}
+
+%-----------------------------------------------------------------------------
+% End of main.tex
+%-----------------------------------------------------------------------------

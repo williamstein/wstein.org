@@ -1,0 +1,13 @@
+# Archive-relative source files copied verbatim into preserved/www/.
+papers/ars-congruence/current.tex
+papers/bs-heegner/bs-heegner.tex
+papers/bs-heegner/macros.tex
+papers/focm11/focm11.tex
+papers/hnf/hnf.tex
+papers/kolyconj2/kolyconj.tex
+papers/kolyconj2/macros.tex
+papers/sqrt5/canonical_model.tex
+papers/sqrt5/code.sage
+papers/sqrt5/sqrt5.tex
+papers/stein-ggz/stein-ggz.tex
+books/sagebook/sagebook.tex

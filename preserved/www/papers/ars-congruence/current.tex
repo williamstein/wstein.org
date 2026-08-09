@@ -1,0 +1,2092 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                %
+%  Use latex to format this document.            %
+%  AGASHE - RIBET - STEIN : Congruences          %
+%                                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+%    Documenta-LaTeX.sty (2e)
+%
+%    Version 0.5
+%
+%    Copyright (C) 2000, 2001 Ulf Rehmann
+%    rehmann@mathematik.uni-bielefeld.de
+%
+% ------------------------------ PROLOGUE -----------------------------
+%
+% This prologue is to be prepended to your LaTeX file in order to
+% give it the layout required by Documenta Mathematica.
+% Please edit the \documentclass line below, add \usepackage lines
+% according to your needs and
+% go to the line starting with \Title below, fill in title,
+% authors' names and so on and follow the further instructions there.
+% 
+% Choose one of the commands \documentclass[]{} or \documentstyle[]{}
+% depending on the version of LaTeX you use:
+%
+%
+% If you use LaTeX 2e use the following line (or similar):
+\documentclass[10pt,twoside]{article}
+
+%\usepackage[hyperindex,pdfmark]{hyperref}
+\usepackage[hypertex]{hyperref}
+%\usepackage[active]{srcltx}
+
+\newcommand{\edit}[1]{\footnote{EDIT: #1}\marginpar{\hfill {\sf \thefootnote}}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+
+%*************Declaration Section******************
+\newcommand{\Z}{{\bf{Z}}}
+\newcommand{\Q}{{\bf{Q}}}
+\newcommand{\Qbar}{{\overline{\Q}}}
+\newcommand{\Zbar}{{\overline{\Z}}}
+\newcommand{\R}{{\bf{R}}}
+\newcommand{\C}{{\bf{C}}}
+\newcommand{\F}{{\bf{F}}}
+\newcommand{\T}{{\bf{T}}}
+\newcommand{\Tf}{\T_{\scriptscriptstyle [f]}}
+\newcommand{\J}{\bf{J}}
+\newcommand{\m}{{\mathfrak{m}}}
+\newcommand{\PP}{\bf{P}}
+\newcommand{\RP}{{\noindent \bf Research problems:}}
+\newcommand{\B}{{\noindent $\bullet$ \ }}
+%\newcommand{\HH}{\rm{H}}
+%\newcommand{\SS}{\rm{S}}
+%\newcommand{\LL}{\rm{L}}
+\newcommand{\dimq}{{\dim_{\scriptscriptstyle \Q}}}
+\newcommand{\tensor}{\otimes}
+\newcommand{\ten}{\otimes}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\ua}{\uparrow}
+\newcommand{\da}{\downarrow}
+\newcommand{\hra}{\hookrightarrow}
+\newcommand{\lan}{\langle}
+\newcommand{\ran}{\rangle}
+\font\cyr=wncyr10 scaled \magstep 1
+%\font\cyr=wncyr10p
+\newcommand{\Sha}{\hbox{\cyr X}}
+\newcommand{\phie}{\phi_{\scriptscriptstyle E}}
+\newcommand{\phia}{\phi_{\scriptscriptstyle A}}
+\newcommand{\vphi}{\varphi}
+\newcommand{\dphif}{{\rm{deg}} \phi_{\scriptscriptstyle F}}
+\newcommand{\re}{r_{\scriptscriptstyle E}}
+\newcommand{\me}{m_{\scriptscriptstyle E}}
+\newcommand{\qe}{q{\mbox{\rm-exp}}}
+\newcommand{\Fe}{F{\mbox{\rm-exp}}}
+\newcommand{\sqe}{{\scriptstyle{q}}{\mbox{\scriptsize{\rm-exp}}}}
+\newcommand{\sFe}{{\scriptstyle{F}}{\mbox{\scriptsize{\rm-exp}}}}
+%\newcommand{\Zm}{{\Z}\left[\frac{1}{m}\right]}
+\newcommand{\Zm}{{\Z}[1/m]}
+\newcommand{\tZm}{{\textstyle \Zm}}
+\newcommand{\HM}{H^0(M_0(N)_S,\Omega)}
+\newcommand{\HJ}{H^0(J_S, \Omega_{J/S}^1)}
+\newcommand{\GS}[2]{H^0(#1_#2, \Omega_{#1/#2}^1)}
+\newcommand{\po}{\phi_1}
+\newcommand{\pt}{\phi_2}
+\newcommand{\Fp}{{{\F}_p}}
+\newcommand{\tfp}{\tensor \Fp}
+\newcommand{\HH}{\rm{H}}
+\newcommand{\SSS}{\rm{S}}
+\newcommand{\nerA}{{\mathcal{A}}}
+\newcommand{\ce}{c_{\scriptscriptstyle{E}}}
+\newcommand{\cje}{c_{\scriptscriptstyle{J_e}}}
+\newcommand{\ca}{{c_{\scriptscriptstyle{A}}}}
+\newcommand{\caf}{{c_{\scriptscriptstyle{A_f}}}}
+\newcommand{\na}{{n_{\scriptscriptstyle{A}}}}
+\newcommand{\ma}{{m_{\scriptscriptstyle{A}}}}
+\newcommand{\nje}{{n_{\scriptscriptstyle{J_e}}}}
+\newcommand{\nel}{{n_{\scriptscriptstyle{E}}}}
+\newcommand{\rA}{{r_{\scriptscriptstyle{A}}}}
+\newcommand{\rAe}{{\tilde{r}_{\scriptscriptstyle{A}}}}
+\newcommand{\rAfe}{{\tilde{r}_{\scriptscriptstyle{A_f}}}}
+\newcommand{\rAf}{{r_{\scriptscriptstyle{A_f}}}}
+\newcommand{\mA}{{m_{\scriptscriptstyle{A}}}}
+\newcommand{\nA}{{n_{\scriptscriptstyle{A}}}}
+\newcommand{\nAe}{{\tilde{n}_{\scriptscriptstyle{A}}}}
+\newcommand{\nAfe}{{\tilde{n}_{\scriptscriptstyle{A_f}}}}
+\newcommand{\nAf}{n_{\scriptscriptstyle{A_f}}}
+\newcommand{\If}{{I_{\scriptscriptstyle{f}}}}
+\newcommand{\tauc}{\tau_{\scriptscriptstyle{\C}}}
+\newcommand{\piAd}{\pi_{\scriptscriptstyle{\Adual}}}
+\newcommand{\piB}{\pi_{\scriptscriptstyle{B}}}
+\newcommand{\Adual}{A^{\vee}}
+\newcommand{\Bdual}{B^{\vee}}
+\newcommand{\Edual}{E^{\vee}}
+\newcommand{\Iehat}{I_e^{\vee}}
+\newcommand{\Jdual}{J^{\vee}}
+\newcommand{\Jehat}{J_e^{\vee}}
+\newcommand{\Hehat}{H_e^{\vee}}
+\newcommand{\Hje}{{H_1(J_e,\Z)}}
+\newcommand{\U}{{\bf U}}
+\newcommand{\cusps}{{\rm cusps}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\OO}{{\mathcal{O}}}
+\newcommand{\EJ}{{{\rm End}_{\scriptscriptstyle \Q} J_0(N)}}
+\newcommand{\Tzp}{{\T \tensor \Z_p}}
+\newcommand{\Tm}{{\T_{(\m)}}}
+\newcommand{\Mm}{{M_{(\m)}}}
+\newcommand{\Tpm}{{\T'_{(\m)}}}
+\newcommand{\End}{{\rm End}}
+\newcommand{\Endq}{{\End^0}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\xra}{\xrightarrow}
+\newcommand{\isom}{\cong}
+\newcommand{\Fell}{\mathbf{F}_\ell}
+\newcommand{\Zell}{\mathbf{Z}_\ell}
+\newcommand{\Tor}{\mbox{\rm Tor}}
+\newcommand{\invlim}{\rm invlim}
+\newcommand{\Xmu}{\mathcal{X}_{\mu}}
+\renewcommand{\H}{\HHH}
+
+\newcommand{\comment}[1]{}
+
+
+
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{cor}[lem]{Corollary}
+\newtheorem{prop}[lem]{Proposition}
+\newtheorem{conj}[lem]{Conjecture}
+\newtheorem{thm}[lem]{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{defi}[lem]{Definition}
+\newtheorem{rmk}[lem]{Remark}
+\newtheorem{que}[lem]{Question}
+\newtheorem{eg}[lem]{Example}
+
+
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\sss}{ss}
+\renewcommand{\ss}{\sss}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\reg}{reg}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\Spf}{Spf}
+\DeclareMathOperator{\Tan}{Tan}
+\DeclareMathOperator{\Tate}{Tate}
+\DeclareMathOperator{\HHH}{H}
+\DeclareMathOperator{\new}{new}
+\DeclareMathOperator{\old}{old}
+
+
+\usepackage[all]{xy}
+
+
+
+% If you use LaTeX 2.09 or earlier use the following line (or similar):
+%\documentstyle[10pt,twoside]{article}
+%
+% Please go to the line starting with \Title below, fill in title,
+% authors' names and so on and follow the further instructions there.
+%
+% The final values of the following 4 uncommented lines will be filled in
+% by Doc. Math. after the manuscript has been accepted for publication.
+%
+\def\YEAR{\year}\newcount\VOL\VOL=\YEAR\advance\VOL by-1995
+\def\firstpage{1}\def\lastpage{1000}
+\def\received{}\def\revised{}
+\def\communicated{}
+%
+
+\makeatletter
+\def\magnification{\afterassignment\m@g\count@}
+\def\m@g{\mag=\count@\hsize6.5truein\vsize8.9truein\dimen\footins8truein}
+\makeatother
+
+%%% Choose 10pt/12pt:
+%\oddsidemargin1.66cm\evensidemargin1.66cm\voffset1.2cm%10pt
+\oddsidemargin1.91cm\evensidemargin1.91cm\voffset1.4cm%10pt
+%\magnification1200\oddsidemargin.41cm\evensidemargin.41cm\voffset-.75cm%12pt
+
+%\textwidth12.5cm\textheight19.5cm
+\textwidth12.0cm\textheight19.0cm
+
+\font\eightrm=cmr8
+\font\caps=cmcsc10                    % Theorem, Lemma etc
+\font\ccaps=cmcsc10                   % Sections
+\font\Caps=cmcsc10 scaled \magstep1   % Title
+\font\scaps=cmcsc8
+
+%
+%-----------------headlines-----------------------------------
+
+%\input german.sty      % uncomment if necessary
+%\usepackage{german}    % uncomment if necessary
+
+\pagestyle{myheadings}
+\pagenumbering{arabic}
+\setcounter{page}{\firstpage}
+\def\bfseries{\normalsize\caps}
+
+\makeatletter
+\setlength\topmargin {14\p@}
+\setlength\headsep   {15\p@}  
+\setlength\footskip  {25\p@}  
+\setlength\parindent {20\p@} 
+\@specialpagefalse\headheight=8.5pt
+\def\DocMath{}
+\renewcommand{\@evenhead}{%
+    \ifnum\thepage>\lastpage\rlap{\thepage}\hfill%
+    \else\rlap{\thepage}\slshape\leftmark\hfill{\caps\SAuthor}\hfill\fi}%
+\renewcommand{\@oddhead}{%
+    \ifnum\thepage=\firstpage{\DocMath\hfill\llap{\thepage}}%
+    \else{\slshape\rightmark}\hfill{\caps\STitle}\hfill\llap{\thepage}\fi}%
+\makeatother
+
+\def\TSkip{\bigskip}
+\newbox\TheTitle{\obeylines\gdef\GetTitle #1
+\ShortTitle  #2
+\SubTitle    #3
+\Author      #4
+\ShortAuthor #5
+\EndTitle
+{\setbox\TheTitle=\vbox{\baselineskip=20pt\let\par=\cr\obeylines%
+\halign{\centerline{\Caps##}\cr\noalign{\medskip}\cr#1\cr}}%
+	\copy\TheTitle\TSkip\TSkip%
+\def\next{#2}\ifx\next\empty\gdef\STitle{#1}\else\gdef\STitle{#2}\fi%
+\def\next{#3}\ifx\next\empty%
+    \else\setbox\TheTitle=\vbox{\baselineskip=20pt\let\par=\cr\obeylines%
+    \halign{\centerline{\caps##} #3\cr}}\copy\TheTitle\TSkip\TSkip\fi%
+%\setbox\TheTitle=\vbox{\let\par=\cr\obeylines%
+%\halign{\centerline{\caps##} #4\cr}}\copy\TheTitle\TSkip\TSkip%
+\centerline{\caps #4}\TSkip\TSkip%
+\def\next{#5}\ifx\next\empty\gdef\SAuthor{#4}\else\gdef\SAuthor{#5}\fi%
+\ifx\received\empty\relax
+    \else\centerline{\eightrm Received: \received}\fi%
+\ifx\revised\empty\TSkip%
+    \else\centerline{\eightrm Revised: \revised}\TSkip\fi%
+\ifx\communicated\empty\relax
+    \else\centerline{\eightrm Communicated by \communicated}\fi\TSkip\TSkip%
+\catcode'015=5}}\def\Title{\obeylines\GetTitle}
+\def\Abstract{\begingroup\narrower
+    \parskip=\medskipamount\parindent=0pt{\caps Abstract. }}
+\def\EndAbstract{\par\endgroup\TSkip}
+
+\long\def\MSC#1\EndMSC{\def\arg{#1}\ifx\arg\empty\relax\else
+     {\par\narrower\noindent%
+     2000 Mathematics Subject Classification: #1\par}\fi}
+
+\long\def\KEY#1\EndKEY{\def\arg{#1}\ifx\arg\empty\relax\else
+	{\par\narrower\noindent Keywords and Phrases: #1\par}\fi\TSkip}
+
+\newbox\TheAdd\def\Addresses{\vfill\copy\TheAdd\vfill
+    \ifodd\number\lastpage\vfill\eject\phantom{.}\vfill\eject\fi}
+{\obeylines\gdef\GetAddress #1
+\Address #2 
+\Address #3
+\Address #4
+\EndAddress
+{\def\xs{4.3truecm}\parindent=15pt
+\setbox0=\vtop{{\obeylines\hsize=\xs#1\par}}\def\next{#2}
+\ifx\next\empty % 1 address
+     \setbox\TheAdd=\hbox to\hsize{\hfill\copy0\hfill}
+\else\setbox1=\vtop{{\obeylines\hsize=\xs#2\par}}\def\next{#3}
+\ifx\next\empty % 2 addresses
+     \setbox\TheAdd=\hbox to\hsize{\hfill\copy0\hfill\copy1\hfill}
+\else\setbox2=\vtop{{\obeylines\hsize=\xs#3\par}}\def\next{#4}
+\ifx\next\empty\ % 3 addresses
+     \setbox\TheAdd=\vtop{\hbox to\hsize{\hfill\copy0\hfill\copy1\hfill}
+                \vskip20pt\hbox to\hsize{\hfill\copy2\hfill}}
+\else\setbox3=\vtop{{\obeylines\hsize=\xs#4\par}}
+     \setbox\TheAdd=\vtop{\hbox to\hsize{\hfill\copy0\hfill\copy1\hfill}
+	        \vskip20pt\hbox to\hsize{\hfill\copy2\hfill\copy3\hfill}}
+\fi\fi\fi\catcode'015=5}}\gdef\Address{\obeylines\GetAddress}
+
+\hfuzz=0.1pt\tolerance=2000\emergencystretch=20pt\overfullrule=5pt
+\begin{document}
+%%%%% ------------- fill in your data below this line  -------------------
+%%%%%    The following lines \Title ... \EndAddress must ALL be present
+%%%%%    and in the given order.
+\Title
+%%%%%    Put here the title. Line breaks will be recognized. 
+The Modular Degree, Congruence Primes and Multiplicity One
+\ShortTitle 
+The Modular Degree and Congruences
+%%%%%    Running title for odd numbered pages, ONE line, please. 
+%%%%%    If none is given, \Title will be used instead.          
+\SubTitle   
+%%%%%    A possible subtitle goes here.
+\Author 
+%%%%%    Put here name(s) of authors. Line breaks will be recognized.  
+Amod Agashe\\
+Kenneth A. Ribet\\
+William A. Stein
+\ShortAuthor 
+Agashe, Ribet, Stein
+%%%%%%   Running title for even numbered pages, ONE line, please. 
+%%%%%%   If none is given, \Author will be used instead.          
+\EndTitle
+\Abstract 
+%%%%%    Put here the abstract of your manuscript.
+%%%%%    Avoid macros and complicated TeX expressions, as this is
+%%%%%    automatically translated and posted as an html file.
+
+The modular degree and congruence number are two fundamental
+invariants of an elliptic curve over the rational field.  Frey and
+M{\"u}ller have asked whether these invariants coincide.  Although
+this question has a negative answer, we prove a theorem about the
+relation between the two invariants: one divides the other, and the
+ratio is divisible only by primes whose squares divide the conductor
+of the elliptic curve.  We discuss the ratio even in the case where
+the square of a prime does divide the conductor, and we study
+analogues of the two invariants for modular abelian varieties of
+arbitrary dimension.
+ 
+
+
+\EndAbstract
+\MSC 
+%%%%%    2000 Mathematics Subject Classification: 
+\EndMSC
+\KEY 
+%%%%%    Keywords and Phrases:     
+\EndKEY
+%%%%%    All 4 \Address lines below must be present. To center the last
+%%%%%    entry, no empty lines must be between the following \Address
+%%%%%    and \EndAddress lines.
+\Address 
+%%%%%    Address of first Author here
+\Address 
+Amod Agashe
+Insert Current Address
+\Address
+Kenneth A. Ribet
+Insert Current Address
+\Address
+William A. Stein
+Department of Mathematics
+Harvard University
+Cambridge, MA  02138
+{\tt was@math.harvard.edu}
+\EndAddress
+%%
+%%       Make sure the last tex command in your manuscript
+%%       before the first \end{document} is the command  \Addresses
+%%
+%%---------------------Here the prologue ends---------------------------------
+
+
+
+
+%%--------------------Here the manuscript starts------------------------------
+
+  
+\section{Introduction}
+Let~$E$ be an elliptic curve over~$\Q$.  By
+\cite{breuil-conrad-diamond-taylor}, we may view~$E$ as an abelian
+variety quotient over $\Q$ of the modular Jacobian $J_0(N)$, where $N$
+is the conductor of~$E$.  After possibly replacing $E$ by an isogenous
+curve, we may assume that the kernel of the map $J_0(N)\to E$ is
+connected, i.e., that~$E$ is an {\em optimal quotient} of $J_0(N)$.
+
+Let $f_E = \sum a_n q^n \in S_2(\Gamma_0(N))$ be the newform attached
+to $E$.  The {\em congruence number}~$\re$ of~$E$ is the largest
+integer such that there is an element $g =\sum b_n q^n \in
+S_2(\Gamma_0(N))$ with integer Fourier coefficients $b_n$ that is
+orthogonal to~$f_E$ with respect to the Peterson innner product, and
+congruent to~$f_E$ modulo~$\re$ (i.e., $a_n \equiv b_n\pmod{\re}$ for
+all~$n$).    The {\em modular
+  degree}~$\me$ is the degree of the composite map $X_0(N)\to
+J_0(N)\to E$, where we map $X_0(N)$ to $J_0(N)$ by sending $P\in
+X_0(N)$ to $[P]-[\infty] \in J_0(N)$.
+
+Section~\ref{congintro} is about relations between~$\re$ and~$\me$.
+For example, $\me \mid \re$.  In \cite[Q.~4.4]{frey-muller}, Frey and
+M{\"u}ller~ asked whether $\re = \me$.  We give examples in which $\re
+\neq \me$, then conjecture that for any prime $p$, $\ord_p(\re/\me)
+\leq \frac{1}{2}\ord_p(N)$.  We prove this conjecture when
+$\ord_p(N)\leq 1$.
+
+In Section~\ref{sec:quotients}, we consider analogues of congruence
+primes and the modular degree for optimal quotients that are not
+necessarily elliptic curves; these are quotients of~$J_0(N)$ and
+$J_1(N)$ of any dimension associated to ideals of the relevant Hecke
+algebras.  In Section~\ref{sec:main} we prove the main theorem of this
+paper, and in Section~\ref{sec:mult1} we give some new examples of
+failure of multiplicity one motivated by the arguments in
+Section~\ref{sec:main}.
+
+% For an introduction and the motivation for studying
+% the objects in the title of the paper, the reader 
+% may read Sections~\ref{sec:elliptic}
+% and~\ref{sec:quotients}, skipping the proofs. 
+
+\smallskip
+
+{\bf \noindent Acknowledgment.} The authors are grateful to A.~Abbes,
+R.~Coleman, B.~Conrad, J.~Cremona, H.~Lenstra, E.~de Shalit,
+B.~Edixhoven, L.~Merel, and R.~Taylor for several discussions and
+advice regarding this paper.
+
+\section{Congruence Primes and the Modular Degree} 
+\label{sec:elliptic}
+
+
+Let~$N$ be a positive integer and let $X_0(N)$ be the modular curve
+over~$\Q$ that classifies isomorphism classes of elliptic curves with
+a cyclic subgroup of order~$N$.  The Hecke algebra~$\T$ of level~$N$
+is the subring of the ring of endomorphisms of $J_0(N)=\Jac(X_0(N))$
+generated by the Hecke operators $T_n$ for all $n\geq 1$.  Let~$f$ be
+a newform of weight~$2$ for~$\Gamma_0(N)$ with integer Fourier
+coefficients, and let $I_f$ be kernel of the 
+homomorphism $\T\to \Z[\ldots, a_n(f), \ldots]$ that sends $T_n$ to
+$a_n$.  Then the quotient $E = J_0(N)/I_f J_0(N)$ is an elliptic curve
+over~$\Q$.  We call~$E$ the {\em optimal quotient} associated to~$f$.
+Composing the embedding $X_0(N)\hra J_0(N)$ that sends $\infty$ to~$0$
+with the quotient map $J_0(N) \ra E$, we obtain a surjective morphism
+of curves $\phie: X_0(N) \ra E$.
+\begin{defi}
+The {\em modular degree} $\me$ of~$E$ is the degree of~$\phie$. 
+\end{defi}
+
+\label{congintro}
+
+%The congruence number $\re$ and the modular degree $\me$ 
+%are of great interest.  
+Congruence primes have been studied by Doi, Hida, Ribet, 
+Mazur and others (see, e.g.,~\cite[\S1]{ribet:modp}), 
+and played an important role in Wiles's work~\cite{wiles} 
+on Fermat's last theorem.  Frey and Mai-Murty have 
+observed that an
+appropriate asymptotic bound on the modular degree is equivalent to
+the $abc$-conjecture (see~\cite[p.544]{frey:ternary} 
+and~\cite[p.180]{murty:congruence}). 
+Thus, results that relate congruence primes and the modular degree
+are of great interest.
+
+\begin{thm}\label{thm:ribet_au}
+\label{ddivsr}
+Let $E$ be an elliptic curve over $\Q$ of conductor~$N$, with modular
+degree $\me$ and congruence number $\re$.  
+Then $\me \mid \re$ and if $\ord_p(N)\leq 1$ then $\ord_p(\re) = \ord_p(\me)$. 
+\end{thm}
+We will prove a generalization of Theorem~\ref{thm:ribet_au}
+in Section~\ref{sec:main} below.
+
+The divisibility $\me\mid \re$ was first discussed
+in~\cite[Th.~3]{zagier}, where it is attributed to the second author
+(Ribet); however in \cite{zagier} the divisibility was mistakenly
+written in the opposite direction. For some other expositions of the
+proof, see~\cite[Lem~3.2]{abbull} and~\cite{cojo-kani}.  We generalize
+this divisibility in Proposition~\ref{ndivsm}.  The second part of
+Theorem~\ref{thm:ribet_au}, i.e., that if $\ord_p(N) \leq 1$ then
+$\ord_p(\re) = \ord_p(\me)$, follows from the more general
+Theorem~\ref{thm:ribet_gen} below.
+%\edit{I made this change. --Amod}
+%in more generality in in Section~\ref{sec:proof_ribet} below. 
+Note that \cite[Prop.~3.3--3.4]{abbull} implies the weaker
+statement that if $p\nmid N$ then $\ord_p(\re)=\ord_p(\me)$,
+since \cite[Prop.~3.3]{abbull} 
+implies $$\ord_p(\re) - \ord_p(\me) = \ord_p(\#\mathcal{C})
+- \ord_p(\ce) - \ord_p(\#\mathcal{D}),$$ and by \cite[Prop.~3.4]{abbull}
+$\ord_p(\#\mathcal{C}) =0$.  (Here $\ce$ is the Manin
+constant of $E$, which is an integer by results of
+Edixhoven and Katz-Mazur; see e.g., \cite{ars} for more details.)
+
+Frey and M{\"u}ller~\cite[Ques.~4.4]{frey-muller} asked whether $\re =
+\me$ in general.  After implementing an algorithm to compute $\re$ in
+Magma \cite{magma}, we quickly found that the answer is no. The
+counterexamples at conductor $N\leq 144$ are given in Table~\ref{table:moddeg}, 
+where the curve
+is given using the notation of \cite{cremona:alg}:
+\begin{table}\caption{Differing Modular Degree and 
+Congruence Number\label{table:moddeg}}
+\begin{center}
+\begin{tabular}{|l|l|l|}\hline
+Curve & $\me$ & $\re$\\\hline
+54B1 & 2 & 6\\\hline
+64A1 & 2 & 4 \\\hline
+72A1 & 4 & 8 \\\hline
+80A1 & 4 & 8 \\\hline
+88A1 & 8 & 16 \\\hline
+92B1 & 6 & 12\\\hline
+96A1 & 4 & 8 \\\hline
+96B1 & 4 & 8 \\\hline
+\end{tabular}
+\begin{tabular}{|l|l|l|}\hline
+Curve & $\me$ & $\re$\\\hline
+99A1 & 4 & 12\\\hline
+108A1 & 6 & 18\\\hline
+112A1 & 8 & 16\\\hline
+112B1 & 4 & 8\\\hline
+112C1 & 8 & 16\\\hline
+120A1 & 8 & 16\\\hline
+124A1 & 6 & 12\\\hline
+126A1 & 8 & 24\\\hline
+\end{tabular}
+\begin{tabular}{|l|l|l|}\hline
+Curve & $\me$ & $\re$\\\hline
+128A1 & 4 & 32\\\hline
+128B1 & 8 & 32\\\hline
+128C1 & 4 & 32\\\hline
+128D1 & 8 & 32\\\hline
+135A1 & 12 & 36\\\hline
+144A1 & 4 & 8 \\\hline
+144B1 & 8 & 16 \\\hline
+&&\\\hline
+\end{tabular}
+\end{center}
+\end{table}
+%$$54, 64, 72, 80, 88, 92, 96, 99, 108, 112, 120, 124, 126, 128, 135,
+%\text{ and } 144.$$ 
+
+For example, the elliptic curve 54B1, given by the equation $y^2 + xy +
+y = x^3 - x^2 + x - 1$, has $\re=6$ and $\me=2$.  To see explicitly
+that $3 \mid \re$, observe that the newform corresponding to~$E$ is
+$f=q + q^2 + q^4 - 3q^5 - q^7 + \cdots$ and the newform corresponding
+to $X_0(27)$ if $g=q - 2q^4 - q^7 + \cdots$, so $g(q) + g(q^2)$
+appears to be congruent to~$f$ modulo~$3$.  To prove this congruence,
+we checked it for $18$ Fourier coefficients, where the 
+sufficiency of precision to degree $18$
+was determined using \cite{sturm:cong}.
+
+% In accord with Theorem~\ref{thm:ribet_au}, 
+%since $\ord_3(\re) \neq \ord_3(\ce)$, we have $\ord_3(54)\geq 2$. 
+
+In our computations, there appears to be no absolute bound on the~$p$
+that occur.  For example, for the curve 242B1 of conductor $N=2\cdot 11^2$
+we have\footnote{The curve 242a1 in ``modern notation.''}
+$$
+\me = 2^4 \neq \re = 2^4\cdot 11.
+$$
+We propose the following replacement for Question~4.4 of
+\cite{frey-muller}:
+\begin{conj}\label{conj:rm}
+  Let~$E$ be an optimal elliptic curve of conductor~$N$ 
+  and~$p$ be any prime. 
+  Then
+$$
+\ord_p\left(\frac{\re}{\me}\right) \leq \frac{1}{2}\ord_p(N). 
+$$
+\end{conj}
+We verified Conjecture~\ref{conj:rm} using Magma for every optimal
+elliptic curve quotient of $J_0(N)$, with $N\leq 539$.
+
+If $p\geq 5$ then $\ord_p(N)\leq 2$, so a special case
+of the conjecture is 
+$$
+  \ord_p\left(\frac{\re}{\me}\right) \leq 1\qquad\text{ for any }p\geq 5.
+$$
+
+
+\begin{rmk}
+  It is often productive to parametrize elliptic curves by $X_1(N)$
+  instead of $X_0(N)$ (see, e.g., \cite{stevens:param} and
+  \cite{MR2135139}).  Suppose $E$ is an optimal quotient of $X_1(N)$,
+  let $m_E'$ be the degree of the modular parametrization, and let
+  $r_E'$ be the $\Gamma_1(N)$-congruence number, which is defined as
+  above but with $S_2(\Gamma_0(N))$ replaced by $S_2(\Gamma_1(N))$.
+  For the optimal quotient of $X_1(N)$ isogenous to 54B1, we find
+  using Magma that $m_E' = 18$ and $r_E'=6$. Thus the equality
+  $m_E'=r_E'$ fails, and the analogous divisibility $m_E'\mid
+  r_E'$ no longer holds.  Also, for a curve of conductor $38$ we have
+  $m_E'=18$ and $r_E'=6$, so equality need not hold even if the level
+  is square free.  We hope to investigate this in a future paper.
+%> N := 38; D := ND(NS(CS(ModularSymbols(Gamma1(N)))));
+%> ModularDegree(D[1]); CongruenceModulus(D[1]);
+%18
+%6
+%
+%>  N := 54; D := ND(NS(CS(ModularSymbols(Gamma1(N)))));
+%>  ModularDegree(D[1]); CongruenceModulus(D[1]);
+%18
+%18
+%>  ModularDegree(D[2]); CongruenceModulus(D[2]);
+%18
+%6
+\end{rmk}
+
+
+%\subsection{Proof of Theorem~\ref{thm:ribet_au}}\label{sec:proof_ribet}
+
+\section{Modular abelian varieties of arbitrary dimension}
+\label{sec:quotients}
+For $N\geq 4$, let~$\Gamma$ be a fixed choice of either~$\Gamma_0(N)$
+or~$\Gamma_1(N)$, let~$X$ be the modular curve over~$\Q$ associated
+to~$\Gamma$, and let~$J$ be the Jacobian of~$X$.  Let~$I$ be a {\em
+  saturated} ideal of the corresponding Hecke algebra
+$\T\subset\End(J)$, so $\T/ I$
+is torsion free.  Then $A = A_I = J/IJ$ is an optimal quotient of~$J$
+since $IJ$ is an abelian subvariety.
+
+\begin{defi}
+  If~$f=\sum a_n(f)q^n \in S_2(\Gamma)$ and $I_f=\ker(\T\to
+  \Z[\ldots,a_n(f),\ldots])$, then $A=A_f=J/I_f J$ is the {\em newform
+    quotient} associated to~$f$.  It is an abelian variety over~$\Q$
+  of dimension equal to the degree of the field
+  $\Q(\ldots,a_n(f),\ldots)$.
+\end{defi}
+
+In this section, we generalize the notions of the congruence number
+and the modular degree to quotients~$A=A_I$, and state a theorem
+relating the two numbers, which we prove in
+Sections~\ref{sec:firstpart}--\ref{sec:secondpart}.
+
+Let $\phi_2$ denote the quotient map $J \ra A$.  By Poincare
+reducibility over $\Q$ there is a unique abelian subvariety $A^{\vee}$
+of $J$ that projects isogenously to the quotient $A$ (equivalently,
+which has finite intersection with $\ker(\phi_2)$), and so by Hecke
+equivariance of $J \to A$ it follows that $A^{\vee}$ is $\T$-stable.
+Let $\phi$ be the composite isogeny
+$$
+  \phi: \Adual \stackrel{\po}{\lra} J \stackrel{\pt}{\lra} A.
+$$
+
+\begin{rmk}
+Note that $A^{\vee}$ is the dual abelian variety of $A$.  More
+generally, if~$C$ is any abelian variety, let $C^{\vee}$ denote the
+dual of~$C$.  There is a canonical principal polarization $J \cong
+\Jdual$, and dualizing $\phi_2$, we obtain a map $\phi_2^\vee: \Adual
+\ra \Jdual$, which we compose with $\theta^{-1}: \Jdual \cong J$ to
+obtain a map $\po: \Adual \ra J$.  Note also that $\vphi$
+is a polarization (induced by pullback of the theta divisor).
+\end{rmk}
+
+%\begin{prop} \label{modular:isogeny0}
+%The map $\phi$ is  a polarization. 
+%\end{prop}
+% \begin{proof}
+% Let $i$ be the injection $\phi_2^{\vee}:\Adual \ra \Jdual$, and let
+% $\Theta$ denote the theta divisor.  From the definition of the
+% polarization attached to an ample divisor, we see that the map~$\phi$
+% is induced by the pullback $i^*(\Theta)$ of the theta divisor.  The
+% theta divisor is effective, and hence so is $i^*(\Theta)$. 
+%By~\cite[\S6, Application~1, p. 60]{mumford:av}, $\ker \phi$ is
+%finite. Since the dimensions of $A$ and~$\Adual$ are the same, $\phi$
+%is an isogeny.
+% Since $\Theta$ is ample, some power of it is
+% very ample. Then the pullback of this very ample power by~$i$ is again
+% very ample, and hence a power of $i^*(\Theta)$ is very ample, so
+% $i^*(\Theta)$ is ample (by~\cite[II.7.6]{hartshorne:ag}). 
+% \end{proof}
+
+The {\em exponent} of a finite group~$G$ is the smallest positive
+integer~$n$ such that every element of~$G$ has order dividing~$n$.
+
+\begin{defi}\label{defi:modular}
+The {\em modular exponent} of~$A$ is the exponent of the kernel
+of the isogeny~$\phi$, and the {\em modular number} of~$A$ is
+the degree of~$\phi$. 
+\end{defi}
+
+We denote the modular exponent of~$A$ by~$\nAe$ and
+the modular number by~$\nA$. 
+When~$A$ is an elliptic curve, the modular
+exponent is equal to the modular degree of~$A$,
+and the modular number is the square of the modular degree
+(see, e.g.,~\cite[p.~278]{abbull}). 
+%(see \cite[p.~276]{abbull}). 
+%When~$A$ is an elliptic curve, $\na$ is just the
+%modular degree of~$A$. 
+
+If~$R$ is a subring of~$\C$, 
+let $S_2(R)=S_2(\Gamma;R)$ denote the subgroup of~$S_2(\Gamma)$
+consisting of cups forms whose Fourier expansions at the cusp~$\infty$
+have coefficients in~$R$.  (Note that $\Gamma$ is fixed for this whole
+section.)
+Let $S_2(\Gamma;\Z)[I]^{\perp}$ denote the orthogonal complement of
+$S_2(\Gamma;\Z)[I]$ in $S_2(\Gamma;\Z)$ with respect to the Petersson inner
+product. 
+
+The following is well known, but we had difficulty finding
+a good reference.
+\begin{prop}
+The group $S_2(\Gamma;\Z)$ is of finite rank as a $\Z$-module.
+\end{prop}
+\begin{proof}
+  Using the standard pairing between $\T$ and $S_2(\Gamma,\Z)$ (see
+  also~\cite[Theorem~2.2]{ribet:modp}) we see that $S_2(\Gamma,\Z)
+  \isom \Hom(\T,\Z)$. Thus $S_2(\Gamma,\Z)$ is finitely generated
+  over~$\Z$ if and only if~$\T$ is finitely generated over~$\Z$.  But
+  the action of~$\T$ on $\H_1(J,\Z)$ is a faithful representation that
+  embeds~$\T$ into $\Mat_{2d}(\Z) \isom \Z^{(2d)^2}$.  But~$\Z$ is
+  Noetherian, so~$\T$ is finitely generated over~$\Z$.
+\end{proof}
+
+\begin{defi}\label{def:congexp}
+The exponent of the quotient group
+\begin{equation}\label{eqn:congexp}
+   \frac{S_2(\Gamma; \Z)} { S_2(\Gamma; \Z)[I] + S_2(\Gamma;\Z)[I]^{\perp}}
+\end{equation}
+is the {\em congruence exponent} $\rAe$ of~$A$ and its
+order is the {\em congruence number} $\rA$.
+\end{defi}
+
+\begin{rmk}
+  Note that $S_2(\Gamma,\Z)\tensor_\Z R = S_2(\Gamma,R)$; see, e.g.,
+  the discussion in \cite[\S12]{diamond-im}.  Thus the analogue of
+  Definition~\ref{def:congexp} with $\Z$ replaced by an algebraic
+  integer ring (or even $\Zbar$) gives a torsion module whose
+  annihilator ideal meets~$\Z$ in the ideal generated by the
+  congruence exponent.
+\end{rmk}
+
+Our definition of~$\rA$ generalizes the definition in
+Section~\ref{congintro} when~$A$ is an elliptic curve (see
+\cite[p.~276]{abbull}), and the following generalizes 
+Theorem~\ref{thm:ribet_au}:
+\begin{thm}\label{thm:ribet_gen}
+If $f \in S_2(\C)$ is a newform, then
+\begin{itemize}
+\item[(a)] We have $\nAfe \mid \rAfe$, and
+\item[(b)] If $p^2 \nmid N$, then $\ord_p(\rAfe) = \ord_p(\nAfe)$.
+\end{itemize}
+% $p \nmid \frac{\rAfe}{\nAfe}$.
+\end{thm}
+%We give the proof of this theorem in the next two sections.
+%The rest of the section is devoted to proving Proposition~\ref{ndivsm}
+%below, which asserts that if~$f$ is a newform, then $\nAfe \mid
+%\rAfe$. 
+
+\begin{rmk}\label{rem:24}
+  When $A_f$ is an elliptic curve, Theorem~\ref{thm:ribet_gen} implies
+  that the modular degree divides the congruence number (since for an
+  elliptic curve the modular degree and modular exponent are the
+  same), i.e., $\sqrt{\nAf} \mid \rAf$.  In general, the divisibility
+  $\nAf\mid r^2_{A_f}$ need not hold.  For example, there is a newform
+  of degree $24$ in $S_2(\Gamma_0(431))$ such that
+ $$\nAf = (2^{11}\cdot 6947)^2 \,\,\nmid\,\, r^2_{A_f} = (2^{10}\cdot
+  6947)^2.$$  
+Note that $431$ is prime and mod~$2$ multiplicity one fails for $J_0(431)$ (see
+  \cite{kilford}). 
+%The following Magma session illustrates how to verify the above
+%assertion about $\nAf$ and $\rAf$.  The commands are parts of Magma
+%V2.11 or greater. \vspace{-1ex}
+%{\small
+%\begin{verbatim}
+%       > A := ModularSymbols("431F");
+ %      > Factorization(ModularDegree(A));
+%       [ <2, 11>, <6947, 1> ]
+%       > Factorization(CongruenceModulus(A));
+%       [ <2, 10>, <6947, 1> ]
+%\end{verbatim}
+%}
+\end{rmk}
+
+
+\section{Proof of the Main Theorem}\label{sec:main}
+In this section we prove Theorem~\ref{thm:ribet_gen}.
+We continue using the notation introduced so far.
+
+\subsection{Proof of Theorem~\ref{thm:ribet_gen} (a)}
+\label{sec:firstpart}
+
+We begin with a remark about compatibilities.  In general, the
+polarization of~$J$ induced by the theta divisor need not be Hecke
+equivariant, because if~$T$ is a Hecke operator on~$J$, then
+on~$\Jdual$ it acts as $W_N T W_N$, where $W_N$ is the Atkin-Lehner
+involution (see e.g.,~\cite[Rem.~10.2.2]{diamond-im}).  However,
+on~$J^{\rm new}$ the action of the Hecke operators commutes with that
+of~$W_N$, so if the quotient map $J \ra A$ factors through~$J^{\rm new}$,
+then the Hecke action on~$\Adual$ induced by the embedding $\Adual \to
+J^{\vee}$ and the action on $\Adual$ induced by $\phi_1:\Adual\to{}J$
+are the same.  Hence $\Adual$ is isomorphic to $\po(\Adual)$ 
+as a $\T$-module.
+
+Recall that $f$ is a newform, $I_f = {\rm Ann}_\T (f)$, and
+$J=J_0(N)$.  Let $B = I_fJ$, so that $\Adual+B=J$, and $J/B\isom A$.
+The following lemma is well known, but we prove it here for the
+convenience of the reader.
+
+\begin{lem}\label{lem:homzero}
+$\Hom_\Q(\Adual,B)=0$. 
+\end{lem}
+\begin{proof}
+%   Suppose there were a nonzero element of $\Hom_\Q(\Adual,B)$.  Since
+%   $A$ is simple, for all~$\ell$ the Tate module
+%   $V_{\ell}(\Adual)=\Q\tensor\varprojlim_n \Adual[\ell^n]$ would
+%   be a factor of $V_{\ell}(B)$.  
+% Thus the characteristic polynomial 
+% The Eichler-Shimura relation then implies that the characteristic
+% polynomial of each 
+% One could then extract almost all
+%   prime-indexed coefficients of the corresponding eigenforms from the
+%   Tate modules, which would violate multiplicity one for systems of
+%   Hecke eigenvalues .
+
+  Pick a prime $\ell$.  Then $\Qbar_{\ell} \tensor V_{\ell} (J)^{\ss}$
+  as a $\Qbar_{\ell}[G_\Q]$-module is a direct sum of copies of the
+  representations $\rho_g$ as $g$ ranges through all normalized
+  eigenforms of weight $2$ and level $N$ with coefficients in $\Qbar$;
+  by a well-known result of the second author, these representations
+  are absolutely irreducible.  Now since~$f$ is a newform and
+  $A^{\vee} \to A$ is an isogeny, $\Qbar_{\ell} \tensor
+  V_{\ell}(A^{\vee})^{\ss}$ is a direct sum of copies of
+  $\rho_{\sigma(f)}$ as $\sigma$ ranges over all embeddings of $K_f$
+  into $\Qbar$.  Thus, by the analytic theory of multiplicity one (see
+  \cite[Cor.~3, pg.~300]{winnie:newforms}), the Galois modules
+  $V_{\ell}(A^{\vee})$ and $V_{\ell}(B) =
+  V_{\ell}(J)/V_{\ell}(A^{\vee})$ share no common Jordan-H\"older
+  factors even when coefficients are extended to $\Qbar_{\ell}$, so
+  $\Hom_\Q(A',B) = 0$.
+\end{proof}
+
+
+Let $\T_1$ be the image of~$\T$ in $\End(\Adual)$, 
+and let $\T_2$ be the image of $\T$ in $\End(B)$. 
+We have the following commutative diagram with exact rows:
+\begin{equation}\label{eqn:diagram}
+\xymatrix@=2em{
+ 0\ar[r] & {\T} \ar[r]\ar[d] & {\T_1\oplus \T_2} \ar[r]\ar[d] & 
+                             {\displaystyle \frac{\T_1 \oplus \T_2}{\T}}\ar@{.>}[d]\ar[r] & 0\\
+ 0\ar[r] & {\End(J)} \ar[r] & {\End(\Adual)\oplus\End(B)} \ar[r] & 
+          {\displaystyle \frac{\End(\Adual)\oplus\End(B)}{\End(J)}}\ar[r] & 0.\\
+}
+\end{equation}
+Let 
+$$
+e=(1,0)\in \T_1 \oplus \T_2,
+$$
+and let $e_1$ and $e_2$ denote the images of~$e$ in the groups $(\T_1
+\oplus \T_2)/\T$ and $(\End(\Adual) \oplus \End(B))/\End(J)$,
+respectively.  It follows from Lemma~\ref{lem:homzero} that the two
+quotient groups on the right hand side of (\ref{eqn:diagram}) are
+finite, so~$e_1$ and~$e_2$ have finite order.  Note that because $e_2$
+is the image of $e_1$, the order of $e_2$ is a divisor of the order of
+$e_1$.
+
+%this will be used in the proof of Proposition~\ref{ndivsm}
+%below.
+
+
+The {\em denominator} of any $\vphi\in\End(J)\tensor\Q$ is the
+smallest positive integer~$n$ such that $n\vphi\in\End(J)$. 
+% Explicitly, the denominator of~$\vphi$ is the least common multiples
+% of the denominators of the entries of any matrix that represents the
+% action of $\vphi$ on the lattice $\H_1(J,\Z)$. 
+
+Let $\piAd, \piB \in \End(J)\tensor\Q$ be projection onto
+$\Adual$ and $B$, respectively.  Note that the denominator of
+$\piAd$ equals the denominator of $\piB$, since $\piAd
++ \piB = 1_J$, so that $\piB = 1_J - \piAd$. 
+
+\begin{lem}\label{lem:ord_e2}
+The element $e_2\in (\End(\Adual) \oplus \End(B))/\End(J)$ 
+defined above has order $\nAe$. 
+\end{lem}
+\begin{proof}
+Let $n$ be the order of $e_2$, so~$n$ is the denominator
+of $\piAd$, which, as mentioned above, is also the
+denominator of $\piB$. We want to show that $n$ is equal
+to~$\nAe$, the exponent of $\Adual\cap B$. 
+
+Let $i_{\Adual}$ and $i_B$
+be the embeddings of $\Adual$ and $B$ into $J$, respectively. 
+Then $$\vphi = (n\piAd,n\piB)\in\Hom(J,\Adual\times B)$$
+and $\vphi\circ (i_{\Adual} + i_B) = [n]_{\Adual\times B}.$
+We have an exact sequence
+$$
+0\to \Adual\cap B\xra{x\mapsto (x,-x)}\Adual\times B \xra{i_{\Adual} + i_B}  J \to 0. 
+$$
+Let $\Delta$ be the image of $\Adual\cap B$.  Then by exactness,
+$$
+ [n]\Delta =  (\vphi\circ (i_{\Adual} + i_B))(\Delta) = 
+\vphi\circ ((i_{\Adual} + i_B)(\Delta)) = \vphi(\{0\}) = \{0\},
+$$
+so $n$ is a multiple of
+the exponent~$\nAe$ of $\Adual\cap B$. 
+
+To show the opposite divisibility, consider the
+commutative diagram
+$$
+\xymatrix@=4em{
+0 \ar[r] & {\Adual \cap B} \ar[r]^{x\mapsto (x,-x)}\ar[d]^{[\nAe]}& 
+       {\Adual \times B}\ar[d]^{([\nAe],0)}
+                  \ar[r]& J \ar[r]\ar@{.>}[d]^{\psi} & 0\\
+0 \ar[r] & {\Adual \cap B} \ar[r]^{x\mapsto (x,-x)}& {\Adual \times B}
+                  \ar[r]& J \ar[r] & 0,
+}
+$$
+where the middle vertical map is $(a,b)\mapsto (\nAe a,0)$
+and the map~$\psi$ exists because $[\nAe](\Adual\cap B)=0$. 
+But $\psi = \nAe \piAd$ in $\End(J)\tensor\Q$. 
+This shows that $\nAe \piAd \in \End(J)$, i.e.,
+that $\nAe$ is a multiple of the
+denominator~$n$ of $\piAd$. 
+
+\end{proof}
+
+Let $\Ext^1 = \Ext^1_{\Z}$ denote the first $\Ext$ functor
+in the category of $\Z$-modules.
+
+\begin{lem}\label{lem:compare_with_dual}
+The group $(\T_1 \oplus \T_2)/\T$ is isomorphic to 
+the quotient (\ref{eqn:congexp})
+ in Definition~\ref{def:congexp}, so 
+ $\rA = \#((\T_1 \oplus \T_2)/\T)$ and $\rAe$ is the
+exponent of $(\T_1 \oplus \T_2)/\T$. 
+More precisely,  $\Ext^1((\T_1 \oplus \T_2)/\T,\Z)$ is isomorphic as a
+$\T$-module to the quotient (\ref{eqn:congexp}). 
+\end{lem}
+\begin{proof}
+Apply the $\Hom(-,\Z)$ functor to the first row of (\ref{eqn:diagram})
+to obtain a three-term exact sequence
+\begin{equation}\label{eqn:dualseq}
+0  \to \Hom(\T_1\oplus \T_2,\Z) \to \Hom(\T,\Z)
+\to \Ext^1((\T_1\oplus\T_2)/\T,\Z) \to 0. 
+\end{equation}
+%The term $\Ext^1(\T_1\oplus \T_2,\Z)$ is $0$ is because
+%$\Ext^1(M,\Z)=0$ for any finitely generated free abelian group.  Also,
+%$\Hom((\T_1\oplus\T_2)/\T,\Z)=0$ since $(\T_1\oplus\T_2)/\T$ is
+%torsion.  
+There is a $\T$-equivariant bilinear pairing $\T\times
+S_2(\Z)\to\Z$ given by $(t,g)\mapsto a_1(t(g))$, which is perfect by
+\cite[Lemma~2.1]{abbull} (see also~\cite[Theorem~2.2]{ribet:modp}). 
+Using this pairing, we transform (\ref{eqn:dualseq}) into an exact
+sequence
+$$
+0 \to S_2(\Z)[I_f] \oplus S_2(\Gamma;\Z)[I_f]^{\perp} \to S_2(\Z) \to
+\Ext^1((\T_1\oplus\T_2)/\T,\Z) \to 0
+$$
+of $\T$-modules. 
+Here we use that $\Hom(\T_2,\Z)$ is the unique saturated
+Hecke-stable complement of $S_2(\Z)[I_f]$ in $S_2(\Z)$, hence
+must equal $S_2(\Z)[I_f]^{\perp}$. 
+Finally note that if~$G$ is any finite abelian group, then
+$\Ext^1(G,\Z)\approx G$ as groups, which gives the desired result. 
+\end{proof}
+
+\begin{lem}\label{lem:ord_e1}
+The element $e_1 \in (\T_1 \oplus \T_2)/\T$ has order $\rAe$. 
+\end{lem}
+\begin{proof}
+  By Lemma~\ref{lem:compare_with_dual}, the lemma is equivalent to the
+  assertion that the order~$r$ of~$e_1$ equals the exponent of
+  $M=(\T_1 \oplus \T_2)/\T$.  Since $e_1$ is an element of~$M$, the
+  exponent of~$M$ is divisible by~$r$.  
+  
+  To obtain the reverse divisibility, consider any element $x$ of~$M$.
+  Let $(a,b)\in\T_1\oplus \T_2$ be such that its image in~$M$ is~$x$.
+  By definition of $e_1$ and~$r$, we have $(r,0)\in\T$, and since
+  $1=(1,1)\in\T$, we also have $(0,r)\in\T$.  Thus $(\T{}r,0)$ and
+  $(0,\T{}r)$ are both subsets of $\T$ (i.e., in the image of $\T$
+  under the map $\T\to\T_1\oplus \T_2$), so $r(a,b)
+  =(ra,rb)=(ra,0)+(0,rb)\in \T$.  This implies that the order of~$x$
+  divides~$r$. Since this is true for every $x \in M$, we conclude
+  that the exponent of~$M$ divides~$r$.
+\end{proof}
+
+
+\begin{prop} \label{ndivsm}
+If $f \in S_2(\C)$ is a newform, then
+$\nAfe \mid \rAfe$. 
+\end{prop}
+\begin{proof}
+  Since~$e_2$ is the image of~$e_1$ under the right-most
+vertical homomorphism in (\ref{eqn:diagram}), the order
+  of~$e_2$ divides that of~$e_1$.  Now
+apply Lemmas~\ref{lem:ord_e2} and \ref{lem:ord_e1}. 
+\end{proof}
+
+This finishes the proof of the first statement in 
+Theorem~\ref{thm:ribet_gen}.
+
+
+
+
+\subsection{Proof of Theorem~\ref{thm:ribet_gen} (b)}
+\label{sec:secondpart}
+Let $\T'$ be the saturation of $\T=\Z[\ldots, T_n,\ldots]$ in
+$\End(J_0(N))$, i.e., the set of elements of $\End(J_0(N)) \tensor \Q$
+some positive multiple of which lie in~$\T$.
+%so 
+%$$
+% \T' = (\T\tensor\Q) \cap \End(J_0(N)),
+%$$
+%where the intersection is taken inside $\End(J_0(N))\tensor\Q$.  
+The
+quotient $\T'/\T$ is a finitely generated abelian group because both
+$\T$ and $\End(J_0(N))$ are finitely generated over~$\Z$. Since 
+$\T'/\T$ is also a torsion group, it is finite.
+
+In Section~\ref{sec:multone}, we will give some conditions under
+which $\T$ and~$\T'$ agree locally at  maximal ideal of~$\T$.
+In Section~\ref{sec:degrees}, we will explain how the ratio of
+the congruence number to the modular degree is closely related
+to the order of~$\T'/\T$, and finally deduce that this ratio is $1$ 
+(for quotients associated to newforms) locally at a prime~$p$
+such that $p^2 \nmid N$.
+
+\subsubsection{Multiplicity One} \label{sec:multone}
+
+%Suppose for the moment that $M=1$, so $p=pM$.  
+Fixt an integer $N$ and a prime $p\mid N$.
+Suppose for a moment that $N$ is prime, so $p=N$.
+In \cite{mazur:eisenstein},
+Mazur proves that $\T=\T'$; he combines this result with
+the equality 
+$$
+  \T\tensor\Q = \End(J_0(p)) \tensor\Q,
+$$ 
+to deduce that $\T=\End(J_0(p))$.
+This result, combined with Ribet's result 
+\cite{ribet:endo} or \cite{ribet:endalg}
+to the effect that $\T\tensor\Q = (\End_{\Qbar} J_0(N)) \tensor \Q$,
+shows that~$\T$ is the full ring of endomorphisms of $J_0(N)$ over $\Qbar$.
+When $N$ is no
+longer necessarily prime,
+the method of \cite{mazur:eisenstein} shows
+that $\T$ and $\T'$ agree locally at a maximal ideal $\m$  of $\T$ 
+that satisfies a simple condition involving 
+differentials form mod $\ell$, where $\ell$ is the residue
+characteristic of $\m$.  
+%has dimension at most one.
+\comment{
+$\Supp_{\T}(\T'/\T)$ contains no maximal ideal $\m$ of~$\T$
+for which his space $\H^0(X_0(pM)_{\Fell},\Omega)[\m]$ has
+dimension $\leq 1$.  (Here $\ell$ is the residue characteristic
+of $\m$.)  In other words, multiplicity one for 
+$\H^0(X_0(pM)_{\Fell}, \Omega)[\m]$ implies that $\T$ and
+$\T'$ agree at~$\m$.
+Mazur's argument (see \cite[pg.~95]{mazur:eisenstein}) is quite
+general; it relies on a multiplicity $1$ statement for spaces
+of differentials in positive characteristic (see 
+\cite[Prop.~9.3, pg.~94]{mazur:eisenstein}).  
+}
+
+For the sake of completeness, we state and prove a lemma
+that can be easily extracted from~\cite{mazur:eisenstein}.  
+Let $m$ be the largest square dividing $N$ and
+let $R = \Z[\frac{1}{m}]$. Let $X_0(N)_{R}$ denote
+the minimal regular model of $X_0(N)$ over~$R$.
+%Let $\m$ be a maximal ideal of the Hecke algebra of
+%residue characteristic~$\ell$ and suppose $\ell^2 \nmid N$. 
+Let $\Omega=\Omega_{X_0(N)/R}$ denote the sheaf of regular
+differentials on $X_0(N)_{R}$, as in~\cite[\S2(e)]{mazur:rational}.
+If~$\ell$ is a prime such that $\ell^2 \nmid N$, then
+$X_0(N)_{\F_\ell}$ denotes the special fiber of $X_0(N)_{R}$ at the
+prime~$\ell$.
+
+\comment{
+His method shows in 
+the general case (where~$M$ is no longer constrained to be~$1$)
+that $\Supp_{\T}(\T'/\T)$ contains no maximal ideal $\m$ of~$\T$
+for which his space $\H^0(X_0(pM)_{\Fell},\Omega)[\m]$ has
+dimension $\leq 1$.  (Here $\ell$ is the residue characteristic
+of $\m$.)  In other words, multiplicity one for 
+$\H^0(X_0(pM)_{\Fell}, \Omega)[\m]$ implies that $\T$ and
+$\T'$ agree at~$\m$.  We record this fact as a lemma
+(see also Section~\ref{sec:dataind} for related data).
+}
+
+\begin{lem}[Mazur]\label{lem:m1}
+Let $\m$ be a maximal ideal of $\T$ of residue characteristic~$\ell$
+such that $\ell^2 \nmid N$. 
+Suppose that 
+$$
+ \dim_{\T/\m} \H^0(X_0(N)_{\Fell},\Omega)[\m] \leq 1.
+$$
+Then $\T$ and $\T'$ agree locally at~$\m$.
+%$\m$ is not in the support of $\T'/\T$.
+\end{lem}
+
+\begin{proof}
+Let $M$ denote the group
+$H^1(X_0(N)_R, \OO_{X_0(N)})$,
+where $\OO_{X_0(N)}$ is the structure sheaf of $X_0(N)$.
+As explained in~\cite[p.~95]{mazur:eisenstein}, 
+we have an action of $\EJ$ on~$M$, and 
+the action of $\T$ on~$M$ via the inclusion $\T  \subseteq \EJ$
+is faithful, so likewise for the action by $\T'$. Hence we have an injection
+$\phi: \T' \hookrightarrow {\rm End}_{\T} M$.
+% is a free module over~$\T$.
+Suppose~$\m$ is a maximal ideal of~$\T$ that satisfies the hypotheses
+of the lemma. 
+To prove that $\T_\m=\T_\m'$ it suffices to
+prove the following claim:\\
+
+\noindent {\em Claim:} The map~$\phi|_{\T}$ is surjective locally at~$\m$.
+\begin{proof}
+By Nakayama's lemma, to show that $M$ is generated
+as a single element over~$\T$ locally at~$\m$,
+%to show that $\phi$ is surjective, i.e., 
+%to show that $M \tensor \T_\m$ is generated by a single element over
+%$\T\tensor \T_\m$, 
+it suffices to check that the dimension of the ${\T/\m}\,$-vector space
+$M / \m M$ is at most one.
+% for each maximal ideal~$\m$ dividing~$\ell$ in~$\T$.  
+Since \mbox{$\ell^2 \nmid N$}, 
+%$H^1(X_0(N)_{\F_\ell}, \OO) / \m H^1(X_0(N)_{\F_\ell}, \OO)$ 
+$M/ \m M$ is dual to  
+$H^0(X_0(N)_{\F_\ell}, \Omega) [\m]$ (see, e.g.,~\cite[\S2]{mazur:rational}).
+Since we are assuming that 
+${\rm dim}_{\T/\m} H^0(X_0(N)_{\F_\ell}, \Omega) [\m] \leq 1$, we have
+${\rm dim}_{\T/\m} (M/ \m M) \leq 1$, which proves the claim.
+\end{proof}
+
+%We shall use the subscript~$(\m)$ to denote localization at~$\m$.
+%Thus $\Mm$ is free of rank one over~$\Tm$. The
+%composite $\psi: \Tpm \ra {\rm End}_{\Tm} (\Mm)
+%\stackrel{{\phi}^{-1}}{\ra} \Tm$ gives a section of the inclusion
+%$\Tm \hookrightarrow \Tpm$. 
+%Let $x \in \Tpm$, and let $n$ be an integer such that $nx \in \Tm$.
+%Let $y = \psi(x) \in \Tm$. Then $nx = \psi ( \phi (nx) ) = \psi(nx)
+%= n \psi(x) = ny$. Since $\Tm$ is torsion-free, this means that
+%$x = y \in \Tm$. Thus $\Tm = \Tpm$, as was to be shown.
+
+\comment{
+Thus $M \tensor \T_\m$ is free of rank one over~$\T_\m$. The
+composite $\EJ \tensor \T_\m
+\ra {\rm End}_{\T_\m} (M \tensor \T_\m)
+\stackrel{{\phi}^{-1}}{\ra} \T_\m$ gives a section of the inclusion
+$\T_\m \hookrightarrow \EJ \tensor \T_\m$. This shows
+that $\T_\m$ is saturated in $\EJ \tensor \T_\m$, i.e.,
+that $\T$ and $\T'$ agree locally at~$\m$.
+}
+\end{proof}
+
+If $\m$ is a maximal ideal of the Hecke algebra~$\T$ 
+of residue characteristic~$\ell$, we say that
+$\m$ satisfies {\em multiplicity one for differentials} if 
+$$
+\dim (\H^0(X_0(N)_{\F_\ell},\Omega)[\m]) \leq 1.
+$$
+By Lemma~\ref{lem:m1}, multiplicity one for 
+$\H^0(X_0(N)_{\Fell}, \Omega)[\m]$ implies that $\T$ and
+$\T'$ agree at~$\m$.
+
+There is quite a bit of literature on the question of multiplicity~$1$
+for $\H^0(X_0(N)_{\Fell},\Omega)[\m]$.  
+The easiest case is that~$\ell$ is prime to the level $N$: 
+
+\begin{lem}[Mazur]\label{lem:m_ell}
+If $\m$ is a maximal ideal of $\T$ of residue characteristic~$\ell$
+such that $\ell \nmid N$, then 
+$$\dim_{\T/\m} \H^0(X_0(N)_{\Fell},\Omega)[\m] \leq 1.$$ 
+%If $\ell \nmid pM$, then~$\ell\nmid \#(\T'/\T)$.
+\end{lem}
+
+\begin{proof} 
+  Mazur deduces this lemma from injectivity of the $q$-expansion map.
+  The reader may find the following alternative approach to part of
+  the argument easier to follow than the one on p.~95 of
+  \cite{mazur:eisenstein}.  We have an $\Fell$-vector space that
+  embeds in $\Fell[[q]]$, for example a space~$V$ of differentials
+  that is killed by a maximal ideal $\m$.  This space is a
+  $\T/\m$-vector space, and we want to see that its dimension over
+  $\T/\m$ is at most~$1$.  Mazur invokes tensor products and
+  eigenvectors; alternatively, we note that~$V$ embeds in
+  $\Hom_{\Fell}(\T/\m,\Fell)$ via the standard duality that
+  sends~$v\in V$ to the linear form whose value on a Hecke
+  operator~$T$ is the $q$th coefficient of $v{|T}$.  The group
+  $\Hom_{\Fell}(\T/\m,\Fell)$ has the same size as $\T/\m$, which
+  completes the argument because $\Hom_{\Fell}(\T/\m,\Fell)$ has
+  dimension $1$ as a $\T/\m$-vector space.
+\end{proof}
+% proves that
+%$$\dim_{\T/\m} \H^0(X_0(pM)_{\Fell},\Omega)[\m] \leq 1$$ for 
+%all $\m\mid \ell$.    Now apply Lemma~\ref{lem:m1}
+%\edit{Is there a problem if $\ell=2$?  How do Lloyd Kilford's examples
+%fit into this, where I guess $N=1$ and $\ell=2$ and multiplicity
+%one in $J_0(p)$ fails.  Is it still OK in Mazur's
+%differentials? -WAS}
+
+In the context of Mazur's paper, where the level~$N$ is prime, we see
+from Lemma~\ref{lem:m_ell} that $\T$ and $\T'$ agree away from~$N$.
+Locally at $N$, Mazur proved that $\T=\T'$ by an analogue of the
+arguments that he used away from $N$; see Chapter II of
+\cite{mazur:eisenstein} (and especially Prop.~9.4 and 9.5 of that
+chapter) as well as \cite{mazur-ribet}, where these arguments are
+taken up in a context where the level is no longer necessarily prime
+(and where one works locally at a prime whose square does not divide
+the level).  
+%At~$N$, we can still use the $q$-expansion principle
+%because of the arguments in \cite[Ch.II~\S4]{mazur:eisenstein}.  
+Thus in the prime level case, $\T=\T'$, as we asserted above.
+
+
+Now\label{NPnotation} 
+let $p$ be a prime such that $p \parallel N$, and let $M = N/p$.
+The question of multiplicity $1$ at $p$ for $\H^0(X_0(pM)_{\Fp},
+\Omega)[\m]$ is discussed in \cite{mazur-ribet}, where the authors
+establish multiplicity~$1$ for maximal ideals $\m\mid p$ for which the
+associated mod~$p$ Galois representation is irreducible and {\em not}
+$p$-old.  (A representation of level $pM$ is $p$-old if it arises from
+$S_2(\Gamma_0(M))$.)
+
+If~$\m$ is a maximal ideal of~$\T$ of residue characteristic~$\ell$, 
+then we say that~$\m$ is ordinary
+if $T_\ell \not\in \m$ (note that $T_\ell$ is often denoted $U_\ell$ 
+if $\ell \mid N$). For our purposes, the following lemma is convenient:
+
+\begin{lem}[Wiles]\label{lem:wiles}
+If $\m$ is an ordinary maximal ideal of $\T$ of characteristic~$p$, then
+$$
+ \dim_{\T/\m} \H^0(X_0(pM)_{\Fp},\Omega)[\m] \leq 1.
+$$
+%and $\ord_{\ell}(pM)=1$, then $\m$ is not in the support of $\T'/\T$.
+\end{lem}
+
+This is essentially Lemma~2.2 in~\cite[pg.~485]{wiles};
+\comment{, which
+proves, under a suitable hypothesis, that $\H^0(X_0(pM)_{\F_p},\Omega)[\m]$
+is $1$-dimensional if $\m$ is a maximal ideal of~$\T$ that divides~$p$.
+The ``suitable hypothesis'' is that $\m$ is ordinary, in the sense that
+$T_p \not\in\m$.  (Note that $T_p$ is often denoted $U_p$ in this context.)
+It follows from Wiles's lemma that $\T'=\T$ locally at~$\m$ whenever
+$\m$ is an ordinary prime whose residue characteristic exactly
+divides the level (which is $pM$ here).
+}
+we make a few comments about how it applies on our situation:
+\begin{enumerate}
+\item 
+Wiles considers $X_1(M,p)$ instead of $X_0(pM)$, which means that he is
+using $\Gamma_1(M)$-structure instead of $\Gamma_0(M)$-structure.
+This surely has no relevance to the issue at hand.  
+
+\item Wiles assumes (on page 480) that $p$ is an odd prime, but again
+this assumption is not relevant to our question.  
+
+\item 
+The condition that $\m$ is ordinary does not appear
+explicitly in the statement of Lemma~2.2 in~\cite{wiles}; 
+instead it is a reigning
+assumption in the context of his discussion.  
+
+\item We see by example that Wiles's ``ordinary'' assumption is less
+  stringent than the assumption in \cite{mazur-ribet}; note that
+  \cite{mazur-ribet} rule out cases where $\m$ is both old and new at
+  $p$, whereas Wiles is happy to include such cases.  (On the other
+  hand, Wiles's assumption is certainly nonempty, since it rules out
+  maximal ideals $\m$ that arise from non-ordinary (old) forms of
+  level~$M$.  Here is an example with $p=2$ and $M=11$, so $N=22$:
+  There is a unique newform $f=\sum a_n q^n$ of level~$11$, and
+  $\T=\Z[T_2] \subset \End(J_0(22))$, where $T_2^2-a_2 T_2 + 2 =0$.
+  Since $a_2=-2$, we have $\T\isom \Z[\sqrt{-1}]$.  We can choose the
+  square root of $-1$ to be $T_2+1$.  Then $T_2$ is a generator of the
+  unique maximal ideal $\m$ of $\T$ with residue characteristic~$2$,
+  and this maximal ideal is not ordinary.)
+\end{enumerate}
+%\end{proof}
+
+We now summarize the conclusions we can make from the lemmas so far:
+
+\begin{prop} \label{prop:TT'}
+The modules~$\T$ 
+and $\T'$ agree locally at each maximal ideal~$\m$ that is either prime
+to~$N$ or that satisfies the following supplemental hypothesis: the
+residue characteristic of~$\m$ divides~$N$ only to the first power
+and $\m$ is ordinary.  
+\end{prop}
+\begin{proof}
+This follows easily from Lemmas~\ref{lem:m1}, \ref{lem:m_ell},
+and~\ref{lem:wiles}.
+\end{proof}
+\comment{
+Wiles's lemma and the standard $q$-expansion argument
+(Lemma~\ref{lem:m_ell} and Lemma~\ref{lem:wiles}) imply that~$\T$
+and~$\T'$ agree locally at each rational prime that is prime to the
+level $pM$, and also at each maximal ideal~$\m$ dividing~$p$ that is
+ordinary, in the sense that $T_p \not\in \m$.  A more palatable
+description of the situation involves considering the Hecke
+algebra~$\T$ and its saturation~$\T'$ at some level $N\geq 1$.  Then
+$\T=\T'$ locally at each maximal ideal $\m$ that is either prime
+to~$N$ or that satisfies the following supplemental hypothesis: the
+residue characteristic of~$\m$ divides~$N$ only to the first power
+and~$\m$ is ordinary. 
+}
+
+In Mazur's original context, where the level~$N$ is
+prime, we have $T_N^2=1$ because there are no forms of
+level~$1$. Accordingly, each~$\m$ dividing~$N$ is ordinary, and we
+recover Mazur's equality $\T=\T'$ in this special case.
+
+\subsubsection{Degrees and Congruences} \label{sec:degrees}
+
+%Let $e\in \T\tensor\Q$ be an idempotent, and let $A\subset J_0(pM)$
+%be the abelian variety image of $e$, i.e., the image of the homomorphism
+%$ne\in \T$, where the integer $n\geq 1$ is a multiple of the denominator of $e$.
+%Let~$B$ be the image of the complementary idempotent $1-e$.  
+%Then $J_0(pM)=A+B$, and $A\cap B$ is a finite group whose exponent
+%divides the denominator of $e$.  
+%\edit{We can just say that $e$ is as in the previous section.
+%Note that $A$ was~$\Adual$ in the previous section. --Amod}
+
+Let $e \in \T\tensor\Q$ be as in Section~\ref{sec:firstpart},
+and let $p,N,M$ be as before Lemma~\ref{lem:wiles}.
+The image of $e$ in $J_0(pM)$ is the $\T$-stable abelian subvariety
+denoted $\Adual$ in Section~\ref{sec:firstpart}, but since we shall
+now exclusively work with this subvariety rather than the
+corresponding optimal quotient of $J_0(pM)$ (which was denoted $A$
+earlier), we will now write $A$ to denote the image of $e$ (without
+risk of confusion).  We also write $B$ to denote the unique
+$\T$-stable abelian subvariety of $J_0(pM)$ complementary to~$A$.
+
+For $t \in \T$, let $t_A$ be the restriction of~$t$ to $A$, and
+let~$t_B$ be the image of~$t$ in $\End(B)$.  Let $\T_A$ be the
+subgroup of $\End(A)$ consisting of the various $t_A$, and define
+$\T_B$ similarly.  As before, we obtain an injection
+$
+  j : \T \hra \T_A \times \T_B
+$
+with finite cokernel.  Because~$j$ is an injection, we
+refer to the maps $\pi_A:\T\to \T_A$ and $\pi_B : \T \to \T_B$,
+given by $t \mapsto t_A$ and $t\mapsto t_B$, respectively, 
+as ``projections''. 
+
+\begin{defi}
+The {\em congruence ideal} associated with the projector~$e$ is 
+$I=\pi_A(\ker(\pi_B)) \subset \T_A.$
+\end{defi}
+
+Viewing $\T_A$ as $\T_A\times \{0\}$, we may view $\T_A$ as a subgroup
+of $\T\tensor\Q \isom (\T_A\times \T_B)\tensor\Q$.  Also, we may view
+$\T$ as embedded in $\T_A\times \T_B$, via the map~$j$.
+\begin{lem}\label{lem:i_int}
+We have $I=\T_A\cap \T$.
+\end{lem}
+
+A larger ideal of $\T_A$ is 
+$
+  J = \Ann_{\T_A}(A \cap B);
+$
+it consists of restrictions to $A$ of Hecke operators that
+vanish on $A\cap B$.  
+
+\begin{lem}
+We have $I\subset J$.
+\end{lem}
+\begin{proof}
+The image in $\T_A$ of an operator that vanishes on $B$ also
+vanishes on $A\cap B$.
+\end{proof}
+
+\begin{lem}\label{lem:j_int}
+We have 
+$J = \T_A \cap \End(J_0(pM)) = \T_A \cap \T'.$
+\end{lem}
+\begin{proof}
+This is elementary; it is an analogue of Lemma~\ref{lem:i_int}.
+\end{proof}
+
+\begin{prop}\label{prop:ji_inc}
+There is a natural inclusion
+$
+  J/I \hra \T'/\T
+$
+of $\T$-modules.
+\end{prop}
+\begin{proof}
+Consider the map $\T\to \T\tensor\Q$ given by $t\mapsto te$.
+This homomorphism factors through $\T_A$ and yields an injection
+$\iota_A : \T_A \hra \T\tensor\Q$.  Symmetrically, we also
+obtain $\iota_B : \T_B \hra \T\tensor\Q$.  The
+map
+$(t_A, t_B)  \mapsto \iota_A(t_A) + \iota_B(t_B)$
+is an injection
+ $\T_A\times \T_B \hra \T\tensor\Q$.
+The composite of this map with the inclusion $j:\T\hra \T_A\times \T_B$
+defined above is the natural map $\T\hra \T\tensor\Q$.  We thus have
+a sequence of inclusions
+$$
+  \T \hra \T_A \times \T_B \hra \T\tensor \Q 
+        \subset \End(J_0(pM))\tensor\Q.
+$$
+By Lemma~\ref{lem:i_int} and Lemma~\ref{lem:j_int},
+we have $I=\T_A\cap \T$ and $J=\T_A\cap \T'$.
+Thus $I=J\cap \T$, where the intersection is taken
+inside $\T'$.  Thus
+$$
+  J/I = J/(J\cap \T) \isom (J+\T)/\T \hra \T'/\T.
+$$
+\end{proof}
+
+\begin{cor}\label{cor:ji_inc}
+If $\m$ is a maximal ideal not in $\Supp_{\T}(\T'/\T)$,
+then $\m$ is not in the support of $J/I$, i.e., 
+if $\T$ and $\T'$ agree locally at $\m$, then
+$I$ and $J$ also agree locally at $\m$.
+\end{cor}
+
+Note that the Hecke algebra $\T$ acts on $J/I$ through 
+its quotient $\T_A$, 
+since the action of~$\T$ on~$I$ and on~$J$ factors through 
+this quotient.
+
+Now we specialize to the case where $A$ is ordinary at $p$,
+in the sense that the image of $T_p$ in $\T_A$, which we
+denote $T_{p,A}$, is invertible modulo every maximal ideal
+of $\T_A$ that divides~$p$.  (This case occurs when~$A$ is
+a subvariety of the $p$-new subvariety of $J_0(pM)$, since
+the square of $T_{p,A}$ is the identity.)  
+
+
+If $\m\mid p$
+is a maximal ideal of $\T$ that arises by pullback from
+a maximal ideal of $\T_A$, then~$\m$ is ordinary in the
+sense used above.  When $A$ is ordinary at~$p$, it follows
+from Proposition~\ref{prop:TT'} and Corollary~\ref{cor:ji_inc}
+that $I=J$ locally at~$p$.  The reason is simple: regarding~$I$
+and~$J$ as $\T_A$-modules, we realize that we need to test
+that $I=J$ at maximal ideals of $\T_A$ that divide~$p$.
+These ideals correspond to maximal ideals $\m\mid p$
+of $\T$ that are automatically ordinary, so we have $I=J$
+locally at $\m$ because of Proposition~\ref{prop:TT'}.
+By Proposition~\ref{prop:TT'}, 
+we have $\T=\T'$ locally at primes away from the
+level $pM$.  Thus we conclude that $I=J$
+locally at all primes $\ell\nmid pM$ and also at~$p$,
+a prime that divides the level $pM$ exactly once.
+
+Suppose, finally, that $A$ is the abelian variety associated to a
+newform~$f$ of level~$pM$.  
+%We then have $\T_A=\Z$.  
+The ideal $I\subset \T_A$ measures congruences between~$f$ and the space of forms
+in $S_2(\Gamma_0(pM))$ that are orthogonal to the space generated
+by~$f$.  Also, $A\cap B$ is the kernel in~$A$ of the map
+``multiplication by the modular element~$e$''.  
+In this case, the inclusion $I\subset J$ corresponds to the divisibility
+$
+  \tilde{n}_A \mid \tilde{r}_A,
+$
+and we have equality at primes at which $I=J$ locally.
+We conclude that the congruence exponent and the modular exponent
+agree both at~$p$ and at primes not dividing $pM$, which completes our
+proof of Theorem~\ref{thm:ribet_gen}(b).
+
+\begin{rmk}
+The ring
+$$
+ R = \End(J_0(pM)) \cap (\T_A \times \T_B)
+$$
+is often of interest, where the intersection is taken
+in $\End(J_0(pM))\tensor \Q$.  We proved above that there
+is a natural inclusion $J/I \hra \T'/\T$.  This 
+inclusion yields an isomorphism 
+$
+  J/I \xra{\sim} R/\T.
+$
+Indeed, if $(t_A, u_B)$ is an endomorphism of $J_0(pM)$,
+where $t,u \in \T$, then 
+$(t_A, u_B) - u  = (t_A, 0)$ is an element of~$J$.
+The ideals~$I$ and~$J$ are equal to the extent that the
+rings~$\T$ and $R$ coincide.  Even when $\T'$ is bigger than~$\T$,
+its subring $R$ may be not far from~$\T$.
+\end{rmk}
+
+\section{Failure of Multiplicity One}\label{sec:mult1}
+In this section, we discuss examples of failure of multiplicity one
+(in two different but related senses). The notion of multiplicity one,
+originally due to Mazur~\cite{mazur:eisenstein}, has played an
+important role in several places (e.g., in Wiles's proof of Fermat's
+last theorem~\cite{wiles}). This notion is closely related to
+Gorensteinness of certain Hecke algebras (e.g., see~\cite{tilouine:hecke}).
+Kilford~\cite{kilford} found examples of failure of Gorensteinness
+(and multiplicity one) at the prime~$2$ for certain prime levels.
+Motivated by the arguments in Section~\ref{sec:main}, in this section
+we give examples of failure of multiplicity one for primes (including
+odd primes) whose square divides the level.
+
+\subsection{Multiplicity One for
+  Differentials}\label{sec:dataind}
+In connection with the arguments in Section~\ref{sec:main}, especially
+Lemmas~\ref{lem:m1} and \ref{lem:wiles}, it is of interest
+to compute the index $[\T':\T]$ for various $N$.
+We can compute this index in Magma, e.g., the following
+commands compute the index for $N=54$:
+``{\tt J := JZero(54); T := HeckeAlgebra(J); Index(Saturation(T), T);}''
+We obtain Table~\ref{table:index}, where the first column
+contains $N$ and the second column contains $[\T':\T]$:
+\begin{table}\caption{The Index $[\T':\T]$\label{table:index}}
+\begin{center}
+\begin{tabular}{|l|c|}\hline
+11 & 1 \\\hline
+12 & 1 \\\hline
+13 & 1 \\\hline
+14 & 1 \\\hline
+15 & 1 \\\hline
+16 & 1 \\\hline
+17 & 1 \\\hline
+18 & 1 \\\hline
+19 & 1 \\\hline
+20 & 1 \\\hline
+21 & 1 \\\hline
+22 & 1 \\\hline
+23 & 1 \\\hline
+24 & 1 \\\hline
+25 & 1 \\\hline
+26 & 1 \\\hline
+27 & 1 \\\hline
+28 & 1 \\\hline
+29 & 1 \\\hline
+30 & 1 \\\hline
+31 & 1 \\\hline
+32 & 1 \\\hline
+33 & 1 \\\hline
+34 & 1 \\\hline
+35 & 1 \\\hline
+36 & 1 \\\hline
+37 & 1 \\\hline
+38 & 1 \\\hline
+39 & 1 \\\hline
+40 & 1 \\\hline
+41 & 1 \\\hline
+42 & 1 \\\hline
+43 & 1 \\\hline
+44 & 2 \\\hline
+45 & 1 \\\hline
+46 & 2 \\\hline
+47 & 1 \\\hline
+48 & 1 \\\hline
+49 & 1 \\\hline
+50 & 1 \\\hline
+\end{tabular}
+\,\,\,\,\,\,
+\begin{tabular}{|l|c|}\hline
+51 & 1 \\\hline
+52 & 1 \\\hline
+53 & 1 \\\hline
+54 & 3 \\\hline
+55 & 1 \\\hline
+56 & 2 \\\hline
+57 & 1 \\\hline
+58 & 1 \\\hline
+59 & 1 \\\hline
+60 & 2 \\\hline
+61 & 1 \\\hline
+62 & 2 \\\hline
+63 & 1 \\\hline
+64 & 2 \\\hline
+65 & 1 \\\hline
+66 & 1 \\\hline
+67 & 1 \\\hline
+68 & 2 \\\hline
+69 & 1 \\\hline
+70 & 1 \\\hline
+71 & 1 \\\hline
+72 & 2 \\\hline
+73 & 1 \\\hline
+74 & 1 \\\hline
+75 & 1 \\\hline
+76 & 2 \\\hline
+77 & 1 \\\hline
+78 & 2 \\\hline
+79 & 1 \\\hline
+80 & 4 \\\hline
+81 & 1 \\\hline
+82 & 1 \\\hline
+83 & 1 \\\hline
+84 & 2 \\\hline
+85 & 1 \\\hline
+86 & 1 \\\hline
+87 & 1 \\\hline
+88 & 8 \\\hline
+89 & 1 \\\hline
+90 & 1 \\\hline
+\end{tabular}
+\,\,\,\,\,\,
+\begin{tabular}{|l|c|}\hline
+91 & 1 \\\hline
+92 & 16 \\\hline
+93 & 1 \\\hline
+94 & 4 \\\hline
+95 & 1 \\\hline
+96 & 8 \\\hline
+97 & 1 \\\hline
+98 & 1 \\\hline
+99 & 9 \\\hline
+100 & 1 \\\hline
+101 & 1 \\\hline
+102 & 1 \\\hline
+103 & 1 \\\hline
+104 & 4 \\\hline
+105 & 1 \\\hline
+106 & 1 \\\hline
+107 & 1 \\\hline
+108 & 54 \\\hline
+109 & 1 \\\hline
+110 & 2 \\\hline
+111 & 1 \\\hline
+112 & 8 \\\hline
+113 & 1 \\\hline
+114 & 1 \\\hline
+115 & 1 \\\hline
+116 & 4 \\\hline
+117 & 1 \\\hline
+118 & 2 \\\hline
+119 & 1 \\\hline
+120 & 32 \\\hline
+121 & 1 \\\hline
+122 & 1 \\\hline
+123 & 1 \\\hline
+124 & 16 \\\hline
+125 & 25 \\\hline
+126 & 18 \\\hline
+127 & 1 \\\hline
+128 & 64 \\\hline
+129 & 1 \\\hline
+130 & 1 \\\hline
+\end{tabular}
+\,\,\,\,\,\,
+\begin{tabular}{|l|c|}\hline
+131 & 1 \\\hline
+132 & 8 \\\hline
+133 & 1 \\\hline
+134 & 1 \\\hline
+135 & 27 \\\hline
+136 & 16 \\\hline
+137 & 1 \\\hline
+138 & 4 \\\hline
+139 & 1 \\\hline
+140 & 8 \\\hline
+141 & 1 \\\hline
+142 & 8 \\\hline
+143 & 1 \\\hline
+144 & 32 \\\hline
+145 & 1 \\\hline
+146 & 1 \\\hline
+147 & 7 \\\hline
+148 & 4 \\\hline
+149 & 1 \\\hline
+150 & 5 \\\hline
+151 & 1 \\\hline
+152 & 32 \\\hline
+153 & 9 \\\hline
+154 & 1 \\\hline
+155 & 1 \\\hline
+156 & 32 \\\hline
+157 & 1 \\\hline
+158 & 4 \\\hline
+159 & 1 \\\hline
+160 & 256 \\\hline
+161 & 1 \\\hline
+162 & 81 \\\hline
+163 & 1 \\\hline
+164 & 8 \\\hline
+165 & 1 \\\hline
+166 & 2 \\\hline
+167 & 1 \\\hline
+168 & 128 \\\hline
+169 & 13 \\\hline
+170 & 1 \\\hline
+\end{tabular}
+\,\,\,\,\,\,
+\begin{tabular}{|l|c|}\hline
+171 & 9 \\\hline
+172 & 8 \\\hline
+173 & 1 \\\hline
+174 & 4 \\\hline
+175 & 5 \\\hline
+176 & 512 \\\hline
+177 & 1 \\\hline
+178 & 1 \\\hline
+179 & 1 \\\hline
+180 & 72 \\\hline
+181 & 1 \\\hline
+182 & 1 \\\hline
+183 & 1 \\\hline
+184 & 1024 \\\hline
+185 & 1 \\\hline
+186 & 4 \\\hline
+187 & 1 \\\hline
+188 & 256 \\\hline
+189 & 243 \\\hline
+190 & 8 \\\hline
+191 & 1 \\\hline
+192 & 4096 \\\hline
+193 & 1 \\\hline
+194 & 1 \\\hline
+195 & 1 \\\hline
+196 & 14 \\\hline
+197 & 1 \\\hline
+198 & 81 \\\hline
+199 & 1 \\\hline
+200 & 80 \\\hline
+201 & 1 \\\hline
+202 & 1 \\\hline
+203 & 1 \\\hline
+204 & 32 \\\hline
+205 & 1 \\\hline
+206 & 4 \\\hline
+207 & 81 \\\hline
+208 & 256 \\\hline
+209 & 1 \\\hline
+210 & 2 \\\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+Let $\m$ be a maximal ideal of the Hecke algebra
+$\T\subset\End(J_0(N))$ of residue characteristic~$p$. Recall
+that we say that
+$\m$ satisfies {\em multiplicity one for differentials} if $\dim
+(\H^0(X_0(N)_{\Fp},\Omega)[\m]) \leq 1$.  
+
+In each case in which $[\T':\T]\neq 1$, Lemma~\ref{lem:m1} implies
+that there is some maximal ideal $\m$ of $\T$ such that
+$\dim(\H^0(X_0(N)_{\Fp},\Omega)[\m])>1$, which is an example
+of failure of multiplicity one for differentials.
+
+
+In Table~\ref{table:index}, whenever $p\mid [\T':\T]$, then $p^2\mid
+2N$.  This is a consequence of Proposition~\ref{prop:TT'}, which
+moreover asserts that when $2$ exactly divides $N$ and $2\mid[\T':\T]$
+then there is a non-ordinary (old) maximal ideal of characteristic $2$
+in the support of $\T'/\T$.
+
+%The first case when $2\mid\mid N$ and $2\mid
+%[\T':\T]$ is $N=46$, where we find (via a Magma calculation) that
+%$G=\T'/\T \isom \Z/2\Z$, and the Hecke operator~$T_2$ acts as~$0$ on
+%$G$, so the annihilator of $G$ in $\T$ is not ordinary, which does not
+%ontradict Proposition~\ref{prop:TT'}.
+
+Moreover, notice that
+Theorem~\ref{thm:ribet_gen}(b) (whose proof is in 
+Section~\ref{sec:secondpart})
+follows formally from two
+key facts: that $A_f$ is new and that multiplicity one for differentials
+holds for ordinary maximal ideals with residue characteristic
+$p\mid\mid N$ and for all maximal ideals with residue
+characteristic $p\nmid N$.  The conclusion of
+Theorem~\ref{thm:ribet_gen}(b) does not hold for the counterexamples
+in Section~\ref{sec:elliptic} (e.g., for~54B1), which are
+all new elliptic curves, so multiplicity one for
+differentials does not hold for certain 
+maximal ideals that arise from the new quotient of the Hecke algebra.
+Note that in all examples we have $p\mid(r/m)$ with $p^2\mid N$,
+which raises the question: are there non-ordinary counterexamples
+with $p\mid\mid N$?
+
+%\edit{I think I have been to vague. Basically, I wanted to say
+%that one reason why the index $[\T':\T]$ could be nontrivial
+%(and hence lead to failure of multiplicity one for differentials)
+%is due to old-ness. But even in the new part, one may have failure
+%of mult one for diffs, due to the level not being square-free. --Amod}
+
+% was@modular:~/comps/ind_table$ magma
+% Magma V2.11-10    Sun Aug 28 2005 18:34:49 on modular  [Seed = 1293693469]
+% Type ? for help.  Type <Ctrl>-D to quit.
+% > J := JZero(46);
+% > J;
+% Modular abelian variety JZero(46) of dimension 5 and level 2*23 over Q
+% > T := HeckeAlgebra(J);
+% > S := Saturation(T);
+% > m := S/T;
+% > m;
+% Abelian Group isomorphic to Z/2
+% Defined on 1 generator
+% Relations:
+%     2*m.1 = 0
+% >
+% > S;
+% Sat(HeckeAlg(JZero(46))): Group of homomorphisms from JZero(46) to JZero(46)
+% > Basis(S);
+% [
+%     Homomorphism from JZero(46) to JZero(46) (not printing 10x10 matrix),
+%     Homomorphism from JZero(46) to JZero(46) (not printing 10x10 matrix),
+%     Homomorphism from JZero(46) to JZero(46) (not printing 10x10 matrix),
+%     Homomorphism from JZero(46) to JZero(46) (not printing 10x10 matrix),
+%     Homomorphism from JZero(46) to JZero(46) (not printing 10x10 matrix)
+% ]
+% > S.1;
+% Homomorphism from JZero(46) to JZero(46) (not printing 10x10 matrix)
+% > S.1 in T;
+% true
+% > S.2 in T;
+% false
+% > t2 := HeckeOperator(J,2);
+% > t2 in T;
+% true
+% > t2*S.2;
+% Homomorphism from JZero(46) to JZero(46) (not printing 10x10 matrix)
+% > t2*S.2 in T;
+% true
+
+\subsection{Multiplicity One for Jacobians}
+
+We say that a maximal ideal~$\m$ of~$\T$ satisfies {\it multiplicity one}
+if $J_0(N)[\m]$ is of dimension two over~$\T/\m$. We sometimes use the
+phrase ``multiplicity one for~$J_0(N)$'' in order to distinguish this notion
+from the notion of multiplicity one for differentials. 
+%\edit{I added these lines for clarity. --Amod}
+
+\begin{prop}\label{prop:mult1J}
+  Suppose $E$ is an optimal elliptic curve over $\Q$ of conductor~$N$
+  and~$p$ is a prime such that $p \mid r_E$ but $p\nmid m_E$.  Let
+  $\m$ be the annihilator in $\T$ of $E[p]$.  Then multiplicity one
+  fails for $\m$, i.e., $\dim_{\T/\m} J_0(N)[\m] > 2$.
+%\edit{Earlier the conclusion said $\dim_{\T/\m} J_0(N)[\m] > 1$.
+%--Amod}
+\end{prop}
+\begin{proof}
+  Using the principal polarization $E \isom E^{\vee}$ we view~$E$ as
+  an abelian subvariety of $J=J_0(N)$ and consider the complementary
+  $\T$-stable abelian subvariety $A$ of $E$ (thus $A$ is the kernel of
+  the modular parametrization map $J\to E$).  In this setup, $J = E +
+  A$, and the intersection of $E$ and $A$ is $E[m_E]$.  Here we use
+  that the composite map
+  $
+    E \simeq E^{\vee} \to J^{\vee} \to J \to E
+  $
+  is a polarization, and hence is multiplication by a positive integer
+  $m_E$.  Because $p\nmid m_E$, we have $E[p]\cap A = 0$.  On the
+  other hand, let $\m$ be the annihilator of $E[p]$ inside $\T$.  Then
+  $J[\m]$ contains $E[p]$ and also $A[\m]$, and because $p$ is a
+  congruence prime, the submodule $A[\m]\subset J[\m]$ is nonzero.
+  Thus the sum $E[p] + A[\m]$ is a direct sum and is larger than
+  $E[p]$, which is of dimension $2$ over $\T/\m = \Z/p\Z$.  Hence the
+  dimension of $J[\m]$ over $\T/\m$ is bigger than $2$, as claimed.
+%\edit{I changed the last two lines. --Amod}
+\end{proof}
+
+Proposition~\ref{prop:mult1J} implies that any example in which
+simultaneously $p\nmid m_E$ and $\ord_p(r_E)\neq \ord_p(m_E)$ produces
+an example in which multiplicity one for $J_0(N)$ fails.  For example,
+for the curve 54B1 and $p=3$, we have $\ord_3(r_E)=1$ but
+$\ord_3(m_E)=0$, so multiplicity one at $3$ fails for $J_0(54)$.
+%Also, for 242B1, we have $r_E = 11\cdot 2^4$ and $m_E = 2^4$, so
+%multiplicity one for $J_0(242)$ fails at $11$.  For $N=242$ we also
+%have $[\T':\T]=121$, so multiplicity one at $11$ also fails for
+%differentials 
+%\edit{Doesn't this work for 54B1 as well? Why give another
+%example? --Amod}
+%(see Section~\ref{sec:dataind} above).
+
+%\edit{I commented out the old section, which had mistakes. --Amod}
+\comment{
+\subsection{Multiplicity one (old section)}
+\edit{william: I think this section should be deleted in light
+of the above two new sections.}
+%\edit{[This is still very rough, and will need to be cleaned up. --Amod]}
+
+Let $\m$ be a maximal ideal of the Hecke algebra
+$\T\subset\End(J_0(N))$ of residue characteristic~$p$. We say that
+$\m$ satisfies {\em strong multiplicity one} if $\dim
+(\H^0(X_0(N)_{\Fp},\Omega)[\m]) = 1$.  
+\edit{or should be it be equal to~$1$? Also ``strong'' is just
+  something I came up with; may want to change the name.  In fact, I
+  may have got strong and weak mixed up, since Tilouine calls 
+  above ``weak multiplicity one''. --Amod} 
+
+The proof of Theorem~\ref{thm:ribet_gen}(b) follows formally from two
+key facts: that $A_f$ is new and that strong multiplicity one holds
+for ordinary maximal ideals if~$p^2 \nmid N$.  The conclusion of
+Theorem~\ref{thm:ribet_gen}(b) does not hold for the counterexamples
+in Section~\ref{sec:elliptic} (at levels $54$,~$64$, etc.), which are
+all new elliptic curves, which shows that strong multiplicity one does
+not hold for certain ordinary\edit{William: I totally don't get this.
+When $p^2\mid N$ the ideals are {\em NOT} ordinary.  We only got
+ordinary in the proof above because $p\mid\mid N$.  For example, for
+the curve 54b, we have $a_3=0$, and the ideal is not ordinary.}
+maximal ideals for the corresponding
+levels (in all of them, $p^2 \mid N$). We record this observation:
+
+\begin{prop}
+  There are ordinary maximal ideals for which strong
+  multiplicity one fails.\edit{William: But our examples 
+are not ordinary!}
+\end{prop}
+
+There is another notion of multiplicity one: 
+suppose~$\rho_{\m}$, the representation attached to~$\m$,
+is absolutely irreducible.
+Then one
+says that $\m$ satisfies {\em weak multplicity one} if
+$J_0(N)[\m]$ is isomorphic to a single copy of~$\rho_{\m}$.
+By standard arguments, strong multiplicity one implies
+weak multiplicity one when $\overline{\rho}_{\m}$ is absolutely irreducible.
+\edit{William: I think this is wrong.
+In connection with Remark~\ref{rem:24}, we find (again via a Magma
+computation) that $\T'=\T$ when $N=431$.  This was also already known via
+work of Mazur \cite{mazur:eisenstein}, and illustrates that
+multiplicity one for differentials need not imply multiplicity one for
+$J_0(N)$.  So I'm confused.}
+%\edit{Will: I just realized that for this implication,
+%one also needs the representation~$\rho_{\m}$
+%to be absolutely irreducible -- it might be worth checking
+%if this holds in our couterexamples}
+which in turn implies that the Hecke algebra~$\T$ is Gorenstein.\edit{or
+maybe weak multiplicity one is equivalent to Gorensteinness, and both
+follow from strong multiplicity one; a good reference might be
+Tilouine's article in the FLT conference.}  Wiles proves that strong
+multiplicity one holds for ordinary maximal ideals provided $p^2 \nmid
+N$, which he used to show the Gorensteinness of certain Hecke
+algebras. This Gorensteinness property was a key step in the proof of
+Fermat's last theorem. Our finding above shows that the hypothesis
+$p^2 \nmid N$ is essential, and thus gives a limit to how far the
+standard argument for proving Gorensteinness works.
+
+Note that while in our examples, we know that strong multiplicity one
+fails, we do not know if weak multiplicity one or Gorensteinness
+fails. It would be interesting to do calculations for the latter, like
+were done by Kilford. 
+}
+
+%\bibliographystyle{amsalpha}         
+%\bibliography{biblio}
+%\end{document}
+
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{BCDT01}
+
+\bibitem[ARS06]{ars}
+A.~Agashe, K.~Ribet and W.~Stein, 
+\emph{The {M}anin {C}onstant}, QJPAM, Coates Volume (2006), to appear. 
+
+\bibitem[AU96]{abbull}
+A.~Abbes and E.~Ullmo, \emph{\`{A} propos de la conjecture de {M}anin pour les
+  courbes elliptiques modulaires}, Compositio Math. \textbf{103} (1996), no.~3,
+  269--286. 
+
+\bibitem[BCP97]{magma}
+W.~Bosma, J.~Cannon, and C.~Playoust, \emph{The {M}agma algebra system. {I}.
+  {T}he user language}, J. Symbolic Comput. \textbf{24} (1997), no.~3--4,
+  235--265, Computational algebra and number theory (London, 1993). 
+%\MR{1 484 478}
+
+\bibitem[BCDT01]{breuil-conrad-diamond-taylor}
+C.~Breuil, B.~Conrad, F.~Diamond, and R.~Taylor, \emph{On the modularity of
+  elliptic curves over {$\bold Q$}: wild 3-adic exercises}, J. Amer. Math. Soc.
+  \textbf{14} (2001), no.~4, 843--939 (electronic). %\MR{2002d:11058}
+
+\bibitem[CK04]{cojo-kani}
+Alina~Carmen Cojocaru and Ernst Kani, \emph{The modular degree and the
+  congruence number of a weight 2 cusp form}, Acta Arith. \textbf{114} (2004),
+  no.~2, 159--167. 
+
+\bibitem[Cre97]{cremona:alg}
+J.\thinspace{}E. Cremona, \emph{Algorithms for modular elliptic curves}, second
+  ed., Cambridge University Press, Cambridge, 1997, \mbox{}\\{\tt
+  http://www.maths.nott.ac.uk/personal/jec/book/}.
+
+\bibitem[CSS97]{boston}
+G.~Cornell, J.\thinspace{}H. Silverman, and G.~Stevens (eds.), \emph{Modular
+  forms and \protect{F}ermat's last theorem (boston,ma, 1995)}, New York,
+  Springer-Verlag, 1997, Papers from the Instructional Conference on Number
+  Theory and Arithmetic Geometry held at Boston University, Boston, MA, August
+  9--18, 1995.
+
+
+\bibitem[DI95]{diamond-im}
+F.~Diamond and J.~Im, \emph{Modular forms and modular curves}, Seminar on
+  {F}ermat's {L}ast {T}heorem, Providence, RI, 1995, pp.~39--133.
+
+\bibitem[Fre97]{frey:ternary}
+G.~Frey, \emph{On ternary equations of {F}ermat type and relations with
+  elliptic curves}, Modular forms and Fermat's last theorem (Boston, MA, 1995),
+  Springer, New York, 1997, pp.~527--548. 
+
+\bibitem[FM99]{frey-muller}
+G.~Frey and M.~M{\"u}ller, \emph{Arithmetic of modular curves and
+  applications}, Algorithmic algebra and number theory (Heidelberg, 1997),
+  Springer, Berlin, 1999, pp.~11--48.
+
+\bibitem[Har77]{hartshorne:ag}
+R.~Hartshorne, \emph{Algebraic geometry}, Springer-Verlag, New York, 1977,
+  Graduate Texts in Mathematics, No. 52. 
+
+\bibitem[Kil02]{kilford}
+L.\thinspace{}J.\thinspace{}P. Kilford, 
+  \emph{Some non-{G}orenstein {H}ecke algebras attached to
+  spaces of modular forms}, J. Number Theory \textbf{97} (2002), no.~1,
+  157--164. 
+
+\bibitem[Lan83]{lang:av}
+S.~Lang, \emph{Abelian varieties}, Springer-Verlag, New York, 1983, Reprint
+  of the 1959 original. 
+
+
+\bibitem[Li75]{winnie:newforms}
+W-C. Li, \emph{Newforms and functional equations}, Math. Ann. \textbf{212}
+  (1975), 285--315.
+
+\bibitem[Maz77]{mazur:eisenstein}
+B.~Mazur, \emph{Modular curves and the \protect{Eisenstein} ideal}, Inst.
+  Hautes \'Etudes Sci. Publ. Math. (1977), no.~47, 33--186 (1978).
+
+\bibitem[Maz78]{mazur:rational}
+B.~Mazur, \emph{Rational isogenies of prime degree (with an appendix by {D}.
+  {G}oldfeld)}, Invent. Math. \textbf{44} (1978), no.~2, 129--162.
+
+\bibitem[MR91]{mazur-ribet}
+B.~Mazur and K.~A. Ribet, \emph{Two-dimensional representations in the
+  arithmetic of modular curves}, Ast\'erisque (1991), no.~196--197, 6, 215--255
+  (1992), Courbes modulaires et courbes de Shimura (Orsay, 1987/1988).
+  %\MR{MR1141460 (93d:11056)}
+
+\bibitem[Mum70]{mumford:av}
+D.~Mumford, \emph{Abelian varieties}, Tata Institute of Fundamental Research
+  Studies in Mathematics, No. 5, Published for the Tata Institute of
+  Fundamental Research, Bombay, 1970. 
+
+\bibitem[Mur99]{murty:congruence}
+M.\thinspace{}R. Murty, \emph{Bounds for congruence primes}, Automorphic forms,
+  automorphic representations, and arithmetic (Fort Worth, TX, 1996), Amer.
+  Math. Soc., Providence, RI, 1999, pp.~177--192. %\MR{2000g:11038}
+
+\bibitem[Rib75]{ribet:endo}
+K.\thinspace{}A. Ribet, \emph{Endomorphisms of semi-stable abelian varieties
+  over number fields}, Ann. Math. (2) \textbf{101} (1975), 555--562. 
+%\MR{51 \#8120}
+
+\bibitem[Rib81]{ribet:endalg}
+K.~A. Ribet, \emph{Endomorphism algebras of abelian varieties attached to
+  newforms of weight {$2$}}, Seminar on Number Theory, Paris 1979--80, Progr.
+  Math., vol.~12, Birkh\"auser Boston, Mass., 1981, pp.~263--276.
+ % \MR{82m:10044}
+
+\bibitem[Rib83]{ribet:modp}
+K.\thinspace{}A. Ribet, \emph{Mod $p$\ {H}ecke operators and congruences
+  between modular forms}, Invent. Math. \textbf{71} (1983), no.~1, 193--205. 
+
+
+\bibitem[Ste89]{stevens:param}
+G.~Stevens, \emph{Stickelberger elements and modular parametrizations of
+  elliptic curves}, Invent. Math. \textbf{98} (1989), no.~1, 75--106.
+
+
+\bibitem[Stu87]{sturm:cong}
+J.~Sturm, \emph{On the congruence of modular forms}, Number theory (New York,
+  1984--1985), Springer, Berlin, 1987, pp.~275--280.
+
+\bibitem[Til97]{tilouine:hecke}
+J.~Tilouine, \emph{Hecke algebras and the {G}orenstein property}, Modular
+  forms and Fermat's last theorem (Boston, MA, 1995), Springer, New York, 1997,
+  pp.~327--342.
+
+
+\bibitem[Vat05]{MR2135139}
+V.~Vatsal, \emph{Multiplicative subgroups of {$J\sb 0(N)$} and applications to
+  elliptic curves}, J. Inst. Math. Jussieu \textbf{4} (2005), no.~2, 281--316.
+
+\bibitem[Wil95]{wiles}
+A.\thinspace{}J. Wiles, \emph{Modular elliptic curves and \protect{F}ermat's
+  last theorem}, Ann. of Math. (2) \textbf{141} (1995), no.~3, 443--551. 
+
+\bibitem[Zag85]{zagier}
+D.~Zagier, \emph{Modular parametrizations of elliptic curves}, Canad. Math. 
+ Bull. \textbf{28} (1985), no.~3, 372--384. 
+
+\end{thebibliography}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+

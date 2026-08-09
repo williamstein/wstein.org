@@ -1,0 +1,531 @@
+% For Authors of FoCM'11 volume
+\NeedsTeXFormat{LaTeX2e}[1996/06/01]
+\documentclass[multi]{cambridge7A}
+\usepackage{natbib}
+\usepackage[figuresright]{rotating}
+\usepackage{floatpag}
+\rotfloatpagestyle{empty}
+\usepackage{amsmath}% if you are using this package,
+                     % it must be loaded before amsthm.sty
+\usepackage{amsfonts}
+\usepackage{amssymb}
+ \usepackage{amsthm}
+ \usepackage{graphicx}
+
+% see third chapter for details
+ \theoremstyle{plain}% default
+ \newtheorem{theorem}{Theorem}[chapter]
+ \newtheorem{lemma}[theorem]{Lemma}
+ \newtheorem{corollary}{Corollary}
+ \newtheorem{proposition}{Proposition}
+
+ \theoremstyle{definition}
+ \newtheorem{definition}[theorem]{Definition}
+ \newtheorem{example}[theorem]{Example}
+
+
+ \hyphenation{line-break line-breaks docu-ment triangle cambridge amsthdoc
+   cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar
+   table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% author stuff
+
+\usepackage[hypertex]{hyperref}
+\usepackage{url}
+
+\usepackage{graphicx}
+\newcommand{\sagegraphic}[2]{\begin{center}\includegraphics[width=#1\textwidth]{graphics/#2}\end{center}}
+
+\usepackage{color}
+\usepackage{listings} 
+\lstdefinelanguage{Sage}[]{Python}
+{morekeywords={True,False,sage,singular},
+sensitive=true}
+\lstset{
+  showtabs=False,
+  showspaces=False,
+  showstringspaces=False,
+  commentstyle={\ttfamily\color{dredcolor}},
+  keywordstyle={\ttfamily\color{dbluecolor}\bfseries},
+  stringstyle ={\ttfamily\color{dgraycolor}\bfseries},
+  language = Sage,
+  basicstyle={\small \ttfamily},
+  aboveskip=1em,
+  belowskip=1em,
+  backgroundcolor=\color{lightyellow},
+  frame=single
+}
+\definecolor{lightyellow}{rgb}{1,1,.86}
+\definecolor{dblackcolor}{rgb}{0.0,0.0,0.0}
+\definecolor{dbluecolor}{rgb}{.01,.02,0.7}
+\definecolor{dredcolor}{rgb}{0.8,0,0}
+\definecolor{dgraycolor}{rgb}{0.30,0.3,0.30}
+\definecolor{graycolor}{rgb}{0.35,0.35,0.35}
+\newcommand{\dblue}{\color{dbluecolor}\bf}
+\newcommand{\dred}{\color{dredcolor}\bf}
+\newcommand{\dblack}{\color{dblackcolor}\bf}
+\newcommand{\gray}{\color{graycolor}}
+
+\begin{document}
+
+\author[W. Stein]{William Stein\footnote{The work was supported by NSF grant DUE-1022574.}}
+
+\chapter[Sage: Creating a Viable Alternative]{Sage: Creating a Viable Free
+  Open Source Alternative to Magma, Maple, Mathematica, and MATLAB}
+
+
+\maketitle
+
+\chapterabstract{
+  Sage is a large free open source
+  software package aimed at all areas of mathematical computation.
+  Hundreds of people have contributed to the project, which has
+  steadily grown in popularity since 2005. This paper
+  describes the motivation for starting Sage and the history of the
+  project.}
+
+
+\section{Introduction}
+
+The goal of the Sage project (\url{http://www.sagemath.org}) is to
+create a viable free open source alternative to Magma,
+Maple\texttrademark, Mathematica{\textregistered}, and
+MATLAB{\textregistered}, which are the most popular non-free closed
+source mathematical software systems.\footnote{Maple is a trademark of
+  Waterloo Maple Inc.  Mathematica is a registered trademark of
+  Wolfram Research Incorporated. MATLAB is a registered trademark of
+  MathWorks.  I will refer to the four systems together as ``the Ma's'' in
+  the rest of this article.}  Magma is (by far) the most advanced
+non-free system for structured abstract algebraic computation,
+Mathematica and Maple are popular and highly developed systems that
+shine at symbolic manipulation, and MATLAB is the most popular system
+for applied numerical mathematics.  Together there are over 3,000
+employees working at the companies that produce the four Ma's listed
+above, which take in over a hundred million dollars of revenue
+annually.
+
+By a viable free alternative to the Ma's, we mean a system that will
+have the important mathematical features of each Ma, with comparable
+speed.  It will have 2d and 3d graphics, an interactive graphical user
+interface, and documentation, including books, papers, school and
+college curriculum materials, etc.  A single alternative to all of the
+Ma's is not necessarily a drop-in replacement for any of the Ma's; in
+particular, it need not run programs written in the custom languages
+of those systems.  Thus an alternative may be philosophically
+different than the open source system Octave, which understands the
+MATLAB source language and attempts to implement the entire MATLAB
+library.  Development could instead focus on implementing functions
+that users demand, rather than systematically trying to implement
+every single function of the Ma's.  The culture, architecture, and
+general look and feel of such a system would be very different than
+that of the Ma's.
+
+In Section~\ref{section:why} we explain some of the motivation for
+starting the Sage project, in Section~\ref{sec:what} we describe the
+basic architecture of Sage, and in Section~\ref{sec:history} we
+sketch aspects of the history of the project.
+
+\section{Motivation for Starting Sage}
+\label{section:why}
+
+Each of the Ma's cost substantial money, and is hence expensive for
+me, my collaborators, and students.  The Ma's are not {\em owned by
+  the community} like Sage is, or Wikipedia is,  for that matter.
+
+The Ma's are closed, which means that the implementation of some
+algorithms are secret, in which case you are not allowed to modify or
+extend them.  
+%For example, this is true of some code that ships with
+%the prize winning system Maple.\footnote{See the Jenks 2011 citation at
+%  \url{http://www.sigsam.org/awards/jenks/awardees/2011/}, which oddly
+%  says `` the library of algorithms, to which all researchers could
+%  contribute their procedures unhindered.''} 
+
+\begin{quote}\small
+  ``You should realize at the outset that while knowing about the
+  internals of Mathematica may be of intellectual interest, it is
+  usually much less important in practice than you might at first
+  suppose.  Indeed, in almost all practical uses of Mathematica,
+  issues about how Mathematica works inside turn out to be largely
+  irrelevant.  Particularly in more advanced applications of
+  Mathematica, it may sometimes seem worthwhile to try to analyze
+  internal algorithms in order to predict which way of doing a given
+  computation will be the most efficient. [...]  But most often the
+  analyses will not be worthwhile. For the internals of Mathematica
+  are quite complicated..''
+
+-- The Mathematica Documentation
+%{\url{http://reference.wolfram.com/mathematica/tutorial/WhyYouDoNotUsuallyNeedToKnowAboutInternals.html}}
+\end{quote}
+The philosophy espoused in Sage, and indeed by the vast open source
+software community, is exactly the opposite.  We want you to know
+about the internals, and when they are quite complicated, we
+want you to help make them more understandable.  Indeed, Sage's growth
+depends on {\em you} analyzing how Sage works, improving it, and
+contributing your improvements back.
+\begin{lstlisting}
+    sage: crt(2, 1, 3, 5)  # Chinese Remainder Theorem
+    11 
+    sage: crt?        # ? = documentation and examples
+    Returns a solution to a Chinese Remainder Theorem...
+    ...
+    sage: crt??       # ?? = source code
+    def crt(...):
+    ...
+        g, alpha, beta = XGCD(m, n)
+        q, r = (b - a).quo_rem(g)
+        if r != 0:
+            raise ValueError("No solution ...")
+        return (a + q*alpha*m) % lcm(m, n)
+\end{lstlisting}
+Moreover, by browsing \url{http://hg.sagemath.org/sage-main/}, you can
+see exactly who wrote or modified any particular line of code in the
+Sage library, when they did it, and why.  Everything included in Sage
+is free and open source, and it will foreover remain
+that way.
+
+\begin{quote}\small
+  ``I see open source as Science.  If you don't spread your ideas in
+  the open, if you don't allow other people to look at how your ideas
+  work and verify that they work, you are not doing Science, you are
+  doing Witchcraft.  Traditional software development models, where
+  you keep things inside a company and hide what you are doing, are
+  basically Witchcraft.  Open source is all about the fact that it is
+  open; people can actually look at what you are doing, and they can
+  improve it, and they can build on top of it. [...] One of my
+  favorite quotes from history is Newton: `If I had seen further, it
+  has been by standing on the shoulders of giants.'{}''
+
+  -- Linus Torvalds.\\\vbox{}\qquad Listen at
+  \url{http://www.youtube.com/watch?v=bt_Y4pSdsHw}
+
+\end{quote}
+
+The design decisions of the Ma's are not made openly by the community.
+In contrast, important decisions about Sage development are made via
+open public discussions and voting that is archived on public mailing lists
+with thousands of subscribers.
+
+%Do you trust that John Cannon, Stephen Wolfram, or
+%Cleve Moler always have your best interests in mind when they make
+%decisions about the future of your most important tool?  I don't.
+
+Every one of the Ma's uses a special mathematics-oriented interpreted
+programming language, which locks you into their product, makes
+writing some code outside mathematics unnecessarily difficult, and impacts the
+number of software engineers that are experts at programming in that
+language.  In contrast, the user language of Sage is primarily the
+mainstream free open source language Python \url{http://python.org},
+which is one of the world's most popular interpreted programming
+languages.  The Sage project neither invented nor maintains the
+underlying Python language, but gains immediate access to the IPython
+shell, Python scientific libraries (such as NumPy, SciPy, CVXopt and
+MatPlotLib), and a large Python community with major support from big
+companies such as Google. In comparison to Python, the Ma's are small
+players in terms of language development.  Thus for Sage most of the
+problems of language development are handled by someone else.
+
+
+The bug tracking done for three of four of the Ma's is
+currently secret\footnote{MATLAB has an open bug tracker,
+though it requires free registration to view.
+%  \url{http://www.mathworks.com/support/faq/bugreportsfaq.html}
+}, which means that there is no published accounting of all known bugs, the status
+of work on them, and how bugs are resolved.  But the Ma's do have many
+bugs; see the release notes of each new version, which
+lists bugs that were fixed\footnote{See also
+  \url{http://cybertester.com/} and
+  \url{http://maple.bug-list.org/}.}.  Sage also has bugs,
+which are all publicly tracked at
+\url{http://trac.sagemath.org}, and there are numerous ``Bug
+Days'' workshops devoted entirely to fixing bugs in Sage.  Moreover,
+all discussion about resolving a given bug, including peer review of
+solutions, is publicly archived.  We note that sadly even some prize
+winning\footnote{Jenks Prize, 2008} free open source systems, such as
+GAP \url{http://www.gap-system.org/}, do not have an open bug tracking
+system, resulting in people reporting the same bugs over and over
+again.
+
+Each of the Ma's is a combination of secret unchangeable compiled code
+and less secret interpreted code.  Users with experience programming
+in compiled languages such as Fortran or C++ may find the loss of a
+compiler to be frustrating.
+% The only way for users to
+%efficiently combine fast compiled code with Magma is to modify the
+%closed source kernel, which is something only ``insiders'' with access
+%to the full source code of Magma are {\em allowed} to do, since Magma
+%is statically linked.  
+None of the Ma's has an optimizing compiler that converts programs
+written in their custom interpreted language to a fast executable
+binary format that is not interpreted at runtime.\footnote{MATLAB has a
+  compiler, but
+%according to
+  %\url{http://www.mathworks.com/support/solutions/en/data/1-1ARNS/},
+  ``the source code is still interpreted at run-time, and performance
+  of code should be the same whether run in standalone mode or in
+  MATLAB.''  Mathematica also has a {\tt Compile} function, but simply
+  compiles expressions to a different internal format that is
+  interpreted, much like Sage's {\tt fast\_callable} function.}  In
+contrast, Sage is tightly integrated with Cython\footnote{The Cython
+  project has received extensive contributions from Sage developers,
+  and is very popular in the world of Python-based scientific
+  computing.}  \url{http://www.cython.org}, which is a ython-to-C/C++
+compiler that speeds up code execution and has support for statically
+declaring data types (for potentially enormous speedups) and natively
+calling existing C/C++/Fortran code.  For example, enter the following
+in a cell of the Sage notebook (e.g., \url{http://sagenb.org}):
+\begin{lstlisting}
+def python_sum2(n):
+    s = int(0)
+    for i in xrange(1, n+1):
+        s += i*i
+    return s
+\end{lstlisting}
+Then enter the following in another cell:
+\begin{lstlisting}
+%cython
+def cython_sum2(long n):
+    cdef long i, s = 0
+    for i in range(1, n+1):
+        s += i*i
+    return s
+\end{lstlisting}
+The second implementation, despite looking nearly identical, is nearly
+a hundred times faster than the first one (your timings may vary).
+\begin{lstlisting}
+sage: timeit('python_sum2(2*10^6)')
+5 loops, best of 3: 154 ms per loop
+sage: timeit('cython_sum2(2*10^6)')
+125 loops, best of 3: 1.76 ms per loop
+sage: 154/1.76
+87.5
+\end{lstlisting}
+
+Of course, it is better to choose a different algorithm.  In case you
+don't remember a closed form expression for the sum of the first $n$
+squares, Sage can deduce it:
+\begin{lstlisting}
+sage: var('k, n')
+sage: factor(sum(k^2, k, 1, n))
+1/6*(n + 1)*(2*n + 1)*n
+\end{lstlisting}
+And now our simpler fast implementation is:
+\begin{lstlisting}
+def sum2(n):
+    return n*(2*n+1)*(n+1)/6
+\end{lstlisting}
+Just as above, we can also use the Cython compiler:
+\begin{lstlisting}
+%cython
+def c_sum2(long n):
+    return n*(2*n+1)*(n+1)/6
+\end{lstlisting}
+Comparing times, we see that Cython is 10 times faster:
+\begin{lstlisting}
+sage: n = 2*10^6
+sage: timeit('sum2(n)')
+625 loops, best of 3: 1.41 microseconds per loop
+sage: timeit('c_sum2(n)')
+625 loops, best of 3: 0.145 microseconds per loop
+sage: 1.41/.145
+9.72413793103448
+\end{lstlisting}
+In this case, the enhanced speed comes at a cost, in that the answer
+is {\em wrong} when the input  is large enough to cause an overflow:
+\begin{lstlisting}
+sage: c_sum2(2*10^6)   # WARNING: overflow
+-407788678951258603
+\end{lstlisting}
+Cython is very powerful, but to fully benefit from it, one must
+understand machine level arithmetic data types, such as long, int,
+float, etc.  With Sage you have that option.
+
+\section{What is Sage?}\label{sec:what}
+
+The goal of Sage is to compete with the Ma's, and the intellectual
+property at our disposal is the complete range of GPL-compatibly
+licensed open source software.
+
+Sage is a self-contained free open source {\em distribution} of about
+100 open source software packages and libraries\footnote{See the list
+  of packages in Sage at \url{http://sagemath.org/packages/standard/}.
+  The list includes R, Pari, Singular, GAP, Maxima, GSL, Numpy, Scipy,
+  ATLAS, Matplotlib, and many other popular programs.}  that aims to
+address all computational areas of pure and applied mathematics.  The
+download of Sage contains all dependencies required for the normal
+functioning of Sage, including Python itself.  Sage includes a
+substantial amount of code that provides a unified Python-based {\em
+  interface} to these other packages.  Sage also includes a library of
+new code written in Python, Cython and C/C++, which implements a huge
+range of algorithms.
+
+%\begin{center}
+%\includegraphics[width=.6\textwidth]{graphics/distribution}\\\vspace{1em}
+%{\bf An Incomplete Diagram Illustrating Sage and Some of its Components}
+%\end{center}
+
+%Much of the work that Sage developers do goes into writing new code
+%that is included in the core library.  They also deal with the never
+%ending task of updating the constantly changing packages included in
+%Sage and testing to what extent the new versions work well together.
+%This involves reporting and sometimes fixing the bugs that result when
+%these package inevitably do not work together.  Moreover, as popular
+%new operating systems versions are released, developers sometimes port
+%Sage to run on them.
+
+%\begin{center}
+%\includegraphics[width=\textwidth]{graphics/devmap}\\\vspace{1em}
+%{\bf There are Hundreds of Sage Developers all Over the World}
+%\end{center}
+
+
+
+\section{History}\label{sec:history}
+
+I made the first release of Sage in February 2005, and at the time
+called it ``{\bf S}oftware for {\bf A}rithmetic {\bf G}eometry {\bf
+  E}xperimentation.''  I was a serious user of, and contributor to,
+Magma at the time, and was motivated to start Sage for many of the
+reasons discussed above.  In particular, I was personally frustrated
+with the top-down closed development model of Magma, the fact that
+{\em several million lines} of the source code of Magma are closed
+source, and the fees that my colleagues had to pay in order to use the
+substantial amount of code that I contributed to Magma.  Despite my
+early naive hope that Magma would be open sourced, it never was.  So I
+started Sage motivated by the dream that someday the single most
+important item of software I use on a daily basis would be free and
+open. David Joyner, David Kohel, Joe Wetherell, and Martin Albrecht
+were also involved in the development of Sage during the first year.
+
+In February 2006, the National Science Foundation funded a 2-day
+workshop called ``Sage Days 2006'' at UC San Diego, which had about 40
+participants and speakers from several open and closed source
+mathematical software projects.  After doing a year of fulltime mostly
+solitary work on Sage, I was surprised by the positive reception 
+of Sage by members of the mathematical research community.  What Sage
+promised was something many mathematicians wanted.  Whether or not
+Sage would someday deliver on that promise was (and for many still is)
+an open question.
+
+I had decided when I started Sage that I would make it powerful enough
+for my research, with or without the help of anybody else, and was
+pleasantly surprised at this workshop to find that many other people were
+interested in helping, and understood the  shortcomings of
+existing open source software, such as GAP and PARI, and the longterm
+need to move beyond Magma.
+%%\footnote{This was a community of researchers
+%  in number theory, for which the Ma's besides Magma are far behind.}.
+Six months later, I ran another Sage Days workshop, which resulted in
+numerous talented young graduate students, including David Harvey,
+David Roe, Robert Bradshaw, and Robert Miller, getting involved in
+Sage development.  I used startup money from University of Washington
+to hire Alex Clemesha as a fulltime employee to implement 2d
+graphics and help create a notebook interface to Sage.  I also learned
+that there was much broader interest in such a system, and stopped
+referring to Sage as being exclusively for ``arithmetic geometry'';
+instead, Sage became ``{\bf S}oftware for {\bf A}lgebra and {\bf
+  G}eometry {\bf E}xperimentation.''  Today the acronym is deprecated.
+
+The year 2007 was a major turning point for Sage.  Far more people got
+involved with development, we had four Sage Days workshops, and
+prompted by Craig Citro, we instituted a requirement that all new code
+must have tests for 100\% of the functions touched by that code, and
+every modification to Sage must be peer reviewed.  Our peer review
+process is much more open than in mathematical research journals;
+everything that happens is publicly archived at
+\url{http://trac.sagemath.org}.  During 2007, I also secured some
+funding for Sage development from Microsoft Research, Google, and NSF.
+Also, a German graduate student studying cryptography, Martin Albrecht
+presented Sage at the Troph\'{e}es du Libre competition in France, and
+Sage won first place in ``Scientific Software'', which led to a huge
+amount of good publicity, including articles in many languages
+around the world and appearances\footnote{For example,
+  \url{http://science.slashdot.org/story/07/12/08/1350258/Open-Source-Sage-Takes-Aim-at-High-End-Math-Software}}
+on the front page of \url{http://slashdot.org}.
+
+In 2008, I organized 7 Sage Days workshops at places such as IPAM (at
+UCLA) and the Clay Mathematics Institute, and for the first time,
+several people besides me made releases of Sage.  In 2009, we had 8
+more Sage Days workshops, and the underlying foundations of Sage
+improved, including development of a powerful coercion architecture.
+This {\em coercion model} systematically determines what happens when
+performing operations such as \verb|a + b|, when {\tt a} and {\tt b}
+are elements of potentially different rings (or groups, or modules,
+etc.).
+\begin{lstlisting}
+    sage: R.<x> = PolynomialRing(ZZ)
+    sage: f = x + 1/2; f
+    x + 1/2
+    sage: parent(f)
+    Univariate Polynomial Ring in x over Rational Field
+\end{lstlisting}
+We compare this with Magma (V2.17-4), which has a more ad hoc coercion
+system:
+\begin{lstlisting}
+    > R<x> := PolynomialRing(IntegerRing());
+    > x + 1/2
+        ^
+    Runtime error in '+': Bad argument types
+    Argument types given: RngUPolElt[RngInt], FldRatElt
+\end{lstlisting}
+
+Robert Bradshaw and I also added support for beautiful browser-based
+3D graphics to Sage, which involved writing a 3D graphics library, and
+adapting the free open source JMOL Java library (see
+\url{http://jmol.sourceforge.net/}) for rendering molecules to instead
+plot mathematical objects.
+
+\begin{lstlisting}
+    sage: f(x,y) = sin(x - y) * y * cos(x)
+    sage: plot3d(f, (x,-3,3), (y,-3,3), color='red')
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=.6\textwidth]{graphics/3dplot}
+\end{center}
+
+In 2009, following a huge amount of porting work by Mike
+Hansen, development of algebraic combinatorics in Sage picked
+up substantial momentum, with the switch of the entire MuPAD-combinat
+group to Sage (forming sage-combinat
+\url{http://wiki.sagemath.org/combinat}), only months before the
+formerly free system MuPAD{\textregistered}\footnote{MuPAD is a
+  registered trademark of SciFace Software GmbH \& Co.} was bought out
+by Mathworks (makers of MATLAB).  In addition to work on Lie theory
+by Dan Bump, this also led to a massive amount of work
+on a category theoretic framework for Sage by Nicolas Thiery.
+
+In 2010, there were 13 Sage Days workshops in many parts of the world,
+and grant funding for Sage significantly improved, including new NSF
+funding for undergraduate curriculum development.  I also spent much
+of my programming time during 2010--2011 developing a number theory
+library called psage \url{http://code.google.com/p/purplesage/}, which
+is currently not included in Sage, but can be easily installed.
+
+
+Many aspects of Sage make it an ideal tool for teaching
+mathematics, so there's a steadily growing group of teachers using it:
+for example, there have been MAA PREP workshops on Sage for the last
+two years, and a third is likely to run next summer, there are regular
+posts on the Sage lists about setting up classroom servers, and there
+is an NSF-funded project called UTMOST (see
+\url{http://utmost.aimath.org/}) devoted to creating undergraduate
+curriculum materials for Sage.
+
+The page \url{http:// sagemath.org/library-publications.html} lists
+101 accepted publications that use Sage, 47 preprints, 22 theses, and
+16 books, and there are surely many more ``in the wild'' that we are
+not aware of.  According to Google Analytics, the main Sage website
+gets about 2,500 absolute unique visitors per day, and the website
+\url{http://sagenb.org}, which allows anybody to easily use Sage
+through their web browser, has around 700 absolute unique visitors per
+day.
+
+
+For many mathematicians and students, Sage is today the mature, open
+source, and free foundation on which they can build their research
+program.
+%It is a community-owned foundation for
+%computational research mathematics.
+
+\end{document}

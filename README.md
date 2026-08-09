@@ -11,6 +11,8 @@ copied into Git.
   copied over the historical archive without deleting archive content.
 - `documents/`: maintained TeX and presentation source for the CV and the
   generated Algebraic Number Theory web edition.
+- `preservation/` and `preserved/`: explicit allowlists and compact snapshots
+  of high-value textual sources from the historical archive.
 - `site/overlay/`: maintained legacy pages and shared styles that have not yet
   moved into Astro, stored at their public paths.
 - `src/` and `bin/`: the Cloudflare Worker, R2 synchronization, symlink routing,
@@ -24,16 +26,32 @@ symlink map are ignored. Cloudflare credentials must remain in
 ## Edit and publish a page
 
 Edit pages under `modern/src/` (or a remaining legacy page under
-`site/overlay/`), then run:
+`site/overlay/`), then run the complete publication workflow:
 
 ```bash
 cd /home/user/wstein-r2-worker
-bin/apply-site-overlay.sh
-/home/user/bin/start.sh
-cd audit && npm install && npm run audit
-cd ..
-bin/fast-sync-r2.sh
+./publish.sh
 ```
+
+This builds Astro, conditionally rebuilds maintained TeX documents, applies
+the overlay, runs structural and preservation checks, and fast-syncs changed
+files to R2. Use `./publish.sh --no-sync` for a local build, `--dry-run` to
+preview uploads, or `--full` when remote deletions must be reconciled.
+
+## Preserve textual sources
+
+Selected paper and book sources are kept under `preserved/www/` so the
+high-value, non-binary content is versioned independently of the large website
+archive. The selection is explicit in `preservation/text-files.txt` and
+`preservation/archive-members.txt`; it intentionally excludes working
+directories wholesale.
+
+```bash
+./bin/update-preserved-sources.sh
+```
+
+The normal publishing workflow checks that these Git copies match their
+allowlisted archive sources.
 
 `bin/apply-site-overlay.sh` builds Astro first, copies the generated static
 pages into `/home/user/www`, and then applies the explicit legacy overlay

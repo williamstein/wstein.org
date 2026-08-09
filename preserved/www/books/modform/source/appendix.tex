@@ -1,0 +1,3060 @@
+\appendix
+
+\newcommand{\G}{{\mathscr G}}
+\newcommand{\V}{{\mathscr V}}
+\newcommand{\bG}{\mathbf{G}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\bR}{\mathbf{R}}
+\newcommand{\bC}{\mathbf{C}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\Proj}{{\mathbb P}}
+\renewcommand{\P}{{\mathbb P}}
+\newcommand{\PPP}{\mathscr P}
+\newcommand{\MMM}{\mathscr M}
+\newcommand{\WWW}{\mathscr W}
+\newcommand{\sA}{\mathscr A}
+\newcommand{\sC}{\mathscr C}
+\newcommand{\sO}{\mathscr O}
+\newcommand{\sV}{\mathscr V}
+\renewcommand{\sS}{\mathscr S}
+\newcommand{\fg}{\mathfrak g}
+\newcommand{\aaa}{\mathbf{a}}
+\renewcommand{\H}{\mathscr H}
+\newcommand{\fh}{\mathfrak h}
+\renewcommand{\emptyset}{\varnothing}
+\newcommand{\cusp}{\text{cusp}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\borser}[1]{#1^{\text{BS}}}
+\newcommand{\closure}[1]{(#1)^{-}}
+\renewcommand{\norm}[1]{\|#1\|}
+\newcommand{\Vor}{Vorono\v{\i}\xspace}
+\newcommand{\vv}{{\mathbf {v}}}
+\renewcommand{\aa}{{\mathbf {a}}}
+\newcommand{\bb}{{\mathbf {b}}}
+\newcommand{\ww}{{\mathbf {w}}}
+\newcommand{\xx}{{\mathbf {x}}}
+\newcommand{\uu}{{\mathbf {u}}}
+\newcommand{\yy}{{\mathbf {y}}}
+\newcommand{\qq}{{\mathbf {q}}}
+\newcommand{\sets}[1]{[\![#1]\!]}
+\newcommand{\coinv}[1]{(S_{#1})_{\Gamma }}
+\renewcommand{\riso}{\xrightarrow{\sim}}
+
+
+\chapter{Computing in Higher Rank}\label{ch:appendix}
+\noindent{\Large\bf by Paul E. Gunnells}
+
+%%%%%%%%%%%%%%%%%%
+%                %
+%  introduction  %
+%                %
+%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{introduction}
+%
+%\subsection*{}
+This book has addressed the theoretical and practical problems of
+performing computations with modular forms.  Modular forms are the
+simplest examples of the general theory of automorphic forms attached
+to a reductive algebraic group $G$ with an arithmetic
+subgroup~$\Gamma$; they are the case $G=\SL_{2} (\R)$ with $\Gamma$ a
+congruence subgroup of $\SL_{2} (\Z)$.  For such pairs $(G,\Gamma)$
+the Langlands philosophy asserts that there should be deep connections
+between automorphic forms and arithmetic, connections that are
+revealed through the action of the Hecke operators on spaces of
+automorphic forms.  There have been many profound advances in recent
+years in our understanding of these phenomena, for example:
+\begin{itemize}
+\item the establishment of the modularity of
+elliptic curves defined over $\Q$ \cite{wiles:fermat, taylor-wiles:fermat, diamond,
+cdt, breuil-conrad-diamond-taylor}, 
+\item the proof by Harris--Taylor of the local Langlands
+correspondence \cite{harris.taylor}, and  
+\item Lafforgue's proof of the
+global Langlands correspondence for function fields \cite{lafforgue}.
+\end{itemize}
+Nevertheless, we are still far from seeing that the links between
+automorphic forms and arithmetic hold in the broad scope in which 
+they are generally believed.  Hence one has the natural problem of
+studying spaces of automorphic forms computationally.
+
+%\subsection*{}
+%
+The goal of this appendix is to describe some computational techniques
+for automorphic forms.  We focus on the case $G= \SL_{n} (\R)$ and
+$\Gamma \subset \SL_{n} (\Z)$, since the automorphic forms that arise
+are one natural generalization of modular forms, and since this is the
+setting for which we have the most tools available.  In fact, we do not
+work directly with automorphic forms, but rather with the cohomology
+of the arithmetic group $\Gamma$ with certain coefficient modules.
+This is the most natural generalization of the tools developed in
+previous chapters.
+
+Here is a brief overview of the contents.  Section \ref{aut.forms}
+gives background on automorphic forms and the cohomology of arithmetic
+groups and explains why the two are related.  In Section
+\ref{comb.models} we describe the basic topological tools used to
+compute the cohomology of $\Gamma$ explicitly.  Section
+\ref{mod.symb.section} defines the Hecke operators, describes the
+generalization of the modular symbols from Chapter \ref{ch:modsym} to
+higher rank, and explains how to compute the action of the Hecke
+operators on the top degree cohomology group.  Section
+\ref{other.coho} discusses computation of the Hecke action on
+cohomology groups below the top degree.  Finally, Section \ref{apps}
+briefly discusses some related material and presents some open
+problems.
+
+\subsection{}
+%
+The theory of automorphic forms is notorious for the difficulty of its
+prerequisites.  Even if one is only interested in the cohomology of
+arithmetic groups---a small part of the full theory---one needs
+considerable background in algebraic groups, algebraic topology, and
+representation theory.  This is somewhat reflected in our
+presentation, which falls far short of being self-contained.  Indeed,
+a complete account would require a long book of its own.  We have
+chosen to sketch the foundational material and to provide many
+pointers to the literature; good general references are
+\cite{borel.wallach, harder.notes, schwermer.article, vogan}.  We hope
+that the energetic reader will follow the references and fill many
+gaps on his/her own.
+
+The choice of topics presented here is heavily influenced (as usual)
+by the author's interests and expertise.  There are many computational
+topics in the cohomology of arithmetic groups we have completely
+omitted, including the trace formula in its many incarnations
+\cite{gross.pollack}, the explicit Jacquet--Langlands correspondence
+\cite{dembele,whitehouse}, and moduli space techniques
+\cite{faber-van.der.geer, van.der.geer}.  We encourage the reader to investigate
+these extremely interesting and useful techniques.
+
+\subsection{Acknowledgements}
+I thank Avner Ash, John Cremona, Mark McConnell, and Dan Yasaki for helpful
+comments.  I also thank the NSF for support.  
+
+\section{Automorphic Forms and Arithmetic Groups}\label{aut.forms}
+%
+%\subsection{Modular forms and cohomology}
+\subsection{}
+%
+Let $\Gamma = \Gamma_{0} (N)\subset \SL_{2} (\Z)$ be the usual Hecke
+congruence subgroup of matrices upper-triangular mod $N$. Let
+$Y_{0} (N)$ be the modular curve $\Gamma \backslash \fh$, and let
+$X_{0} (N)$ be its canonical compactification obtained by adjoining
+cusps.  For any integer $k\geq 2$, let $S_{k} (N)$ be the space of
+weight $k$ holomorphic cuspidal modular forms on $\Gamma$.  According
+to Eichler--Shimura \cite[Chapter 8]{shimura:intro}, we have the isomorphism
+\begin{equation}\label{eq:es}
+H^{1} (X_{0} (N); \C)\riso S_{2} (N)\oplus \overline{S_{2} (N)},
+\end{equation} 
+where the bar denotes complex conjugation and where the isomorphism
+is one of Hecke modules. 
+
+More generally, for any integer $n\geq 0$, let $M_{n}\subset \C [x,y]$
+be the subspace of degree $n$ homogeneous polynomials.  The space
+$M_{n}$ admits a representation of $\Gamma $ by the ``change of
+variables'' map
+\begin{equation}\label{eq:rep}
+\left(\begin{array}{cc}
+a&b\\
+c&d
+\end{array} \right)\cdot p (x,y) = p (dx-by, -cx+ay).
+\end{equation}
+This induces a local system $\widetilde{M}_{n}$ on the curve $X_{0}
+(N)$.\footnote{The classic references for cohomology with local
+systems are \cite[Section~31]{steenrod} and \cite[Ch. V]{eilenberg}.  A more
+recent exposition (in the language of \v Cech cohomology and locally
+constant sheaves) can be found in \cite[II.13]{bott.tu}.  For an
+exposition tailored to our needs, 
+see \cite[Section~2.9]{harder.notes}.}  Then the
+analogue of \eqref{eq:es} for higher-weight modular forms is the
+isomorphism
+\begin{equation}\label{eq:eshw}
+H^{1} (X_{0} (N); \widetilde{M}_{k-2})\riso S_{k} (N)\oplus
+\overline{S_{k} (N)}.  
+\end{equation}
+Note that \eqref{eq:eshw} reduces to \eqref{eq:es} when $k=2$.
+
+Similar considerations apply if we work with the open curve $Y_{0}
+(N)$ instead, except that Eisenstein series also contribute to the
+cohomology.  More precisely, let $\Eis_{k} (N)$ be the space of weight
+$k$ Eisenstein series on $\Gamma_{0} (N)$.  Then \eqref{eq:eshw}
+becomes
+\begin{equation}\label{eq:eseis}
+H^{1} (Y_{0} (N); \widetilde{M}_{k-2})\riso S_{k} (N)\oplus
+\overline{S_{k} (N)}\oplus \Eis_{k} (N).  
+\end{equation}
+These isomorphisms lie at the heart of the modular symbols method.
+
+%\subsection{Modular forms and functions on $\SL_{2}
+%(\R)$}\label{ss:pre.aut.forms}
+\subsection{}\label{ss:pre.aut.forms}
+%
+The first step on the path to general automorphic forms is a
+reinterpretation of modular forms in terms of functions on $\SL_{2}
+(\R)$.  Let $\Gamma \subset \SL_{2}
+(\Z)$ be a congruence subgroup.  A weight $k$ modular form on $\Gamma$
+is a holomorphic function $f\colon \fh \rightarrow \C$ satisfying
+the transformation property
+\[
+f ((az+b)/ (cz+d)) = j (\gamma, z)^{k}f (z), \quad \gamma = \left(\begin{array}{cc}
+a&b\\
+c&d
+\end{array} \right)\in \Gamma, \quad z \in \fh.
+\]  
+Here $j (\gamma , z)$ is the \defn{automorphy factor} $cz+d$.  There
+are some additional conditions $f$ must satisfy at the cusps of $\fh
+$, but these are not so important for our discussion.
+
+The group $G=\SL_{2} (\R)$ acts transitively on $\fh$, with the
+subgroup $K=\SO (2)$ fixing $i$.  Thus $\fh$ can be written as the
+quotient $G/K$.  From this, we see that $f$ can be viewed as a function
+$G\rightarrow \C$ that is \emph{$K$-invariant on the right} and that
+satisfies a certain symmetry condition with respect to the
+\emph{$\Gamma$-action on the left}.  Of course not every $f$ with these
+properties is a modular form: some extra data is needed to take the
+role of holomorphicity and to handle the behavior at the cusps.
+Again, this can be ignored right now.
+
+We can turn this interpretation around as follows.  Suppose
+$\varphi$ is a function $G\rightarrow \C$ that is \defn{$\Gamma
+$-invariant on the left}, that is, $\varphi (\gamma g) = \varphi (g)$
+for all $\gamma \in \Gamma$.  Hence $\varphi$ can be thought of as a
+function $\varphi \colon \Gamma \backslash G\rightarrow \C$.  We
+further suppose that $\varphi$ satisfies a certain symmetry condition
+with respect to the \emph{$K$-action on the right.}  In particular,
+any matrix $m\in K$ can be written 
+\begin{equation}\label{eq:m-theta}
+m = \left(\begin{array}{cc}
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta \\
+\end{array} \right), \quad \theta \in \R ,
+\end{equation}
+with $\theta$ uniquely determined modulo $2\pi$.  Let $\zeta_{m}$ be
+the complex number $e^{i\theta}$.  Then the $K$-symmetry we require is 
+\[
+\varphi (gm) = \zeta_{m}^{-k}\varphi(z), \quad m\in K,
+\]
+where $k$ is some fixed nonnegative integer.
+
+It turns out that such functions $\varphi$ are very closely related to
+modular forms: \emph{any} $f\in S_{k} (\Gamma)$ uniquely determines such a
+function $\varphi_{f} \colon \Gamma \backslash G \rightarrow \C$.  The
+correspondence is very simple.  Given a weight $k$ modular form $f$, define
+\begin{equation}\label{eq:corresp}
+\varphi_{f} (g) := f (g\cdot i)j (g,i)^{-k}.
+\end{equation}
+We claim $\varphi_{f}$ is left $\Gamma$-invariant and satisfies the 
+desired $K$-symmetry on the right.
+Indeed, since $j$ satisfies the
+cocycle property $$j (gh, z) = j (g,h\cdot z)j (h,z),$$ we have 
+\[
+\varphi_{f} (\gamma g) = f
+((\gamma g)\cdot i)j (\gamma g,i)^{-k} = j (\gamma ,g\cdot i)^{k}f (g\cdot
+i)j (\gamma ,g\cdot i)^{-k}j (g,i)^{-k} = \varphi_{f} (g).
+\]
+Moreover, any
+$m\in K$ stabilizes $i$.  Hence 
+\[
+\varphi_{f} (gm) = f ((gm)\cdot i) j
+(gm,i)^{-k} = f (g\cdot i) j (m,i)^{-k}j (g,m\cdot i)^{-k}.
+\]
+From
+\eqref{eq:m-theta} we have $j (m,i)^{-k} = (\cos \theta + i\sin
+\theta)^{-k} = \zeta_{m}^{-k}$, and thus $\varphi_{f} (gm) =
+ \zeta^{-k}_{m}\varphi_{f} (g)$.
+
+Hence in \eqref{eq:corresp} the weight and the automorphy factor
+``untwist'' the $\Gamma$-action to make $\varphi_{f}$ left
+$\Gamma$-invariant.  The upshot is that we can study modular forms by
+studying the spaces of functions that arise through the construction
+\eqref{eq:corresp}.
+
+Of course, not every $\varphi \colon \Gamma \backslash G \rightarrow
+\C$ will arise as $\varphi_{f}$ for some $f\in S_{K} (\Gamma)$: after
+all, $f$ is holomorphic and satisfies rather stringent growth
+conditions.  Pinning down all the requirements is somewhat technical
+and is (mostly) done in the sequel.
+
+%\subsection{Arithmetic groups}\label{ss:a.gps}
+\subsection{}\label{ss:a.gps}
+%
+Before we define automorphic forms, we need to find the correct
+generalizations of our groups $\SL_{2} (\R)$ and $\Gamma_{0} (N)$.
+The correct setup is rather technical, but this really reflects the
+power of the general theory, which handles so many different
+situations (e.g., Maass forms, Hilbert modular forms, Siegel
+modular forms, etc.).
+
+Let $G$ be a connected Lie group, and let $K\subset G$ be a maximal
+compact subgroup.  We assume that $G$ is the set of real points of a
+connected semisimple algebraic group $\bG $ defined over $\Q$.  These
+conditions mean the following \cite[\S2.1.1]{plat.rapin}:
+\begin{enumerate}
+\item The group $\bG$ has the structure of an affine algebraic variety given by an ideal
+$I$ in the ring $R = \C [x_{ij}, D^{-1} ]$, where the variables $\{
+x_{ij} \mid 1\leq i,j\leq n\}$ should be interpreted as the entries of
+an ``indeterminate matrix,'' and $D$ is the polynomial $\det
+(x_{ij})$.  Both the group multiplication $\bG \times \bG \rightarrow \bG$
+ and inversion $\bG \rightarrow \bG$ are required to be morphisms of
+algebraic varieties.
+
+The ring $R$ is the coordinate ring of the algebraic group $\GL_{n}$.
+Hence this condition means that $\bG$ can be essentially viewed as a
+subgroup of $\GL_{n} (\C)$ defined by polynomial equations in the
+matrix entries of the latter.
+\item \defn{Defined over $\Q$} means that $I$ is generated by
+polynomials with rational coefficients.
+\item \defn{Connected} means that $\bG $ is connected as an algebraic variety.
+\item \defn{Set of real points} means that $G$ is the set of real
+solutions to the equations determined by $I$. We write $G = \bG (\R)$.
+\item \defn{Semisimple} means that the maximal connected 
+solvable normal subgroup of $\bG$ is trivial.
+\end{enumerate}
+
+\begin{example}
+The most important example for our purposes is 
+the \defn{split
+form of $\SL_{n}$}.  For this choice we have 
+\[
+\text{$G=\SL_{n} (\R)$ and $K=\SO (n)$.}
+\]
+\end{example}
+
+\begin{example}\label{ex:resofscalars}
+Let $F/\Q$ be a number field.  Then there is a $\Q$-group $\bG$ such
+that $\bG (\Q) = \SL_{n} (F)$.  The group $\bG$ is constructed as
+$\bR_{F/\Q } (\SL_{n})$, where $\bR_{F/\Q }$ denotes the
+\defn{restriction of scalars} from $F$ to $\Q$
+\cite[\S2.1.2]{plat.rapin}.  For example, if $F$ is totally real, the
+group $\bR_{F/\Q} (\SL_{2})$ appears when one studies Hilbert modular
+forms.
+
+Let $(r,s)$ be the signature of the field $F$, so that $F\otimes \R
+\simeq \R^{r}\times \C^s$.  Then $G = \SL_n (\R)^{r} \times \SL_n
+(\C)^{s}$ and $K = \SO (n)^{r}\times \SU(n)^{s}$.
+\end{example}
+
+
+\begin{example}
+Another important example is the \defn{split symplectic group}
+$\SP_{2n}$.  This is the group that arises when one studies Siegel
+modular forms.  The group of real points $\SP_{2n} (\R)$ is the
+subgroup of $\SL_{2n} (\R)$ preserving a fixed nondegenerate
+alternating bilinear form on $\R^{2n}$.  We have $K = \UN (n)$.
+\end{example}
+
+\subsection{}
+%
+To generalize $\Gamma_{0} (N)$, we need the notion of an
+\defn{arithmetic group}.  This is a discrete subgroup $\Gamma$ of the
+group of rational points $\bG (\Q)$ that is commensurable with the set
+of integral points $\bG (\Z)$.  Here commensurable simply means that
+$\Gamma \cap \bG (\Z)$ is a finite index subgroup of both $\Gamma$ and
+$\bG (\Z)$; in particular $\bG (\Z)$ itself is an arithmetic group.
+
+\begin{example}\label{ex:cong.subgp}
+For the split form of $\SL_{n}$ we have $\bG (\Z) = \SL_{n} (\Z)
+\subset \bG (\Q) = \SL_{n} (\Q)$.  A trivial way to obtain other
+arithmetic groups is by conjugation: if $g\in \SL_{n} (\Q)$, then
+$g\cdot \SL_{n} (\Z) \cdot g^{-1}$ is also arithmetic.
+
+A more interesting collection of examples is given by the congruence
+subgroups.  The \defn{principal congruence subgroup} $\Gamma (N)$ is
+the group of matrices congruent to the identity modulo $N$ for some
+fixed integer $N\geq 1$.  A \defn{congruence subgroup} is a group
+containing $\Gamma (N)$ for some $N$.
+
+In higher dimensions there are many candidates to generalize the Hecke
+subgroup $\Gamma_{0} (N)$.  For example, one can take the
+subgroup of $\SL_{n} (\Z)$ that is upper-triangular mod $N$.  From
+a computational perspective, this choice is not so good since its
+index in $\SL_{n} (\Z)$ is large.  A better choice, and the one that
+usually appears in the literature, is to define $\Gamma_{0} (N)$ to be
+the subgroup of $\SL_{n} (\Z)$ with bottom row congruent to $(0,\dotsc
+,0,*) \mod N$.
+\end{example}
+
+%\subsection{Automorphic forms}\label{ss:aut.forms} We are finally
+\subsection{}\label{ss:aut.forms} 
+%
+We are almost ready to define automorphic forms.  Let $\fg$ be the Lie
+algebra of $G$, and let $U (\fg)$ be its universal enveloping algebra
+over $\C$.  Geometrically, $\fg$ is just the tangent space at the
+identity of the smooth manifold $G$.  The algebra $U (\fg)$ is a
+certain complex associative algebra canonically built from $\fg$.  The
+usual definition would lead us a bit far afield, so we will settle for an
+equivalent characterization: $U (\fg)$ can be realized as a certain
+subalgebra of the ring of differential operators on $C^{\infty} (G)$,
+the space of smooth functions on $G$.
+
+In particular, $G$ acts on $C^{\infty} (G)$ by \defn{left
+translations}: given $g\in G$ and $f\in C^{\infty} (G)$, we define
+\[
+L_{g} (f) (x) := f (g^{-1}x).
+\]
+Then $U (\fg)$ can be identified with the ring of all differential
+operators on $C^{\infty} (G)$ that are invariant under left
+translation.  For our purposes the most important part of $U (\fg)$ is
+its center $Z (\fg)$.  In
+terms of differential operators, $Z (\fg)$ consists of those operators
+that are also invariant under \defn{right translation}:
+\[
+R_{g} (f) (x) := f (xg).
+\]
+
+\begin{definition}\label{def:autform}
+An \defn{automorphic form} on $G$ with
+respect to $\Gamma$ is a function $\varphi \colon G\rightarrow \C$ satisfying
+\begin{enumerate}
+\item $\varphi (\gamma g) = \varphi (g)$ for all $\gamma \in \Gamma $,
+\item the right translates $\{\varphi  (gk)\mid k\in K \}$ span a finite-dimensional
+space $\xi$ of functions,\label{ktype}
+\item there exists an ideal $J\subset Z (\fg)$ of finite codimension
+such that $J$ annihilates $\varphi $, and 
+\item $\varphi $ satisfies a certain growth condition that we do not
+wish to make precise.  (In the literature, $\varphi $ is said to be
+\defn{slowly increasing}.)
+\end{enumerate}
+\end{definition}
+
+For fixed $\xi$ and $J$, we denote by $\sA(\Gamma ,\xi ,J,K)$ the
+space of all functions
+satisfying the above four conditions.  It is a basic theorem, due to
+Harish-Chandra \cite{harish-chandra}, that $\sA(\Gamma ,\xi ,J,K)$ is
+finite-dimensional.
+
+\begin{example}\label{ex:holo.aut}
+We can identify the cuspidal modular forms $S_{k} (N)$ in the language
+of Definition \ref{def:autform}.  Given a modular form $f$, let
+$\varphi_{f}\in C^{\infty} (\SL_{2} (\R))$ be the function from  
+\eqref{eq:corresp}.  Then the map $f\mapsto \varphi_{f}$ identifies
+$S_{k} (N)$ with the subspace $\sA_{k} (N)$ of functions $\varphi$ satisfying
+\begin{enumerate}
+\item $\varphi (\gamma g) = \varphi (g)$ for all $\gamma \in \Gamma_{0} (N)$,
+\item $\varphi (gm) = \zeta_{m}^{-k}\varphi (g)$ for all $m\in \SO (2)$,
+\item $(\Delta +\lambda_{k})\varphi = 0$, where $\Delta \in Z (\fg)$
+is the \defn{Laplace--Beltrami--Casimir operator} and 
+\[
+\lambda_{k} = \frac{k}{2}\left(\frac{k}{2}-1 \right),
+\]
+\item $\varphi$ is slowly increasing, and 
+\item $\varphi$ is \defn{cuspidal}.
+\end{enumerate}
+
+% the casimir operator is
+% h^{2}/2 - h + 2ef
+% it should be the same .. .. check it
+
+The first four conditions parallel Definition \ref{def:autform}.  Item (1) is the
+$\Gamma$-invariance.  Item (2) implies that the right translates of
+$\varphi$ by $\SO (2)$ lie in a fixed finite-dimensional
+representation of $\SO (2)$.  Item (3) is how holomorphicity appears,
+namely that $\varphi$ is killed by a certain differential operator.
+Finally, item (4) is the usual growth condition.
+
+The only condition missing from the general
+definition is (5), which is an extra constraint placed on $\varphi$ to
+ensure that it comes from a cusp form.  This condition can be
+expressed by the vanishing of certain integrals (``constant terms'');
+for details we refer to \cite{bump.autforms, gelbart}.
+\end{example}
+
+\begin{example}
+Another important example appears when we set $k=0$ in (2) in Example
+\ref{ex:holo.aut} and relax (3) by requiring only that $(\Delta
+-\lambda)\varphi =0$ for \emph{some} nonzero $\lambda \in \R$.  Such
+automorphic forms cannot possibly arise from modular forms, since
+there are no nontrivial cusp forms of weight 0.  However, there are
+plenty of solutions to these conditions: they correspond to
+\defn{real-analytic} cuspidal modular forms of weight 0 and
+are known as \defn{Maass forms}.  Traditionally one writes $\lambda =
+(1-s^{2})/4$.  The positivity of $\Delta$ implies that $s\in
+(-1,1)$ or is purely imaginary.
+
+Maass forms are highly elusive objects.  Selberg proved that there are
+infinitely many linearly independent Maass forms of full level
+(i.e., on $\SL_{2} (\Z)$), but to this date no explicit construction of
+a single one is known.  (Selberg's argument is indirect and relies on
+the trace formula; for an exposition see \cite{sarnak}.)  For higher
+levels some explicit examples can be constructed using theta series
+attached to indefinite quadratic forms \cite{vigneras}.  Numerically
+Maass forms have been well studied; see for example \cite{farmer}.
+
+In general the arithmetic nature of the eigenvalues
+$\lambda$ that correspond to Maass forms is unknown, although a famous
+conjecture of Selberg states that for congruence subgroups they
+satisfy the inequality $\lambda \geq 1/4$ (in other words, only purely
+imaginary $s$ appear above).  The truth of this
+conjecture would have far-reaching consequences, from analytic number
+theory to graph theory \cite{lubotzky}.
+\end{example}
+
+\subsection{}\label{ss:cusp.eis}
+As Example \ref{ex:holo.aut} indicates, there is a notion of \defn{cuspidal
+automorphic form}.  The exact definition is too technical to state
+here, but it involves an appropriate generalization of the notion of
+constant term familiar from modular forms.
+
+There are also \defn{Eisenstein series} \cite{langlands.e.s,
+arthur.e.s}.  Again the complete definition is technical; we only
+mention that there are different types of Eisenstein series
+corresponding to certain subgroups of $G$.  The Eisenstein series that
+are easiest to understand are those built from cusp forms on lower
+rank groups.  Very explicit formulas for Eisenstein series on
+$\GL_{3}$ can be seen in \cite{bump.gl3}.  For a down-to-earth
+exposition of some of the Eisenstein series on $\GL_{n}$, we refer to
+\cite{goldfeld}.
+
+The decomposition of $M_{k} (\Gamma_{0} (N))$ into cusp forms and
+Eisenstein series also generalizes to a general group $G$, although
+the statement is much more complicated.  The result is a theorem of
+Langlands \cite{langlands} known as the {\em spectral decomposition
+of $L^{2} (\Gamma \backslash G)$}.  A thorough recent presentation of
+this can be found in \cite{mw}.
+
+%\subsection{Cohomology of arithmetic groups}\label{ss:coho}
+\subsection{}\label{ss:coho}
+%
+Let $\sA = \sA (\Gamma ,K)$ be the space of all automorphic forms,
+where $\xi$ and $J$ range over all possibilities.  The space $\sA$ is
+huge, and the arithmetic significance of much of it is unknown.  This
+is already apparent for $G=\SL_{2} (\R)$.  The automorphic forms
+directly connected with arithmetic are the holomorphic modular forms,
+not the Maass forms\footnote{However, Maass forms play a very
+important \emph{indirect} role in arithmetic.}. Thus the question
+arises: which automorphic forms in $\sA$ are the most natural
+generalization of the modular forms?
+
+One answer is provided by the isomorphisms \eqref{eq:es},
+\eqref{eq:eshw}, \eqref{eq:eseis}.  These show that modular forms
+appear naturally in the cohomology of modular curves.  Hence a
+reasonable approach is to generalize the \emph{left} of \eqref{eq:es},
+\eqref{eq:eshw}, \eqref{eq:eseis}, and to study the resulting
+cohomology groups.  This is the approach we will take.  One drawback
+is that it is not obvious that our generalization has anything to do
+with automorphic forms, but we will see eventually that it certainly
+does.  So we begin by looking for an appropriate generalization of the
+modular curve $Y_{0} (N)$.
+
+Let $G$ and $K$ be as in Section~\ref{ss:a.gps}, and let $X$ be the quotient
+$G/K$.  This is a global Riemannian symmetric space \cite{helgason}.  One can prove
+that $X$ is contractible.  Any arithmetic group $\Gamma\subset G$ acts
+on $X$ properly discontinuously.  In particular, if $\Gamma$ is
+torsion-free, then the quotient $\Gamma \backslash X$ is a smooth
+manifold.
+
+Unlike the modular curves, $\Gamma \backslash X$ will not have a
+complex structure in general\footnote{The symmetric spaces that have
+a complex structure are known as \defn{bounded domains}, or
+\defn{Hermitian symmetric spaces} \cite{helgason}.}; nevertheless,
+$\Gamma \backslash X$ is a very nice space.  In particular, if
+$\Gamma$ is torsion-free, it is an \defn{Eilenberg--Mac~Lane} space for
+$\Gamma$, otherwise known as a $K (\Gamma , 1)$.  This means that the
+only nontrivial homotopy group of $\Gamma \backslash X$ is its
+fundamental group, which is isomorphic to $\Gamma$, and that the
+universal cover of $\Gamma \backslash X$ is contractible.  Hence
+$\Gamma \backslash X$ is in some sense a ``topological 
+incarnation''\footnote{This apt phrase is due to Vogan \cite{vogan}.}
+of~$\Gamma$.
+
+This leads us to the notion of the \defn{group cohomology} $H^{*}
+(\Gamma ; \C)$ of $\Gamma$ with trivial complex coefficients.  In the
+early days of algebraic topology, this was defined to be the complex
+cohomology of an Eilenberg--Mac~Lane space for $\Gamma$
+\cite[Introduction, I.4]{brown}:
+\begin{equation}\label{eq:coho.iso}
+H^{*} (\Gamma ;\C) = H^{*} (\Gamma \backslash X; \C).
+\end{equation}
+Today there are purely algebraic approaches to $H^{*} (\Gamma ;\C)$
+\cite[III.1]{brown}, but for our purposes \eqref{eq:coho.iso} is
+exactly what we need.  In fact, the group cohomology $H^{*} (\Gamma ;
+\C)$ can be identified with the cohomology of the quotient $\Gamma
+\backslash X$ even if $\Gamma$ has torsion, since we are working with
+complex coefficients.  The cohomology groups $H^{*} (\Gamma ; \C)$,
+where $\Gamma$ is an arithmetic group, are our proposed generalization
+for the weight 2 modular forms.
+
+What about higher weights?  For this we must replace the trivial
+coefficient module $\C$ with local systems, just as we did in
+\eqref{eq:eshw}.  For our purposes it is enough to let $\MMM$ be a
+rational finite-dimensional representation of $G$ over the complex
+numbers.  Any such $\MMM$ gives a representation of $\Gamma \subset
+G$ and thus induces a local system $\widetilde{\MMM}$ on $\Gamma
+\backslash X$.  As before, the group cohomology $H^{*} (\Gamma ;
+\MMM)$ is the cohomology $H^{*} (\Gamma\backslash X;
+\widetilde{\MMM})$.  In \eqref{eq:eshw} we took $\MMM =M_{n}$, the
+$n$th symmetric power of the standard representation.  For a general
+group $G$ there are many kinds of representations to consider.  In any
+case, we contend that the cohomology spaces
+\[
+H^{*} (\Gamma ; \MMM) =  H^{*}(\Gamma \backslash X; \widetilde{\MMM}) 
+\]
+are a good generalization of the spaces of modular forms.
+
+\subsection{}\label{ss:franke}
+%
+It is certainly not obvious that the cohomology groups $H^{*} (\Gamma
+; \MMM)$ have \emph{anything} to do with automorphic forms, although
+the isomorphisms \eqref{eq:es}, \eqref{eq:eshw}, \eqref{eq:eseis} look
+promising.  
+
+The connection is provided by a deep theorem of Franke \cite{franke},
+which asserts
+that
+\begin{enumerate}
+\item the cohomology groups $H^{*} (\Gamma ; \MMM)$ can be directly
+computed in terms of certain automorphic forms (the automorphic forms
+of ``cohomological type,'' also known as those with ``nonvanishing
+$(\fg , K)$ cohomology'' \cite{vog.zuck}); and \label{bc}
+\item there is a direct sum decomposition 
+\begin{equation}\label{franke.decomp}
+H^{*} (\Gamma ; \MMM) = H^{*}_{\text{cusp}} (\Gamma ;
+\MMM)\oplus\bigoplus_{\{P \}}H^{*}_{\{P \}} (\Gamma ; \MMM),
+\end{equation}
+where the sum is taken over the set of classes of \defn{associate proper
+$\Q$-parabolic subgroups of $G$}. \label{ld}
+\end{enumerate}
+The precise version of statement \eqref{bc} is known in the literature
+as the \defn{Borel conjecture}.  Statement \eqref{ld} parallels
+Langlands's spectral decomposition of $L^{2} (\Gamma \backslash G)$.
+
+\begin{example}
+For $\Gamma = \Gamma_{0} (N)\subset \SL_{2} (\Z)$, the decomposition
+\eqref{franke.decomp} is exactly \eqref{eq:eseis}.  The cusp forms
+$S_{k} (N)\oplus \overline{S_{k} (N)}$ correspond to the summand
+$H^{1}_{\text{cusp}} (\Gamma ; \MMM)$.  There is one class of proper
+$\Q$-parabolic subgroups in $\SL_{2} (\R)$, represented by the Borel subgroup
+of upper-triangular matrices.  Hence only one term appears in big
+direct sum on the right of \eqref{franke.decomp}, which is the
+Eisenstein term
+$\Eis_{k}$.
+%For general $G$,  \eqref{franke.decomp}
+%parallels the Hence for these $\MMM$ the cohomology $H^{*} (\Gamma ;
+%\MMM)$ can be completely described in terms of automorphic forms.
+\end{example}
+
+
+The summand $H^{*}_{\text{cusp}} (\Gamma ; \MMM)$ of
+\eqref{franke.decomp} is called the \defn{cuspidal cohomology}; this
+is the subspace of classes represented by cuspidal automorphic forms.
+The remaining summands constitute the \defn{Eisenstein cohomology} of
+$\Gamma$ \cite{harder.icm}.  In particular the summand indexed by $\{P \}$ is
+constructed using Eisenstein series attached to certain cuspidal
+automorphic forms on lower rank groups.  Hence $H^{*}_{\text{cusp}}
+(\Gamma ; \MMM)$ is in some sense the most important part of the
+cohomology: all the rest can be built systematically from cuspidal
+cohomology on lower rank groups\footnote{This is a bit of an
+oversimplification, since it is a highly nontrivial problem to decide
+when cusp cohomology from lower rank groups appears in $\Gamma$.
+However, many results are known; as a selection we mention
+\cite{harder.icm, harder.gl2, li.schwermer}}. This leads us to our
+basic computational problem:
+
+\begin{problem}
+Develop tools to compute explicitly the cohomology spaces $H^{*}
+(\Gamma ; \MMM)$ and to identify the cuspidal
+subspace $H^{*}_{\text{cusp}} (\Gamma ; {\MMM})$. 
+\end{problem}
+
+%%%%%%%%%%%%%
+%           %
+%  retract  %
+%           %
+%%%%%%%%%%%%%
+
+\section{Combinatorial Models for Group Cohomolo\-gy}\label{comb.models}
+%
+\subsection{}
+%
+In this section, we restrict attention to $G=\SL_{n} (\R)$ and
+$\Gamma$, a congruence subgroup of $\SL_{n} (\Z)$.  By the previous
+section, we can study the group cohomology $H^{*} (\Gamma ; \MMM)$ by
+studying the cohomology $H^{*} (\Gamma \backslash X;
+\widetilde{\MMM})$.  The latter spaces can be studied using standard
+topological techniques, such as taking the cohomology of complexes
+associated to cellular decompositions of $\Gamma \backslash X$.  For
+$\SL_{n} (\R ) $, one can construct such decompositions using a
+version of explicit reduction theory of real positive-definite
+quadratic forms due to \Vor\ \cite{vor1}.  The goal of this section is
+to explain how this is done.  We also discuss how the cohomology can
+be explicitly studied for congruence subgroups of $\SL_{3} (\Z)$.
+
+%\subsection{A linear model for the symmetric
+%space}\label{vcd.section}
+\subsection{}\label{vcd.section}
+%
+Let $V$ be the $\R $-vector space of all symmetric $n\times n$
+matrices, and let $C\subset V$ be the subset of positive-definite
+matrices.  The space $C$ can be identified with the space of all real
+positive-definite quadratic forms in $n$ variables: in coordinates, if $x=
+(x_{1},\dotsc ,x_{n})^{t}\in \R^{n}$ (column vector), then the matrix
+$A\in C$ induces the 
+quadratic form  
+\[
+x \longmapsto x^{t}Ax,
+\]
+and it is well known that any positive-definite quadratic form arises
+in this way.  The space $C$ is a cone, in that it is preserved by
+homotheties: if $x\in C$, then $\lambda x\in C$ for all $\lambda \in
+\R_{>0}$.  It is also convex: if $x_{1}, x_{2}\in C$, then $tx_{1}+
+(1-t)x_{2}\in C$ for $t\in [0,1]$.  Let $D$ be the quotient of $C$ by
+homotheties.
+
+\begin{example}
+The case $n=2$ is illustrative.  We can take
+coordinates on $V \simeq \R^{3}$ by representing any matrix in $V$ as 
+\[
+\left(\begin{array}{cc}
+x&y\\
+y&z
+\end{array} \right), \quad x,y,z\in \R.  
+\] 
+The subset of singular matrices $Q = \{xz-y^{2}=0 \}$ is a quadric
+cone in $V$ dividing the complement $V\smallsetminus Q$ into three
+connected components.  The component containing the identity matrix is
+the cone $C$ of positive-definite matrices. The quotient $D$ can be
+identified with an open $2$-disk.
+\end{example}
+
+The group $G$ acts on $C$ on the left by
+\[
+(g,c)\longmapsto gcg^{t}.
+\]
+This action commutes with that of the homotheties and thus
+descends to a $G$-action on $D$.  One can show that $G$ acts transitively
+on $D$ and that the stabilizer of the image of the identity matrix is
+$K=\SO (n)$.  Hence we may identify $D$ with our symmetric space $X =
+\SL_{n} (\R )/\SO (n)$.  We will do this in the sequel, using the
+notation $D$ when we want to emphasize the coordinates coming from the
+linear structure of $C\subset V$ and using the notation $X$ for the
+quotient $G/K$.
+
+We can make the identification $D\simeq X$ more explicit.  If $g\in
+\SL_{n} (\R)$, then the map 
+\begin{equation}\label{chmap}
+g \longmapsto gg^{t}
+\end{equation}
+takes $g$ to a symmetric positive-definite matrix.  Any coset $gK$ is
+taken to the same matrix since $KK^{t} = \Id$.  Thus \eqref{chmap}
+identifies $G/K$ with a subset $C_{1}$ of $C$, namely those
+positive-definite symmetric matrices with determinant $1$.  It is
+easy to see that $C_{1}$ maps diffeomorphically onto $D$.  
+
+The inverse map $C_{1}\rightarrow G/K$ is more complicated. Given a
+determinant $1$ positive-definite symmetric matrix $A$, one must find
+$g\in \SL_{n} (\R)$ such that $gg^{t}=A$.  Such a representation
+always exists, with $g$ determined uniquely up to right multiplication
+by an element of $K$.  In computational linear algebra, such a $g$ can
+be constructed through \defn{Cholesky decomposition} of $A$.
+
+The group $\SL_{n} (\Z )$ acts on $C$ via the $G$-action and does so
+properly discontinuously.  This is the ``unimodular change of
+variables'' action on quadratic forms \cite[V.1.1]{serre:arithmetic}.
+Under our identification of $D$ with $X$, this is the usual action of
+$\SL_{n} (\Z)$ by left translation from Section~\ref{ss:coho}.
+
+\subsection{}\label{ss:vcd}
+%
+Now consider the group cohomology $H^{*} (\Gamma ; \MMM) = H^{*}
+(\Gamma \backslash X; \widetilde{\MMM})$.  The identification $D\simeq
+X$ shows that the dimension of $X$ is $n (n+1)/2 - 1$.  Hence $H^{i}
+(\Gamma ; \MMM)$ vanishes if $i > n (n+1)/2 - 1$.  Since $\dim X$
+grows quadratically in $n$, there are many potentially interesting
+cohomology groups to study.
+
+However, it turns out that there is some additional vanishing of the
+cohomology for deeper (topological) reasons.  For $n=2$, this is easy
+to see.  The quotient $\Gamma \backslash \fh$ is homeomorphic to a
+topological surface with punctures, corresponding to the cusps of
+$\Gamma$.  Any such surface $S$ can be retracted onto a finite graph
+simply by ``stretching'' $S$ along its punctures.  Thus $H^{2} (\Gamma
+; \MMM) = 0$, even though $\dim \Gamma \backslash \fh = 2$.
+
+For $\Gamma \subset \SL_{n} (\Z )$, a theorem of Borel--Serre implies
+that $H^{i} (\Gamma ;{\MMM})$ vanishes if $i> \dim X -n+1 = n(n-1)/2$
+\cite[Theorem 11.4.4]{borel.serre}.  The number $\nu = n (n-1)/2$ is
+called the \defn{virtual cohomological dimension} of $\Gamma $ and is
+denoted $\vcd \Gamma$.  Thus we only need to consider cohomology in
+degrees $i\leq \nu$.
+
+Moreover we know from Section~\ref{ss:franke} that the most interesting part
+of the cohomology is the cuspidal cohomology.  In what degrees can it
+live?  For $n=2$, there is only one interesting cohomology group
+$H^{1} (\Gamma ; \MMM)$, and it contains the cuspidal cohomology.  For
+higher dimensions, the situation is quite different: for most $i$, the
+subspace $H^{i}_{\text{cusp}} (\Gamma ; \MMM)$ vanishes!  In fact in
+the late 1970's Borel, Wallach, and Zuckerman observed that the cuspidal
+cohomology can only live in the cohomological degrees lying in an
+interval around $(\dim X)/2$ of size linear in $n$.  An explicit
+description of this interval is given in \cite[Proposition
+3.5]{schwermer}; one can also look at Table \ref{dimtable}, from which
+the precise statement is easy to determine.
+
+Another feature of Table \ref{dimtable} deserves to be mentioned.
+There are exactly two values of $n$, namely $n=2, 3$, such that
+virtual cohomological dimension equals the upper limit of the cuspidal
+range.  This will have implications later, when we study the action of
+the Hecke operators on the cohomology.
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{c||c|c|c|c|c|c|c|c}
+$n$&2&3&4&5&6&7&8&9\cr
+\hline
+\hline
+$\dim X$&2 & 5 & 9 & 14 & 20 & 27 & 35 & 44 \cr
+$\vcd \Gamma $ & 1 & 3 & 6 & 10 & 15 & 21 & 28 & 36\cr
+top degree of $H^{*}_{\text{cusp}} $& 1 & 3 & 5 & 8 & 11 & 15 & 19& 24 \cr
+bottom degree of $H^{*}_{\text{cusp}} $& 1 & 2 & 4 & 6 & 9 & 12 & 16 & 20 \cr
+\end{tabular}
+\end{center}
+\medskip
+\caption{The virtual cohomological dimension and the cuspidal range
+for subgroups of $\SL_{n}(\Z)$.\label{dimtable}}
+\end{table}
+
+%\subsection{The \Vor\  polyhedron}\label{vor.poly.section}
+\subsection{}\label{vor.poly.section}
+%
+Recall that a point in $\Z ^{n}$ is said to be \defn{primitive} if the
+greatest common divisor of its coordinates is $1$.  In particular, a
+primitive point is nonzero.  Let $\PPP\subset \Z ^{n}$ be the set of
+primitive points.  Any $v\in \PPP$, written as a column vector,
+determines a rank-$1$ symmetric matrix $q (v)$ in the closure $\bar C$
+via $q ( v) = vv^{t}$.  The \defn{\Vor \ polyhedron} $\Pi $ is defined
+to be the closed convex hull in $\bar C$ of the points $q (v)$, as $v$
+ranges over $\PPP$.  Note that by construction, $\SL_{n} (\Z )$ acts
+on $\Pi $, since $\SL_{n} (\Z)$ preserves the set $\{q (v) \}$ and
+acts linearly on $V$.
+
+\begin{example}\label{ex:vor.poly}
+Figure \ref{tessfig} represents a crude attempt to show what $\Pi$
+looks like for $n=2$.  These images were constructed by computing a
+large subset of the points $q (v)$ and taking the convex hull (we took
+all points $v\in \PPP$ such that $\Trace q (v) < N$ for some large
+integer $N$).  From a distance, the polyhedron $\Pi$ looks almost
+indistinguishable from the cone $C$; this is somewhat conveyed by the
+right of Figure \ref{tessfig}.  Unfortunately $\Pi$ is not locally
+finite, so we really cannot produce an accurate picture.  To get a more
+accurate image, the reader should imagine that each vertex meets
+infinitely many edges.  On the other hand, $\Pi$ is not hopelessly
+complex: each maximal face is a triangle, as the pictures suggest.
+
+
+\begin{figure}[htb] \centering
+\subfigure[\label{fig.origin}]{\includegraphics[scale=0.2]{diagrams/tess1}}
+\quad\quad
+\subfigure[\label{fig.side}]{\includegraphics[scale=0.2]{diagrams/tess2}}
+\caption{\label{tessfig}The polyhedron $\Pi$ for $\SL_{2} (\Z)$.  In~(a) we see $\Pi$ from the origin, in~(b) from
+the side.  The small triangle at the right center of~(a) is the
+facet with vertices $\{q (e_{1}), q (e_{2}), q (e_{1}+e_{2}) \}$,
+where $\{e_{1},e_{2}\}$ is the standard basis of $\Z^{2}$.  In~(b) the $x$-axis runs along the top from left to right, and
+the $z$-axis runs down the left side.  The facet from~(a) is the little triangle at the top left corner of~(b).}
+\end{figure}
+\end{example}
+
+
+\subsection{}
+%
+The polyhedron $\Pi$ is quite complicated: it has infinitely many
+faces and is not locally finite.  However, one of \Vor 's great
+insights is that $\Pi$ is actually not as complicated as it seems.
+
+For any $A\in C$, let $\mu (A)$ be the minimum value attained by $A$
+on $\PPP$ and let $M (A)\subset \PPP$ be the set on which $A$ attains
+$\mu (A)$.  Note that $\mu (A)> 0 $ and $M (A)$ is finite since $A$ is
+positive-definite.  Then $A$ is called \defn{perfect} if it is
+recoverable from the knowledge of the pair $(\mu (A), M (A) )$.  In
+other words, given $(\mu (A), M (A) )$, we can write a system of
+linear equations
+\begin{equation}\label{system}
+mZm^{t} = \mu (A), \quad m\in M (A),
+\end{equation}
+where $Z = (z_{ij})$ is a symmetric matrix of variables.  Then $A$ is
+perfect if and only if $A$ is the unique solution to the system
+\eqref{system}. 
+
+\begin{example}\label{ex:A2}
+The quadratic form $Q (x,y) =  x^{2}-xy+y^{2}$ is perfect.  The smallest
+nontrivial value
+it attains on $\Z^{2}$ is $\mu (Q) = 1$, and it does so on the columns of 
+\[
+M (Q) =\left(\begin{array}{ccc}
+1&0&1\\
+0&1&1
+\end{array} \right)
+\]   
+and their negatives.   Letting $\alpha x^{2}+\beta xy + \gamma
+y^{2}$ be an undetermined quadratic form and applying the data $(\mu
+(Q), M (Q))$, we are led to the system of linear equations 
+\[
+\alpha =1, \quad \gamma =1, \quad \alpha +\beta +\gamma =1.
+\]
+From this we recover $Q (x,y)$.
+\end{example}
+
+\begin{example}\label{ex:cubicform}
+The quadratic form $Q' (x,y) = x^{2}+y^{2}$ is not perfect.  Again the
+smallest nontrivial value of $Q'$ on $\Z^{2}$ is $m (Q')= 1$, attained on the
+columns of 
+\[
+M (Q')=\left (\begin{array}{cc}
+1&0\\
+0&1
+\end{array}\right)
+\]
+and their negatives.  But every member of the one-parameter family of quadratic forms 
+\begin{equation}\label{}
+x^{2}+\alpha xy+y^{2}, \quad \alpha \in (-1,1)
+\end{equation}
+has the same
+set of minimal vectors, and so $Q'$ cannot be recovered from the
+knowledge of $m (Q'), M (Q')$.
+\end{example}
+
+\begin{example}\label{ex:An}
+Example \ref{ex:A2} generalizes to all $n$.  Define
+\begin{equation}\label{anform}
+A_{n} (x) := \sum_{i=1}^{n}x_{i}^{2} - \sum_{1\leq i<j\leq n} x_{i}x_{j}.
+\end{equation}
+Then $A_{n}$ is perfect for all $n$.  We have $\mu
+(A_{n})=1$, and $M (A_{n})$ consists of all points of the form
+\[
+\pm (e_{i}+e_{i+1}+\dotsb + e_{i+k}), \quad 1\leq i\leq n, \quad i\leq i+k\leq n,
+\]
+where $\{e_{i} \}$ is the standard basis of $\Z^{n}$.  This quadratic
+form is closely related to the $A_{n}$ root lattice
+\cite{fulton.harris}, which explains its name.  It is one of two
+infinite families of perfect forms studied by \Vor (the other is
+related to the $D_{n}$ root lattice).
+\end{example}
+
+We can now summarize \Vor 's main results:
+\begin{enumerate}
+\item There are finitely many equivalence classes of perfect forms
+modulo the action of $\SL_{n} (\Z)$.  \Vor \ even gave an explicit
+algorithm to determine all the perfect forms of a given dimension.
+\item \label{item:minvec} The facets of $\Pi$, in other words the
+codimension $1$ faces, are in bijection with the rank $n$ perfect
+quadratic forms.  Under this correspondence the minimal vectors $M
+(A)$ determine a facet $F_{A}$ by taking the convex hull in $\bar C$
+of the finite point set $\{q (m)\mid m\in M (A) \}$.  Hence there are
+finitely many faces of $\Pi$ modulo $\SL_{n} (\Z)$ and thus finitely
+many modulo any finite index subgroup $\Gamma$.
+\item Let $\V$ be the set of cones over the faces of $\Pi $.  Then $\V$
+is a \defn{fan}, which means (i) if $\sigma \in \V$, then any face of
+$\sigma$ is also in $\V$; and (ii) if $\sigma ,\sigma '\in \V$, then
+$\sigma \cap \sigma '$ is a common face of each\footnote{Strictly
+speaking, \Vor \ actually showed that every codimension 1 cone is
+contained in two top-dimensional cones.}.  The fan $\V$ provides a
+reduction theory for $C$ in the following sense: any point $x\in C$ is
+contained in a unique $\sigma (x) \in \V$, and the set $\{\gamma \in
+\SL _{n} (\Z ) \mid \gamma \cdot \sigma (x) = \sigma (x) \}$ is
+finite.  \Vor\ also gave an explicit algorithm to determine $\sigma
+(x)$ given $x$, the \defn{\Vor \ reduction algorithm}.
+\end{enumerate}
+
+The number $N_{\text{perf}}$ of equivalence classes of perfect forms modulo the
+action of $\GL_{n}(\Z)$ grows rapidly with
+$n$ (Table \ref{vortable}); the complete classification is known
+only for $n\leq 8$.  For a list of perfect forms up to $n = 7$, see
+\cite{cs}.  For a recent comprehensive treatment of perfect forms,
+with many historical remarks, see
+\cite{martinet}.
+
+%\begin{table}[htb]
+%\begin{center}
+%\begin{tabular}{c|ccccccc}
+%$n$&2&3&4&5&6&7&8\\
+%\hline
+%$N$&1&1&2&3&?&33&10916\\
+%\end{tabular}
+%\end{center}
+%\medskip
+%\caption{\label{vortable}}
+%\end{table}
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{c|c|c}
+Dimension&$N_{\text{perf}}$&Authors\\
+\hline
+\hline
+$2$&$1$&\Vor \cite{vor1}\\
+$3$&$1$& \emph{ibid.}\\
+$4$&$2$& \emph{ibid.}\\
+$5$&$3$& \emph{ibid.}\\
+$6$&$7$&Barnes \cite{barnes}\\
+$7$&$33$&Jaquet-Chiffelle \cite{jaquet, jaquet-chif}\\
+$8$&$10916$&Dutour--Sch\"urmann--Vallentin \cite{dutour}\\
+\end{tabular}
+\end{center}
+\medskip
+\caption{The number $N_{\text{perf}}$ of equivalence 
+classes of perfect forms.\label{vortable}}
+\end{table}
+
+
+%\subsection{Cellular decompositions and the well-rounded
+%retract}\label{wrr.section}
+\subsection{}\label{wrr.section}
+%
+Our goal now is to describe how the \Vor \
+fan $\V$ can be used to compute the cohomology $H^{*} (\Gamma ;
+\MMM)$.  The idea is to use the cones in $\V$ to chop the quotient $D
+$ into pieces.  
+
+For any $\sigma \in \V$, let $\sigma^{\circ}$ be the open cone
+obtained by taking the complement in $\sigma$ of its proper faces.
+Then after taking the quotient by homotheties, the cones $\{\sigma^{\circ }
+\cap C \mid \sigma \in \V \}$ pass to locally closed subsets of $D$.
+Let $\sC$ be the set of these images.
+
+Any $c\in \sC$ is a \defn{topological cell}, i.e., it is homeomorphic to
+an open ball, since $c$ is homeomorphic to a face of $\Pi$.  Because
+$\sC$ comes from the fan $\V$, the cells in $\sC$ have good incidence
+properties: the closure in $D$ of any $c\in \sC$ can be written as a
+finite disjoint union of elements of $\sC$.  Moreover, $\sC$ is
+locally finite: by taking quotients of all the $\sigma^{\circ }$
+meeting $C$, we have eliminated the open cones lying in $\bar C$, and
+it is these cones that are responsible for the failure of local
+finiteness of $\V$.  We summarize these properties by saying that
+$\sC$ gives a \defn{cellular decomposition} of $D$.  Clearly $\SL_{n}
+(\Z)$ acts on $\sC$, since $\sC$ is constructed using the fan $\V$.
+Thus we obtain a cellular decomposition\footnote{If $\Gamma$ has torsion, then
+cells in $\sC$ can have nontrivial stabilizers in $\Gamma$, and thus
+$\Gamma \backslash \sC$ should be considered as an ``orbifold''
+cellular decomposition.} of $\Gamma \backslash D $ for
+any torsion-free $\Gamma$.  We call $\sC$ the \defn{\Vor \
+decomposition} of $D$.
+
+Some care must be taken in using these cells to perform topological
+computations.  The problem is that even though the individual pieces
+are homeomorphic to balls and are glued together nicely, the
+boundaries of the closures of the pieces are not homeomorphic to
+spheres in general.  (If they were, then the \Vor \ decomposition
+would give rise to a \defn{regular} cell complex \cite{cooke.finney},
+which can be used as a substitute for a simplicial or CW complex in
+homology computations.)  Nevertheless, there is a way to remedy this.
+
+Recall that a subspace $A$ of a topological space $B$ is a
+\defn{strong deformation retract} if there is a continuous map
+$f\colon B\times [0,1]\rightarrow B$ such that $f (b,0)=b$, $f
+(b,1)\in A$, and $f (a,t) = a$ for all $a\in A$.  For such pairs
+$A\subset B$ we have $H^{*} (A) = H^{*} (B)$.  One can show that there
+is a strong deformation retraction from $C$ to itself equivariant
+under the actions of both $\SL_n(\Z)$ and the homotheties and that
+the image of the retraction modulo homotheties, denoted $W$, is
+naturally a locally finite regular cell complex of dimension $\nu $.
+Moreover, the cells in $W$ are in bijective, inclusion-reversing
+correspondence with the cells in $\sC $.  In particular, if a cell in
+$\sC$ has \defn{codimension} $d$, the corresponding cell in $W$ has
+\defn{dimension} $d$.  Thus, for example, the vertices of $W$ modulo
+$\SL_{n} (\Z)$ are in bijection with the top-dimensional cells in
+$\sC$, which are in bijection with equivalence classes of perfect
+forms.
+
+In the literature $W$ is called the \defn{well-rounded retract}.  The
+subspace $W\subset D \simeq X$ has a beautiful geometric
+interpretation.  The quotient
+\[
+\SL_{n} (\Z)\backslash X = \SL_{n} (\Z)
+\backslash \SL_{n} (\R)/ \SO (n)
+\]
+can be interpreted as the moduli space of lattices in $\R^{n}$ modulo
+the equivalence relation of rotation and positive scaling
+(cf. \cite{ash.gross}; for $n=2$ one can also see \cite[VII,
+Proposition 3]{serre:arithmetic}).  Then $W$ corresponds to those lattices whose
+shortest nonzero vectors span $\R^{n}$.  This is the origin of the
+name: the shortest vectors of such a lattice are ``more round'' than
+those of a generic lattice.
+
+The space $W$ was known classically for $n=2$ and was constructed for
+$n\geq 3$ by Lannes and Soul\'e, although Soul\'e only published the
+case $n=3$ \cite{soule}.  The construction for all $n$ appears in work
+of Ash \cite{Ash80, ash.wrr}, who also generalized $W$ to a much
+larger class of groups.  Explicit computations of the cell structure
+of $W$ have only been performed up to $n=6$ \cite{gangl}.  Certainly
+computing $W$ explicitly for $n=8$ seems very difficult, as Table
+\ref{vortable} indicates.
+
+\begin{example}\label{sl2}
+Figure \ref{tess} illustrates $\sC$ and $W$ for $\SL_{2} (\Z)$.  As in
+Example \ref{ex:vor.poly}, the polyhedron $\Pi$ is 3-dimensional, and
+so the \Vor \ fan $\V$ has cones of dimensions $0,1,2,3$.  The
+$1$-cones of $\V$, which correspond to the vertices of $\Pi$, pass to
+infinitely many points on the boundary $\partial \bar D = \bar D
+\smallsetminus D$.  The $3$-cones become triangles in $\bar D$ with
+vertices on $\partial \bar D$.  In fact, the identifications $D\simeq
+\SL_{2} (\R)/\SO (2)\simeq \fh$ realize $D$ as the Klein model for the
+hyperbolic plane, in which geodesics are represented by Euclidean line
+segments.  Hence, the images of the $1$-cones of $\V$ are none other
+than the usual cusps of $\fh$, and the triangles are the $\SL_{2}
+(\Z)$-translates of the ideal triangle with vertices $\{0,1,\infty
+\}$.  These triangles form a tessellation of $\fh$ sometimes known as
+the \defn{Farey tessellation}. The edges of the \Vor are the $\SL_{2}
+(\Z)$-translates of the ideal geodesic between $0$ and $\infty$.
+After adjoining cusps and passing to the quotient $X_{0} (N)$, these
+edges become the supports of the Manin symbols from Section~\ref{sec:manin}
+(cf.~Figure \ref{figure:modsym}).  This example also shows how the
+\Vor \ decomposition fails to be a regular cell complex: the
+boundaries of the closures of the triangles in $D$ do not contain the
+vertices and thus are not homeomorphic to circles.
+
+The virtual cohomological dimension of $\SL_{2} (\Z)$ is 1.  Hence the
+well-rounded retract $W$ is a graph (Figures \ref{tess} and
+\ref{retract2.fig}).  Note that $W$ is not a manifold.  The vertices
+of $W$ are in bijection with the Farey triangles---each vertex lies at
+the center of the corresponding triangle---and the edges are in
+bijection with the Manin symbols.  Under the map $D\rightarrow \fh$,
+the graph $W$ becomes the familiar ``$\PSL_{2}$-tree'' embedded in
+$\fh$, with vertices at the order 3 elliptic points (Figure
+\ref{retract2.fig}).
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.4]{diagrams/retract3}
+\end{center}
+\caption{\label{tess}The \Vor \ decomposition and the retract in $D$.}
+\end{figure}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.4, trim=0 330 0 0]{diagrams/retract2}
+\end{center}
+\caption{\label{retract2.fig}The \Vor \ decomposition and the retract in $\fh$.}
+\end{figure}
+
+\end{example}
+
+%\subsection{Example: $\SL_{3} (\Z)$}\label{sl3}
+\subsection{}\label{sl3}
+
+We now discuss the example $\SL_{3} (\Z)$ in some detail.  This
+example gives a good feeling for how the general situation compares to
+the case $n=2$.
+
+We begin with the \Vor \ fan $\V$.  The cone $C$ is 6-dimensional, and
+the quotient $D$ is 5-dimensional.  There is one equivalence class of
+perfect forms modulo the action of $\SL_{3} (\Z )$, represented by the
+form \eqref{anform}.  Hence there are 12 minimal vectors; six are the
+columns of the matrix
+\begin{equation}\label{sl3minvecs}
+\left(
+\begin{array}{cccccc}
+1&0&0&1&0&1\\
+0&1&0&1&1&1\\
+0&0&1&0&1&1
+\end{array}
+ \right),
+\end{equation}
+and the remaining six are the negatives of these.  This implies that
+the cone $\sigma$ corresponding to this form is 6-dimensional and
+simplicial.  The latter implies that the faces of $\sigma$ are the
+cones generated by $\{q (v)\mid v\in S \}$, where $S$ ranges over all
+subsets of \eqref{sl3minvecs}.  To get the full structure of the fan,
+one must determine the $\SL_{3} (\Z)$ orbits of faces, as well as
+which faces lie in the boundary $\partial \bar C = \bar C
+\smallsetminus C$.  After some pleasant computation, one finds:
+\begin{enumerate}
+\item There is one equivalence class modulo $\SL_{3} (\Z)$ for each of the
+6-, 5-, 2-, and
+1-dimensional cones.
+\item There are two equivalence classes of the 4-dimensional cones,
+represented by the sets of minimal vectors
+\[
+\left(\begin{array}{cccc}
+1&0&0&1\\
+0&1&0&1\\
+0&0&1&1
+\end{array} \right)\quad\text{and}\quad 
+\left(\begin{array}{cccc}
+1&0&0&1\\
+0&1&0&1\\
+0&0&1&0
+\end{array} \right).\label{3faces}
+\]
+\item There are two equivalence classes of the 3-dimensional cones,
+represented by the sets of minimal vectors
+\[
+\left(\begin{array}{cccc}
+1&0&0\\
+0&1&0\\
+0&0&1
+\end{array} \right)\quad\text{and}\quad 
+\left(\begin{array}{cccc}
+1&0&1\\
+0&1&1\\
+0&0&0
+\end{array} \right).
+\]
+The second type of 3-cone lies in $\partial \bar C$ and thus does 
+not determine a cell in $\sC$.
+
+\item The 2- and 1-dimensional cones lie entirely in
+$\partial \bar C$ and do not determine cells in $\sC$.
+\end{enumerate}
+
+After passing from $C$ to $D$, the cones of dimension $k$ determine
+cells of dimension $k-1$.
+Therefore, modulo the action of $\SL_{3} (\Z)$ there are five types of
+cells in the \Vor \ decomposition $\sC$, with dimensions from $5$ to $2$.
+We denote these cell types by $c_{5}$, $c_{4}$, $c_{3a}$, $c_{3b}$,
+and $c_{2}$.  Here $c_{3a}$ corresponds to the first type of 4-cone in item
+\eqref{3faces} above, and $c_{3b}$ to the second.  For a beautiful way
+to index the cells of $\sC$ using configurations in projective spaces,
+see \cite{M91}.
+
+The virtual cohomological dimension of $\SL_{3} (\Z)$ is 3, which
+means that the retract $W$ is a 3-dimensional cell complex.  The
+closures of the top-dimensional cells in $W$, which are in bijection
+with the \Vor \ cells of type $c_{2}$, are homeomorphic to solid cubes
+truncated along two pairs of opposite corners (Figure
+\ref{soulecube}).  To compute this, one must see how many \Vor cells
+of a given type contain a fixed cell of type $c_{2}$ (since the
+inclusions of cells in $W$ are the \defn{opposite} of those in $\sC$).
+
+A table of the incidence relations between the cells of $\sC$ and $W$
+is given in Table \ref{incidence}.  To interpret the table, let $m =
+m(X,Y)$ be the integer in row $X$ and column $Y$.
+\begin{itemize}
+\item If $m$ is below the diagonal, then the boundary of a cell
+of type $Y$ contains $m$ cells of type $X$.
+\item If $m$ is above the diagonal, then a cell of type $Y$
+appears in the boundary of $m$ cells of type $X$.
+\end{itemize}
+For instance, the entry $16$ in row $c_{5}$ and column $c_{2}$ means
+that a \Vor cell of type $c_{2}$ meets the boundaries of $16$ cells
+of type $c_{5}$.  This is the same as the number of vertices in the
+Soul\'e cube (Figure
+\ref{soulecube}).  Investigation of the table shows that the triangular
+(respectively, hexagonal) faces of the Soul\'e cube correspond to the
+\Vor \ cells of type $c_{3a}$ (resp., $c_{3b}$).
+
+Figure \ref{souleschlegel} shows a Schlegel diagram for the Soul\'e
+cube.  One vertex is at infinity; this is indicated by the arrows on
+three of the edges.  This Soul\'e cube is dual to the \Vor cell $C$ of
+type $c_{2}$ with minimal vectors given by the columns of the identity
+matrix.  The labels on the $2$-faces are additional minimal vectors
+that show which \Vor cells contain $C$.  For example, the central
+triangle labelled with $(1,1,1)^{t}$ is dual to the \Vor cell of type
+$c_{3a}$ with minimal vectors given by those of $C$ together with
+$(1,1,1)^{t}$.  Cells of type $c_{4}$ containing $C$ in their closure
+correspond to the edges of the figure; the minimal vectors for a given
+edge are those of $C$ together with the two vectors on the $2$-faces
+containing the edge.  Similarly, one can read off the minimal vectors
+of the top-dimensional \Vor cells containing $C$, which correspond to
+the vertices of Figure \ref{souleschlegel}.
+
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}c||c|c|c|c|c}
+&$c_{5}$&	$c_{4}$&	$c_{3a}$&	$c_{3b}$&	$c_{2}$\\
+\hline
+\hline
+$c_{5}$&	$\bullet$&	$2$&	$3$&	$6$&	$16$\\
+$c_{4}$&	$6$&	$\bullet$&	$3$&    $6$&	$24$\\
+$c_{3a}$&	$3$&	$1$&	$\bullet$&	$\bullet$&	$4$\\
+$c_{3b}$&	$12$&	$4$&	$\bullet$&	$\bullet$&	$6$\\
+$c_{2}$&	$12$&	$8$&	$4$&	$3$&	$\bullet$\\
+\end{tabular*}
+\end{center}
+\medskip
+\caption{Incidence relations in the \Vor decomposition and the retract
+for $\SL_{3} (\Z)$.\label{incidence}}
+\end{table}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.35]{diagrams/soulecube}
+\end{center}
+\caption{\label{soulecube}The Soul\'e cube.}
+\end{figure}
+
+\begin{figure}[htb]
+\psfrag{111}{$(1,1,1)^t$}
+\psfrag{-111}{$(-1,1,1)^t$}
+\psfrag{1-11}{$(1,-1,1)^t$}
+\psfrag{11-1}{$(1,1,-1)^t$}
+\psfrag{110}{$(1,1,0)^t$}
+\psfrag{1-10}{$(1,-1,0)^t$}
+\psfrag{011}{$(0,1,1)^t$}
+\psfrag{01-1}{$(0,1,-1)^t$}
+\psfrag{101}{$(1,0,1)^t$}
+\psfrag{10-1}{$(1,0,-1)^t$}
+\begin{center}
+\includegraphics[scale=0.5]{diagrams/souleschlegel}
+\end{center}
+\caption{A Schlegel diagram of a Soul\'e cube, showing the minimal
+vectors that correspond to the $2$-faces.\label{souleschlegel}}
+\end{figure}
+
+\subsection{}\label{ss:cohocompnohecke}
+%
+Now let $p$ be a prime, and let $\Gamma = \Gamma_{0} (p)\subset
+\SL_{3} (\Z)$ be the Hecke subgroup of matrices with bottom row
+congruent to $(0,0,*) \mod p$ (Example \ref{ex:cong.subgp}).  The
+virtual cohomological dimension of $\Gamma$ is $3$, and the cusp
+cohomology with constant coefficients can appear in degrees $2$ and
+$3$.  One can show that the cusp cohomology in degree $2$ is dual to
+that in degree $3$, so for computational purposes it suffices to focus
+on degree $3$.  
+
+In terms of $W$, these will be cochains supported on the 3-cells.
+Unfortunately we cannot work directly with the quotient $\Gamma
+\backslash W$ since $\Gamma$ has torsion: there will be cells taken to
+themselves by the $\Gamma$-action, and thus the cells of $W$ need to
+be subdivided to induce the structure of a cell complex on $\Gamma
+\backslash W$.  Thus when $\Gamma$ has torsion, the ``set of $3$-cells
+modulo $\Gamma$'' unfortunately makes no sense.
+
+To circumvent this problem, one can mimic the idea of Manin symbols.
+The quotient $\Gamma \backslash \SL_{3} (\Z)$ is in bijection with the
+finite projective plane $\Proj^{2} (\F_{p})$, where $\F_p$ is the
+field with $p$ elements (cf. Proposition \ref{prop:p1bij}).
+The group $\SL_{3} (\Z)$ acts transitively on the set of all $3$-cells
+of $W$; if we fix one such cell $w$, its stabilizer $\Stab (w) =
+\{\gamma \in \SL_{3} (\Z) \mid \gamma w = w \}$ is a finite subgroup
+of $\SL_{3} (\Z)$.  Hence the set of $3$-cells modulo $\Gamma$ should
+be interpreted as the set of orbits in $\Proj^{2} (\F_{p})$ of the
+finite group $\Stab (w)$.  This suggests describing $H^{3}(\Gamma ;
+\C)$ in terms of the space $\sS $ of complex-valued functions $f\colon
+\Proj^{2} (\F_{p})\rightarrow \C$.  To carry this out, there are two problems:
+\begin{enumerate}
+\item How do we explicitly describe $H^{3}(\Gamma ;
+\C)$ in terms of $\sS$?
+\item How can we isolate the cuspidal subspace $H^{3}_{\text{cusp}}
+(\Gamma ;\C) \subset H^{3} (\Gamma ; \C)$ in terms of our description?
+\end{enumerate}
+Fully describing the solutions to these problems is rather
+complicated.  We content ourselves with presenting the following
+theorem, which collects together several statements in \cite{agg}.
+This result should be compared to Theorems \ref{thm:manin_present} and
+\ref{thm:mansym}.
+
+\begin{theorem}[Theorem 3.19 and Summary 3.23 of \cite{agg}]
+\label{thm:agg}
+  We have 
+\[
+\dim H^{3} (\Gamma_{0} (p); \C) = \dim H^{3}_{\text{cusp}} (\Gamma_{0}
+(p);\C) + 2S_{p},
+\]
+where $S_{p}$ is the dimension of the space of weight $2$ holomorphic
+cusp forms on $\Gamma_{0} (p)\subset \SL_{2} (\Z)$.  Moreover, 
+the cuspidal cohomology $H^{3}_{\text{cusp}} (\Gamma_{0}
+(p); \C)$ is isomorphic to the vector space of functions $f\colon \Proj^{2}
+(\F_p)\rightarrow \C$ satisfying
+\begin{enumerate}
+\item $f (x,y,z) = f (z,x,y) = f (-x,y,z) = -f (y,x,z)$,
+\item $f (x,y,z) + f (-y,x-y,z) + f (y-x,-x,z) = 0$,
+\item $f (x,y,0)=0$, and 
+\item $\sum_{z=1}^{p-1} f (x,y,z) = 0$.
+\end{enumerate}
+\end{theorem}
+
+Unlike subgroups of $\SL_{2} (\Z)$, cuspidal cohomology is
+apparently much rarer for $\Gamma_{0} (p)\subset \SL_{3} (\Z)$.  The
+computations of \cite{agg, fourdutch} show that the only prime levels
+$p\leq 337$ with nonvanishing cusp cohomology are $53$, $61$, $79$, $89$,
+and $223$.  In all these examples, the cuspidal subspace is
+$2$-dimensional. 
+
+For more details of how to implement such computations, we refer to
+\cite{agg, fourdutch}.  For further details about the additional
+complications arising for higher rank groups, in particular subgroups
+of $\SL_{4} (\Z)$, see \cite[Section~3]{computation}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             %
+%  hecke and modular symbols  %
+%                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Hecke Operators and Modular Symbols}\label{mod.symb.section}
+%
+\subsection{}
+%
+There is one ingredient missing so far in our discussion of the
+cohomology of arithmetic groups, namely the Hecke operators.\index{Hecke operator}
+These are an essential tool in the study of modular forms.  Indeed,
+the forms with the most arithmetic significance are the Hecke
+eigenforms, and the connection with arithmetic is revealed by the
+Hecke eigenvalues. 
+
+In higher rank the situation is similar.  There is an algebra of
+Hecke operators acting on the cohomology spaces $H^{*} (\Gamma ;
+\MMM)$. The eigenvalues of these operators are conjecturally related
+to certain representations of the Galois group.  Just as in the case
+$G=\SL_{2} (\R)$, we need tools to compute the Hecke action.
+
+In this section we discuss this problem.  We begin with a general
+description of the Hecke operators and how they act on cohomology.
+Then we focus on one particular cohomology group, namely the top
+degree $H^{\nu} (\Gamma ;\C)$, where $\nu =\vcd (\Gamma)$ and $\Gamma$
+has finite index in $\SL_{n} (\Z)$.  This is the setting that
+generalizes the modular symbols method from Chapter \ref{ch:modsym}.
+We conclude by giving examples of Hecke eigenclasses in the cuspidal
+cohomology of $\Gamma_{0} (p)\subset \SL_{3} (\Z)$.
+
+
+%\subsection{Hecke operators}\label{hecke.ops}
+\subsection{}\label{hecke.ops}
+%
+Let $g\in \SL_{n} (\Q)$.   The group $\Gamma ' = \Gamma \cap
+g^{-1}\Gamma g$ has finite index in both $\Gamma$ and $g^{-1}\Gamma
+g$.  The element $g$ determines a diagram $C (g)$
+\[
+\xymatrix{&{\Gamma'\backslash X}\ar[dl]_{s}\ar[dr]^{t}&\\
+ {\Gamma\backslash X}&&{\Gamma\backslash X}}
+\]
+called a \defn{Hecke correspondence}.  The map $s$ is induced by the
+inclusion $\Gamma '\subset \Gamma$, while $t$ is induced by the
+inclusion $\Gamma '\subset g^{-1}\Gamma g$ followed by the
+diffeomorphism $g^{-1}\Gamma g\backslash X\rightarrow \Gamma
+\backslash X$ given by left multiplication by $g$.  Specifically, 
+\[
+s (\Gamma 'x) = \Gamma x, \quad t (\Gamma 'x) = \Gamma gx, \quad x\in X.
+\]
+
+The maps $s$ and $t$ are finite-to-one, since the indices $[\Gamma
+':\Gamma]$ and $[\Gamma ':g^{-1}\Gamma g]$ are finite.   This implies
+that we obtain maps on cohomology 
+\[
+s^{*}\colon H^{*} (\Gamma \backslash X) \rightarrow
+H^{*} (\Gamma' \backslash X), \quad t_{*}\colon H^{*} (\Gamma' \backslash X) \rightarrow
+H^{*} (\Gamma \backslash X).
+\]
+Here the map $s^{*}$ is the usual induced map on cohomology, while the
+``wrong-way'' map\footnote{Under the identification $H^{*} (\Gamma
+\backslash X; \widetilde{\MMM})\simeq H^{*} (\Gamma ;\MMM)$, the map
+$t_{*}$ becomes the transfer map in group cohomology
+\cite[III.9]{brown}.} $t_{*}$ is given by summing a class over the finite
+fibers of $t$.  These maps can be composed to give a map
+\[
+T_{g} := t_{*}s^{*}\colon H^{*} (\Gamma \backslash X;
+\widetilde{\MMM})\longrightarrow  H^{*} (\Gamma \backslash X;
+\widetilde{\MMM}).
+\]
+This is called the \defn{Hecke operator} associated to $g$.  There is
+an obvious notion of isomorphism of Hecke correspondences.  One can
+show that up to isomorphism, the correspondence $C (g)$ and thus the
+Hecke operator $T_{g}$ depend only on the double coset $\Gamma
+g\Gamma$.  One can compose Hecke correspondences, and thus we obtain
+an algebra of operators acting on the cohomology, just as in the
+classical case.
+
+\begin{example}
+Let $n=2$, and let $\Gamma = \SL_{2} (\Z)$.  If we take $g=\diag
+(1,p)$, where $p$ is a prime, then the action of $T_{g}$ on $H^{1}
+(\Gamma ; M_{k-2})$ is the same as the action of the classical Hecke
+operator $T_{p}$ on the weight $k$ holomorphic modular forms.  If we
+take $\Gamma = \Gamma_{0} (N)$, we obtain an operator $T (p)$ for all
+$p$ prime to $N$, and the algebra of Hecke operators coincides with
+the (semisimple) Hecke algebra generated by the $T_{p}$, $(p,N)=1$.
+For $p|N$, one can also describe the $U_{p}$ operators in this language.
+\end{example}
+
+\begin{example}\label{ex:heckeops}
+Now let $n>2$ and let $\Gamma = \SL_{n} (\Z)$. The picture is very
+similar, except that now there are several Hecke operators attached to
+any prime $p$.  In fact there are $n-1$ operators $T (p,k)$,
+$k=1,\dotsc ,n-1$.  The operator $T (p,k)$ is associated to the
+correspondence $C (g)$, where $g = \diag (1,\dotsc ,1,p,\dotsc ,p)$
+and where $p$ occurs $k$ times.  If we consider the congruence
+subgroups $\Gamma_{0} (N)$, we have operators $T (p,k)$ for
+$(p,N)=1$ and analogues of the $U_{p}$ operators for $p|N$.
+
+Just as in the classical case, any double coset $\Gamma g \Gamma$ can
+be written as a disjoint union of left cosets 
+\[
+\Gamma g\Gamma  = \coprod_{h\in \Omega} \Gamma h
+\]
+for a certain finite set of $n\times n$ integral matrices $\Omega$.
+For the operator $T (p,k)$, the set $\Omega$ can be taken to be all
+upper-triangular matrices of the form \cite[Proposition 7.2]{krieg}
+\[
+\left(\begin{array}{cccc}
+p^{e_{1}}&&a_{ij}\\
+&\ddots&&\\
+&&p^{e_{n}}&\\
+\end{array} \right),
+\]
+where
+\begin{itemize}
+\item $e_{i}\in \{0,1 \}$ and exactly $k$ of the $e_{i}$ are equal to
+$1$ and
+\item $a_{ij}=0$ unless $e_{i}=0$ and $e_{j}=1$, in which case
+$a_{ij}$ satisfies $0\leq a_{ij}<p$.
+\end{itemize}
+
+
+\end{example}
+
+\begin{remark}
+The number of coset representatives for the operator $T (p,k)$ is the
+same as the number of points in the finite Grassmannian $G (k,n)
+(\F_{p})$.  A similar phenomenon is true for the Hecke operators for
+any group $G$, although there are some subtleties \cite{gross}.  
+\end{remark}
+
+
+
+%\subsection{Modular symbols}\label{mod.symbs}
+\subsection{}\label{mod.symbs}
+%
+Recall that in Section~\ref{wrr.section} we constructed the \Vor
+decomposition $\sC$ and the well-rounded retract $W$ and that we can
+use them to compute the cohomology $H^{*} (\Gamma ;\MMM)$.
+Unfortunately, we cannot directly use them to compute the action of the
+Hecke operators on cohomology, since the Hecke operators do not act
+cellularly on $\sC$ or $W$.  The problem is that the Hecke image of a
+cell in $\sC$ (or $W$) is usually not a union of cells in $\sC$ (or
+$W$).  This is already apparent for $n=2$.  The edges of $\sC$ are the
+$\SL_{2} (\Z)$-translates of the ideal geodesic $\tau$ from $0$ to
+$\infty$ (Example \ref{sl2}).  Applying a Hecke operator takes such an
+edge to a union of ideal geodesics, each with vertices at a pair of
+cusps.  In general such geodesics are not an $\SL_{2} (\Z)$-translate
+of~$\tau$.  
+
+For $n=2$, one solution is to work with all possible ideal geodesics
+with vertices at the cusps, in other words the space of modular
+symbols $\M_{2}$ from Section~\ref{sec:modsym}.  Manin's trick (Proposition
+\ref{prop:manintrick}) shows how to write any modular symbol as a
+linear combination of unimodular symbols, by which we mean modular
+symbols supported on the edges of $\sC$.  These are the ideas we now
+generalize to all $n$.
+
+\begin{definition}\label{def:modular.symbols}
+Let $S_{0}$ be the $\Q$-vector space
+spanned by the symbols $\vv = [v_{1},\dotsc ,v_{n}]$, where $v_{i}\in
+\Q^{n}\smallsetminus \{0 \}$, modulo the following relations:
+\begin{enumerate}
+\item If $\tau $ is a permutation on $n$ letters, then
+\[
+[v_{1},\ldots,v_{n}] = \sign (\tau ) [\tau (v_{1}),\ldots,\tau
+(v_{n})], 
+\]
+where $\sign (\tau )$ is the sign of $\tau $.
+\item  \label{projpts} If $q\in \Q^{\times }$, then 
+\[
+[q v_{1},v_{2}\ldots,v_{n}] = [v_{1},\ldots,v_{n}].
+\]
+\item \label{lindep} If the points $v_{1},\dotsc ,v_{n}$ are linearly dependent, then $\vv = 0$.
+\end{enumerate}
+Let $B\subset S_{0}$ be the subspace generated by linear combinations
+of the form 
+\begin{equation}\label{fundrel}
+\sum _{i=0}^{n}  (-1)^{i}
+[v_{0},\ldots,\hat{v_{i}},\ldots,v_{n}],  
+\end{equation}
+where $v_{0},\dotsc ,v_{n}\in
+\Q^{n}\smallsetminus \{0 \}$ and where $\hat{v_{i}}$ means to omit $v_{i}$.
+\end{definition}
+
+We call $S_{0}$ the space of \defn{modular symbols}.  We caution the
+reader that there are some differences in what we call modular symbols
+and those found in Section~\ref{sec:modsym} and Definition
+\ref{defn:modsym}; we compare them in 
+Section~\ref{sec:comparison}.  The group $\SL_{n} (\Q)$ acts on $S_{0}$ by
+left multiplication: $g\cdot \vv = [gv_{1},\dotsc ,gv_{n}]$.  This
+action preserves the subspace $B$ and thus induces an action on the
+quotient $M = S_{0}/B$.  For $\Gamma \subset \SL_{n} (\Z)$ a finite
+index subgroup, let $M_{\Gamma}$ be the space of $\Gamma$-coinvariants
+in $M$.  In other words, $M_{\Gamma}$ is the quotient of $M$ by the
+subspace generated by $\{ m - \gamma \cdot m \mid \gamma \in
+\Gamma\}$.
+
+The relationship between modular symbols and the cohomology of
+$\Gamma$ is given by the following theorem, first proved for $\SL_{n}$
+by Ash and Rudolph \cite{ash.rudolph} and by Ash for general $G$
+\cite{ash.minmod}:
+
+\begin{theorem}[\cite{ash.minmod, ash.rudolph}]\label{thm:modsymbiso}
+ Let $\Gamma \subset \SL_{n} (\Z)$ be a
+finite index subgroup.  There is an isomorphism
+\begin{equation}\label{modsymbiso}
+M_{\Gamma}\xrightarrow{\sim} H^{\nu} (\Gamma ; \Q),
+%\xymatrix@1{S_{0,\Gamma}\ar[r]^{\sim}& H^{\nu} (\Gamma ; \Q)}
+\end{equation}
+where $\Gamma$ acts trivially on $\Q$ and where $\nu = \vcd (\Gamma )$.
+\end{theorem}
+
+We remark that Theorem \ref{thm:modsymbiso} remains true if $\Q$ is
+replaced with nontrivial coefficients as in Section \ref{ss:coho}.
+Moreover, if $\Gamma$ is assumed to be torsion-free then we can
+replace $\Q$ with $\Z$.
+
+
+The great virtue of $M_{\Gamma}$ is that it admits an action of the
+Hecke operators.  Given a Hecke operator $T_{g}$, write 
+the double coset $\Gamma g\Gamma$ as a disjoint union of left cosets
+\begin{equation}\label{eq:coset.decomp}
+\Gamma g\Gamma  = \coprod_{h\in \Omega} \Gamma h
+\end{equation}
+as in Example \ref{ex:heckeops}.  
+Any class in $M_{\Gamma}$ can be lifted to a representative $\eta =
+\sum q (\vv)\vv \in S_0$, where $q (\vv)\in \Q$
+and almost all $q (\vv)$ vanish.  
+Then we define
+\begin{equation}\label{eq:heckeaction}
+T_{g} (\vv) = \sum_{h\in \Omega} h\cdot \vv
+\end{equation}
+and extend to $\eta$ by linearity.  The right side of
+\eqref{eq:heckeaction} depends on the choices of $\eta$ and $\Omega$,
+but after taking quotients and coinvariants, we obtain a well-defined
+action on cohomology via \eqref{modsymbiso}.
+
+\subsection{}\label{sec:comparison}
+%
+The space $S_{0}$ is closely related to the space $\M_{2}$ from
+Section~\ref{sec:modsym} and Section~\ref{sec:modsymgen}.  Indeed, $\M_{2}$ was
+defined to be the quotient $(F/R)/ (F/R)_{\text{tor}}$, where $F$ is
+the free abelian group generated by ordered pairs
+\begin{equation}\label{symbol.def}
+\{\alpha ,\beta \}, \quad \alpha ,\beta \in \Proj^{1} (\Q),
+\end{equation}
+and $R$ is the subgroup generated by elements of the form
+\begin{equation}\label{fund.rel}
+  \{\alpha,\beta\} + \{\beta,\gamma\} + \{\gamma,\alpha\}, \quad
+\alpha ,\beta, \gamma  \in \Proj^{1} (\Q).
+\end{equation}
+The only new feature in Definition \ref{def:modular.symbols} is item
+\eqref{lindep}.  For $n=2$ this corresponds to the condition $\{\alpha,\alpha
+\}=0$, which follows from \eqref{fund.rel}.  
+We have
+\[
+S_{0}/B \simeq \M_{2} \otimes \Q.
+\]
+Hence there are two differences between $S_{0}$ and $\M_{2}$: our
+notion of modular symbols uses rational coefficients instead of
+integral coefficients and is the space of symbols \emph{before}
+dividing out by the subspace of relations $B$; we further caution the
+reader that this is somewhat at
+odds with the literature. 
+
+We also remark that the general arbitrary weight definition of modular
+symbols for a subgroup $\Gamma \subset \SL_{2} (\Z)$ given in
+Section~\ref{sec:modsymgen} also includes taking $\Gamma$-coinvariants, as
+well as extra data for a coefficient system.  We have not included the
+latter data since our emphasis is trivial coefficients, although it
+would be easy to do so in the spirit of Section~\ref{sec:modsymgen}.
+
+Elements of $\M_{2}$ also have a geometric interpretation: the symbol
+$\{\alpha ,\beta \}$ corresponds to the ideal geodesic in $\fh$ with
+endpoints at the cusps $\alpha$ and $\beta$.  We have a similar
+picture for the symbols $\vv = [v_{1},\dotsc ,v_{n}]$.  We can assume
+that each $v_{i}$ is primitive, which means that each $v_{i}$
+determines a vertex of the \Vor polyhedron $\Pi$.  The rational cone
+generated by these vertices determines a subset $\Delta (\vv)\subset
+D$, where $D$ is the linear model of the symmetric space $X = \SL_{n}
+(\R)/\SO (n)$ from Section~\ref{vcd.section}.  This subset $\Delta (\vv)$ is
+then an ``ideal simplex'' in $X$.  There is also a connection between
+$\Delta (\vv)$ and torus orbits in $X$; we refer to \cite{ash.minmod}
+for a related discussion.
+
+%\subsection{The modular symbol  algorithm}
+\subsection{}
+%
+Now we need a generalization of the Manin trick
+(Section~\ref{sec:manintrick}).  This is known in the literature as the
+\defn{modular symbols algorithm}.
+
+We can define a kind of norm function on $S_{0}$ as follows.  Let $\vv
+=[v_{1},\dotsc ,v_{n}]$ be a modular symbol.  For each $v_{i}$, 
+choose $\lambda_{i}\in \Q^{\times}$ such that $\lambda_{i}v_{i}$ is
+primitive.  Then we define 
+\[
+\norm{\vv} := |\det (\lambda_{1}v_{1},\dotsc ,\lambda_{n}v_{n})| \in \Z .
+\]
+Note that $\norm{\vv}$ is well defined, since the $\lambda_{i}$ are
+unique up to sign, and permuting the $v_{i}$ only changes the
+determinant by a sign.  We extend $\norm{\phantom{a}}$ to all of $S_{0}$
+by taking the maximum of $\norm{\phantom{a}}$ over the support of any
+$\eta \in S_{0}$: if $\eta =\sum q (\vv)\vv$, where $q (\vv)\in \Q$
+and almost all $q (\vv)$ vanish, then we put
+\[
+\norm{\eta} = \Max_{q (\vv) \not =0} \norm{\vv}.
+\]
+We say a modular symbol $\eta $ is \defn{unimodular} if $\norm{\eta }
+= 1$.  It is clear that the images of the unimodular symbols generate
+a finite-dimensional subspace of $M_{\Gamma}$.  The next theorem shows
+that this subspace is actually \emph{all} of $M_{\Gamma }$.
+
+\begin{theorem}[\cite{ash.rudolph, barvinok}]
+\label{thm:modsymbalg}
+The space $M_{\Gamma }$ is spanned by
+the images of the unimodular symbols.  More precisely, given any symbol $\vv\in S_{0}$ with
+$\norm{\vv}>1$, 
+\begin{enumerate}
+\item in $S_{0}/B$ we may write 
+\begin{equation}\label{relation}
+\vv = \sum q (\ww)\ww , \quad q (\ww)\in \Z ,
+\end{equation}
+where if $q (\ww)\not =0$, then $\norm{\ww} = 1$, and 
+\item the number of terms on the right side of \eqref{relation} is bounded
+by a polynomial in $\log \|\vv\|$ that depends only on the dimension $n$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+%
+(Sketch)
+Given a modular symbol $\vv =[v_{1},\dotsc ,v_{n}]$, we may assume
+that the points $v_{i}$ are primitive.  We will show that if
+$\norm{\vv}>1$, we can find a point $u$ such that when we apply the
+relation \eqref{fundrel} using the points $u,v_{1},\dotsc ,v_{n}$, all
+terms other than $\vv$ have norm less than $\norm{\vv}$.  We call such
+a point a \defn{reducing point} for $\vv$.
+
+Let $P\subset \R^{n}$ be the open parallelotope
+\[
+P:=\Bigl\{\sum \lambda _{i}v _{i}\Bigm | |\lambda_{i} |< \norm{\vv }^{-1/n}
+\Bigr\}. 
+\]
+Then $P$ is an $n$-dimensional centrally symmetric convex body with
+volume $2^{n}$.  By Minkowski's theorem from the geometry of numbers
+(cf.~\cite[IV.2.6]{fr.tay}), $P\cap \Z ^{n}$ contains a nonzero point
+$u$.  
+Using \eqref{fundrel}, we find 
+\begin{equation}\label{move}
+\vv = \sum_{i=1}^{n} (-1)^{i-1}\vv_{i} (u),
+\end{equation}
+where $\vv_{i} (u)$ is the symbol
+\[
+\vv_{i} (u) = [v_{1},\dotsc ,v_{i-1},u, v_{i+1},\dotsc ,v_{n}].
+\]
+Moreover, it is easy to see that the new symbols satisfy
+\begin{equation}\label{barvest}
+0\leq \norm{\vv_{i} (u)}<\norm{\vv}^{(n-1)/n}, \quad i=1,\dotsc ,n.
+\end{equation}
+This completes the proof of the first statement.
+
+To prove the second statement, we must estimate how many times
+relations of the form \eqref{move} need to be applied to obtain
+\eqref{relation}.  A nonunimodular symbol produces at most $n$ new
+modular symbols after \eqref{move} is performed; we potentially have
+to apply \eqref{move} again to each of the symbols that result, which
+in turn could produce as many as $n$ new symbols for each.  Hence we
+can visualize the process of constructing \eqref{relation} as building
+a rooted tree, where the root is $\vv$, the leaves are the symbols
+$\ww$, and where each node has at most $n$ children.  It is not hard
+to see that the bound \eqref{barvest} implies that the depth of this
+tree (i.e., the longest length of a path from the root to a leaf) is
+$O(\log \log \norm{\vv})$.  From this the second statement follows
+easily.
+%
+\end{proof}
+
+Statement (1) of Theorem \ref{thm:modsymbalg} is due to Ash and Rudolph
+\cite{ash.rudolph}.  Instead of $P$, they used the larger
+parallelotope $P'$ defined by 
+\[
+P':=\Bigl\{\sum \lambda _{i}v _{i}\Bigm | |\lambda_{i} |< 1
+\Bigr\},
+\]
+which has volume $2^{n}\norm{\vv}$.  The observation that $P'$ can be
+replaced by $P$ and the proof of (2) are both due to Barvinok
+\cite{barvinok}.
+
+\subsection{}\label{sec:retractandmanin}
+%
+The relationship between Theorem \ref{thm:modsymbalg} and Manin's
+trick should be clear.  For $\Gamma \subset \SL_{2} (\Z)$, the Manin
+symbols correspond exactly to the unimodular symbols mod $\Gamma$.  So
+Theorem \ref{thm:modsymbalg} implies that every modular symbol (in the
+language of Section~\ref{sec:modsymgen}) is a linear combination of Manin
+symbols.  This is exactly the conclusion of Proposition
+\ref{prop:mangen}.
+
+In higher rank the relationship between Manin symbols and unimodular
+symbols is more subtle.  In fact there are two possible notions of
+``Manin symbol,'' which agree for $\SL_{2} (\Z)$ but not in general.
+One possibility is the obvious one: a Manin symbol is a unimodular
+symbol.  
+
+The other possibility is to define a Manin symbol to be a modular
+symbol corresponding to a top-dimensional cell of the retract $W$.
+But for $n\geq 5$, such modular symbols need not be unimodular.  In
+particular, for $n=5$ there are two equivalence classes of
+top-dimensional cells.  One class corresponds to the unimodular
+symbols, the other to a set of modular symbols of norm $2$.  However,
+Theorems~\ref{thm:modsymbiso} and~\ref{thm:modsymbalg} show that
+$H^{\nu} (\Gamma ; \Q)$ is spanned by unimodular symbols.  Thus as far
+as this cohomology group is concerned, the second class of symbols is
+in some sense unnecessary.
+
+
+\subsection{}\label{ss:cohocomphecke}
+%
+We return to the setting of Section~\ref{ss:cohocompnohecke} and give
+examples of Hecke eigenclasses in the cusp cohomology of $\Gamma =
+\Gamma_{0} (p)\subset \SL_{3} (\Z)$.  We closely follow \cite{agg,
+fourdutch}.  Note that since the top of the cuspidal range for
+$\SL_{3}$ is the same
+as the virtual cohomological dimension $\nu$, we can use modular
+symbols to compute the Hecke action on cuspidal classes.
+
+Given a prime $l$ coprime to $p$, there are two Hecke operators of
+interest $T (l,1)$ and $T (l,2)$.  We can compute the action of these
+operators on $H^{3}_{\text{cusp}} (\Gamma ; \C)$ as follows.  Recall
+that $H^{3}_{\text{cusp}} (\Gamma ; \C)$ can be identified with a
+certain space of functions $f\colon \Proj^{2} (\F_{p})\rightarrow \C$
+(Theorem \ref{thm:agg}).  Given $x\in \Proj^{2} (\F_p)$, let $Q_{x}\in
+\SL_{3} (\Z)$ be a matrix such that $Q_{x}\mapsto x$ under the
+identification $\Proj^{2} (\F_p) \xrightarrow{\sim} \Gamma \backslash
+\SL_{3} (\Z)$.  Then $Q_{x}$ determines a unimodular symbol $[Q_{x}]$
+by taking the $v_{i}$ to be the columns of $Q_{x}$.  Given any Hecke
+operator $T_{g}$, we can find coset representatives $h_{i}$ such that
+$\Gamma g \Gamma  = \coprod \Gamma h_{i}$ (explicit representatives
+for $\Gamma = \Gamma_{0} (p)$ and $T_{g} = T (l,k)$ are given in
+\cite{agg, fourdutch}).  The modular symbols $[h_{i}Q_{x}]$ are no
+longer unimodular in general, but we can apply Theorem
+\ref{thm:modsymbalg} to write 
+\[
+[h_{i}Q_{x}] = \sum_{j} [R_{ij}], \quad R_{ij}\in \SL_{3} (\Z).
+\]
+Then for $f\colon \Proj^{2} (\F_p)\rightarrow \C$ as in Theorem
+\ref{thm:agg}, we have 
+\[
+(T_{g}f) (x) = \sum_{i,j} f (\overline{R_{ij}}), 
+\]
+where $\overline{R_{ij}}$ is the class of $R_{ij}$ in $\Proj^{2}
+(\F_p)$. 
+
+Now let $\xi\in H^{3}_{\text{cusp}} (\Gamma ; \C)$ be a simultaneous
+eigenclass for all the Hecke operators $T (l,1)$, $T (l,2)$, as $l$
+ranges over all primes coprime with $p$.  General considerations from
+the theory of automorphic forms imply that the eigenvalues $a (l,1)$,
+$a (l,2)$ are complex conjugates of one other.  Hence it suffices to
+compute $a (l,1)$.  We give two examples
+of cuspidal eigenclasses for two different prime levels.
+
+\begin{example}
+Let $p=53$.  Then $H^{3}_{\text{cusp}} (\Gamma_{0} (53); \C)$ is
+$2$-dimensional.  Let $\eta = (1+\sqrt{-11})/2$.  One eigenclass is
+given by the data 
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}c||c|c|c|c|c|c}
+$l$&2&3&5&7&11&13\\
+\hline
+$a (l,1)$&$-1-2\eta$&$-2+2\eta$&$1$&$-3$&$1$&$-2-12\eta$\\
+\end{tabular*}
+\end{center}
+and the other is obtained by complex conjugation.
+\end{example}
+
+\begin{example}
+Let $p=61$.  Then $H^{3}_{\text{cusp}} (\Gamma_{0} (61); \C)$ is
+$2$-dimensional.  Let $\omega  = (1+\sqrt{-3})/2$.  One eigenclass is
+given by the data 
+\begin{center}
+\begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill}}c||c|c|c|c|c|c}
+$l$&2&3&5&7&11&13\\
+\hline
+$a (l,1)$&$1-2\omega$&$-5+4\omega $&$-2+4\omega $&$-6\omega $&$-2+2\omega $&$-2-4\omega$\\
+\end{tabular*}
+\end{center}
+and the other is obtained by complex conjugation.
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           %
+%  other cohomology groups  %
+%                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Other Cohomology Groups}\label{other.coho}
+%
+\subsection{}
+%
+In Section~\ref{mod.symb.section} we saw how to compute the Hecke action on
+the top cohomology group $H^{\nu} (\Gamma ; \C)$.  Unfortunately for
+$n\geq 4$, this cohomology group does not contain any cuspidal
+cohomology.  The first case is $\Gamma \subset \SL_{4} (\Z )$; we have
+$\vcd (\Gamma) = 6$, and the cusp cohomology lives in degrees $4$ and
+$5$.  One can show that the cusp cohomology in degree $4$ is dual to
+that in degree $5$, so for computational purposes it suffices to be
+able to compute the Hecke action on $H^{5} (\Gamma ; \C)$.  But
+modular symbols do not help us here.
+
+In this section we describe a technique to compute the Hecke action on
+$H^{\nu -1} (\Gamma ; \C)$, following \cite{experimental}.  The
+technique is an extension of the modular symbol algorithm to these
+cohomology groups.  In principle the ideas in this section can be
+modified to compute the Hecke action on other cohomology groups
+$H^{\nu -k} (\Gamma ; \C)$, $k>1$, although this has not been
+investigated\footnote{The first interesting case is $n=5$, for which
+the cuspidal cohomology lives in $H^{\nu -2}$.}.  For $n=4$, we have
+applied the algorithm in joint work with Ash and McConnell to
+investigate computationally the cohomology $H^{5} (\Gamma ; \C)$,
+where $\Gamma_{0} (N)\subset \SL_{4} (\Z)$ \cite{computation}.
+
+%\subsection{The Sharbly complex}\label{sharbly.sect}
+\subsection{}\label{sharbly.sect}
+%
+To begin, we need an analogue of Theorem \ref{thm:modsymbiso} for
+lower degree cohomology groups.  In other words, we need a
+generalization of the modular symbols for other cohomology groups.
+This is achieved by the \defn{sharbly complex} $S_{*}$:
+
+\begin{definition}[\cite{ash.sharb}] \label{sharbly.complex}
+ Let 
+$\left\{S_{*},\partial \right\}$ be the chain complex given by the following data:
+\begin{enumerate}
+\item For $k\geq 0$, $S_{k}$ is the $\Q$-vector space generated
+by the symbols $\uu  = [v_{1},\ldots,v_{n+k}]$, where $v_{i}\in
+\Q^{n}\smallsetminus \{0 \}$, modulo the relations:
+\begin{enumerate}
+\item If $\tau $ is a permutation on $(n+k)$ letters, then
+\[
+[v_{1},\ldots,v_{n+k}] = \sign (\tau ) [\tau (v_{1}),\ldots,\tau
+(v_{n+k})], 
+\]
+where $\sign (\tau )$ is the sign of $\tau $.
+\item  If $q \in \Q^{\times }$, then 
+\[
+[q v_{1},v_{2}\ldots,v_{n+k}] = [v_{1},\ldots,v_{n+k}].
+\]
+\item If the rank of the matrix
+$(v_{1},\ldots,v_{n+k})$ is less than $n$, then $\uu = 0$.
+\end{enumerate}
+\item For $k>0$, the boundary map $\partial \colon S_{k}\rightarrow S_{k-1}$ is 
+$$[v_{1},\ldots,v_{n+k}] \longmapsto \sum _{i=1}^{n+k}  (-1)^{i}
+[v_{1},\ldots,\hat{v_{i}},\ldots,v_{n+k}].  $$
+We define $\partial$ to be identically zero on $S_{0}$.
+\end{enumerate}
+\end{definition}
+
+The elements $$\uu = [v_{1},\dots ,v_{n+k}]$$ are called
+\defn{$k$-sharblies}\footnote{The terminology for $S_{*}$ is due to
+Lee Rudolph, in honor of Lee and Szczarba.  They introduced a very
+similar complex in \cite{l.s} for $\SL_{3} (\Z)$.}.  The $0$-sharblies
+are exactly the modular symbols from Definition
+\ref{def:modular.symbols}, and the subspace $B\subset S_{0}$ is the
+image of the boundary map $\partial \colon S_{1}\rightarrow S_{0}$.
+
+There is an obvious left action of $\Gamma $ on $S_{* }$ commuting
+with $\partial $.  For any $k\geq 0$, let $S_{k,\Gamma }$ be the space
+of $\Gamma $-coinvariants.  Since the boundary map $\partial$ commutes
+with the $\Gamma $-action, we obtain a complex $(S_{*,\Gamma},
+\partial_{\Gamma})$.  The following theorem shows that this complex
+computes the cohomology of $\Gamma $:
+
+\begin{theorem}[\cite{ash.sharb}]
+\label{thm:sharbiso}
+There is a natural isomorphism 
+\[
+H^{\nu - k}(\Gamma ; \C) \xrightarrow{\sim} H_{k}
+(S_{*,\Gamma }\otimes \C ).
+\]
+\end{theorem}
+
+\subsection{}
+%
+We can extend our norm function $\|\phantom{a}\|$ from modular
+symbols to all of $S_{k}$ as follows.  Let $\uu = [v_{1},\dots
+,v_{n+k}]$ be a $k$-sharbly, and let $Z(\uu)$ be the set of all
+submodular symbols determined by $\uu$.  In other words, $Z (\uu)$
+consists of the modular symbols of the form $[v_{i_{1}},\dotsc
+,v_{i_{n}}]$, where $\{i_{1},\dotsc ,i_{n} \}$ ranges over all
+$n$-fold subsets of $\{1,\dotsc ,n+k \}$.  Define $\|\uu \|$ by
+\[
+\|\uu\| = \Max_{\vv \in Z (\uu )} \| \vv \|.
+\]
+Note that $\| \uu \|$ is well defined modulo the relations in
+Definition \ref{sharbly.complex}.  As for modular symbols, we extend
+the norm to sharbly chains $\xi = \sum q (\uu)\uu $ taking the maximum
+norm over the support.  Formally, we let $\support (\xi) = \{\uu \mid
+q (\uu)\not =0 \}$ and $Z (\xi) = \bigcup_{\uu \in \support (\xi )} Z
+(\uu)$, and then we define $\|\xi \|$ by
+\[
+\|\xi \| = \Max_{\vv \in Z (\xi )} \| \vv \|.
+\]
+
+We say that $\xi $ is \defn{reduced} if $\|\xi \| = 1$.  Hence $\xi$
+is reduced if and only if all its submodular symbols are unimodular or
+have determinant $0$.  Clearly there are only finitely many reduced
+$k$-sharblies modulo $\Gamma$ for any $k$.
+
+In general the cohomology groups $H^{*} (\Gamma ; \C)$ are \emph{not}
+spanned by reduced sharblies.  However, it is known (cf. \cite{M91})
+that for $\Gamma \subset \SL _{4} (\Z )$, the group $H^{5} (\Gamma ;
+\C)$ is spanned by reduced $1$-sharbly cycles.  The best one can say
+in general is that for each pair $n,k$, there is an integer $N=N
+(n,k)$ such that for $\Gamma \subset \SL_{n} (\Z)$, $H^{\nu -k}
+(\Gamma; \C)$ is spanned by $k$-sharblies of norm $\leq N$.  This set
+of sharblies is also finite modulo $\Gamma$, although it is not known
+how large $N$ must be for any given pair $n,k$.
+
+%\subsection{Sharblies and Voronoi}\label{that.section}
+\subsection{}\label{that.section}
+%
+Recall that the cells of the well-rounded retract $W$ are indexed by
+sets of primitive vectors in $\Z^{n}$.  Since any primitive vector
+determines a point in $\Q^{n}\smallsetminus \{0 \}$ and since sets of
+such points index sharblies, it is clear that there is a close
+relationship between $S_{*}$ and the chain complex associated to $W$,
+although of course $S_{*}$ is much bigger.  In any case, both
+complexes compute $H^{*} (\Gamma ; \C)$.
+
+The main benefit of using the sharbly complex to compute cohomology is
+that it admits a Hecke action.  Suppose $\xi = \sum q (\uu )\uu $ is a
+sharbly cycle mod $\Gamma $, and consider a Hecke operator $T_{g}$.
+Then we have
+\begin{equation}\label{how.hecke.acts}
+T_{g}(\xi ) = \sum _{h\in \Omega , \uu } n (\uu )h\cdot \uu, 
+\end{equation}
+where $\Omega$ is a set of coset representatives as in
+\eqref{eq:coset.decomp}.  
+Since $\Omega \not \subset \SL _{n} (\Z )$ in general, the 
+Hecke image of a
+reduced sharbly is not usually reduced.
+
+\subsection{}
+%
+We are now ready to describe our algorithm for the computation of the
+Hecke operators on $H^{\nu -1} (\Gamma ;\C )$.   It suffices to describe an
+algorithm that takes as input a $1$-sharbly cycle $\xi $ and produces
+as output a cycle $\xi '$ with
+\begin{enumerate}
+\item [(a)] the classes of $\xi $ and $\xi '$ in $H^{\nu -1} (\Gamma
+;\C )$ the same, and 
+\item [(b)] $\|\xi' \| < \|\xi \|$ if $\|\xi \|>1$.
+\end{enumerate}
+
+Below, we will present an algorithm satisfying (a).  In
+\cite{experimental}, we conjectured (and presented evidence) that the
+algorithm satisfies (b) for $n\leq 4$.  Further evidence is provided
+by the computations in \cite{computation}, which relied on the
+algorithm to compute the Hecke action on $H^{5} (\Gamma ; \C)$, where
+$\Gamma = \Gamma_{0} (N)\subset \SL_{4} (\Z)$.
+
+The idea behind the algorithm is simple: given a $1$-sharbly cycle
+$\xi$ that is not reduced, (i) simultaneously apply the modular symbol
+algorithm (Theorem \ref{thm:modsymbalg}) to each of its submodular
+symbols, and then (ii) package the resulting data into a new $1$-sharbly
+cycle.  Our experience in presenting this algorithm is that most
+people find the geometry involved in (ii) daunting.  Hence we will
+give details only for $n=2$ and will provide a sketch for $n>2$.
+Full details are contained in \cite{experimental}.  Note that $n=2$ is
+topologically and arithmetically uninteresting, since we are computing
+the Hecke action on $H^{0} (\Gamma ; \C)$; nevertheless, the geometry
+faithfully represents the situation for all $n$.
+
+\subsection{}\label{sl2.start}
+%
+Fix $n=2$, let $\xi \in S_{1}$ be a $1$-sharbly cycle mod $\Gamma$ for
+some $\Gamma \subset \SL_{2} (\Z )$, and suppose $\xi $ is not
+reduced.  Assume $\Gamma$ is torsion-free to simplify the
+presentation.  
+
+Suppose first that all submodular symbols $\vv \in Z (\xi )$ are
+nonunimodular.  Select reducing points for each $\vv \in Z (\xi )$
+and make these choices $\Gamma $-equivariantly.  This means the
+following.  Suppose $\uu,\uu '\in \support \xi $ and $\vv \in \support
+(\partial \uu )$ and $\vv' \in \support (\partial \uu' )$ are modular
+symbols such that $\vv = \gamma\cdot \vv ' $ for some $\gamma \in
+\Gamma $.  Then we select reducing points $w$ for $\vv $ and $w'$ for
+$\vv '$ such that $w = \gamma\cdot w'$.  (Note that since $\Gamma$ is
+torsion-free, no modular symbol can be identified to itself by an
+element of $\Gamma$; hence $\vv \not = \vv '$.)  This is possible
+since if $\vv $ is a modular symbol and $w$ is a reducing point for
+$\vv $, then $\gamma \cdot w $ is a reducing point for $\gamma \cdot
+\vv$ for any $\gamma \in \Gamma $.  Because there are only finitely
+many $\Gamma $-orbits in $Z (\xi )$, we can choose reducing points
+$\Gamma $-equivariantly by selecting them for some set of orbit
+representatives.
+
+It is important to note that $\Gamma $-equivariance is the only
+global criterion we use when selecting reducing.  In
+particular, there is a priori no relationship among the three reducing
+points chosen for any $\uu \in \support \xi $.
+
+\subsection{}\label{ss:buildingxiprime}
+%
+Now we want to use the reducing points and the $1$-sharblies in $\xi$ to
+build $\xi '$.  Choose $\uu = [v_{1},v_{2},v_{3}]\in
+\support \xi $, and denote the reducing point for $[v_{i},v_{j}]$ by $w_{k}$,
+where $\{i,j,k \} = \{1,2,3 \}$.  We use the $v_{i}$ and the
+$w_{i}$ to build a $2$-sharbly chain $\eta (\uu )$ as follows.
+
+Let $P$ be an octahedron in $\R ^{3}$.  Label the vertices of $P$ with
+the $v_{i}$ and $w_{i}$ such that the vertex labeled $v_{i}$ is
+opposite the vertex labeled $w_{i}$ (Figure \ref{octa.fig}).
+Subdivide $P$ into four tetrahedra by connecting two opposite
+vertices, say $v_{1}$ and $w_{1}$, with an edge (Figure
+\ref{octa-hom.fig}).
+For each tetrahedron $T$, take the labels of four vertices and arrange
+them into a quadruple.  If we orient $P$, then we can use the induced
+orientation on $T$ to order the four primitive points.  In this way,
+each $T$ determines a $2$-sharbly, and $\eta (\uu)$ is defined to be
+the sum.  For example, if we use the decomposition in Figure
+\ref{octa-hom.fig}, we have
+\begin{equation}\label{eta}
+\eta (\uu ) = [v_{1},v_{3},
+v_{2},w_{1}]+[v_{1},w_{2},v_{3},w_{1}]+[v_{1},w_{3},w_{2},w_{1}]+[v_{1},v_{2},w_{3},w_{1}].
+\end{equation}
+Repeat this construction for all $\uu \in \support \xi $, and let 
+$\eta =\sum q (\uu ) \eta (\uu )$.  Finally, let $\xi ' = \xi +\partial \eta $.
+
+\begin{figure}[htb]
+\begin{center}
+\psfrag{v1}{$v_{1}$}
+\psfrag{v2}{$v_{2}$}
+\psfrag{v3}{$v_{3}$}
+\psfrag{w1}{$w_{1}$}
+\psfrag{w2}{$w_{2}$}
+\psfrag{w3}{$w_{3}$}
+\includegraphics[scale=.5]{diagrams/octa}
+\end{center}
+\caption{\label{octa.fig}}
+\end{figure}
+
+\begin{figure}[htb]
+\begin{center}
+\psfrag{v1}{$v_{1}$}
+\psfrag{v2}{$v_{2}$}
+\psfrag{v3}{$v_{3}$}
+\psfrag{w1}{$w_{1}$}
+\psfrag{w2}{$w_{2}$}
+\psfrag{w3}{$w_{3}$}
+\includegraphics[scale=.5]{diagrams/octa-hom}
+\end{center}
+\caption{\label{octa-hom.fig}}
+\end{figure}
+
+\subsection{}\label{endofdiscussion}
+%
+By construction, $\xi' $ is a cycle mod $\Gamma$ in the same
+class as $\xi $.  We claim in addition that no submodular symbol from
+$\xi $ appears in $\xi '$.  To see this, consider $\partial \eta (\uu
+)$.  From \eqref{eta}, we have
+\begin{multline}\label{bound}
+\partial \eta (\uu ) = - [v_{1},v_{2},v_{3}] + [v_{1},v_{2},w_{3}] +
+[v_{1},w_{2},v_{3}] + [w_{1},v_{2},v_{3}] \\
+- [v_{1},w_{2},w_{3}] -
+[w_{1},v_{2},w_{3}] - [w_{1},w_{2},v_{3}] + [w_{1},w_{2},w_{3}].
+\end{multline}
+Note that this is the boundary in $S_{*}$, not in $S_{*,\Gamma }$.
+Furthermore, $\partial \eta (\uu )$ is independent of which pair of
+opposite vertices of $P$ we connected to build $\eta (\uu )$.
+
+From \eqref{bound}, we see that in $\xi +\partial \eta $ the
+$1$-sharbly $-[v_{1},v_{2},v_{3}]$ is canceled by $\uu \in \support
+\xi $.  We also claim that $1$-sharblies in \eqref{bound} of the form
+$[v_{i},v_{j},w_{k}]$ vanish in 
+$\partial_{\Gamma } \eta $.
+
+To see this, let $\uu $,$\uu '\in \support \xi $, and suppose $\vv =
+[v_{1},v_{2}]\in \support \partial \uu $ equals $\gamma \cdot \vv '$
+for some $\vv ' = [v_{1}',v_{2}']\in \support \partial \uu '$.  Since
+the reducing points were chosen $\Gamma $-equivariantly, we have
+$w=\gamma \cdot w'$.  This means that the $1$-sharbly $[v_{1},v_{2},
+w]\in \partial \eta (\uu )$ will be canceled mod $\Gamma $ by
+$[v_{1}',v_{2}', w']\in \partial \eta (\uu' )$.  Hence, in passing
+from $\xi $ to $\xi '$, the effect in $\coinv{*}$ is to replace $\uu $
+with \emph{four} $1$-sharblies in $\support \xi '$:
+\begin{equation}\label{tfm}
+[v_{1},v_{2},v_{3}]\longmapsto - [v_{1},w_{2},w_{3}] -
+[w_{1},v_{2},w_{3}] - [w_{1},w_{2},v_{3}] + [w_{1},w_{2},w_{3}].
+\end{equation}
+Note that in \eqref{tfm}, there are no $1$-sharblies of the form
+$[v_{i},v_{j},w_{k}]$.
+
+\begin{remark}\label{imp1}
+For implementation purposes, it is not necessary to explicitly
+construct $\eta $.  Rather, one may work directly with \eqref{tfm}.
+\end{remark}
+
+\subsection{}\label{interior.ms}
+%
+Why do we expect $\xi ' $ to satisfy $\|\xi '\| < \|\xi \|$?  First of
+all, in the right hand side of \eqref{tfm} there are no submodular
+symbols of the form $[v_{i},v_{j}]$.  In fact, any submodular symbol
+involving a point $v_{i}$ also includes a reducing point for 
+$[v_{i},v_{j}]$.
+
+On the other hand, consider the submodular symbols in \eqref{tfm} of
+the form $[w_{i},w_{j}]$.  Since there is no relationship among the
+$w_{i}$, one has no reason to believe that these modular symbols are
+closer to unimodularity than those in $\uu $.  Indeed, for certain
+choices of reducing points it can happen that $\|[w_{i},w_{j}]\|\geq
+\|\uu \|$.
+
+The upshot is that some care must be taken in choosing reducing
+points.  In \cite[Conjectures 3.5 and 3.6]{experimental} we describe
+two methods for finding reducing points for modular symbols, one using
+\Vor reduction and one using LLL-reduction.  Our experience is that
+if one selects reducing points using either of these conjectures,
+then $\|[w_{i},w_{j}]\|< \|\uu \|$ for each of the new modular symbols
+$[w_{i},w_{j}]$.  In fact, in practice these symbols are trivial or
+satisfy $\|[w_{i},w_{j}]\|=1$.
+
+\subsection{}\label{sl2.stop}
+%
+In the previous discussion we assumed that no submodular symbols of
+any $\uu \in \support \xi $ were unimodular.  Now we say what to
+do if some are.  There are three cases to consider.  
+
+First, all submodular symbols of $\uu $ may be unimodular.  In this
+case there are no reducing points, and \eqref{tfm} becomes
+\begin{equation}\label{tfm2}
+[v_{1},v_{2},v_{3}]\longmapsto [v_{1},v_{2},v_{3}].
+\end{equation}
+
+Second, one submodular symbol of $\uu $ may be nonunimodular, say the
+symbol $[v_{1},v_{2}]$.  In this case, to build $\eta$, we use a
+tetrahedron $P'$
+and put $\eta (\uu ) = [v_{1},v_{2},v_{3},w_{3}]$
+(Figure~\ref{tetra.fig}).  Since $[v_{1}, v_{2}, w_{3}]$ vanishes
+in the boundary of $\eta $ mod $\Gamma $, \eqref{tfm} becomes
+\begin{equation}\label{tfm3}
+[v_{1},v_{2},v_{3}]\mapsto -[v_{1},v_{3},w_{3}] + [v_{2}, v_{3},
+w_{3}].
+\end{equation}
+
+\begin{figure}[ht]
+\begin{center}
+\psfrag{v1}{$v_{1}$}
+\psfrag{v2}{$v_{2}$}
+\psfrag{v3}{$v_{3}$}
+\psfrag{w3}{$w_{3}$}
+\includegraphics[scale=.5]{diagrams/tetra}
+\end{center}
+\caption{\label{tetra.fig}}
+\end{figure}
+
+Finally, two submodular symbols of $\uu $ may be nonunimodular, say
+$[v_{1},v_{2}]$ and $[v_{1},v_{3}]$.  In this case we use the cone on
+a square $P''$ (Figure~\ref{cone-on-square.fig}).  To construct $\eta
+(\uu )$, we must choose a decomposition of $P''$ into tetrahedra.
+Since $P''$ has a nonsimplicial face, this choice affects $\xi '$ (in
+contrast to the previous cases).  If we subdivide $P''$ by connecting
+the vertex labelled $v_{2}$ with the vertex labelled $w_{2}$, we
+obtain
+\begin{equation}\label{tfm4}
+[v_{1},v_{2},v_{3}]\longmapsto[v_{2},w_{2},w_{3}]+[v_{2},v_{3},w_{2}]+
+[v_{1},v_{3},w_{2}].
+\end{equation}
+
+\begin{figure}[ht]
+\begin{center}
+\psfrag{v1}{$v_{1}$}
+\psfrag{v2}{$v_{2}$}
+\psfrag{v3}{$v_{3}$}
+\psfrag{w2}{$w_{2}$}
+\psfrag{w3}{$w_{3}$}
+\includegraphics[scale=.5]{diagrams/cone-on-square}
+\end{center}
+\caption{\label{cone-on-square.fig}}
+\end{figure}
+
+\subsection{}
+%
+Now consider general $n$.  The basic technique is the same, but the
+combinatorics become more complicated.  Suppose $\uu = [v_{1},\dots ,v_{n+1}]$
+satisfies $q (\uu )\not =0$ in a $1$-sharbly cycle $\xi$, and for
+$i=1,\dots ,n+1$ let $\vv_{i} $ be the submodular symbol $[v_{1},\dots
+,\widehat{v_{i}},\dots ,v_{n+1}]$.  Assume that all $\vv_{i}$ are
+nonunimodular, and for each $i$ let $w_{i}$ be a reducing point for
+$\vv_{i}$.
+
+For any subset $I\subset\{1,\dots ,n+1 \}$, let $\uu_{I}$ be the
+$1$-sharbly $[u_{1},\dots ,u_{n+1}]$, where $u_{i}=w_{i}$ if $i\in I$,
+and $u_{i}=v_{i}$ otherwise.  The polytope $P$ used to build $\eta
+(\uu)$ is the \defn{cross polytope}, which is the higher-dimensional
+analogue of the octahedron \cite[\S4.4]{experimental}.  We suppress the
+details and give the final answer:
+\eqref{tfm} becomes
+\begin{equation}\label{tfmrelation}
+\uu \longmapsto -\sum _{I} (-1)^{\#I}\uu_{I},
+\end{equation}
+where the sum is taken over all subsets $I\subset \{1,\dotsc ,n+1 \}$ 
+of cardinality \emph{at least $2$}.  
+
+More generally, if some $\vv_{i}$ happen to be unimodular, then the
+polytope used to build $\eta$ is an iterated cone on a
+lower-dimensional cross polytope.  This is already visible for $n=2$:
+\begin{itemize}
+\item The 2-dimensional cross polytope is a
+square, and the polytope $P''$ is
+a cone on a square.
+\item The 1-dimensional cross polytope is an interval, and the
+polytope $P'$ is a double cone on an interval.
+\end{itemize}
+Altogether there are $n+1$ relations generalizing
+\eqref{tfm2}--\eqref{tfm4}.
+
+\subsection{}\label{ss:sl4computations}
+%
+Now we describe how these computations are carried out in practice,
+focusing on $\Gamma = \Gamma_{0} (N)\subset \SL_{4} (\Z)$ and $H^{5}
+(\Gamma; \C)$.  Besides discussing technical details,
+we also have to slightly modify some aspects of the construction in
+Section~\ref{sl2.start}, since $\Gamma$ is not torsion-free.
+
+Let $W$ be the well-rounded retract.  We can represent
+a cohomology class $\beta \in H^{5} (\Gamma ; \C)$ as $ \beta = \sum q
+(\sigma )\sigma $, where $\sigma $ denotes a codimension $1$ cell in
+$W$.  In this case there are three types of codimension $1$ cells in
+$W$.  Under the bijection $W \leftrightarrow \sC$, these cells
+correspond to the \Vor cells indexed by the columns of the matrices 
+\begin{equation}\label{eq:4onesharbs}
+\left(\begin{array}{ccccc}
+1&0&0&0&1\\
+0&1&0&0&1\\
+0&0&1&0&1\\
+0&0&0&1&1
+\end{array} \right),\quad 
+\left(\begin{array}{ccccc}
+1&0&0&0&1\\
+0&1&0&0&1\\
+0&0&1&0&1\\
+0&0&0&1&0
+\end{array} \right),\quad 
+\left(\begin{array}{ccccc}
+1&0&0&0&1\\
+0&1&0&0&1\\
+0&0&1&0&0\\
+0&0&0&1&0
+\end{array} \right).
+\end{equation}
+Thus each $\sigma$ in $W$ modulo $\Gamma$ corresponds to an $\SL_{4}
+(\Z)$-translate of one of the matrices in \eqref{eq:4onesharbs}.  
+These translates
+determine basis $1$-sharblies $\uu$ (by taking the points $u_{i}$ to
+be the columns), and hence we can represent $\beta$ by a 1-sharbly
+chain $ \xi = \sum q
+(\uu) \uu \in S_{1}$ that is a cycle in the complex of coinvariants
+$(S_{*,\Gamma}, \partial_{\Gamma})$.
+
+To make later computations more efficient, we precompute more data
+attached to $\xi$.  Given a $1$-sharbly $\uu = [u_{1},\dotsc
+,u_{n+1}]$, a \emph{lift} $M (\uu)$ of $\uu$ is defined to be an
+integral matrix with primitive columns $M_{i}$ such that $\uu =
+[M_{1},\dotsc ,M_{n+1}]$.  Then we encode $\xi $, once and for all, by
+a finite collection $\Phi$ of $4$-tuples 
+\[
+(\uu , n (\uu ), \{\vv \}, \{M (\vv
+) \}),
+\]
+where
+\begin{enumerate}
+\item $\uu$ ranges over the support of $\xi$,
+\item $n (\uu )\in \C $ is the coefficient of $\uu$ in $\xi$,
+\item $\{\vv \}$ is the set of submodular symbols appearing in the
+boundary of $\uu$, and 
+\item $\{M (\vv ) \}$ is a set of lifts for $\{\vv \}$.\label{ifour}  
+\end{enumerate}
+Moreover, the lifts in (\ref{ifour}) are chosen to satisfy the
+following $\Gamma $-equivariance condition.  Suppose that for $\uu
+,\uu '\in \support \xi $ we have $\vv \in \support (\partial \uu ) $
+and $\vv '\in \support (\partial \uu ')$ satisfying $\vv = \gamma
+\cdot \vv '$ for some $\gamma \in \Gamma $.  Then we require $M (\vv
+)= \gamma M (\vv ')$.  This is possible since $\xi$ is a cycle modulo
+$\Gamma$, although there is one complication since $\Gamma$ has torsion:
+it can happen that some submodular symbol
+$\vv$ of a $1$-sharbly $\uu$ is identified to \emph{itself} by an
+element of $\Gamma$.  
+This means that in constructing $\{M (\vv)
+\}$ for $\uu$, we must somehow choose more than one lift for $\vv$.
+To deal with this, let $M
+(\vv)$ be any lift of $\vv$, and let $\Gamma (\vv)\subset \Gamma $ be
+the stabilizer of $\vv$.  Then in $\xi$, we replace $q (\uu ) \uu$ by
+\[
+\frac{1}{\#\Gamma (\vv )}\sum_{\gamma \in \Gamma (\vv)} q (\uu) \uu_{\gamma},
+\]
+where $\uu_{\gamma }$ has the same data as $\uu$, 
+except\footnote{In fact, we can be slightly
+more clever than this and only introduce denominators 
+that are powers of $2$.} 
+that we give
+$\vv$ the lift $\gamma M (\vv)$.
+
+
+Next we compute and store the 1-sharbly transformation laws generalizing
+\eqref{tfm2}--\eqref{tfm4}.  As a part of this we fix triangulations
+of certain cross polytopes as in \eqref{tfm4}.  
+
+We are now ready to begin the actual reduction algorithm.  We take a
+Hecke operator $T (l,k)$ and build the coset representatives $\Omega $
+as in \eqref{how.hecke.acts}.  For each $h\in \Omega $ and each
+$1$-sharbly $\uu$ in the support of $\xi$, we obtain a non-reduced
+$1$-sharbly $\uu_{h} := h\cdot\uu$.  Here $h$ acts on all the data
+attached to $\uu$ in the list $\Phi$.  In particular, we replace each
+lift $M (\vv)$ with $h\cdot M (\vv)$, where the dot means matrix
+multiplication.
+
+Now we check the submodular symbols of $\uu_{h}$ and choose reducing
+points for the nonunimodular symbols.  This is where the lifts come in
+handy.  Recall that reduction points must be chosen
+$\Gamma$-equivariantly over the entire cycle.  Instead of explicitly
+keeping track of the identifications between modular symbols, we do
+the following trick:
+\begin{enumerate}
+\item Construct the \defn{Hermite normal form} $M_{\her}(\vv)$ of the lift $M
+(\vv)$ (see \cite[\S2.4]{cohen:course_ant} and \exref{ch:linalg}{ex:hnf}).  Record the transformation matrix $U \in \GL_{4} (\Z)$ such
+that $UM(\vv ) = M_{\her} (\vv)$.
+\item Choose a reducing point $u$ for $M_{\her} (\vv)$.
+\item Then the reducing point for $M (\vv)$ is $U^{-1}u$.
+\end{enumerate}
+This guarantees $\Gamma$-equivariance: if $\vv$, $\vv '$ are submodular
+symbols of $\xi$ with $\gamma \cdot \vv = \vv '$ and with reducing
+points $u, u'$, we have $\gamma u = u'$.  The reason is that the
+Hermite normal form $M_{\her} (\vv)$ is a \emph{uniquely determined}
+representative of the $\GL_{4}(\Z)$-orbit of
+$M (\vv)$ \cite{cohen:course_ant}.  Hence if $\gamma M
+(\vv) = M (\vv ')$, then $M_{\her} (\vv) = M_{\her} (\vv
+')$.
+
+After computing all reducing points, we apply the appropriate
+transformation law.  The result will be a chain of $1$-sharblies, each
+of which has (conjecturally) smaller norm than the original
+$1$-sharbly $\uu$.  We output these $1$-sharblies if they are reduced;
+otherwise they are fed into the reduction algorithm again.  Eventually
+we obtain a reduced $1$-sharbly cycle $\xi '$ homologous to the
+original cycle $\xi$.
+
+The final step of the algorithm is to rewrite $\xi '$ as a cocycle on
+$W$.  This is easy to do since the relevant cells of $W$ are in
+bijection with the reduced $1$-sharblies.  There are some nuisances in
+keeping orientations straight, but the computation is not difficult.
+We refer to \cite{computation} for details.
+
+\subsection{}
+%
+We now give some examples, taken from \cite{computation}, of Hecke
+eigenclasses in $H^{5} (\Gamma_{0} (N); \C)$ for various levels
+$N$.
+Instead of giving a table of eigenvalues, we give the \defn{Hecke
+polynomials}.  If $\beta$ is an eigenclass with $T (l,k) (\beta) = a
+(l,k)\beta$, then we define
+\[
+H (\beta , l) = \sum_k (-1)^k l^{k(k-1)/2} a(l, k) X^k \in \C [X].
+\]
+For almost all $l$, after putting $X = l^{-s}$ where $s$ is a complex
+variable, the function $H
+(\beta , s)$ is the inverse of the local factor at $l$ of the
+automorphic representation attached to $\beta$.
+\begin{example}
+Suppose $N=11$.  Then the cohomology $H^{5} (\Gamma_{0} (11); \C)$ is
+2-dimensional.  There are two Hecke eigenclasses $u_{1}, u_{2}$, each
+with rational Hecke eigenvalues.
+
+\medskip
+\begin{center}
+\begin{tabular}{|p{40pt}|p{40pt}|p{200pt}|}
+\hline
+$u_{1}$&$T_2$&$ (1-4 X)(1-8 X)(1 +2 X + 2 X^2)$\\
+&$T_3$&$ (1-9 X)(1-27 X)(1 + X + 3 X^2) $\\
+&$T_5$&$ (1-25 X)(1-125 X)(1 - X + 5 X^2) $\\
+&$T_7$&$ (1-49 X)(1-343 X)(1 +2 X + 7 X^2) $\\
+\hline
+$u_{2}$&$T_2$&$ (1- X)(1-2 X)(1 +8 X + 32 X^2)$\\
+&$T_3$&$ (1- X)(1-3 X)(1 +9 X + 243 X^2) $\\
+&$T_5$&$ (1- X)(1-5 X)(1 -25 X + 3125 X^2) $\\
+&$T_7$&$ (1- X)(1-7 X)(1 +98 X + 16807 X^2) $\\
+\hline
+\end{tabular}
+\end{center}
+
+  
+\end{example}
+ 
+\begin{example}
+Suppose $N=19$.  Then the cohomology $H^{5}
+(\Gamma_{0} (19); \C)$ is 3-dimensional.  There are three Hecke
+eigenclasses $u_{1}, u_{2}, u_{3}$, each with rational Hecke eigenvalues.
+
+\medskip
+\begin{center}
+\begin{tabular}{|p{40pt}|p{40pt}|p{200pt}|}
+\hline
+$u_{1}$&$T_2$&$ (1-4 X)(1-8 X)(1  + 2 X^2)$\\
+&$T_3$&$ (1-9 X)(1-27 X)(1 +2 X + 3 X^2) $\\
+&$T_5$&$ (1-25 X)(1-125 X)(1 -3 X + 5 X^2) $\\
+\hline
+$u_{2}$&$T_2$&$ (1- X)(1-2 X)(1  + 32 X^2)$\\
+&$T_3$&$ (1- X)(1-3 X)(1 +18 X + 243 X^2) $\\
+&$T_5$&$ (1- X)(1-5 X)(1 -75 X + 3125 X^2) $\\
+\hline
+$u_{3}$&$T_2$&$ (1- 2 X)(1-4 X)(1 +3 X + 8 X^2)$\\
+&$T_3$&$ (1- 3 X)(1-9 X)(1 +5 X + 27 X^2) $\\
+&$T_5$&$ (1- 5 X)(1-25 X)(1 +12 X + 125 X^2) $\\
+\hline
+\end{tabular}
+\end{center}
+
+\end{example}
+
+In these examples, the cohomology is completely accounted for by the
+Eisenstein summand of \eqref{franke.decomp}.  In fact, let
+$\Gamma'_{0} (N)\subset \SL_{2} (\Z)$ be the usual Hecke congruence
+subgroup of matrices upper-triangular modulo $N$.  Then the cohomology
+classes above actually come from classes in $H^{1} (\Gamma_{0}' (N))$,
+that is from holomorphic modular forms of level $N$.
+
+For $N=11$, the space of weight two cusp forms $S_{2} (11)$ is
+1-dimensional.  This cusp form $f$ lifts in two different ways to
+$H^{5} (\Gamma_{0} (11); \C)$, which can be seen from the quadratic
+part of the Hecke polynomials for the $u_i$.  Indeed, for $u_{i}$ the
+quadratic part is exactly the inverse of the local factor for the
+$L$-function attached to $f$, after the substitution $X = l^{-s}$.
+For $u_{2}$, we see that the lift is also twisted by the square of the
+cyclotomic character.  (In fact the linear terms of the Hecke
+polynomials come from powers of the cyclotomic character.)
+
+For $N=19$, the space of weight two cusp forms $S_{2} (19)$ is again
+1-dimensional.  The classes $u_{1}$ and $u_{2}$ are lifts of this
+form, exactly as for $N=11$.  The class $u_{3}$, on the other hand,
+comes from $S_{4} (19)$, the space of weight $4$ cusp forms on
+$\Gamma_{0}' (19)$.  In fact, $\dim S_{4} (19) = 4$, with one Hecke
+eigenform defined over $\Q$ and another defined over a totally real
+cubic extension of $\Q$.  Only the rational weight four eigenform
+contributes to $H^{5} (\Gamma_{0} (19); \C)$.  One can show that
+whether or not a weight four cuspidal eigenform $f$ contributes to the
+cohomology of $\Gamma_{0} (N)$ depends only on the sign of the
+functional equation of $L (f,s)$ \cite{weselman}.  This phenomenon
+is typical of what one encounters when studying Eisenstein cohomology.
+
+In addition to the lifts of weight 2 and weight 4 cusp forms, for
+other levels one finds lifts of Eisenstein series of weights 2 and 4
+and lifts of cuspidal cohomology classes from subgroups of $\SL_{3}
+(\Z)$.  For some levels one finds cuspidal classes that appear to be
+lifts from the group of symplectic similitudes $\GSp (4)$.  More
+details can be found in \cite{computation, computationII}.
+
+\subsection{}
+%
+Here are some notes on the reduction algorithm and its implementation:
+\begin{itemize}
+\item Some additional care must be taken when selecting reducing
+points for the submodular symbols of $\uu$.  In particular, in
+practice one should choose $w$ for $\vv$ such that $\sum \| \vv_{i}
+(w)\|$ is minimized.  Similar remarks apply when choosing a
+subdivision of the crosspolytopes in Section~\ref{sl2.stop}.
+\item In practice, the reduction algorithm has \emph{always} terminated with
+a reduced $1$-sharbly cycle $\xi '$ homologous to $\xi$.  However, at
+the moment we cannot prove that this will always happen.
+\item Experimentally, the efficiency of the reduction step appears to
+be comparable to that of Theorem \ref{thm:modsymbalg}.  In other words
+the depth of the ``reduction tree'' associated to a given $1$-sharbly
+$\uu$ seems to be bounded by a polynomial in $\log \log \| \uu \| $.  Hence
+computing the Hecke action using this algorithm is extremely
+efficient.
+
+On the other hand, computing Hecke operators on $\SL_{4}$ is still a
+much bigger computation---relative to the level---than on $\SL_{2}$
+and $\SL_{3}$.  For example, the size of the full retract $W$ modulo
+$\Gamma_{0} (p)$ is roughly $O (p^{6})$, which grows rapidly with $p$.
+The portion of the retract corresponding to $H^{5}$ is much smaller,
+around $p^{3}/10$, but this still grows quite quickly.  This makes
+computing with $p>100$ out of reach at the moment.
+
+The number of Hecke cosets grows rapidly as well, e.g., the number of
+coset representatives of $T (l,2)$ is $l^{4}+l^{3}+2l^{2}+l+1$.  Hence
+it is only feasible to compute Hecke operators for small $l$; for
+large levels only $l=2$ is possible.
+
+Here are some numbers to give an idea of the size of these
+computations.  For level $73$, the rank of $H^{5}$ is 20.  There are
+39504 cells of codimension~$1$ and 4128 top-dimensional cells in $W$
+modulo $\Gamma_{0} (73)$.  The computational techniques in
+\cite{computation} used at this level (a Lanczos scheme over a large
+finite field) tend to produce sharbly cycles supported on almost all
+the cells.  Computing $T (2,1)$ requires a reduction tree of 
+depth $1$
+and produces as many as 26 reduced $1$-sharblies for each of the 15
+nonreduced Hecke images.  Thus one cycle produces a cycle supported on
+as many as 15406560 $1$-sharblies, all of which must be converted to
+an appropriate cell of $W$ modulo $\Gamma$.  Also this is just what
+needs to be done for \emph{one} cycle; do not forget that the rank of
+$H^{5}$ is 20.
+
+In practice the numbers are slightly better, since the reduction step
+produces fewer $1$-sharblies on average and since the support of the
+initial cycle has size less than $39504$.  Nevertheless the orders of
+magnitude are correct.  
+
+\item Using lifts is a convenient way to encode the global
+$\Gamma$-identifications in the cycle $\xi$, since it means we do not
+have to maintain a big data structure keeping track of the identifications on
+$\partial \xi$.  However, there is a certain expense in computing the
+Hermite normal form.  This is balanced by the benefit that working
+with the data $\Phi$ associated to $\xi$ allows us to reduce the
+supporting $1$-sharblies $\uu$ \emph{independently}.  This means we
+can cheaply parallelize our computation: each $1$-sharbly, encoded as
+a $4$-tuple $(\uu , n (\uu ), \{\vv \}, \{M (\vv ) \})$, can be
+handled by a separate computer.  The results of all these individual
+computations can then be collated at the end, when producing a
+$W$-cocycle.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%
+%                 %
+%  open problems  %
+%                 %
+%%%%%%%%%%%%%%%%%%%
+
+\section{Complements and Open Problems}\label{apps}
+
+\subsection{}
+%
+We conclude this appendix by giving some complements and describing
+some possible directions for future work, both theoretical and
+computational.  Since a full explanation of the material in this
+section would involve many more pages, we will be brief and will
+provide many references.
+
+\subsection{Perfect Quadratic Forms over Number Fields and Retracts}
+%
+Since \Vor 's pioneering work \cite{vor1}, it has been the goal of
+many to extend his results from $\Q$ to a general algebraic number
+field $F$.  Recently Coulangeon \cite{coul}, building on work of Icaza
+and Baeza \cite{icaza, baeza.icaza}, has found a good notion of
+\defn{perfection} for quadratic forms over number
+fields\footnote{Such forms are called \defn{Humbert forms} in the
+literature.}.  One of the key ideas in \cite{coul} is that the correct
+notion of equivalence between Humbert forms involves not only the
+action of $\GL_{n} (\sO_{F})$, where $\sO_{F}$ is the ring of integers
+of $F$, but also the action of a certain continuous group $U$ related
+to the units $\sO_{F}^{\times }$.  One of Coulangeon's basic results
+is that there are finitely many equivalence classes of perfect Humbert
+forms modulo these actions.
+
+On the other hand, Ash's original construction of retracts
+\cite{ash77} introduces a geometric notion of perfection.  Namely he
+generalizes the \Vor polyhedron $\Pi$ and defines a quadratic form to
+be perfect if it naturally indexes a facet of $\Pi$.  What is the
+connection between these two notions?  Can one use Coulangeon's
+results to construct cell complexes to be used in cohomology
+computations?  One tempting possibility is to try to use the group $U$ 
+to collapse the \Vor cells of \cite{ash77} into a
+cell decomposition of the symmetric space associated to $\SL_{n} (F)$.
+
+\subsection{The Modular Complex}
+%
+In his study of multiple $\zeta$-values, Goncharov has recently defined
+the \defn{modular complex} $M^{*}$ \cite{gonch1, gonch2}.  This is an
+$n$-step complex of $\GL_{n} (\Z)$-modules closely related both to the
+properties of multiple polylogarithms evaluated at $\mu_{N}$, the
+$N$th roots of unity, and to the action of $G_{\Q}$ on $\pi_{1,N} =
+\pi_{1}^{l} (\Proj^{1}\smallsetminus \{0,\infty ,\mu_{N} \})$, the
+pro-$l$ completion of the algebraic fundamental group of
+$\Proj^{1}\smallsetminus \{0,\infty ,\mu_{N} \}$.  
+
+Remarkably, the modular complex is very closely related to the \Vor
+decomposition $\sV$.  In fact, one can succinctly describe the modular
+complex by saying that it is the chain complex of the cells coming
+from the top-dimensional \Vor cone of type $A_{n}$.  This is all of
+the \Vor decomposition for $n=2,3$, and Goncharov showed that the
+modular complex is quasi-isomorphic to the full \Vor complex for
+$n=4$.  Hence there is a precise relationship among multiple
+polylogarithms, the Galois action on $\pi_{1,N}$, and the cohomology
+of level $N$ congruence subgroups of $\SL_{n} (\Z)$.
+
+The question then arises, how much of the cohomology of congruence
+subgroups is captured by the modular complex for all $n$?  Table
+\ref{vortable} indicates that asymptotically very little of the \Vor
+decomposition comes from the $A_n$ cone, but this says nothing about
+the cohomology.  The first interesting case to consider is $n=5$.
+
+
+\subsection{Retracts for Other Groups}
+%
+The most general construction of retracts $W$ known \cite{ash.wrr}
+applies only to \emph{linear} symmetric spaces.\index{linear symmetric spaces}  
+The most familiar
+example of such a space is $\SL_{n} (\R)/\SO (n)$; other examples are
+the symmetric spaces associated to $\SL_{n}$ over number fields and
+division algebras.
+
+Now let $\Gamma\subset \bG (\Q )$ be an arithmetic group, and let $X =
+G/K$ be the associated symmetric space.  What can one say about cell
+complexes that can be used to compute $H^{*} (\Gamma; \MMM)$?  The
+theorem of Borel--Serre mentioned in Section~\ref{ss:vcd} implies the
+vanishing of $H^{k}(\Gamma; \MMM )$ for $k>\nu := \dim X - q$, where
+$q$ is the \defn{\protect{$\Q$-rank}} of $\Gamma$.  For example, for the split
+form of $\SL_{n}$, the $\Q$-rank is $n-1$.  For the split symplectic
+group $\SP_{2n}$, the $\Q$-rank is $n$.  Moreover, this bound is
+sharp: there will be coefficient modules $\MMM$ for which $H^{\nu}
+(\Gamma ; \MMM) \not = 0$.  Hence any minimal cell complex used to compute the
+cohomology of $\Gamma$ should have dimension $\nu$. 
+
+Ideally one would like to see such a complex realized as a subspace of~$X$ 
+and would like to be able to treat all finite index subgroups of
+$\Gamma $ simultaneously.  This leads to the following question: is
+there a $\Gamma$-equivariant deformation retraction of $X$ onto a
+regular cell complex $W$ of dimension $\nu$?
+
+For $\bG = \SP_{4}$, McConnell and MacPherson showed that the answer is
+yes.  Their construction begins by realizing the symplectic symmetric
+space $X_{\SP}$ as a subspace of the special linear symmetric space
+$X_{\SL}$.  They then construct subsets of $X_{\SP}$ by intersecting
+the \Vor cells in $X_{\SL}$ with $X_{\SP}$.  Through explicit
+computations in coordinates they prove that these intersections are
+cells and give a cell decomposition of $X_{\SP}$.  By taking an
+appropriate dual complex (as suggested by Figures \ref{tess} and
+\ref{retract2.fig} and as done in \cite{ash77}), they construct the
+desired cell complex $W$.
+
+Other progress has been recently made by Bullock \cite{bullock},
+Bullock and Connell \cite{bullock.connell}, and Yasaki \cite{yasaki1,
+yasaki2} in the case of groups of $\Q$-rank 1.  In particular, Yasaki
+uses the \defn{tilings} of Saper \cite{saper} to construct an explicit
+retract for the unitary group $\SU (2,1)$ over the Gaussian integers.
+His method also works for Hilbert modular groups, although further
+refinement may be needed to produce a regular cell complex.  Can one
+generalize these techniques to construct retracts for groups of
+arbitrary $\Q$-rank?  Is there an analogue of the \Vor decomposition
+for these retracts (i.e., a dual cell decomposition of the symmetric
+space)?  If so, can one generalize ideas in
+Sections~\ref{mod.symb.section}--\ref{other.coho} and use 
+that generalization to compute the
+action of the Hecke operators on the cohomology?
+
+
+
+\subsection{Deeper Cohomology Groups}
+%
+The algorithm in Section~\ref{other.coho} can be used
+to compute the Hecke action on
+$H^{\nu -1} (\Gamma)$.  For $n>4$, this group no longer contains
+cuspidal cohomology classes.  Can one generalize this algorithm to
+compute the Hecke action on deeper cohomology groups?  The first
+practical case is $n=5$.  Here $\nu = 10$, and the highest degree in
+which cuspidal cohomology can live is $8$.  This case is also
+interesting since the cohomology of full level has been studied
+\cite{gangl}.
+
+Here are some indications of what one can expect.  The general
+strategy is the same: for a $k$-sharbly $\xi$ representing a
+class in $H^{\nu -k} (\Gamma)$, begin by $\Gamma$-equivariantly
+choosing reducing points for the nonunimodular submodular symbols of
+$\xi$.  This data can be packaged into a new $k$-sharbly cycle as in
+Section~\ref{ss:buildingxiprime}ff, but the crosspolytopes must be replaced
+with \defn{hypersimplices}.  By definition, the hypersimplex $\Delta
+(n,k)$ is the convex hull in $\R^{n}$ of the points $\{\sum_{i\in I}
+e_{i} \}$, where $I$ ranges over all order $k$ subsets of $\{1,\dotsc
+,n \}$ and $e_{1},\dotsc ,e_{n}$ denotes the standard 
+basis of $\R ^{n}$.
+
+The simplest example is $n=2$, $k=2$.  From the point of view of
+cohomology, this is even less interesting than $n=2$, $k=1$, since now
+we are computing the Hecke action on $H^{-1} (\Gamma)$!  Nevertheless,
+the geometry here illustrates what one can expect in general.
+
+Each $2$-sharbly in the support of $\xi$ can be written as $
+[v_{1},v_{2},v_{3},v_{4}]$ and determines six submodular symbols, of
+the form $[v_{i}, v_{j}]$, $i\not =j$.  Assume for simplicity that all these
+submodular symbols are nonunimodular.  Let $w_{ij}$ be the reducing
+point for $[v_{i},v_{j}]$.  Then use the ten points $v_{i}, w_{ij}$ to
+label the vertices of the hypersimplex $\Delta (5,2)$ as in Figure
+\ref{hy1simp.fig} (note that $\Delta (5,2)$ is $4$-dimensional).
+
+\begin{figure}[htb]
+\psfrag{04}{$v_{1}$}
+\psfrag{14}{$v_{2}$}
+\psfrag{24}{$v_{3}$}
+\psfrag{34}{$v_{4}$}
+\psfrag{01}{$w_{12}$}
+\psfrag{02}{$w_{13}$}
+\psfrag{03}{$w_{14}$}
+\psfrag{12}{$w_{23}$}
+\psfrag{13}{$w_{24}$}
+\psfrag{23}{$w_{34}$}
+\begin{center}
+\includegraphics[scale=0.4]{diagrams/hy1simp_2}
+\end{center}
+\caption{\label{hy1simp.fig}}
+\end{figure}
+
+
+The boundary of this hypersimplex gives the analogue of
+\eqref{tfm}.  Which $2$-sharblies will appear in $\xi '$?  The boundary
+$\partial \Delta (5,2)$ is a union of five tetrahedra and five octahedra.
+The outer tetrahedron will not appear in $\xi '$, since that is the
+analogue of the left side of \eqref{tfm}.  The four octahedra sharing a
+triangular face with the outer tetrahedron also will not appear, since
+they disappear when considering $\xi '$ modulo $\Gamma$.  The
+remaining four tetrahedra and the central octahedron survive to $\xi '$
+and constitute the right side of the analogue of \eqref{tfm}.  Note that we
+must choose a simplicial subdivision of the central octahedron to write
+the result as a $2$-sharbly cycle and that this must be done with
+care since it introduces a new submodular symbol.
+
+If some submodular symbols are unimodular, then again one must
+consider iterated cones on hypersimplices, just as in
+Section~\ref{sl2.stop}.  The analogues of these steps become more
+complicated, since there are now many simplicial subdivisions of a
+hypersimplex\footnote{Indeed, computing all simplicial subdivisions of
+$\Delta (n,k)$ is a difficult problem in convex geometry.}. There is
+one final complication: in general we cannot use reduced $k$-sharblies
+alone to represent cohomology classes.  Thus one must terminate the
+algorithm when $\|\xi \|$ is less than some predetermined bound.
+
+\subsection{Other Linear Groups}
+%
+Let $F$ be a number field, and let $\bG = \bR_{F/\Q} (\SL_{n})$
+(Example \ref{ex:resofscalars}).  Let $\Gamma \subset \bG (\Q)$ be an
+arithmetic subgroup.  Can one compute the action of the
+Hecke operators on $H^{*} (\Gamma)$?  
+
+There are two completely different approaches to this problem.  The
+first involves the generalization of the modular symbols method.  One
+can define the analogue of the sharbly complex, and can try to extend
+the techniques of Sections~\ref{mod.symb.section}--\ref{other.coho}.
+
+This technique has been extensively used when 
+$F$ is \emph{imaginary quadratic} and $n=2$.  We have $X = \SL_{2}
+(\C)/\SU (2)$, which is isomorphic to $3$-dimensional hyperbolic
+space $\fh_{3}$.  The arithmetic groups $\Gamma \subset \SL_{2}
+(\sO_{F})$ are known as \defn{Bianchi groups}.  The retracts and
+cohomology of these groups have been well studied; as a representative
+sample of works we mention \cite{mendoza, egm, vogtmann,
+grune.sch}.
+
+Such groups have $\Q$-rank 1 and thus have cohomological dimension
+$2$.  One can show that the cuspidal classes live in degrees $1$ and
+$2$.  This means that we can use modular symbols to investigate the
+Hecke action on cuspidal cohomology.  This was done by Cremona
+\cite{crem} for \emph{euclidean} fields $F$.  In that case Theorem
+\ref{thm:modsymbalg} works with no trouble (the euclidean algorithm is
+needed to construct reducing points).  For noneuclidean fields
+further work has been done by Whitley \cite{whit}, Cremona and Whitely
+\cite{crem.whit} (both for principal ideal domains), Bygott
+\cite{bygott} (for $F=\Q (\sqrt{-5})$ and any field with class group
+an elementary abelian $2$-group), and Lingham \cite{lingham} (any
+field with odd class number).  Putting all these ideas together allows
+one to generalize the modular symbols method to \emph{any} imaginary
+quadratic field \cite{crem.letter}.
+
+For $F$ imaginary quadratic and $n>2$, very little has been studied.
+The only related work to the best of our knowledge is that of
+Staffeldt \cite{staffeldt}.  He determined the structure of the \Vor
+polyhedron in detail for $\bR_{F/\Q} (\SL_{3})$, where $F = \Q
+(\sqrt{-1})$.  We have $\dim X = 8$ and $\nu =6$.  The cuspidal
+cohomology appears in degrees $3,4,5$, so one could try to use the
+techniques of Section~\ref{other.coho} to investigate it.
+
+Similar remarks apply to $F$ \emph{real quadratic} and $n=2$.  The
+symmetric space $X \simeq \fh \times \fh$ has dimension $4$ and the
+$\Q$-rank is 1, which means $\nu = 3$.  Unfortunately the cuspidal
+cohomology appears only in degree $2$, which means modular symbols
+cannot see it.  On the other hand, 1-sharblies can see it, and so one
+can try to use ideas in Section~\ref{other.coho} here to compute the Hecke
+operators.  The data needed to build the retract $W$ already
+(essentially) appears in the literature for certain fields; see for
+example \cite{ong}.
+
+The second approach shifts the emphasis from modular symbols and the
+sharbly complex to the \Vor fan and its cones.  For this approach we
+must assume that the group $\Gamma$ is associated to a
+\defn{self-adjoint homogeneous cone} over $\Q$.  (cf. \cite{ash77}).
+This class of groups includes arithmetic subgroups of $\bR_{F/\Q}
+(\SL_{n})$, where $F$ is a totally real or CM field.  Such groups have
+all the nice structures in Section~\ref{vcd.section}.  For example, we have
+a cone $C$ with a $G$-action.  We also have an analogue of the \Vor
+polyhedron $\Pi$.  There is a natural compactification $\tilde{C}$ of
+$C$ obtained by adjoining certain self-adjoint homogeneous cones of
+lower rank.  The quotient $\Gamma \backslash \tilde{C}$ is singular in
+general, but it can still be used to compute $H^{*} (\Gamma ; \C)$.  The
+polyhedron $\Pi$ can be used to construct a fan $\sV$ that gives a
+$\Gamma$-equivariant decomposition of all of $\tilde{C}$.  But the
+most important structure we have is the \Vor reduction algorithm:
+given any point $x\in \tilde{C}$, we can determine the unique \Vor
+cone containing $x$.
+
+Here is how this setup can be used to compute the Hecke action.  Full
+details are in \cite{msa, ccalg}.  We define two chain complexes
+$\bC^{V}_{*}$ and $\bC^{R}_{*}$.  The latter is essentially the chain
+complex generated by all simplicial rational polyhedral cones in
+$\tilde{C}$; the former is the subcomplex generated by the \Vor cones.
+These are the analogues of the sharbly complex and the chain complex
+associated to the retract $W$, and one can show that either can be used
+to compute $H^{*} (\Gamma ; \C)$.  Take a cycle $\xi \in \bC^{V}_{*}$
+representing a cohomology class in $H^{*} (\Gamma ; \C)$ and act on it
+by a Hecke operator $T$.  We have $T (\xi) \in \bC^{R}_{*}$, and we
+must push $T (\xi)$ back to $\bC^{V}_{*}$.
+
+To do this, we use the linear structure on $\tilde{C}$ to subdivide $T
+(\xi)$ very finely into a chain $\xi '$.  For each $1$-cone $\tau$ in
+$\support \xi '$, we choose a $1$-cone $\rho_{\tau}\in
+\tilde{C}\smallsetminus C$ and assemble them using the combinatorics
+of $\xi '$ into a polyhedral chain $\xi ''$ homologous to $\xi'$.
+Under certain conditions involved in the construction of $\xi '$, this
+chain $\xi ''$ will lie in $\bC^{V}_{*}$.  
+
+We illustrate this process for the split group $\SL_{2}$; more details
+can be found in \cite{msa}.  We work modulo homotheties, so that the
+three-dimensional cone $\tilde{C}$ becomes the extended upper
+half plane $\fh^{*}:= \fh \cup \Q \cup \{\infty \} $, with $\partial
+\tilde{C}$ passing to the cusps $\fh ^{*}\smallsetminus \fh $.  As
+usual top-dimensional \Vor cones become the triangles of the Farey
+tessellation, and the cones $\rho_{\tau}$ become cusps.  Given any
+$x\in \fh$, let $R (x)$ be the set of cusps of the unique triangle or
+edge containing $x$ (this can be computed using the \Vor reduction
+algorithm).  Extend $R$ to a function on $\fh^{*}$ by putting $R (u) =
+\{u \}$ for any cusp $u$.
+
+In $\fh$, the support of $T (\xi)$ becomes a geodesic $\mu $ between
+two cusps $u$, $u'$, in other words the support of a modular symbol
+$[u,u' ]$ (Figure
+\ref{partition.fig}).  Subdivide $\mu$ by choosing points
+$x_{0},\dotsc ,x_{n}$ such that $x_{0}=u$, $x_{n} = u'$, and $R
+(x_{i})\cap R (x_{i+1})\not =\emptyset$.  (This is easily done, for
+example by repeatedly barycentrically subdividing $\mu$.)
+For each $i<n$ choose a
+cusp $q_{i}\in R (x_{i})\cap R (x_{i+1})$, and put $q_{n}=u'$.  Then
+we have a relation in $H^{1}$:
+\begin{equation}\label{eq:sahc.rel}
+[u,u']=[q_{0},q_{1}]+\dotsb +[q_{n-1},q_{n}].
+\end{equation}
+Moreover, each $[q_{i},q_{i+1}]$ is unimodular, since $q_{i}$ and
+$q_{i+1}$ are both vertices of a triangle containing $x_{i+1}$.
+Upon lifting \eqref{eq:sahc.rel} back to $\bC^{R}_{*}$, the cusps
+$q_{i}$ become the $1$-cones $\rho_{\tau}$ and give us a relation
+$T (\xi) = \xi ''\in \bC^{V}_{*}$.
+
+\begin{figure}[htb]
+\psfrag{mu}{$\mu $}
+\psfrag{u1}{$u$}
+\psfrag{u2}{$u'$}
+\centerline{\includegraphics[scale = .5]{diagrams/partition}}
+\caption{A subdivision of $\mu $; the solid dots are the $x_{i}$.
+Since the $x_{i}$ lie in the same or adjacent \Vor \ cells, we can
+assign cusps to them to construct a homology to a cycle in $\bC ^{V}_{*}$.\label{partition.fig}}
+\end{figure}
+
+\subsection{The Sharbly Complex for General Groups}
+%
+In \cite{sympms} we generalized Theorem \ref{thm:modsymbalg} (without
+the complexity statement) to the symplectic group $\SP_{2n}$.  Using
+this algorithm and the symplectic retract \cite{mmc1, mmc2}, one can
+compute the action of the Hecke operators on the top-degree cohomology
+of subgroups of $\SP_{4} (\Z)$. 
+
+More recently, Toth has investigated modular symbols for other groups.
+He showed that the unimodular symbols generate the top-degree
+cohomology groups for $\Gamma$ an arithmetic subgroup of a split
+classical group or a split group of type $E_{6}$ or $E_{7}$
+\cite{toth}.  His technique of proof is completely different from that
+of \cite{sympms}.  In particular he does not give an analogue of the
+Manin trick.  Can one extract an algorithm from Toth's proof that can
+be used to explicitly compute the action of the Hecke operators on
+cohomology?
+
+The proof of the main result of \cite{sympms} uses a description of
+the relations among the modular symbols.  These relations were
+motivated by the structure of the cell complex in \cite{mmc1, mmc2}.
+The modular symbols and these relations are analogues of the groups
+$S_{0}$ and $S_{1}$ in the sharbly complex.  Can one 
+extend these combinatorial constructions to form a \defn{symplectic
+sharbly complex}?  What about for general groups $\bG$?  
+
+Already for $\SP_{4}$, resolution of this question would have immediate
+arithmetic applications.  Indeed, Harder has a beautiful conjecture
+about certain congruences between holomorphic modular forms and Siegel
+modular forms of full level \cite{harder-arbeit}.  Examples of these
+congruences were checked numerically in \cite{harder-arbeit} using techniques of
+\cite{faber-van.der.geer} to compute the Hecke action.
+
+However, to investigate higher levels, one needs a different technique.
+The relevant cohomology classes live in $H^{\nu -1} (\Gamma ; \MMM)$,
+so one only needs to understand the first three terms of the complex
+$S_{0}\leftarrow S_{1}\leftarrow S_{2}$.  We understand $S_{0}$,
+$S_{1}$ from \cite{sympms}; the key is understanding $S_{2}$, which
+should encode relations among elements of $S_{1}$.  If one could do
+this and then could generalize the techniques of \cite{experimental},
+one would have a way to investigate Harder's conjecture.
+
+\subsection{Generalized Modular Symbols}
+%
+We conclude this appendix by discussing a geometric approach to
+modular symbols.  This complements the algebraic approaches presented
+in this book and leads to many new interesting phenomena and
+problems.
+
+Suppose $\bH$ and $\bG$ are connected semisimple algebraic groups over
+$\Q$ with an injective map $f\colon \bH \rightarrow \bG$.  Let $K_{H}$
+be a maximal compact subgroup of $H = \bH (\R)$, and suppose $K\subset
+G$ is a maximal compact subgroup containing $f (K_{H})$.  Let $X =
+G/K$ and $Y = H/K_{H}$.
+
+Now let $\Gamma \subset \bG (\Q)$ be a torsion-free arithmetic
+subgroup.  Let $\Gamma_{H} = f^{-1} (\Gamma)$.  We get a map
+$\Gamma_{H}\backslash Y \rightarrow \Gamma \backslash X$, and we
+denote the image by $S (H,\Gamma)$.  Any
+compactly supported cohomology class $\xi \in H_{c}^{\dim Y} (\Gamma
+\backslash X; \C)$ can be pulled back via $f$ to $\Gamma_{H}\backslash
+Y$ and integrated to obtain a complex number.  Hence $S (H,\Gamma)$
+defines a linear form on $H_{c}^{\dim Y} (\Gamma
+\backslash X; \C)$.  By Poincar\'e duality, this linear form
+determines a class $[S (H,\Gamma )] \in H^{\dim X - \dim Y} (\Gamma
+\backslash X; \C)$, called a \defn{generalized
+modular symbol}.  Such classes have been considered by many authors,
+for example \cite{ash.borel, venky.speh, harder.modsym,
+ash.ginzburg.rallis}.
+
+As an example, we can take $\bG$ to be the split form of $\SL_{2}$,
+and we can take $f \colon \bH \rightarrow \bG $ to be the inclusion of
+connected component of the diagonal subgroup.  Hence $H \simeq
+\R_{>0}$.  In this case $K_{H}$ is trivial.  The image of $Y$ in $X$
+is the ideal geodesic from $0$ to $\infty$.  One way to vary $f$ is by
+taking an $\SL_{2} (\Q)$-translate of this geodesic, which gives a
+geodesic between two cusps.  Hence we can obtain the support of any
+modular symbol this way.  This example generalizes to $\SL_{n}$ to
+yield the modular symbols in Section~\ref{mod.symb.section}.  Here $H \simeq
+(\R >0)^{n-1}$.  Note that $\dim Y = n-1$, so the cohomology classes
+we have constructed live in the top degree $H^{\nu} (\Gamma \backslash
+X; \C)$.
+
+Another family of examples is provided by taking $\bH$ to be a Levi
+factor of a parabolic subgroup; these are the modular symbols studied
+in \cite{ash.borel}.
+
+There are many natural questions to study for such objects.  Here are
+two:
+
+\begin{itemize}
+\item Under what conditions on $\bG , \bH , \Gamma$ is $[S
+(H,\Gamma)]$ nonzero?  This question is connected to relations between periods
+of automorphic forms and functoriality lifting.  There are a variety
+of partial results known; see for example \cite{venky.speh, ash.ginzburg.rallis}.
+\item We know the usual modular symbols span the top-degree cohomology
+for any arithmetic group $\Gamma$.  Fix a class of generalized modular
+symbols by fixing the pair $\bG , \bH $ and fixing some class of maps
+$f$.  How much of the cohomology can one span for a general arithmetic
+group $\Gamma \subset \bG (\Q)$?
+
+A simple example is given by the Ash--Borel construction for $\bG =
+\SL_{3}$ and $\bH$ a Levi factor of a rational parabolic subgroup
+$\bP$ of type $(2,1)$.  In this case $H \simeq \SL_{2} (\R) \times
+\R_{>0}$ and sits inside $G$ via
+\[
+g\left( 
+\begin{array}{cc}
+\alpha^{-1}M&0\\
+0&\alpha
+\end{array}\right)g^{-1}, \quad M\in \SL_{2} (\R), \quad \alpha \in
+\R_{>0}, \quad g \in \SL_{3} (\Q).
+\]
+For $\Gamma \subset \SL_{3} (\Z)$ these symbols define a subspace 
+\[
+S_{(2,1)}\subset H^{2} (\Gamma
+\backslash X; \C).
+\]
+Are there $\Gamma $ for which $S_{(2,1)}$ equals
+the full cohomology space?  For general $\Gamma$ how much is
+captured?  Is there
+a nice combinatorial way to write down the relations among these
+classes?  Can one cook up a generalization of Theorem
+\ref{thm:modsymbalg} for these classes and use it to compute Hecke
+eigenvalues?
+
+\end{itemize}
+
+

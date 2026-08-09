@@ -1,0 +1,1052 @@
+%%
+%% This is file `elsarticle-template-harv.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% elsarticle.dtx  (with options: `harvtemplate')
+%% 
+%% Copyright 2007, 2008 Elsevier Ltd.
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% -------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+%% SP 2008/03/01
+
+\documentclass[preprint,12pt]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+%% \documentclass[final,3p,times]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+%% if you use PostScript figures in your article
+%% use the graphics package for simple commands
+%% \usepackage{graphics}
+%% or use the graphicx package for more complicated commands
+%% \usepackage{graphicx}
+%% or use the epsfig package if you prefer to use the old commands
+%% \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+\journal{Journal of Algebra}
+
+\usepackage[lined,ruled,vlined]{algorithm2e}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{url} 
+
+\usepackage{graphicx}
+\newcommand{\GO}[1]{\ensuremath{\mathcal{O}\left(#1\right)}\xspace}
+\newcommand{\SftO}[1]{\ensuremath{\mathcal{O}\tilde\ \left(#1\right)}\xspace}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+%%%% Theoremstyles
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{openproblem}[theorem]{Open Problem}
+
+%\theoremstyle{remark}
+\newtheorem{goal}[theorem]{Goal}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{remarks}[theorem]{Remarks}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
+
+
+
+  \title{Fast Computation of Hermite Normal Forms of\\Random Integer
+    Matrices}
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \address[label1]{}
+%% \address[label2]{}
+
+\author{Cl\'ement Pernet\footnote{Supported by the National Science Foundation under Grant No.~0713225.}}
+\author{William Stein\footnote{Supported by the National Science Foundation under Grant No.~0653968.}}
+
+\begin{abstract}
+  This paper is about how to compute the Hermite normal form of a {\em
+    random} integer matrix in practice. We propose significant
+  improvements to the algorithm by Micciancio and Warinschi, and
+  extend these techniques to the computation of the saturation of a
+  matrix. Tables of timings confirm the efficiency of this
+  approach. To our knowledge, our implementation is  the
+  fastest implementation for computing Hermite normal form for large
+  matrices with large entries.
+\end{abstract}
+
+\begin{keyword}
+Hermite normal form \sep exact linear algebra
+%% keywords here, in the form: keyword \sep keyword
+
+%% PACS codes here, in the form: \PACS code \sep code
+
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+
+\end{keyword}
+
+\end{frontmatter}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+This paper is about how to compute the Hermite normal form of a {\em
+  random} integer matrix in practice.  We describe the best known
+algorithm for random matrices, due to Micciancio and Warinschi \cite{MicWar01}
+and explain some new ideas that make it practical.  We also
+apply these techniques to give a new algorithm for computing the
+saturation of a module, and present timings.
+
+In this paper we do not concern ourselves with nonrandom matrices, and
+instead refer the reader to
+\cite{Storjohann96asymptoticallyfast,Storjohann98computinghermite} for
+the state of the art for worse case complexity results.  Our
+motivation for focusing on the random case is that it comes up
+frequently in algorithms for computing with modular forms.
+
+Among the numerous notions of Hermite normal form, we use the
+following one, which is the closest to the familiar notion of reduced
+row echelon form.
+
+\begin{definition}[Hermite Normal Form]
+  For any $n\times m$ integer matrix $A$ the {\em Hermite
+    normal form} (HNF) of $A$ is the unique matrix  $H=(h_{i,j})$ such that there is a
+  unimodular $n\times n$ matrix $U$ with $UA=H$, and such that $H$ 
+satisfies the following two conditions:
+  \begin{itemize}
+  \item there exist a sequence of integers $j_1< \dots < j_n$ such that for all
+    $0\leq i \leq n$ we have $h_{i,j}=0$ for all $j<j_i$ (row echelon structure)
+  \item for $0\leq k< i \leq n$ we have $0\leq h_{k,j_i}< h_{i,j_i}$
+    (the pivot element is the greatest along its column and the
+    coefficient above are nonnegative).
+  \end{itemize}
+\end{definition}
+
+Thus the Hermite normal form  is a generalization over $\Z$ of
+the reduced row echelon form of a matrix over $\Q$.  Just as
+computation of echelon forms is a building block for many algorithms
+for computing with vector spaces, Hermite normal form is a building
+block for algorithms for computing with modules over $\Z$ (see, e.g.,
+\cite[Ch.~2]{cohen:course}).
+
+
+
+\begin{example}
+The HNF of the matrix
+$$
+A = \left(\begin{array}{rrrrrr}
+-5 & 8 & -3 & -9 & 5 & 5 \\
+-2 & 8 & -2 & -2 & 8 & 5 \\
+7 & -5 & -8 & 4 & 3 & -4 \\
+1 & -1 & 6 & 0 & 8 & -3
+\end{array}\right)
+$$
+is
+$$
+H = \left(\begin{array}{rrrrrr}
+1 & 0 & 3 & 237 & -299 & 90 \\
+0 & 1 & 1 & 103 & -130 & 40 \\
+0 & 0 & 4 & 352 & -450 & 135 \\
+0 & 0 & 0 & 486 & -627 & 188
+\end{array}\right).$$
+Notice how the entries in the answer are quite large compared to the
+input.  
+
+{\em Heuristic observations:} For a random $n\times m$ matrix $A$ with
+$n\leq m$, the number of digits of each entry of the rightmost $m-n+1$
+columns of $H$ are similar in size to the determinant of the left
+$n\times n$ submatrix of $A$.  For example, a random $250\times 250$
+matrix with entries in $[-2^{32},2^{32}]$ has HNF with entries in the
+last column all having about 2590 digits and determinant with about
+2590 digits, but all other entries are likely to be very small (e.g.,
+a single digit).
+\end{example}
+
+
+There are numerous algorithms for the computing HNF's, including
+\cite{KanBach79,DomKan87,Brad89,MicWar01}.  We describe an algorithm
+that is based on the heuristically fast algorithm by Micciancio and
+Warinschi \cite{MicWar01}, updated with  several practical improvements.
+Our implementation is currently asymptotically the fastest available
+(see Section~\ref{sec:experiments}).
+
+
+In the rest of this paper, we mainly address computation of the HNF of
+a square nonsingular matrix $A$.  We also briefly explain how to
+reduce the general case to the square case, discuss computation of 
+saturation, and give timings.  We give an outline of the algorithm in
+Section~\ref{sec:outline} and present more details in
+Sections~\ref{sec:doubledet},~\ref{sec:addcol} and \ref{sec:addrow}.
+The cases of more rows than columns and more columns than rows is 
+discussed in the Section \ref{sec:nonsquare}.  In
+Section~\ref{sec:experiments}, we sketch the main features of our
+implementation in Sage, and compare the computation time for various
+class of matrices.
+
+\vspace{2ex}\par\noindent{}{\bf Acknowledgement:} We thank Allan Steel
+for providing us with notes from a talk he gave on his implementation
+of \cite{MicWar01}.  Steel's implementation was much faster than any
+other system available (e.g., Pari, NTL, Mathematica, Maple, and GAP),
+which was the motivation for this paper.  The extent to which our
+algorithm is similar to Steel's is unclear, because Steel's algorithm
+has not been published and Magma is closed source.  We would also like
+to thank Burcin Erocal for implementing mod~$n$ computation of Hermite
+form in Sage, Robert Bradshaw for help benchmarking our
+implementation, Arne Storjohann for helpful conversations about the
+non-random case, and Andrew Crites and Michael Goff for their final
+student project on computing HNF's.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Outline of the algorithm when $A$ is square}
+\label{sec:outline}
+
+For the rest of this section, let $A=(a_{i,j})_{i,j=0,\ldots,n-1}$ be
+an $n\times n$ matrix with integer entries.  There are two key ideas
+behind the algorithm of \cite{MicWar01} for computing the HNF of $A$.
+\begin{enumerate}
+\item Every entry in the HNF $H$ of a square matrix $A$ is at
+  most the absolute value of the determinant $\det(A)$, so one can compute $H$
+  be working modulo the determinant of $H$. This idea was first
+  introduced and developed in \cite{DomKan87}.
+\item The determinant of $A$ may of course still be extremely large.
+  Micciancio and Warinschi's clever idea is to instead compute the
+  Hermite form $H'$ of a small-determinant matrix constructed from $A$
+  using the Euclidean algorithm and properties of determinants.  Then
+  we recover $H$ from $H'$ via three update steps.
+\end{enumerate}
+
+We now explain the second key idea in more detail.  Consider the following
+block decomposition of $A$:
+$$
+A = 
+\begin{bmatrix}
+  B & b\\
+  c^T & a_{n-1,n}\\
+  d^T & a_{n,n}\\
+\end{bmatrix},
+$$     
+ where $B$ is the upper left $(n-2)\times
+(n-1)$ submatrix of $A$, and $b$, $c$, $d$ are column vectors.
+Let 
+$d_1 = \det \left(
+\begin{bmatrix}
+  B\\c^T
+\end{bmatrix}
+\right)$
+and 
+ $d_2 = \det \left(
+      \begin{bmatrix}
+        B\\d^T
+      \end{bmatrix}
+      \right)
+$.
+Use the extended Euclidean algorithm to find integers $s,t$ such that
+$$
+  g = sd_1+td_2,
+$$
+where $g=\gcd(d_1, d_2)$.
+
+Since the determinant is linear in row operations, we have
+\begin{equation}\label{eq:gcddet}
+  \det \left(\begin{bmatrix}
+        B\\ sc^T+td^T
+      \end{bmatrix}\right) = g
+\end{equation}
+For random matrices, $g$ is likely to be very small.  Figure
+\ref{fig:hist} illustrates the distribution of such gcd's, on a set of
+500 random integer matrices of dimension $100$ with 100-bit coefficients.
+
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=.8\textwidth]{gcdhisto.pdf}
+      \caption{Distribution of the determinants in \eqref{eq:gcddet}, for
+500 random matrices with $n=100$ and entries uniformly chosen to 
+satisfy $\log_2\|A\|=100$. Only 9 elements had a determinant larger than
+        $200$, and the largest one was $6816$.}
+      \label{fig:hist}
+    \end{center}
+  \end{figure}
+
+\begin{algorithm}\label{alg:hnf}
+  \linesnumbered
+  \dontprintsemicolon
+  \caption{Hermite Normal Form \cite{MicWar01}}
+  \label{alg:MicWar01}
+  \KwData{$A$: an $n\times n$ nonsingular matrix over $\Z$}
+  \KwResult{$H$: the Hermite normal form of $A$}
+  \Begin{
+     Write
+      $A = 
+      \begin{bmatrix}
+        B & b\\
+        c^T & a_{n-1,n}\\
+        d^T & a_{n,n}\\
+      \end{bmatrix}$\;
+      
+      Compute 
+      $d_1 = \det \left(
+      \begin{bmatrix}
+        B\\c^T
+      \end{bmatrix}
+      \right)$\; \label{step:det1}
+      Compute
+      $d_2 = \det \left(
+      \begin{bmatrix}
+        B\\d^T
+      \end{bmatrix}
+      \right)$\; \label{step:det2}
+
+      Compute the extended gcd of $d_1$ and $d_2$: $g = sd_1+td_2$\;
+
+      Let $C = 
+      \begin{bmatrix}
+        B\\ sc^T+td^T
+      \end{bmatrix}
+      $\;
+      
+      Compute $H_1$, the Hermite normal form of $C$, by working modulo $g$ as explained
+      in Section~\ref{sec:hnfmodg} below. (NOTE: In the unlikely case 
+      that $g=0$ or $g$ is large, we  
+      compute $H_1$ using any HNF algorithm applied to $C$, e.g., by
+      recursively applying the main algorithm of this paper to $C$.)\;\label{step:modh} 
+
+      Obtain from $H_1$ the Hermite form $H_2$ of 
+        $ \begin{bmatrix}
+          B &b\\
+          sc^T+td^T & sa_{n-1,n}+ta_{n,n}
+        \end{bmatrix}$
+        %% }
+        \;\label{step:addcol}
+
+     Obtain from $H_2$ the hermite form $H_3$ of 
+          $ \begin{bmatrix}
+            B & b\\
+            c^T&a_{n-1,n}
+          \end{bmatrix}$
+      \;\label{step:addrow1}
+
+      Obtain from $H_3$ the Hermite form $H$ of 
+          $ \begin{bmatrix}
+            B & b\\
+            c^T & a_{n-1,n}\\
+            d^T & a_{n,n}
+          \end{bmatrix}$
+          \;\label{step:addrow2} }
+  \end{algorithm}
+%
+Algorithm~\ref{alg:MicWar01} (on page~\pageref{alg:hnf}) is essentially the algorithm of
+Micciancio and Warinschi. 
+Our main improvement over their work is to greatly optimize
+Steps~\ref{step:det1}, \ref{step:det2} and \ref{step:addcol}.
+Step \ref{step:addcol} is performed by a procedure
+they call \texttt{AddColumn} (see Algorithm~\ref{alg:addcol} in Section~\ref{sec:addcolumn} below), 
+and steps \ref{step:addrow1} and \ref{step:addrow2}
+by a procedure they call \texttt{AddRow} (see Algorithm~\ref{alg:addrow} in Section~\ref{sec:addrow} below).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Double determinant computation}
+\label{sec:doubledet}
+
+There are many algorithms for computing the determinant of an integer
+matrix $A$.  One algorithm involves computing the Hadamard bound on
+$\det(A)$, then computing the determinant modulo $p$ for sufficiently
+many $p$ using an (asymptotically fast) Gaussian elimination
+algorithm, and finally using a Chinese remainder theorem
+reconstruction.  This algorithm has bit complexity
+$$\GO{n^4(\log n +
+  \log \|A\|) + n^3\log^2\|A\|},
+$$ 
+or 
+\GO{n^{\omega+1}(\log n + \log
+  \|A\|)} with fast matrix arithmetic (see \cite[Ch 5]{VonzurGathen:1999:MCA}).
+
+Abbott, Bronstein and Mulders \cite{AbbBroMul99} propose another
+determinant algorithm based on solving $A x = v$ for a random integer
+vector $v$ using an iterative $p$-adic solving algorithm (e.g.,
+\cite{Dix82, MoeCar79}).  In particular, by Cramer's rule the greatest
+common divisor of the denominators of the entries of $x$ is a divisor
+$d$ of $D=\text{det}(A)$.  The unknown integer $D/d$ can be recovered
+by computing it modulo $p$ for several primes and using the Chinese
+remainder theorem; usually $D/d$ is very small, so this is fast.  This
+approach has a similar worst case bit complexity: \GO{n^4+n^3(\log n +
+  \log\|A\|)^2} but a better average case complexity of 
+\GO{n^3(\log^2 n + \log \|A\|)^2}.
+
+The computation time can also be improved by allowing early
+termination in the Chinese remainder algorithm: once a reconstruction
+stabilizes modulo several primes, the result is likely to remain the
+same with a certified probability, and one can avoid the remaining
+modular computations.
+
+Further details on practical implementations for computing determinants of
+integer matrices can be found in \cite{DumasUrbanska:2006:TC}.
+
+Storjohann \cite{Storjohann05} obtains the best known bit complexity
+for computing determinants using a Las Vegas algorithm.  He obtains a
+complexity of \SftO{n^\omega\log\|A\|}, where $\omega$ is the exponent
+for matrix multiplication.  However, no implementation of this
+algorithm is known that is better in practice than the $p$-adic
+lifting based method for practical problem sizes.  Consequently, we
+based our implementation on this latter algorithm by \cite{AbbBroMul99}.
+See Table~\ref{tabdet} for a table of timings that compares our
+determinant implementation to that in Magma and some other systems.
+
+The computation of the two determinants (Steps \ref{step:det1} and
+\ref{step:det2}) therefore involves the solving of two systems, with
+very similar matrices. We reduce it to only one system solution {\em
+  in the generic case} using the following lemma.  Since this is a
+bottleneck in the algorithm, this factor of two savings is huge in
+practice.
+
+\begin{lemma}\label{lem:doubledet}
+  Let $A$ be an $n\times(n-1)$ matrix and $c$ and $d$ column vectors of
+ degree $n$, and assume that the augmented matrices 
+$[A|c]$
+and 
+$[A|d]$
+are both invertible. 
+Let $x=(x_i)$ be the solution of 
+$[A | c] x = d$.
+If $x_{n} \neq 0$, then the solution $y=(y_i)$ to $[A|d]y = c$ is 
+$$
+  y = \left( -\frac{x_1}{x_n}, -\frac{x_2}{x_n}, \dots, -\frac{x_{n-1}}{x_n},
+          \frac{1}{x_n}\right).
+$$
+\end{lemma}
+\begin{proof}
+Write $a_i$ for the $i$th column of $A$.  The equation $[A|c]x = d$ is thus
+$\left( \sum_{i=1}^{n-1} a_i x_i\right) + c x_n = d$, so 
+$\left(\sum_{i=1}^{n-1} a_i x_i\right) - d = -x_n c$. Dividing both sides by $-x_n$ yields
+$\left(\sum_{i=1}^{n-1} \left(-\frac{x_i}{x_n}\right) a_i\right)
+    + \frac{1}{x_n} d = c$, which proves the lemma.
+\end{proof}
+\begin{example}
+Let $A=\begin{bmatrix}
+1 & 2 \\
+-4 & 3 \\
+2 & -5
+\end{bmatrix}$,  $c=(-1,3,5)^T$,
+and $d=(2,-3,4)^T$. 
+The solution to $[A|c]x = d$ is 
+$$x = \left(\frac{111}{68},\frac{35}{68},\frac{45}{68}\right).$$
+Thus 
+$$
+ y = \left(-\frac{x_1 }{x_3}, -\frac{x_2}{x_3}, \frac{1}{x_3}\right)
+= \left(-\frac{37}{15},-\frac{7}{9},\frac{68}{45}\right).
+$$
+\end{example}
+
+Algorithm \ref{alg:doubledet} (on page~\pageref{alg:doubledet}) 
+describes how the two determinants are computed using Lemma~\ref{lem:doubledet}.
+
+\begin{algorithm}
+  \dontprintsemicolon
+  \caption{Double determinant computation}
+\label{alg:doubledet}
+  \KwData{$B$: an $(n-1)\times n$ matrix over $\Z$}
+  \KwData{$c,d$: two vectors in $\Z^n$.}
+  \KwResult{$(d_1,d_2) = \left(\det\left(
+    \begin{bmatrix}
+      B^T&c
+    \end{bmatrix}
+    \right),\det\left(
+    \begin{bmatrix}
+      B^T&d
+    \end{bmatrix}
+    \right)
+    \right)$}
+
+\Begin{
+
+    Solve the system $
+    \begin{bmatrix}
+      B^T&c
+    \end{bmatrix} x = d
+    $ using Dixon's $p$-adic lifting.\;
+  
+    Then $y_i = -x_i/x_n$, $y_n = 1/x_n$ solves $
+    \begin{bmatrix}
+      B^T&d
+    \end{bmatrix} y = c$ 
+by Lemma~\ref{lem:doubledet}, unless $x_n=0$, in which case
+we use the usual determinant algorithm to compute the determinants
+of the two matrices.\;
+    $u_1 = \text{lcm}(\text{denominators}(x))$\;
+    
+    $u_2 = \text{lcm}(\text{denominators}(y))$\;
+
+    Compute Hadamard's bounds $h_1$ and $h_2$ on the determinants of $
+    \begin{bmatrix}
+      B^T & c
+    \end{bmatrix}
+    $ and $ 
+    \begin{bmatrix}
+      B^T & d
+    \end{bmatrix}
+    $ %using double precision arithmetic or [[describe our
+%bit fiddling algorithm or is there a reference?!]]\;
+
+    Select a set of primes ($p_i$) s.t. $\prod_i p_i > \max(h_1/u_1,h_2/u_2)$\;
+    \ForEach{$p_i$}{
+      compute 
+      $B^T = L U P$, the LUP decomposition of $B^T$ mod $p_i$\;
+      $q = \prod_{i=1}^{n-1}U_{i,i} \mod p_i$\;
+      $x = L^{-1}c \mod p_i$\;
+      $y = L^{-1}d \mod p_i$\;
+      $v^{(i)}_1 = qx_n \mod p_i$\;
+      $v_2^{(i)} = qy_n \mod p_i$\;
+
+    }
+    reconstruct $v_1$ and $v_2$ from $(v^{(i)}_1)$ and $(v^{(i)}_2)$ using
+    CRT\;
+    \Return $ (d_1,d_2) = (u_1v_1, u_2v_2)$\;
+  }
+\end{algorithm}
+
+\section{Hermite form modulo $g$}\label{sec:hnfmodg}
+Recall that $C$ is a square nonsingular matrix with ``small'' determinant $g$.
+Step~\ref{step:modh} of Algorithm~\ref{alg:hnf} (on page \pageref{alg:hnf}) is to
+compute the HNF of $C$ as explained in \cite[\S3]{DomKan87}. There
+it is proved that since $g=\det(C)$, the Hermite normal form of
+$\begin{bmatrix}C\\  gI\end{bmatrix}$
+is $\begin{bmatrix} H\\ 0\end{bmatrix}$ where $H$ is the Hermite normal
+form of $C$.  Using this result, to compute $H$, we apply the standard row reduction
+Hermite normal form algorithm to $C$, always reducing all numbers 
+modulo $g$. Conceptually, think of this as adding multiples of the rows of $gI$, 
+which does not change the resulting Hermite form.
+At the end of this process we obtain a matrix $H=(h_{ij})$ with $0\leq h_{ij} < g$ for
+all $ij$. There is one special case; since the product of the diagonal entries of the
+Hermite form of $C$ is $g$, if the lower right entry of $H$ is $0$, then we replace it by $g$.  
+Then the resulting matrix $H$ is the Hermite normal form of $C$. 
+
+For additional discussion of the modular Hermite form algorithm, see
+\cite[\S2.4, pg.~71]{cohen:course} which describes the algorithm in
+detail, including a discussion of our above remark about replacing
+$0$ by $g$.
+
+\begin{example}
+Let $C = \begin{bmatrix}5&26\\2&11\end{bmatrix}$.  Then $g=\det(C)=3$, and the
+reduction mod $g$ of $C$ is $\begin{bmatrix}2&2\\2&2\end{bmatrix}$.  Subtracting
+the second row from the first yields $\begin{bmatrix}2&2\\0&0\end{bmatrix}$, 
+which is already reduced modulo $3$.  Then multiplying through the first row
+by $-1$ and reducing modulo $3$ again, we obtain $\begin{bmatrix}1&1\\0&0\end{bmatrix}$.
+Then, as mentioned above, since the lower right entry is $0$, we replace it
+by $g=3$, obtaining the Hermite normal form $H=\begin{bmatrix}1&1\\0&3\end{bmatrix}$. 
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Add a column}\label{sec:addcolumn}
+\label{sec:addcol}
+Step~\ref{step:addcol} of Algorithm~\ref{alg:MicWar01} is
+to find a column vector $e$ such that
+\begin{equation}\label{eq:addcolumn}
+\begin{bmatrix}
+  H_1 & e
+\end{bmatrix}
+=
+U
+\begin{bmatrix}
+  B & b\\
+sc^T+td^T& a_{n-1,n}
+\end{bmatrix}
+\end{equation}
+is in Hermite form, for a unimodular matrix $U$.
+
+By Hypothesis $C =   \begin{bmatrix}
+    B\\sc^T+td^T
+  \end{bmatrix}$ is invertible, so 
+from (\ref{eq:addcolumn}), one gets
+\begin{eqnarray*}
+  e &=& U
+  \begin{bmatrix}
+    b\\a_{n-1,n-1}
+  \end{bmatrix}\\
+  &=& H_1 
+  \begin{bmatrix}
+    B\\sc^T+td^T
+  \end{bmatrix}^{-1}
+  \begin{bmatrix}
+    b\\a_{n-1,n-1}
+  \end{bmatrix}\\
+\end{eqnarray*}
+
+In \cite{MicWar01}, the column $e$ is computed using multi-modular
+computations and a tight bound on the size of the entries of $e$.  We
+instead use the $p$-adic lifting algorithm of \cite{Dix82,MoeCar79} to
+solve the system
+$$
+\begin{bmatrix}
+    B\\sc^T+td^T
+  \end{bmatrix} x = 
+  \begin{bmatrix}
+    b\\a_{n-1,n-1}
+\end{bmatrix}
+$$
+However, the last row $sc^T+td^T$ typically has much larger
+coefficients than the rest of the matrix, thus unduly penalizing the
+complexity of finding a solution.  Our key idea is to replace the row
+$sc^T+td^T$ by a random row $u$ that has small entries such that the
+resulting matrix is still invertible, find the solution $y$ of this
+modified system, then recover $x$ as follows.  Let $\{k\}$ be a basis
+of the $1$-dimensional kernel of $B$. Then the sought for solution of
+the original system is
+$$
+x = y +\alpha k,
+$$
+where $\alpha$ satisfies
+$$
+(sc^T+td^T) \cdot (y+\alpha k) = a_{n-1,n-1}.
+$$
+By linearity of the dot product, we have
+$$
+\alpha = \frac{a_{n-1,n-1} - (sc^T+td^T) \cdot y}{ (sc^T+td^T) \cdot k} 
+$$
+Note that if $(sc^T+td^T) \cdot k = 0$, then $Ck=0$, which would contradict
+our assumption that $C=   \begin{bmatrix}
+    B\\sc^T+td^T
+  \end{bmatrix}$ is invertible. 
+
+\begin{algorithm}
+  \caption{AddColumn}
+\label{alg:addcol}
+\dontprintsemicolon
+\KwData{$B = \begin{bmatrix}B_1 & b_2\\b_3^T& b_4\end{bmatrix}$: a $n\times n$
+    matrix over $\Z$, where $B_1$ is $(n-1)\times (n-1)$ and $b_2, b_3$ are vectors.}
+\KwData{$H_1$: the Hermite normal form of $
+  \begin{bmatrix}
+    B_1\\b_3^T
+  \end{bmatrix}$}
+\KwResult{$H$: the Hermite normal form of $B$
+}
+\Begin{
+    Pick a random vector $u$ such that $|u_i|\leq \|B\|\ \forall i$\;
+    Solve $
+    \begin{bmatrix}
+      B_1\\u
+    \end{bmatrix} y = 
+    \begin{bmatrix}
+      b_2\\b_4
+    \end{bmatrix}$\;
+    Compute a kernel basis vector $k$ of $B_1$\;
+    $\alpha = b_4 - \frac{b_3^T \cdot y}{ b_3^T \cdot k}$ \;
+    $x = y + \alpha k$\;
+    $e = H_1x$\;
+    \Return 
+    $\begin{bmatrix}
+      H_1& e
+    \end{bmatrix}$
+}
+\end{algorithm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Add a row}\label{sec:addrow}
+
+Steps \ref{step:addrow1} and \ref{step:addrow2} of
+Algorithm~\ref{alg:MicWar01} consist of adding a new row to the
+current Hermite form and updating it to obtain a new matrix in Hermite
+form.
+
+The principle is to eliminate the new row with all existing pivots and
+update the already computed parts when necessary.  Algorithm
+\ref{alg:addrow} (on page \pageref{alg:addrow}) describes this in more
+detail.
+\begin{algorithm}
+  \dontprintsemicolon
+  \caption{AddRow}\label{alg:addrow}
+\KwData{$A$: an $m\times n$ matrix in Hermite normal form}
+\KwData{$b$: a vector of degree $n$}
+\KwResult{$H$: the Hermite normal form of $
+  \begin{bmatrix}
+  A\\b
+  \end{bmatrix}$}
+\Begin{
+    \ForAll{pivots $a_{i,j_i}$ of $A$}{
+      \If{$b_{j_i}=0$}{
+        continue\;
+      }
+      \If{$A_{i,j_i} | b_{j_i}  $}{
+        $b := b - b_{j_i} / A_{i,j_i} A_{i,1\dots n}$ \;
+      }
+      \Else{
+        \tcc{Extended gcd based elimination}
+        $(g,s,t) = \text{XGCD}(a_{i,j_i},b_{j_i})$
+        \tcc*{so $g=sa_{i,j_i}+tb_{j_i}$}
+        $A_{i,1\dots n} := sA_{i,1\dots n} + t b_{j_i}$ \;
+        $b := b_{j_i}/g A_{i,1\dots n} - A_{i,j_i}/g b$ \;
+        
+        \For{$k=1$ to $i-1$}{
+          \tcc{Reduces row $k$ with row $i$}
+                 $A_{k,1\dots n} := A_{k,1\dots n} - \lfloor A_{k,j_i}/A_{i,j_i}\rfloor
+          A_{i,1\dots n}$ \;
+        }
+      }
+    }
+    \If{$b \neq 0$}{
+      let $j$ be the index of the first nonzero element of $b$\;
+      insert $b^T$ between rows $i$ and $i+1$ such that $j_i<j<j_{i+1}$\;
+    }
+    Return $
+    H=\begin{bmatrix}
+      A\\b
+    \end{bmatrix}$\;
+}
+\end{algorithm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Nonsquare Case}
+\label{sec:nonsquare}
+
+In the case where the matrix is rectangular, with dimensions $m\times
+n$, we reduce to the case of a square nonsingular matrix as follows:
+first compute the column and row rank profile (pivot columns and
+subset of independent rows) of $A$ modulo a random word-size
+prime. With high probability, the matrix $A$ has the same column and
+row rank profile over $\Q$, so we can now apply
+Algorithm~\ref{alg:MicWar01} to the square nonsingular $r\times r$ matrix obtained
+by picking the row and column rank profile submatrix of $A$ over
+$\mathbb{Z}$.
+
+The additional rows and columns are then incorporated as follows:
+\begin{description}
+\item[additional columns:] use Algorithm~\ref{alg:addcol}
+  (\texttt{AddColumn}) with a block of column vectors instead of just
+  one column.  If this fails, then we computed the rank profile
+  incorrectly, in which case we start over with a different random
+  prime.
+  \item[additional rows:] use Algorithm~\ref{alg:addrow}
+    (\texttt{AddRow}) for each additional row.
+\end{description}
+
+%The second operation (for additional rows) is a major bottleneck
+%when there are far more rows than columns.
+%[[Explain how to deal with this by (1) our block trick to reduce to a
+%very dense skinny submatrix, then (2) our trick to use LLL as
+%implemented in fpLLL.]]
+
+
+\section{Saturation}
+
+If $M$ is a submodule of $\Z^n$ for some $n$, then the saturation of
+$M$ is $\Z^n \cap (\Q M)$, i.e., the intersection with $\Z^n$ of the
+$\Q$-span of any basis of $M$.  For example, if $M$ has rank $n$, then
+the saturation of $M$ just equals $\Z^n$.  Also, kernels of
+homomorphisms of free $\Z$-modules are saturated.  Saturation comes up
+in many number theoretic algorithms, e.g., saturation is an important
+step in computing a basis over $\Z$ for the space of $q$-expansions of
+cuspidal modular forms of given weight and level, and comes up in
+explicit computation with homology of modular curves using modular
+symbols.
+
+There is a well-known connection between saturation and Hermite
+form. If $A$ is a basis matrix for $M$, and $H$ is the Hermite form of
+the transpose of $A$ with any 0 rows at the bottom deleted (so $H$ is
+square), then $H^{-1} A$ is a matrix whose rows are a basis for the
+saturation of $M$.  Thus computation of a saturation of a matrix
+reduces to computation of one Hermite form and solving a system $HX =
+A$.
+
+If $A$ is sufficiently random, then the Hermite form matrix $H$ has a
+very large last column and all other entries are small, so we exploit
+the trick in Section~\ref{sec:addrow} and instead solve a much easier
+system.  We give some timings below in Table~\ref{tab2} of our
+implementation of this algorithm in Sage.
+
+
+\section{Sage Implementation and Timings}\label{sec:experiments}
+We implemented the algorithms described in this paper as part of Sage
+\cite{sage}.  Note that our implementation relies on \texttt{IML}
+\cite{iml} for the solution of integer systems using $p$-adic lifting,
+and on \texttt{LinBox} \cite{linbox} for the computation of
+determinants modulo $p$ (the \texttt{IML} and \texttt{LinBox}
+libraries are both part of Sage).  Our Sage implementation is
+currently primarily optimized for the square case, and all our timings
+below only involve Hermite forms of square matrices.
+  
+We illustrate computing a Hermite normal form and saturation in Sage.
+{\small
+\begin{verbatim}
+    sage: A = matrix(ZZ,3,5,[-1,2,5,65,2,4,-1,-3,1,-2,-1,-2,1,-1,1])
+    sage: A
+    [-1  2  5 65  2]
+    [ 4 -1 -3  1 -2]
+    [-1 -2  1 -1  1]
+    sage: A.hermite_form()
+    [  1   0  17 259   7]
+    [  0   1  31 453  13]
+    [  0   0  40 582  17]
+    sage: A.saturation()
+    [-1  2  5 65  2]
+    [ 4 -1 -3  1 -2]
+    [-1 -2  1 -1  1]
+\end{verbatim}
+}
+
+%In Magma, one uses the command {\tt HermiteForm}. 
+%\begin{verbatim}
+%> M := RMatrixSpace(Integers(),3,5);
+%> A := M![-1,2,5,65,2,4,-1,-3,1,-2,-1,-2,1,-1,1];
+%> HermiteForm(A);
+%[  1   0  17 259   7]
+%[  0   1  31 453  13]
+%[  0   0  40 582  17]
+%\end{verbatim}
+
+There are implementations of Hermite normal form algorithms
+in NTL \cite{ntl}, Pari \cite{pari}, and GAP \cite{gap}.
+The timings in Table~\ref{tab1} illustrate that the algorithm in
+this paper is asymptotically better than these standard
+implementations.  For example, reducing a 500x500 random matrix with
+32-bit entries takes less than a minute in Sage (see
+Table~\ref{tab1}), but over an hour in NTL, Pari, and GAP.
+
+Table~\ref{tab1} also gives timings using Sage-3.2.3.  All
+computations were run with {\tt proof=True}, so no termination
+conditions were used that could result in a wrong answer with low
+probability.  All timings in Table~\ref{tab1} were done using a single
+processor on a Sun Fire X4450 server equipped with Intel 2.66Ghz X7460
+Xeon processors\footnote{Purchased using National Science Foundation
+  Grant No. DMS-0821725}.  For comparison, we also give timings for
+Magma \cite{magma} V2.14-9, which is the only other software we know
+of that implements the algorithm of \cite{MicWar01}.  We give some
+timings using Pari \cite{pari} 2.3.3, NTL 5.4.2, and GAP 4.4.10 (these
+are the versions included in Sage-3.2.3).  We do not include timings
+for either Maple or Mathematica, since they are both much slower at
+computing Hermite forms than any other system mentioned above, mainly
+because the only function for computing Hermite form in Maple and
+Mathematica also computes the transformation matrix.
+
+
+
+{
+\begin{table}[ht]
+  \caption{Time in seconds to
+    compute the {\bf HNF} of a random $n\times n$ matrix whose entries are uniformly distributed
+    in the interval $[-2^b,2^b]$, where $b=$bits.
+    For $b<512$, we time five runs and give the range of values obtained.  We computed the HNF's of exactly the same matrices in Sage and Magma.\label{tab1}}
+ \small\begin{center}
+\begin{tabular}{|l|l|l|l|l|l|l|}\hline
+& $n$ & 8 bits & 32 bits  & 128 bits  & 256 bits & 512 bits\\\hline 
+{\bf Sage}
+& 50 & 0.1--0.1 & 0.2--0.2 & 0.7--0.8 & 2.7--2.9 & 12.45\\
+& 250 & 4.1--5.4 & 6.6--7.1 & 33.6--37.0 & 102.8--110.7 & 470.22\\
+& 500 & 24.8--26.6 & 38.8--43.5 & 179.4--187.2 & 534.7--566.1 & 2169.41\\
+& 1000 & 164.9--191.1 & 266.3--282.8 & 1081.4--1143.0 & 2804.9--3149.9 & 10506\\
+& 2000 & 1500.4 & 2837.5& & & \\
+& 4000 & 11537.3 & 17105.9 & & & \\
+\hline
+{\bf Magma}
+& 50 & 0.0--0.0 & 0.0--0.1 & 0.3--0.3 & 0.9--1.0 & 2.73\\
+& 250 & 0.9--1.1 & 11.5--14.5 & 60.1--87.6 & 196.4--249.4 & 764.6\\
+& 500 & 6.8--8.6 & 183.5--226.1 & 977.5--1004.5 & 2611.9--2649.4 & 7100.91\\
+& 1000 & 70.8--74.6 & 1580.4--2017.3 & 7876.0--8582.9 & 21370.2 & 58339\\
+& 2000 & 886.1  & 14917.8 & & & \\
+& 4000 & 6096.5 &  & & & \\
+\hline
+{\bf NTL}
+& 50 & 0.09 & 0.31 &&&\\
+& 250 & 74.58 & 494.46&&&\\
+& 500 & 1975 & 12199 &&&\\
+\hline
+{\bf GAP}
+& 50 & 0.12 & 0.19  & & &\\
+& 250 &  36.08 & 165.49 & && \\
+& 500 & 712 & 3982  & & &\\
+\hline
+{\bf Pari}
+& 50  & 0.09 & 0.26 & & &\\
+& 250 & 163.69 & 776.91 &&& \\
+& 500 & 2925 & 15263 & &&\\
+\hline
+\end{tabular}
+
+
+\end{center}
+\end{table}
+}
+
+{
+\begin{table}[ht]
+  \caption{Time in seconds to 
+    compute the {\bf determinant} of a random $n\times n$ matrix whose entries are uniformly distributed
+    in the interval $[-2^b,2^b]$, where $b=$bits. \label{tabdet}}
+  \small\begin{center}
+    
+\begin{tabular}{|l|l|l|l|l|l|l|l|}\hline
+& $n$ & 8 bits & 32 bits  & 128 bits  & 256 bits & 512 bits\\\hline 
+{\bf Sage} & 50 & 0.0 & 0.1 & 0.3 & 0.8 & 3.7\\
+& 250 & 1.3 & 2.0 & 9.1 & 31.5 & 138.2\\
+& 500 & 7.2 & 12.6 & 54.9 & 190.2 & 646.6\\
+& 1000 & 55.6 & 105.0 & 397.3 & 1057.4 & 3435.1\\
+& 1500 & 230.6 & 407.0 & 1242.7 & 3255.8 & 8133.3\\
+& 2000 & 544.1 & 997.1 & 2828.0 & 6138.2 & 15533.5\\
+& 3000 & 1991.8 & 3132.5 & 7473.8 & 14385.3 & 39834.7\\\hline
+
+{\bf Magma} & 50 & 0.1 & 0.1 & 0.3 & 0.6 & 1.8\\
+& 250 & 0.4 & 12.8 & 62.9 & 192.3 & 659.2\\
+& 500 & 3.8 & 108.5 & 455.7 & 1175.5 & 4362.9\\
+& 1000 & 40.1 & 677.7 & 3871.2 & 9406.8 & 25430.3\\
+& 1500 & 122.4 & 3085.8 & 12327.8 & 28987.9 & 78741.3\\
+& 2000 & 219.7 & 6097.1 & 26438.8 & 63898.0 & 185228.1\\
+& 3000 & 1175.2 & 17868.7 & 82417.0 & 207316.0 & \\
+\hline
+{\bf NTL}
+&50 & 0.0 & 0.0 & 0.1 & 0.1 & 0.3\\
+&250 & 2.2 & 9.5 & 40.3 & 43.0 & 93.2\\
+&500 & 46.6 & 119.3 & 359.3  & 1104.5 & 2100.8 \\
+&1000 & 659.8 & 1943.2 & 7158.3 & 14538.8 & 28711.5\\
+
+\hline
+{\bf GAP}
+&50 & 0.1 & 0.5 & 2.9 & 5.5 & 20.5\\
+&250 & 107.7 & 548.4 & 4533.3 &  & \\
+
+
+\hline
+{\bf Pari}
+&50 & 0.0 & 0.1 & 0.4 & 1.0 & 3.2\\
+&250 & 667.6 & 1288.3 & 3856.3 &  & \\
+\hline\end{tabular}
+\end{center}
+\end{table}
+}
+
+
+{ 
+\begin{table}[ht]
+  \caption{Time in seconds for Sage and Magma to compute the {\bf saturation} of a random $n\times m $ matrix whose entries are uniformly distributed in the interval $[-2^b,2^b]$, where $b=$bits.
+When a range is given, we time ten runs and give the range of timings obtained.
+We computed the saturations of exactly the same matrices in Sage and Magma.
+\label{tab2}}
+%Note that out output of Sage's {\tt saturation} command is almost never never in Hermite form.
+%The output of the Magma Saturation 
+\begin{center}
+
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+& $n \times m $ & 8 bits & 32 bits  & 128 bits  \\\hline 
+{\bf Sage}  
+& $100 \times 101$ & 0.2--3.2 & 0.6--3.2 & 1.8--9.2\\
+& $100 \times 150$ & 0.3--0.5 & 0.4--4.7 & 1.8--9.7\\
+& $100 \times 300$ & 0.3--4.8 & 0.4--10.5 & 1.9--14.8\\
+& $200 \times 201$ & 1.3--12.0 & 2.2--12.8 & 10.3--61.1\\
+& $200 \times 300$ & 1.3--3.4 & 2.3--18.2 & 11.0--75.5\\
+& $200 \times 600$ & 1.5--44.8 & 2.3--38.8 & 20.6--83.6\\
+& $250 \times 251$ & 2.3--26.1 & 3.6--33.6 & 18.9--99.6\\
+& $250 \times 375$ & 2.3--4.9 & 3.7--58.1 & 18.6--102.8\\
+& $250 \times 750$ & 2.5--79.3 & 3.9--68.8 & 47.8--55.1\\
+& $300 \times 301$ & 3.7--24.0 & 5.8--41.6 & 29.8--159.2\\
+& $300 \times 450$ & 3.8--42.5 & 6.3--59.4 & 26.7--69.3\\
+& $300 \times 900$ & 4.1--109.4 & 6.2--172.2 & 25.7--198.5\\
+& $500 \times 501$ & 14.6--92.1 & 22.5--145.7 & 91.4--460.2\\
+& $500 \times 750$ & 15.4--246.7 & 22.3--195.8 & 94.4--237.6\\
+& $500 \times 1500$ & 15.8--30.8 & 21.3--441.2 & 95.9--873.3\\
+\hline
+{\bf Magma} 
+& $100 \times 101$ & 0.2--0.2 & 1.2--1.3 & 6.3--9.6\\
+& $100 \times 150$ & 0.3--0.3 & 1.9--2.3 & 9.6--11.9\\
+& $100 \times 300$ & 0.7--0.8 & 3.9--5.0 & 22.0--26.8\\
+& $200 \times 201$ & 2.0--2.3 & 17.3--23.3 & 86.0--113.5\\
+& $200 \times 300$ & 3.1--3.6 & 21.2--32.1 & 149.2--185.6\\
+& $200 \times 600$ & 7.1--7.8 & 43.3--51.0 & 232.5--288.5\\
+& $250 \times 251$ & 4.2--4.5 & 43.5--55.5 & 177.1--216.3\\
+& $250 \times 375$ & 6.5--7.6 & 55.1--64.0 & 272.8--294.8\\
+& $250 \times 750$ & 14.4--16.4 & 99.5--107.7 & 426.1\\  % only 1 timing
+& $300 \times 301$ & 7.8--8.4 & 73.8--91.5 & 378.5--434.2\\
+& $300 \times 450$ & 11.9--13.7 & 100.4--128.9 & 369.9--455.3\\
+& $300 \times 900$ & 27.4--31.2 & 176.0--203.0 & 822.9--923.9\\
+& $500 \times 501$ & 46.5--48.7 & 323.5--385.7 & 1576.8--1670.1\\
+& $500 \times 750$ & 74.3--88.4 & 421.9--554.9 & 2427.1--2731.3\\
+& $500 \times 1500$ & 164.7--187.4 & 855.2--935.8 & 4758.4--5593.7\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+}
+% Magma: Internal error
+%Internal error in mat_icrt_shell() at mat/icrt.c, line 212
+% NOTE: 200x600, 250x251, 250x375, 250x500, 250x750 -- maybe less than 10 trials, do to magma crashing
+
+\clearpage\newpage
+\bibliographystyle{amsalpha}
+\bibliography{hermite}  
+
+\end{document}
+
+

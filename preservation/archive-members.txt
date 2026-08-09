@@ -1,0 +1,15 @@
+# archive|member|destination below preserved/www/
+books/modform/stein-modform.tar.gz|stein-modform/README.txt|books/modform/source/README.txt
+books/modform/stein-modform.tar.gz|stein-modform/amsbook.cls|books/modform/source/amsbook.cls
+books/modform/stein-modform.tar.gz|stein-modform/appendix.tex|books/modform/source/appendix.tex
+books/modform/stein-modform.tar.gz|stein-modform/biblio.bib|books/modform/source/biblio.bib
+books/modform/stein-modform.tar.gz|stein-modform/body.tex|books/modform/source/body.tex
+books/modform/stein-modform.tar.gz|stein-modform/gsm-l.cls|books/modform/source/gsm-l.cls
+books/modform/stein-modform.tar.gz|stein-modform/macros.tex|books/modform/source/macros.tex
+books/modform/stein-modform.tar.gz|stein-modform/main.tex|books/modform/source/main.tex
+books/modform/stein-modform.tar.gz|stein-modform/makefile|books/modform/source/makefile
+books/modform/stein-modform.tar.gz|stein-modform/preface.tex|books/modform/source/preface.tex
+books/modform/stein-modform.tar.gz|stein-modform/process_ind.py|books/modform/source/process_ind.py
+books/modform/stein-modform.tar.gz|stein-modform/sage.sty|books/modform/source/sage.sty
+books/modform/stein-modform.tar.gz|stein-modform/solutions.tex|books/modform/source/solutions.tex
+books/modform/stein-modform.tar.gz|stein-modform/srcltx.sty|books/modform/source/srcltx.sty

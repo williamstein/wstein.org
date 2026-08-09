@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { sgaVolumes } from "../../data/sga";
+
+const pageCount = sgaVolumes.reduce((total, volume) => total + volume.pages, 0);
+---
+
+<BaseLayout title="SGA Archive - William A. Stein" description="A preserved archive of scans and editions of the Séminaire de Géométrie Algébrique." bodyClass="sga-page">
+  <main class="page-main">
+    <header class="page-intro page-width">
+      <p class="breadcrumb"><a href="/">Home</a> / SGA archive</p>
+      <p class="eyebrow">Rare mathematical archive</p>
+      <h1>Séminaire de Géométrie Algébrique</h1>
+      <p class="lead">Page-by-page scans, complete-volume downloads, later re-editions, and related Grothendieck material preserved at their longstanding URLs.</p>
+    </header>
+
+    <section class="sga-visual page-width" aria-label="Historical SGA images">
+      <figure><img src="/sga/Grothendieck.jpeg" alt="Portrait of Alexandre Grothendieck" /><figcaption>Alexandre Grothendieck</figcaption></figure>
+      <figure class="sga-visual__document"><img src="/sga/sga.jpg" alt="SGA volumes" /><figcaption>The original SGA volumes</figcaption></figure>
+      <figure><img src="/sga/sga/g.jpg" alt="Grothendieck at work" /><figcaption>The scan project's original portrait</figcaption></figure>
+    </section>
+
+    <section class="catalog-summary page-width" aria-label="SGA archive summary">
+      <div><strong>{sgaVolumes.length}</strong><span>volumes represented</span></div>
+      <div><strong>{pageCount.toLocaleString()}</strong><span>individual page scans</span></div>
+      <div><strong>4.0 GB</strong><span>preserved archive</span></div>
+      <p>The modern landing page changes only navigation and context. Original scans, filenames, annotations, conversions, and historical mirrors remain unchanged.</p>
+    </section>
+
+    <section class="sga-provenance page-width" aria-labelledby="provenance-heading">
+      <div><p class="eyebrow">Provenance</p><h2 id="provenance-heading">A distributed preservation project</h2></div>
+      <div class="sga-provenance__text">
+        <p>According to the archive's original project account, Frank Calegari made photocopies from the books, Jim Borger scanned the copies, and William Stein supplied hardware, organized the files, and ran the web service.</p>
+        <p>Andrew Archibald, Antoine Chambert-Loir, and Vincent Maillot later contributed conversions and additional scans. The project established a stable, page-addressable web edition when access to these texts was substantially harder.</p>
+        <p><a href="/sga/sga/about.html">Read the original project account and naming conventions</a></p>
+      </div>
+    </section>
+
+    <section class="page-width sga-volumes" aria-labelledby="volumes-heading">
+      <div class="section-heading section-heading--row">
+        <div><p class="eyebrow">Primary collection</p><h2 id="volumes-heading">SGA volumes</h2></div>
+        <p>Use page scans for citation-level navigation. PDF is usually the most convenient complete-volume format; DjVu and PostScript preserve alternate conversions.</p>
+      </div>
+      <div class="sga-volume-list">
+        {sgaVolumes.map((volume) => (
+          <article class="sga-volume-row">
+            <span class="sga-volume-row__number">SGA {volume.number}</span>
+            <span class="sga-volume-row__body"><strong><a href={volume.scans}>{volume.title}</a></strong><small>{volume.pages.toLocaleString()} scanned pages</small></span>
+            <span class="sga-volume-row__links">
+              <a href={volume.scans}>Pages</a>
+              {volume.pdf && <a href={volume.pdf}>PDF</a>}
+              {volume.djvu && <a href={volume.djvu}>DjVu</a>}
+              {volume.postscript && <a href={volume.postscript}>PS</a>}
+            </span>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="band band--work sga-related" aria-labelledby="related-heading">
+      <div class="page-width">
+        <div class="section-heading section-heading--row">
+          <div><p class="eyebrow">Beyond the page scans</p><h2 id="related-heading">Editions and related collections</h2></div>
+          <p>The archive also preserves later typesetting work, alternate formats, bibliography, photographs, and a snapshot of material formerly hosted by the Grothendieck Circle.</p>
+        </div>
+        <div class="sga-related-grid">
+          <a href="/sga/SGA2/sga2-smf.pdf"><span>Re-edition</span><h3>SGA 2</h3><p>A later Société Mathématique de France PDF edition.</p></a>
+          <a href="/sga/SGA3/"><span>Re-edition project</span><h3>SGA 3</h3><p>Philippe Gille and Patrick Polo's individual exposé PDFs.</p></a>
+          <a href="/sga/djvu/"><span>Alternate formats</span><h3>DjVu library</h3><p>Compact SGA and EGA conversions, plus related texts.</p></a>
+          <a href="/sga/circle/"><span>Historical mirror</span><h3>Grothendieck Circle</h3><p>A file-level snapshot recovered before the original site disappeared.</p></a>
+          <a href="/sga/aiello/"><span>Bibliography</span><h3>Grothendieck bibliography</h3><p>Publications, explanatory books, and popular articles compiled by Marco Aiello.</p></a>
+          <a href="/sga/pics/"><span>Photographs</span><h3>Grothendieck pictures</h3><p>Historical photographs retained with the mathematical archive.</p></a>
+          <a href="/sga/ega1.pdf"><span>EGA</span><h3>EGA I, second edition</h3><p>A scan of <cite>Le langage des schémas</cite> (1971).</p></a>
+          <a href="/sga/sga/annotations.html"><span>Project record</span><h3>User annotations</h3><p>Corrections and notes submitted to the original page-scan project.</p></a>
+        </div>
+      </div>
+    </section>
+
+    <aside class="page-width archive-callout sga-preservation-note">
+      <div><p class="eyebrow">Preservation note</p><h2>Historical snapshot</h2></div>
+      <p>This archive combines material from several contributors and former sites. Some embedded external links and old browser-format instructions are obsolete, but the files remain available for scholarship and source tracing. No claim of a unified license is made here.</p>
+    </aside>
+  </main>
+</BaseLayout>

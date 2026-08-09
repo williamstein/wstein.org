@@ -1,0 +1,277 @@
+%-----------------------------------------------------------------------------
+% Beginning of preface.tex
+%-----------------------------------------------------------------------------
+%
+% AMS-LaTeX 1.2 sample file for a monograph, based on amsbook.cls.
+% This is a data file input by chapter.tex.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Preface}
+
+
+This is a graduate-level textbook about algorithms for computing with
+modular forms.  It is nontraditional in that the primary focus is not
+on underlying theory; instead, it answers the question {\em ``how do you use a
+computer to explicitly compute spaces of modular forms?''}
+
+This book emerged from notes for a course the author
+taught at Harvard University in 2004, a course
+at UC San Diego in 2005, and a course at
+the University of Washington in 2006. 
+
+The author has spent years trying to find good practical ways to
+compute with classical modular forms for congruence subgroups of
+$\SL_2(\Z)$ and has implemented most of these algorithms several
+times, first in C++ \cite{stein:hecke}, then in MAGMA \cite{magma},
+and as part of the free open source computer
+algebra system \sage{} (see \cite{sage}).  Much of this work has involved
+turning formulas and constructions buried in obscure research papers
+into precise computational recipes then testing these 
+and eliminating inaccuracies.
+%The goal of this book is to explain some of what I
+%have learned along the way.
+%, and also describe unsolved problems whose
+%solution would move the theory forward.
+
+The author is aware of no other textbooks on computing with modular
+forms, the closest work being Cremona's book \cite{cremona:algs},
+which is about computing with elliptic curves, and Cohen's book
+\cite{cohen:course_ant} about algebraic number theory.  
+%There are
+%several Ph.D. thesis on computing modular forms, including
+%\cite{}\edit{me, gabor, lassine, belgium mod p guy, maybe denis
+%  charles???}.  
+%Though many of the techniques described in this book
+%have been around for decades, the field is still not yet mature, and
+%there are missing details and potential improvements to many of the
+%algorithms, which you the reader might fill in, and which would be
+%greatly appreciated by other mathematicians.
+
+In this book we focus on how to compute {\em in practice} the spaces
+$M_k(N,\eps)$ of modular forms, where $k\geq 2$ is an integer
+and~$\eps$ is a Dirichlet character of modulus~$N$ (the appendix
+treats modular forms for higher rank groups).  We spend the most
+effort explaining the general algorithms that appear so far to be the best (in
+practice!) for such computations.  We will not discuss in any detail
+computing with quaternion algebras,
+half-integral weight forms, weight 1 forms, forms for
+noncongruence subgroups or groups other than $\GL_2$, Hilbert and
+Siegel modular forms, trace formulas, $p$-adic modular forms, and
+modular abelian varieties, all of which are topics for additional
+books.  We also rarely analyze the complexity of the
+algorithms, but instead settle for occasional remarks about their
+practical efficiency.  
+
+% \edit{Actually, I probably
+%will add some less in-depth discussion of each of these topics.}
+
+%Classical modular forms, which are the main focus of this book, are
+%more accessible than more general automorphic forms (see the
+%appendix).  
+For most of this book we assume the reader has some prior exposure to
+modular forms (e.g., \cite{diamond-shurman}), though we recall many of
+the basic definitions.  We cite standard books for proofs of the
+fundamental results about modular forms that we will use.  The reader
+should also be familiar with basic algebraic number theory, linear
+algebra, complex analysis (at the level of \cite{ahlfors}), and
+algorithms (e.g., know what an algorithm is and what big oh notation
+means). In some of the examples and applications we assume that the
+reader knows about elliptic curves at the level
+of~\cite{silverman:aec}.
+
+
+Chapter~\ref{ch:modform} is foundational for the rest of this book.  It
+introduces congruence subgroups of $\SL_2(\Z)$ and modular forms as
+functions on the complex upper half plane.  We discuss $q$-expansions,
+which provide an important computational handle on modular forms.  We
+also study an algorithm for computing with congruence subgroups.  The
+chapter ends with a list of applications of modular forms throughout
+mathematics.
+
+In Chapter~\ref{ch:level1} we discuss level 1 modular forms in much
+more detail.  In particular, we introduce Eisenstein series and the
+cusp form $\Delta$ and describe their $q$-expansions and basic
+properties.  Then we prove a structure theorem for level 1 modular
+forms and use it to deduce dimension formulas and give an algorithm
+for explicitly computing a basis.  We next introduce Hecke operators
+on level 1 modular forms, prove several results about them, and deduce
+multiplicativity of the Ramanujan $\tau$ function as an application.
+We also discuss explicit computation of Hecke operators.  
+In Section~\ref{sec:fasttau} we make some brief remarks on
+recent work on asymptotically fast computation of
+values of $\tau$. Finally, we describe computation of constant terms
+of Eisenstein series using an analytic algorithm.  We generalize many
+of the constructions in this chapter to higher level in subsequent
+chapters.
+
+In Chapter~\ref{ch:modform2} we turn to modular forms of higher level
+but restrict for simplicity to weight $2$ since much is clearer in
+this case.  (We remove the weight restriction later in
+Chapter~\ref{ch:modsym}.)  We describe a geometric way of viewing
+cuspidal modular forms as differentials on modular curves, which leads
+to modular symbols, which are an explicit way to present a
+certain homology group.  This chapter closes with methods for
+explicitly computing cusp forms of weight 2 using modular symbols,
+which we generalize in Chapter~\ref{ch:modformcomp}.
+
+In Chapter~\ref{ch:dirichlet} we introduce Dirichlet characters, which
+are important both in explicit construction of Eisenstein series (in 
+Chapter~\ref{ch:eisen}) and
+in decomposing spaces of modular forms as direct sums of simpler
+spaces.  The main focus of this chapter is a detailed study of
+how to explicitly represent and compute with Dirichlet characters.
+
+Chapter~\ref{ch:eisen} is about how to explicitly construct the
+Eisenstein subspace of modular forms.  First we define generalized
+Bernoulli numbers attached to a Dirichlet character and an integer
+then explain a new analytic algorithm for computing them (which
+generalizes the algorithm in Chapter~\ref{ch:level1}).  Finally we
+give without proof an explicit description of a basis of Eisenstein
+series, explain how to compute it, and give some examples.
+
+Chapter~\ref{ch:dim} records a wide range of dimension formulas for
+spaces of modular forms, along with a few remarks about where they
+come from and how to compute them.  
+
+Chapter~\ref{ch:linalg} is about linear algebra over exact fields,
+mainly the rational numbers.  This chapter can be read independently
+of the others and does not require any background in modular forms.
+Nonetheless, this chapter occupies a central position in this book,
+because the algorithms in this chapter are of crucial importance to
+any actual implementation of algorithms for computing with modular
+forms.
+
+Chapter~\ref{ch:modsym} is the most important chapter in this book; it
+generalizes Chapter~\ref{ch:modform2} to higher weight and general
+level.  The modular symbols formulation described here is central to
+general algorithms for computing with modular forms.
+
+Chapter~\ref{ch:modformcomp} applies the algorithms from
+Chapter~\ref{ch:modsym} to the problem of computing with modular forms. First
+we discuss decomposing spaces of modular forms using Dirichlet
+characters, and then explain how to compute a basis of Hecke eigenforms
+for each subspace using several approaches.  We also discuss
+congruences between modular forms and bounds needed to provably
+generate the Hecke algebra. 
+
+Chapter~\ref{ch:periods} is about computing analytic invariants
+of modular forms.  It discusses tricks for speeding convergence
+of certain infinite series and sketches how to compute every
+elliptic curve over $\Q$ with given conductor.
+
+Chapter~\ref{ch:solutions} contains detailed solutions to most of the
+exercises in this book.  (Many of these were written by students
+in a course taught at the University of Washington.)
+
+Appendix~\ref{ch:appendix} deals with computational techniques
+for working with generalizations of modular forms to more general
+groups than $\SL_2(\Z)$, such as $\SL_n(\Z)$ for $n\geq 3$.  Some of
+this material requires more prerequisites than the rest of the book.
+Nonetheless, seeing a natural generalization of the material in the
+rest of this book helps to clarify the key ideas.  The
+topics in the appendix are directly related to the main themes of
+this book: modular symbols, Manin symbols, cohomology
+of subgroups of $\SL_2(\Z)$ with various coefficients, explicit
+computation of modular forms, etc.
+
+\medskip
+
+%begin_sage
+\vspace{2ex}
+\noindent{}{\bf Software.} 
+We use \sage{}, Software for Algebra and Geometry Experimentation 
+(see \cite{sage}), to illustrate how to do
+many of the examples.  \sage{} is completely free and packages
+together a wide range of open source mathematics software for doing
+much more than just computing with modular forms.  \sage{} can be
+downloaded and run on your computer or can be used via a web browser over
+the Internet.  The reader is encouraged to experiment with many of the
+objects in this book using \sage.  We do not describe the basics of
+using \sage{} in this book; the reader should read the \sage{}
+tutorial (and other documentation) available at the \sage{} website
+\cite{sage}.   All examples in this book have been automatically
+tested and should work exactly as indicated in \sage{} version
+at least 1.5. 
+
+%end_sage
+
+%The text of this book is licensed under the GNU Free Documentation
+%License, Version 1.2, November 2002.  This means that you may freely
+%copy this book.  For the precise details, see the Appendix.
+
+%\noindent{}{\bf Acknowledgement:} None yet.
+% \mbox{}\vspace{2ex} 
+
+% \noindent{}William Stein\\
+% {\tt http://modular.fas.harvard.edu}\\
+% {\tt was@math.harvard.edu}
+
+\vspace{2ex}
+\noindent{}{\bf Acknowledgements.} 
+David Joyner and Gabor Wiese carefully read the book and provided
+a huge number of helpful comments.
+
+John Cremona and Kevin Buzzard both made many helpful remarks that
+were important in the development of the algorithms in this
+book.  Much of the mathematics (and some of the writing) in
+Chapter~\ref{ch:periods} is joint work with Helena Verrill.
+
+Noam Elkies made remarks about Chapters~\ref{ch:modform} and
+\ref{ch:level1}.  S\'andor Kov\'acs provided interesting comments on
+Chapter~\ref{ch:modform}.  Allan Steel provided helpful feedback on
+Chapter~\ref{ch:linalg}.  Jordi Quer made useful remarks
+about Chapter~\ref{ch:dirichlet} and Chapter~\ref{ch:dim}.
+
+The students in the courses that I taught on this material at Harvard,
+San Diego, and Washington provided substantial feedback: in
+particular, Abhinav Kumar made numerous observations about computing
+widths of cusps (see Section~\ref{sec:cuspwidth}) and Thomas James
+Barnet-Lamb made helpful remarks about 
+how to represent Dirichlet characters.  James
+Merryfield made helpful remarks about complex analytic issues and
+about convergence in Stirling's formula.  Robert Bradshaw, Andrew
+Crites (who wrote \exref{ch:linalg}{ex:hnf}), Michael Goff, Dustin
+Moody, and Koopa Koo wrote most of the solutions included in
+Chapter~\ref{ch:solutions} and found numerous typos throughout the
+book.  Dustin Moody also carefully read through the book and provided
+feedback.
+
+H.~Stark suggested using Stirling's formula in Section~\ref{sec:bernnum},
+and Mark Watkins and Lynn Walling made comments on
+Chapter~\ref{ch:modform2}.
+
+Justin Walker found typos in the first published version of the book.
+
+Parts of Chapter~\ref{ch:modform} follow Serre's beautiful
+introduction to modular forms \cite[Ch.~VII]{serre:arithmetic}
+closely, though we adjust the notation, definitions, and order of
+presentation to be consistent with the rest of this book. 
+
+I would like to acknowledge the partial support of 
+NSF Grant DMS 05-55776.
+Gunnells was supported in part by NSF Grants DMS 02-45580 and
+ DMS 04-01525.
+
+
+\vspace{2ex}
+\noindent{\bf Notation and Conventions.}
+We denote canonical isomorphisms by $\isom$
+and noncanonical isomorphisms by $\ncisom$. 
+If $V$ is a vector space and $s$ denotes
+some sort of construction involving $V$,
+we let $V_s$ denote the corresponding subspace
+and $V^s$ the quotient space.  E.g., if $\iota$
+is an involution of $V$, then $V_+$ is $\Ker(\iota-1)$
+and $V^+ = V/\Im(\iota-1)$.  If $A$ is a finite
+abelian group, then $A_{\tor}$ denotes the torsion
+subgroup and $A/{\tor}$ denotes the quotient $A/A_{\tor}$.
+We denote right group actions using exponential
+notation.  Everywhere in this book,~$N$ is a positive
+integer and $k$ is an integer. 
+
+If $N$ is an integer, a \defn{divisor} $t$ of $N$
+is a {\em positive} integer such that $N/t$ is an integer.
+
+%-----------------------------------------------------------------------------
+% End of preface.tex
+%-----------------------------------------------------------------------------
